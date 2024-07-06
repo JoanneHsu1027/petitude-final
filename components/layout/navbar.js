@@ -1,15 +1,14 @@
 import React from 'react'
-import styles from './insurance/insurance.module.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import styles from '@/components/insurance/insurance.module.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Navbar() {
   return (
-
     <>
       {/* 電腦版 nav 這裡開始 */}
-      <nav className={`navbar navbar-expand-lg navbar-light d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block ${styles['bg-image']}`}>
+      <nav
+        className={`navbar navbar-expand-lg navbar-light d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block ${styles['bg-image']}`}
+      >
         <div className="container-fluid">
           <div className="collapse navbar-collapse">
             <div className="d-flex justify-content-center w-100">
@@ -56,7 +55,9 @@ export default function Navbar() {
       </nav>
       {/* 電腦版 nav 這裡結束 */}
       {/* 手機版 nav 這裡開始 */}
-      <nav className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 ${styles['bg-image']}`}>
+      <nav
+        className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 ${styles['bg-image']}`}
+      >
         <div className="container-fluid">
           <a className="navbar-brand mx-auto" href="#">
             <img src="./pic/petitude-mobile-icon.png" alt="" />
@@ -112,7 +113,6 @@ export default function Navbar() {
         </div>
       </nav>
       {/* 手機版 nav 這裡結束 */}
-
     </>
   )
 }
