@@ -7,7 +7,9 @@ export default function PetInsurance() {
     <>
       <Layout title="寵度寵物保險" pageName="pet-insurance">
         {/* section 1 介紹 start */}
-        <div className="container-fluid d-flex justify-content-center bg-image pt-5">
+        <div
+          className={`container-fluid d-flex justify-content-center ${styles['bg-image']} pt-5`}
+        >
           <div
             className="row align-items-center"
             style={{ margin: 0, padding: '0 60px' }}
@@ -17,18 +19,19 @@ export default function PetInsurance() {
               style={{ padding: '0 6.25rem' }}
             >
               <img
-                className="w-80 h-80"
+                // className="w-100 h-100"
                 loading="lazy"
-                src="/pic/dog-with-cat-v3.png"
+                src="/pic/dog-with-cat-v4.png"
                 alt=""
+                style={{ width: '150%', height: '150%' }}
               />
             </div>
             <div className="col-lg-7" style={{ padding: '0 1.5625rem 0 0' }}>
-              <div className="main-text d-flex">
-                <h2 className="highlight-text text-color">
+              <div className="d-flex">
+                <h2 className={styles['text-color']}>
                   讓每一個寵物家庭，都有專屬的健康
                   <span
-                    className="own-blue"
+                    className={styles['own-blue']}
                     style={{ fontSize: 'inherit', fontWeight: 'inherit' }}
                   >
                     守護者
@@ -36,7 +39,7 @@ export default function PetInsurance() {
                 </h2>
               </div>
               <h4
-                className="caption-text text-color"
+                className={styles['text-color']}
                 style={{ marginBottom: '1.875rem' }}
               >
                 保護您的毛孩子，就像保護家人一樣
@@ -144,19 +147,22 @@ export default function PetInsurance() {
                   }}
                 />
               </div>
-              <h5 className="text-color" style={{ margin: '1.875rem 0 0 0' }}>
+              <h5
+                className={styles['text-color']}
+                style={{ margin: '1.875rem 0 0 0' }}
+              >
                 我們的團隊由保險業的專家組成，同時也是熱愛飼養多隻寵物的飼主。對我們來說，寵物一直是我們的家人。選擇我們的寵物保險服務，讓您的毛孩子擁有專屬的健康守護者，讓您與您的愛寵都能享有最貼心、最專業的保障。
               </h5>
               <a href="#/">
                 <button
-                  className="own-btn1 border-0"
+                  className={`${styles['own-btn1']} border-0`}
                   style={{ marginTop: '1.875rem' }}
                 >
                   了解更多
                 </button>
               </a>
               <div
-                className="stats-container"
+                className={styles['stats-container']}
                 style={{ marginTop: '1.875rem' }}
               >
                 <div className="row">
@@ -193,7 +199,9 @@ export default function PetInsurance() {
           </div>
           <div className="row">
             <div className="col-12 mb-2">
-              <h2 className="d-flex justify-content-center text-color">
+              <h2
+                className={`d-flex justify-content-center ${styles['text-color']}`}
+              >
                 常見醫療花費
               </h2>
             </div>
@@ -204,12 +212,12 @@ export default function PetInsurance() {
               style={{ paddingLeft: 20 }}
             >
               <div
-                className="stats-container text-center"
-                style={{ padding: '1.25rem 9.375rem' }}
+                className={`${styles['stats-container']} text-center`}
+                style={{ padding: '1.25rem 3.125rem', width: '100%}' }}
               >
                 <h5>膿皮症</h5>
                 <h5>平均每次治療金額</h5>
-                <h4 className="own-orange" style={{ margin: 0 }}>
+                <h4 className={styles['own-orange']} style={{ margin: 0 }}>
                   $3,000
                 </h4>
               </div>
@@ -292,7 +300,7 @@ export default function PetInsurance() {
         {/* section 2 end */}
 
         {/* section 3 優點介紹 start */}
-        <div className="container-fluid bg-image lowest-layer">
+        <div className={`container-fluid ${styles['bg-image']}`}>
           <div className="row" style={{ padding: '0 60px' }}>
             <div className="col-12 d-flex justify-content-center">
               <ul
@@ -304,12 +312,16 @@ export default function PetInsurance() {
                     <img
                       className="img-fluid"
                       loading="lazy"
-                      src="/pic/full-secur.png"
+                      src="/pic/full-secur-01.png"
                       alt=""
                     />
                   </div>
-                  <h5 className="text-center mt-3">保障全面</h5>
-                  <p className="text-center text-wrap">
+                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                    保障全面
+                  </h5>
+                  <p
+                    className={`${styles['text-color']} text-center text-wrap`}
+                  >
                     涵蓋意外、疾病、手術等多種醫療費用，讓您的寵物在需要醫療時得到全面的保障。
                   </p>
                 </li>
@@ -318,12 +330,14 @@ export default function PetInsurance() {
                     <img
                       className="img-fluid"
                       loading="lazy"
-                      src="/pic/fast-pay.png"
+                      src="/pic/fast-pay-01.png"
                       alt=""
                     />
                   </div>
-                  <h5 className="text-center  mt-3">理賠快速</h5>
-                  <p className="text-center">
+                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                    理賠快速
+                  </h5>
+                  <p className={`${styles['text-color']} text-center`}>
                     迅速處理您的理賠申請，減少等待時間，確保寵物及時獲得治療。
                   </p>
                 </li>
@@ -332,12 +346,14 @@ export default function PetInsurance() {
                     <img
                       className="img-fluid"
                       loading="lazy"
-                      src="/pic/agile-project.png"
+                      src="/pic/agile-project-01.png"
                       alt=""
                     />
                   </div>
-                  <h5 className="text-center  mt-3">方案靈活</h5>
-                  <p className="text-center">
+                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                    方案靈活
+                  </h5>
+                  <p className={`${styles['text-color']} text-center`}>
                     提供多樣化的保險方案，可以根據寵物的狀況以及您的預算，選擇最適合的方案。
                   </p>
                 </li>
@@ -346,20 +362,25 @@ export default function PetInsurance() {
                     <img
                       className="img-fluid"
                       loading="lazy"
-                      src="/pic/pro-service.png"
+                      src="/pic/pro-service-01.png"
                       alt=""
                     />
                   </div>
-                  <h5 className="text-center  mt-3">專業客服</h5>
-                  <p className="text-center">
+                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                    專業客服
+                  </h5>
+                  <p className={`${styles['text-color']} text-center`}>
                     擁有專業的客服團隊，隨時為您解答有關保險的各種疑問。讓您感到安心和滿意。
                   </p>
                 </li>
               </ul>
             </div>
-            <div className="col-12 d-flex justify-content-center img-container">
+            <div
+              className={`col-12 d-flex justify-content-center ${styles['img-container']}`}
+            >
               <img
-                className="img-fluid lower-layer"
+                className="img-fluid"
+                style={{ width: '60%' }}
                 loading="lazy"
                 src="/pic/dogs-no-background1.png"
                 alt=""
@@ -377,7 +398,7 @@ export default function PetInsurance() {
           <div className="row mt-5 d-flex justify-content-center">
             <div className="col-8 mt-5">
               <h2
-                className="d-flex justify-content-center text-color mt-5"
+                className={`d-flex justify-content-center ${styles['text-color']} mt-5`}
                 style={{ color: 515151 }}
               >
                 保險試算
@@ -426,7 +447,7 @@ export default function PetInsurance() {
           <div className="row mt-3 d-flex justify-content-center">
             <div className="col-9">
               <h2
-                className="d-flex justify-content-center text-color"
+                className={`d-flex justify-content-center ${styles['text-color']}`}
                 style={{ color: 515151 }}
               >
                 顧客意見回饋
@@ -437,11 +458,13 @@ export default function PetInsurance() {
             className="row d-flex flex-sm-column flex-md-row justify-content-center mt-5"
             style={{ padding: '0 3.75rem 0 3.75rem' }}
           >
-            <div className="col-3 d-flex pentagon-container mb-5">
+            <div
+              className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
+            >
               <img
                 src="/pic/customer-feedback01.jpg"
                 alt="巨石(鬥牛犬)"
-                className="pet-image"
+                className={styles['pet-image']}
               />
               <div className="d-flex align-items-center">
                 <div>
@@ -456,11 +479,13 @@ export default function PetInsurance() {
               </div>
             </div>
             <div className="col-1" />
-            <div className="col-3 d-flex pentagon-container mb-5">
+            <div
+              className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
+            >
               <img
                 src="/pic/customer-feedback02.jpg"
                 alt="米亞(虎斑貓)"
-                className="pet-image"
+                className={styles['pet-image']}
               />
               <div className="d-flex align-items-center">
                 <div>
@@ -477,7 +502,7 @@ export default function PetInsurance() {
           </div>
           <div className="d-flex justify-content-center">
             <button
-              className="own-btn2 border-0 d-flex justify-content-center align-items-center"
+              className={`${styles['own-btn2']} border-0 d-flex justify-content-center align-items-center`}
               style={{ marginTop: '1.875rem' }}
             >
               <h5 style={{ margin: 0 }}>了解更多回饋</h5>
@@ -494,10 +519,12 @@ export default function PetInsurance() {
             alt=""
           />
         </div>
-        <div className="container-fluid mb-5 bg-image">
+        <div className={`container-fluid pb-5 ${styles['bg-image']}`}>
           <div className="row d-flex justify-content-center">
             <div className="col-12">
-              <h2 className="d-flex justify-content-center align-items-center text-color">
+              <h2
+                className={`d-flex justify-content-center align-items-center ${styles['text-color']}`}
+              >
                 <img
                   className="img-fluid"
                   loading="lazy"
@@ -512,7 +539,7 @@ export default function PetInsurance() {
                 <div className="accordion-item">
                   <h2 className="accordion-header" id="headingOne">
                     <button
-                      className="accordion-button  collapsed"
+                      className={`accordion-button collapsed ${styles.accordionBtnHover}`}
                       style={{ backgroundColor: '#A2E5F8' }}
                       type="button"
                       data-bs-toggle="collapse"
@@ -520,7 +547,7 @@ export default function PetInsurance() {
                       aria-expanded="true"
                       aria-controls="collapseOne"
                     >
-                      <h5 className="text-color">
+                      <h5 className={styles['text-color']}>
                         什麼類型的貓狗的都可以承保寵物險嗎? 是否有不承保項目?
                       </h5>
                     </button>
@@ -556,7 +583,7 @@ export default function PetInsurance() {
                 <div className="accordion-item">
                   <h2 className="accordion-header" id="headingTwo">
                     <button
-                      className="accordion-button collapsed"
+                      className={`accordion-button collapsed ${styles.accordionBtnHover}`}
                       style={{ backgroundColor: '#A2E5F8' }}
                       type="button"
                       data-bs-toggle="collapse"
@@ -564,7 +591,7 @@ export default function PetInsurance() {
                       aria-expanded="false"
                       aria-controls="collapseTwo"
                     >
-                      <h5 className="text-color">
+                      <h5 className={styles['text-color']}>
                         如果不知道寵物的年齡怎麼辦?
                       </h5>
                     </button>
@@ -584,7 +611,7 @@ export default function PetInsurance() {
                 <div className="accordion-item">
                   <h2 className="accordion-header" id="headingThree">
                     <button
-                      className="accordion-button collapsed"
+                      className={`accordion-button collapsed ${styles.accordionBtnHover}`}
                       style={{ backgroundColor: '#A2E5F8' }}
                       type="button"
                       data-bs-toggle="collapse"
@@ -592,7 +619,9 @@ export default function PetInsurance() {
                       aria-expanded="false"
                       aria-controls="collapseThree"
                     >
-                      <h5 className="text-color">該如何查詢寵物資料?</h5>
+                      <h5 className={styles['text-color']}>
+                        該如何查詢寵物資料?
+                      </h5>
                     </button>
                   </h2>
                   <div
@@ -618,7 +647,7 @@ export default function PetInsurance() {
                 <div className="accordion-item">
                   <h2 className="accordion-header" id="headingFour">
                     <button
-                      className="accordion-button  collapsed"
+                      className={`accordion-button collapsed ${styles.accordionBtnHover}`}
                       style={{ backgroundColor: '#A2E5F8' }}
                       type="button"
                       data-bs-toggle="collapse"
@@ -626,7 +655,7 @@ export default function PetInsurance() {
                       aria-expanded="true"
                       aria-controls="collapseFour"
                     >
-                      <h5 className="text-color">
+                      <h5 className={styles['text-color']}>
                         晶片內的資料可以更換嗎?晶片如果是家人的名字，該如何投保?
                       </h5>
                     </button>
@@ -655,7 +684,7 @@ export default function PetInsurance() {
                 <div className="accordion-item">
                   <h2 className="accordion-header" id="headingFive">
                     <button
-                      className="accordion-button  collapsed"
+                      className={`accordion-button collapsed ${styles.accordionBtnHover}`}
                       style={{ backgroundColor: '#A2E5F8' }}
                       type="button"
                       data-bs-toggle="collapse"
@@ -663,7 +692,7 @@ export default function PetInsurance() {
                       aria-expanded="true"
                       aria-controls="collapseFive"
                     >
-                      <h5 className="text-color">
+                      <h5 className={styles['text-color']}>
                         寵物相關資料是否可以批改(如晶片號碼、品種、寵物名稱等)?
                         如欲申請批改應準備甚麼文件?
                       </h5>

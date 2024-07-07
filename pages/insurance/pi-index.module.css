@@ -148,20 +148,24 @@
 /* 自設的pi-main.css end */
 
 /* 常見問題按鈕的 hover */
-.accordion-button:hover h5 {
+.accordion-button:hover {
+  color: #94BF5C; 
+}
+
+.accordionBtnHover :hover{
   color: #94BF5C;
 }
 
 .stats-container {
   background-color: #CFE7B1;
   border-radius: 1.25rem;
-  padding: 1.25rem 0 1.25rem 0;
 }
 
+/* 轉檔後沒用到?
 .sick-icon {
   padding: 1.25rem;
   background-color: #FFF5CF;
-}
+} */
 
 /* 顧客回饋 start */
 .pentagon-container {

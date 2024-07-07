@@ -165,6 +165,12 @@
   
   }
   
+  /* 試算表 */
+  .pi-options {
+    text-align: center;
+    height: 150px;
+    }
+  
   /* 付費流程外框 */
   .data-frame {
     padding: 20px;
@@ -199,7 +205,7 @@
   /* 同意聲明樣式 */
   .cfm-frame {
     color: #6A513D;
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: 900;
     background-color: 
     #DBDBDB;
@@ -211,7 +217,7 @@
   
   .cfm-frame:hover {
     color: white;
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: 900;
     background-color: 
     #94BF5C;
