@@ -1,0 +1,44 @@
+.AReset {
+    text-decoration: none;
+    color: #000;
+}
+
+.BorderCoffee {
+    border-color: #6a513d;
+}
+
+.BtnHover:hover {
+    background-color: #f6d554;
+    border: 1px solid #f6d554;
+}
+
+.GoTopBtn {
+    text-decoration: none;
+    color: #f69a30;
+}
+
+.GoTopBtn:hover {
+    color: #f6d554;
+}
+
+.Rounded5 {
+    border-radius: 15px;
+}
+
+.H70 {
+    height: 70%;
+}
+
+.W10 {
+    width: 245px;
+}
+
+.BorderEndDel {
+    border-end-end-radius: unset;
+    border-top-right-radius: unset;
+}
+
+.BorderStartDel {
+    border-start-start-radius: unset;
+    border-bottom-left-radius: unset;
+}
