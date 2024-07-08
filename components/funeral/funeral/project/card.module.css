@@ -1,0 +1,98 @@
+.card {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  background-color: antiquewhite;
+  border-radius: 20px;
+}
+
+.cardImage {
+  width: 100%;
+  height: auto;
+}
+
+.cardDetailsContainer {
+  display: flex;
+  justify-content: space-between;
+  height: 55px;
+}
+
+.card h5 {
+  font-weight: 900;
+  margin: 10px 0;
+}
+
+.card h6,
+.card-details {
+  font-size: 0.9rem;
+  text-align: start;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.card p {
+  text-align: start;
+  line-height: 0.5;
+  font-size: 0.9rem;
+  font-weight: 900;
+  color: #a0722a;
+}
+
+.btnPlan,
+.btnPlan1 {
+  height: 34px;
+  font-size: 0.9rem;
+  margin-right: 5px;
+  white-space: nowrap; /* 防止文字超出按鈕 */
+}
+
+@media (max-width: 950px) {
+  .cardImage {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .card h5 {
+    font-size: 0.9rem;
+  }
+
+  .card h6,
+  .card-details {
+    font-size: 0.8rem;
+  }
+
+  .card p {
+    font-size: 0.7rem;
+  }
+
+  .btnPlan,
+  .btnPlan1 {
+    height: 25px;
+    font-size: 0.8rem;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card h5 {
+    font-size: 0.8rem;
+  }
+
+  .card h6,
+  .card-details {
+    font-size: 0.7rem;
+  }
+
+  .card p {
+    font-size: 0.6rem;
+  }
+
+  .btnPlan,
+  .btnPlan1 {
+    height: 20px;
+    font-size: 0.7rem;
+    padding: 0 8px;
+  }
+}
