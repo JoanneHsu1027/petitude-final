@@ -1,0 +1,159 @@
+.full {
+  font-family: "Noto Serif TC", serif;
+  /* background-color: #FFF5CF; */
+  /* background-image: url(./img/background.jpg); */
+}
+
+.product {
+  padding-top: 1%;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-bottom: 1%;
+  display: flex;
+  justify-content: center;
+}
+
+#mainImage {
+  max-width: 80%;
+  /* 调整主图像的最大宽度 */
+  display: block;
+  margin: 0 auto;
+  /* 将主图像居中 */
+}
+
+.thumbnail {
+  max-width: 80%;
+  /* 调整缩略图的最大宽度 */
+  display: block;
+  margin: 0 auto;
+  /* 将缩略图居中 */
+}
+
+.title {
+  font-weight: 900;
+  color: #515151;
+}
+
+.customSelect {
+  width: 90px;
+  height: 38px;
+  padding: 6px 6px;
+  border-radius: 50px;
+  background-color: #F6D554;
+  color: #6A513D;
+  border: 1px solid #F6D554;
+  font-weight: 900;
+}
+
+.customSelect:focus {
+  border-color: #FFF5CF;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(254, 204, 3, 0.25);
+}
+
+.count {
+  background-color: #ffffff;
+  color: #515151;
+  font-size: 1rem;
+  padding: 0.375rem 0.75rem;
+  font-weight: 600;
+}
+
+.productBtn {
+  width: 100px;
+  height: 38px;
+  padding: 6px 6px;
+  border-radius: 50px;
+  background-color: #F6D554;
+  color: #6A513D;
+  border: 1px solid #F6D554;
+  font-weight: 900;
+}
+
+.depicition {
+  font-weight: 900;
+  color: #515151;
+}
+
+.line{
+  border: 3px solid rgb(106, 81, 61);
+  border-radius: 10px;
+  height: 1px;
+  background-color: rgb(106, 81, 61);
+  opacity: 1;
+}
+
+.depicition2 {
+  margin: 5px 0px;
+  font-weight: 900;
+  color: #515151;
+}
+
+.bookmark {
+  background-color: bisque;
+}
+
+.page {
+  border-radius: 20px 20px 0 0;
+  background-color: #CFE7B1;
+  margin-top: 20px;
+  margin-left: 16px;
+  margin-right: 8px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: #6A513D;
+  border: none;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.page:hover{
+  background-color: white;
+}
+
+.page:active {
+  background-color: white;
+}
+
+
+@media (max-width: 767px) {
+  select.custom-select {
+    width: 65px;
+    height: 38px;
+    padding: 6px 6px;
+    border-radius: 50px;
+    background-color: #F6D554;
+    color: #6A513D;
+    border: 1px solid #F6D554;
+    font-weight: 900;
+  }
+
+  .productBtn {
+    width: 65px;
+    height: 38px;
+    padding: 6px 6px;
+    border-radius: 50px;
+    background-color: #F6D554;
+    color: #6A513D;
+    border: 1px solid #F6D554;
+    font-weight: 900;
+  }
+
+  .page {
+    border-radius: 20px 20px 0 0;
+    background-color: #CFE7B1;
+    margin-top: 10px;
+    margin-left: 0px;
+    margin-right: 1px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #6A513D;
+    border: none;
+    font-size: 16px;
+    font-weight: 900;
+  }
+}
