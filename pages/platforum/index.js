@@ -3,6 +3,7 @@ import Layout from '@/components/layout/layout'
 import styles from './platforum-style.module.css'
 import SideBarPc from '@/components/layout/side-bar-pc'
 import { BsPlusCircleFill } from 'react-icons/bs'
+import LostBlock from './lost-block'
 import ClassBlock from './class-block'
 
 export default function Platforum() {
@@ -81,48 +82,7 @@ export default function Platforum() {
                   </div>
                 </div>
                 {/* news-block 這裡結束 */}
-                {/* lost-block 這裡開始 */}
-                <div className="container my-5">
-                  <div className="row">
-                    <div className="col">
-                      <section className="lost-carousel">
-                        <div>
-                          <a className={`${styles.AReset}`} href="#">
-                            <img src="/forum-pic/lost-img1.png" />
-                          </a>
-                        </div>
-                        <div>
-                          <a className={`${styles.AReset}`} href="#">
-                            <img src="/forum-pic/lost-img2.png" />
-                          </a>
-                        </div>
-                        <div>
-                          <a className={`${styles.AReset}`} href="#">
-                            <img src="/forum-pic/lost-img3.png" />
-                          </a>
-                        </div>
-                        <div>
-                          <a className={`${styles.AReset}`} href="#">
-                            <img src="/forum-pic/lost-img2.png" />
-                          </a>
-                        </div>
-                      </section>
-                      <div className="d-flex flex-column align-items-end me-4">
-                        <a
-                          className={`${styles.AReset}`}
-                          style={{ color: 'black' }}
-                          href=""
-                        >
-                          <span style={{ color: '#f6d554' }}>
-                            <BsPlusCircleFill />
-                          </span>
-                          &nbsp;View more
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* lost-block 這裡結束 */}
+                <LostBlock></LostBlock>
 
                 <ClassBlock></ClassBlock>
               </div>
