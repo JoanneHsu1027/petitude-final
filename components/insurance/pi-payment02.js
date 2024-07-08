@@ -1,15 +1,20 @@
-import React, { useState } from 'react'
-import ProgressBar from './progress-bar'
+import React from 'react'
 import styles from './insurance.module.css'
 import Link from 'next/link'
+import ProgressBarCopy from './progress-bar-copy'
+import withProgressBar from './withProgressBar'
+import Head from 'next/head'
 
-export default function PiPayment02() {
+function PiPayment02() {
+  
+
   return (
     <>
+    <Head><title>保人資料 | Petitude</title></Head>
       <div className="container-fluid mb-5">
         <div className="row justify-content-center">
           {/* 進度條 */}
-          <ProgressBar />
+          <ProgressBarCopy/>
           {/* 要保人資料 */}
           <div className="col-8" style={{ marginTop: '30px' }}>
             <h4 className={styles['top-frame']}>要保人資料</h4>
@@ -225,3 +230,4 @@ export default function PiPayment02() {
     </>
   )
 }
+export default withProgressBar(PiPayment02);

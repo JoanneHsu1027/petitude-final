@@ -47,7 +47,7 @@
 
 /* 背景圖片 */
 .bg-image {
-    background-image: url('/pic/bg-img01.png'); 
+    background-image: url('/pi-pic/bg-img01.png'); 
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 

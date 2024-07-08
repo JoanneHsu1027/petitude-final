@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import ProgressBar from './progress-bar'
 import styles from './insurance.module.css'
 import Link from 'next/link'
+import ProgressBarCopy from './progress-bar-copy'
 
 export default function PiPayment04() {
   const [selectedPayment, setSelectedPayment] = useState('')
@@ -14,8 +14,7 @@ export default function PiPayment04() {
     <>
       <div className="container-fluid mb-5">
         <div className="row justify-content-center">
-          {/* 進度條 */}
-          <ProgressBar />
+
           {/* 請款資訊 */}
           <div className="col-8" style={{ marginTop: '30px' }}>
             <h4 className={styles['top-frame']}>請款資訊</h4>

@@ -1,32 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from './insurance.module.css'
+import { useProgress } from '@/context/insurance/progressContext'
 
 const steps = [
   {
     title: '寵物資料',
-    activeImg: '/pic/bread01.png',
-    defaultImg: '/pic/bread01.png',
+    activeImg: '/pi-pic/bread01.png',
+    defaultImg: '/pi-pic/bread01.png',
   },
   {
     title: '保人資料',
-    activeImg: '/pic/bread02.png',
-    defaultImg: '/pic/bread02-default.png',
+    activeImg: '/pi-pic/bread02-active.png',
+    defaultImg: '/pi-pic/bread02-default.png',
   },
   {
     title: '線上繳費',
-    activeImg: '/pic/bread03.png',
-    defaultImg: '/pic/bread03-default.png',
+    activeImg: '/pi-pic/bread03-active.png',
+    defaultImg: '/pi-pic/bread03-default.png',
   },
   {
     title: '投保完成',
-    activeImg: '/pic/bread04.png',
-    defaultImg: '/pic/bread04-default.png',
+    activeImg: '/pi-pic/bread04-active.png',
+    defaultImg: '/pi-pic/bread04-default.png',
   },
 ]
 
-export default function ProgressBarCopy({ currentStep }) {
+export default function ProgressBarCopy() {
+  
+  const { currentStep, setCurrentStep } = useProgress();
+  const [localStep, setLocalStep] = useState(0);
+
+  
+
+  useEffect(() => {
+   const title = document.title;
+   const stepIndex = steps.findIndex(step => title.includes(step.title));
+    
+    if (stepIndex !== -1) {
+      setCurrentStep(stepIndex);
+      setLocalStep(stepIndex);      
+    }
+  }, [setCurrentStep]);
+
   return (
+    <>
+    <div>
+      <p>Current step: {currentStep}</p>
+      <p>Local step: {localStep}</p>
     <div className="col-8" style={{ padding: '0 50px' }}>
       <div className="d-flex flex-row justify-content-center align-items-center">
         {steps.map((step, index) => (
@@ -37,10 +58,7 @@ export default function ProgressBarCopy({ currentStep }) {
             >
               <img
                 src={
-                  index === 0 || index <= currentStep
-                    ? step.activeImg
-                    : step.defaultImg
-                }
+                  index <= currentStep ? step.activeImg : step.defaultImg}
                 className="img-fluid"
                 alt={step.title}
               />
@@ -59,5 +77,7 @@ export default function ProgressBarCopy({ currentStep }) {
         ))}
       </div>
     </div>
+    </div>
+    </>
   )
 }
