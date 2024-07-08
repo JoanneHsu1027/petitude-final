@@ -1,0 +1,69 @@
+.container-fluid,
+.row,
+.col-12,
+.masonry-card {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imageContainer {
+  cursor: pointer;
+  perspective: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageSide {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  justify-content: center;
+  align-items: center;
+  transition: transform 1s;
+}
+
+.front {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.flipped .front {
+  transform: rotateY(180deg);
+}
+
+.flipped .back {
+  transform: rotateY(0deg);
+}
+
+.images {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1100px) {
+  .imageContainer {
+    width: calc(33.33% - 15px);
+    margin-right: 15px;
+  }
+}
+
+@media (max-width: 955px) {
+  .imageContainer {
+    width: calc(50% - 15px);
+  }
+}
+
+@media (max-width: 580px) {
+  .imageContainer {
+    width: 100%;
+  }
+}
