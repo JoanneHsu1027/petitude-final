@@ -2,20 +2,12 @@ import React from 'react'
 import Layout from '../../../components/layout/layout'
 import ImageComponent from '../../../components/common/funeral/image'
 import ModalComponent from '../../../components/funeral/funeral/booking-list/modal'
+// import ProgressBar from '../../../components/funeral/progress-bar'
 
 export default function Confirm() {
   return (
     <Layout>
-      {/* <!-- pagination --> */}
-      <div className="col-12 d-flex justify-content-center">
-        <ImageComponent
-          src="/funeral/麵包屑2.png"
-          width={500}
-          height={70}
-          alt=""
-        />
-      </div>
-      {/* <!-- pagination --> */}
+      {/* <ProgressBar /> */}
       <div className="container-fluid m-0 p-0">
         <div className="row d-flex justify-content-center">
           <div className="col-12 justify-content-center">

@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ImageComponent from '@/components/common/funeral/image'
 import Layout from '@/components/layout/layout'
+// import Navbar from '@/components/layout/navbar'
 import MasonryCard from '@/components/funeral/funeral/masonry/masonry-card'
 import Project from './project'
 import Service from './service'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import Slider from '../appointment/slider'
+import AppointmentService from '../appointment/service'
+import Environment from '../appointment/environment'
+import Question from '../appointment/question'
 
 export default function MasonryPage() {
+  const router = useRouter()
+
   return (
     <>
       <div className="container-fluid">
@@ -13,7 +22,7 @@ export default function MasonryPage() {
           <div className="col-12">
             <div>
               {/* 頂端圖片 */}
-              <div>
+              {/* <div>
                 <ImageComponent
                   src="/funeral/Vector 436.png"
                   alt="Description of the image"
@@ -27,7 +36,7 @@ export default function MasonryPage() {
                     position: 'relative',
                   }}
                 />
-              </div>
+              </div> */}
               {/* navbar */}
               <div
                 style={{
@@ -41,41 +50,17 @@ export default function MasonryPage() {
               </div>
             </div>
             <MasonryCard />
-            {/* 底部文字 */}
-            <div>
-              <div
-                style={{
-                  zIndex: '1',
-                  position: 'absolute',
-                  top: '480px',
-                  left: '800px',
-                }}
-              >
-                <h2 style={{ marginBottom: '20px' }}>守護每一段回憶</h2>
-                <h2 style={{ marginLeft: '60px' }}>圓滿最美好的緣分</h2>
-              </div>
-              {/* 底下波浪圖 */}
-              <ImageComponent
-                src="/funeral/Vector 436.png"
-                alt=""
-                width={1440}
-                height={150}
-                style={{
-                  maxWidth: '100%',
-                  zIndex: '0',
-                  position: 'absolute',
-                  top: '450px',
-                  overFlow: 'hidden',
-                }}
-              />
-            </div>
           </div>
         </div>
       </div>
-      <div style={{ marginTop: '180px' }}>
+      <div style={{ marginTop: '150px' }}>
         <Project />
       </div>
       <Service />
+      <Slider />
+      <AppointmentService />
+      <Environment />
+      <Question />
     </>
   )
 }

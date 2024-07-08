@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import ImageComponent from '../../../components/common/funeral/image'
 import Layout from '../../../components/layout/layout'
 import { useRouter } from 'next/router'
-import ProgressBar from '@/components/insurance/progress-bar'
+// import ProgressBar from '../../../components/funeral/progress-bar'
 
 export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
@@ -10,7 +10,7 @@ export default function BookingList() {
 
   return (
     <Layout>
-      <ProgressBar />
+      {/* <ProgressBar /> */}
 
       <div className="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-stretch mb-5">
         <div className="row">

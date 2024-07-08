@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '../../components/funeral/funeral.module.css'
-import { useProgress } from '../../contexts/funeral/ProgressContext'
+// import { useProgress } from '../../contexts/funeral/ProgressContext'
 
 const steps = [
   {
@@ -26,7 +26,7 @@ const steps = [
   },
 ]
 
-export default function ProgressBarCopy() {
+export default function ProgressBar() {
   const { currentStep, setCurrentStep } = useProgress()
   const [localStep, setLocalStep] = useState(0)
 

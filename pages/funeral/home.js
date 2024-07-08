@@ -5,8 +5,10 @@ import ImageComponent from '../../components/common/funeral/image'
 // import ModalComponent from '../component/common/modal'
 // import { transform } from 'next/dist/build/swc'
 import Link from 'next/link'
+import Router, { useRouter } from 'next/router'
 
 export default function HomePage() {
+  const router = useRouter()
   // 設置按鈕點擊事件
   const handleClick = () => {
     alert('Button clicked')
@@ -135,11 +137,17 @@ export default function HomePage() {
               alignContent: 'center',
             }}
           >
-            <Link href="/funeral/funeral/masonry">
-              <Button onClick={handleShow} className="btn btn-warning">
-                進入頁面
-              </Button>
-            </Link>
+            <Button
+              onClick={handleShow}
+              className="btn btn-warning"
+              onClick={() => {
+                if (confirm('確定嗎?')) {
+                  router.push('/funeral/funeral/masonry')
+                }
+              }}
+            >
+              進入頁面
+            </Button>
           </div>
         </div>
       </div>

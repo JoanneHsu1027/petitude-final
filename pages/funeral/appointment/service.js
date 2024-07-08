@@ -1,18 +1,18 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import ImageComponent from '../../component/common/image'
+import ImageComponent from '../../../components/common/funeral/image'
 import { useRouter } from 'next/router'
 
 export default function AppointmentService() {
   const router = useRouter()
 
   const handleButtonClick = () => {
-    router.push('/appointment/reservation-form')
+    router.push('/funeral/appointment/reservation-form')
   }
 
   return (
     <>
-      <div className="container-fluid p-4">
+      <div className="container-fluid p-4 mt-5">
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-8 position-relative p-0">
             {/* 上方文字+圖形區塊 */}
@@ -57,7 +57,7 @@ export default function AppointmentService() {
                 {/* 淺黃色圖形 */}
                 <ImageComponent
                   className="lightYellow"
-                  src="/pics/Vector 430.png"
+                  src="/funeral/Vector 433.png"
                   alt=""
                   width={250}
                   height={80}
@@ -71,7 +71,7 @@ export default function AppointmentService() {
                 {/* 深黃色圖形 */}
                 <ImageComponent
                   className="yellow"
-                  src="/pics/Vector 431.png"
+                  src="/funeral/Vector 431.png"
                   alt=""
                   width={250}
                   height={80}
@@ -135,7 +135,7 @@ export default function AppointmentService() {
             {/* 右邊狗圖 */}
             <ImageComponent
               className="dog"
-              src="/pics/unsplash_g2FtlFrc164 2.png"
+              src="/funeral/unsplash_g2FtlFrc164 2.png"
               alt=""
               width={250}
               height={400}
@@ -150,10 +150,10 @@ export default function AppointmentService() {
           {/* 底部圖片 */}
           <ImageComponent
             className="vector"
-            src="/pics/Vector 436.png"
+            src="/funeral/Vector 436.png"
             alt=""
             width={1440}
-            height={100}
+            height={300}
             style={{
               position: 'fixed',
               bottom: '0',

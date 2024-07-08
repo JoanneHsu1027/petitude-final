@@ -4,14 +4,17 @@ import Slider from 'react-slick'
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import ImageComponent from '../../component/common/image'
-import Navbar from '../../component/layout/navbar'
+import ImageComponent from '../../../components/common/funeral/image'
+import Navbar from '../../../components/layout/layout'
+import Service from '../appointment/service'
+import Environment from '../appointment/environment'
+import Question from '../appointment/question'
 
 export default function SimpleSlider() {
   let settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 200,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -19,65 +22,45 @@ export default function SimpleSlider() {
 
   return (
     <>
-      <Navbar />
-      <Slider {...settings}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ImageComponent
-            src="/pics/appointment1.jpg"
-            alt=""
-            width={1440}
-            height={650}
-          />
+      {/* <Navbar /> */}
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-12">
+            <Slider {...settings}>
+              <div>
+                <ImageComponent
+                  src="/funeral/appointment1.png"
+                  alt=""
+                  width={900}
+                  height={450}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                />
+              </div>
+              <div>
+                <ImageComponent
+                  src="/funeral/appointment2.png"
+                  alt=""
+                  width={900}
+                  height={450}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                />
+              </div>
+            </Slider>
+          </div>
         </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ImageComponent
-            src="/pics/appointment2.jpg"
-            alt=""
-            width={1440}
-            height={650}
-          />
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ImageComponent
-            src="/pics/appointment3.jpg"
-            alt=""
-            width={1440}
-            height={650}
-          />
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <ImageComponent
-            src="/pics/appointment4.jpg"
-            alt=""
-            width={1440}
-            height={650}
-          />
-        </div>
-      </Slider>
+      </div>
+
+      {/* <Service />
+      <Environment />
+      <Question /> */}
     </>
   )
 }

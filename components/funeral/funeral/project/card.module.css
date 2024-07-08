@@ -14,8 +14,9 @@
 .cardDetailsContainer {
   display: flex;
   justify-content: space-between;
-  height: 55px;
+  height: auto;
 }
+
 
 .card h5 {
   font-weight: 900;
@@ -33,8 +34,8 @@
 .card p {
   text-align: start;
   line-height: 0.5;
-  font-size: 0.9rem;
-  font-weight: 900;
+  font-size: 0.8rem;
+  font-weight: 700;
   color: #a0722a;
 }
 

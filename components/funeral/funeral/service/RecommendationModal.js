@@ -1,12 +1,14 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import Link from 'next/link'
+import Router, { useRouter } from 'next/router'
 
 export default function RecommendationModal({
   show,
   handleClose,
   recommendation,
 }) {
+  const router = useRouter()
   // 解構 recommendation 物件，取出 text / image / details
   const { text, image, details } = recommendation
 
@@ -61,9 +63,17 @@ export default function RecommendationModal({
           關閉
         </Button>
         {/* 跳轉到funeral/booking-list頁面做結帳 */}
-        <Link href="/funeral/funeral/booking-list" variant="warning">
-          <button className="btn btn-warning">確定結帳</button>
-        </Link>
+
+        <button
+          className="btn btn-warning"
+          onClick={() => {
+            if (confirm('確定嗎?')) {
+              router.push('/funeral/funeral/booking-list')
+            }
+          }}
+        >
+          確定結帳
+        </button>
       </Modal.Footer>
     </Modal>
   )
