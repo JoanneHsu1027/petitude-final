@@ -87,13 +87,13 @@ export default function Modal1({ show, handleClose }) {
         ps: { text: '專人接體' },
         warm: {
           text: '溫馨布置',
-          image: '/pics/Vector 20.png',
+          image: '/funeral/Vector 20.png',
           details:
             '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事，編入時間的長河。',
         },
         honor: {
           text: '尊榮布置',
-          image: '/pics/index_n5.png',
+          image: '/funeral/index_n5.png',
           details:
             '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事，編入時間的長河。',
         },
@@ -110,13 +110,13 @@ export default function Modal1({ show, handleClose }) {
         ps: { text: '專人接體' },
         warm: {
           text: '溫馨布置',
-          image: '/pics/Vector 20.png',
+          image: '/funeral/Vector 20.png',
           details:
             '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事，編入時間的長河。',
         },
         honor: {
           text: '尊榮布置',
-          image: '/pics/index_n5.png',
+          image: '/funeral/index_n5.png',
           details:
             '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事，編入時間的長河。',
         },
@@ -159,7 +159,7 @@ export default function Modal1({ show, handleClose }) {
   }
 
   return (
-    <Modal show={show} onHide={handleClose} centered size="xl">
+    <Modal show={show} onHide={handleClose} centered size="lg">
       <Modal.Header closeButton style={{ backgroundColor: '#FFF5CF' }}>
         <Modal.Title className="modal-title">客製化服務</Modal.Title>
       </Modal.Header>
@@ -184,7 +184,7 @@ export default function Modal1({ show, handleClose }) {
                   <label className="form-check-label" htmlFor="cat">
                     <div className="image-container">
                       <ImageComponent
-                        src="/pics/cat-btn.png"
+                        src="/funeral/cat-btn.png"
                         alt=""
                         className="pet-image"
                         width={280}
@@ -212,7 +212,7 @@ export default function Modal1({ show, handleClose }) {
                   <label className="form-check-label" htmlFor="dog">
                     <div className="image-container">
                       <ImageComponent
-                        src="/pics/dog-btn.png"
+                        src="/funeral/dog-btn.png"
                         alt=""
                         className="pet-image"
                         width={280}
@@ -229,7 +229,7 @@ export default function Modal1({ show, handleClose }) {
               </div>
             </div>
             <div className="col-12 d-flex justify-content-center">
-              <div className="optionGroup" id="optionGroup2">
+              <div className="optionGroup me-3" id="optionGroup2">
                 <div className="form-check">
                   <h5>寶貝重量</h5>
                   <input
@@ -289,7 +289,7 @@ export default function Modal1({ show, handleClose }) {
                   )}
                 </div>
               </div>
-              <div className="optionGroup" id="optionGroup3">
+              <div className="optionGroup me-2" id="optionGroup3">
                 <div className="form-check">
                   <h5>骨灰安置</h5>
                   <input
@@ -330,7 +330,7 @@ export default function Modal1({ show, handleClose }) {
                   )}
                 </div>
               </div>
-              <div className="optionGroup" id="optionGroup4">
+              <div className="optionGroup me-2" id="optionGroup4">
                 <div className="form-check">
                   <h5>接體服務</h5>
                   <input
@@ -371,7 +371,7 @@ export default function Modal1({ show, handleClose }) {
                   )}
                 </div>
               </div>
-              <div className="optionGroup" id="optionGroup5">
+              <div className="optionGroup me-2" id="optionGroup5">
                 <div className="form-check">
                   <h5>告別式布置</h5>
                   <input
@@ -412,7 +412,7 @@ export default function Modal1({ show, handleClose }) {
                   )}
                 </div>
               </div>
-              <div className="optionGroup" id="optionGroup6">
+              <div className="optionGroup me-2" id="optionGroup6">
                 <div className="form-check">
                   <h5>其他服務</h5>
                   <input
@@ -454,7 +454,7 @@ export default function Modal1({ show, handleClose }) {
                 </div>
               </div>
             </div>
-          </div>         
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer style={{ backgroundColor: '#FFF5CF' }}>

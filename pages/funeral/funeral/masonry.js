@@ -1,7 +1,9 @@
 import React from 'react'
-import ImageComponent from '../../../components/common/funeral/image'
-import Navbar from '../../../components/layout/layout'
-import MasonryCard from '../../../components/funeral/funeral/masonry/masonry-card'
+import ImageComponent from '@/components/common/funeral/image'
+import Layout from '@/components/layout/layout'
+import MasonryCard from '@/components/funeral/funeral/masonry/masonry-card'
+import Project from './project'
+import Service from './service'
 
 export default function MasonryPage() {
   return (
@@ -13,10 +15,10 @@ export default function MasonryPage() {
               {/* 頂端圖片 */}
               <div>
                 <ImageComponent
-                  src="/pics/Vector 436.png"
+                  src="/funeral/Vector 436.png"
                   alt="Description of the image"
                   width={1440}
-                  height={200}
+                  height={100}
                   style={{
                     width: '100%',
                     height: 'auto',
@@ -35,17 +37,17 @@ export default function MasonryPage() {
                   zIndex: '1',
                 }}
               >
-                <Navbar />
+                <Layout />
               </div>
             </div>
             <MasonryCard />
-            {/* 底部圖片 */}
+            {/* 底部文字 */}
             <div>
               <div
                 style={{
                   zIndex: '1',
                   position: 'absolute',
-                  top: '600px',
+                  top: '480px',
                   left: '800px',
                 }}
               >
@@ -54,7 +56,7 @@ export default function MasonryPage() {
               </div>
               {/* 底下波浪圖 */}
               <ImageComponent
-                src="/pics/Vector 436.png"
+                src="/funeral/Vector 436.png"
                 alt=""
                 width={1440}
                 height={150}
@@ -62,13 +64,18 @@ export default function MasonryPage() {
                   maxWidth: '100%',
                   zIndex: '0',
                   position: 'absolute',
-                  top: '550px',
+                  top: '450px',
+                  overFlow: 'hidden',
                 }}
               />
             </div>
           </div>
         </div>
       </div>
+      <div style={{ marginTop: '180px' }}>
+        <Project />
+      </div>
+      <Service />
     </>
   )
 }

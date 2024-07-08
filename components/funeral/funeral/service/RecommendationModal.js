@@ -20,7 +20,7 @@ export default function RecommendationModal({
           <div className="row">
             <div className="col-12 d-flex justify-content-between align-items-center">
               {/* 顯示推薦方案的圖片 */}
-              <div className="col-md-6">
+              <div className="col-md-6 col-sm-7">
                 {image && (
                   <div className="text-center">
                     <img
@@ -32,7 +32,7 @@ export default function RecommendationModal({
                 )}
               </div>
               {/* 顯示推薦方案的文字和詳細描述 */}
-              <div className="col-md-6">
+              <div className="col-md-6 col-sm-5">
                 <h4 style={{ fontWeight: '900' }}>{text}</h4>
                 <p style={{ fontSize: '14px' }}>{details}</p>
                 <div>
@@ -61,7 +61,7 @@ export default function RecommendationModal({
           關閉
         </Button>
         {/* 跳轉到funeral/booking-list頁面做結帳 */}
-        <Link href="/funeral/booking-list" variant="warning">
+        <Link href="/funeral/funeral/booking-list" variant="warning">
           <button className="btn btn-warning">確定結帳</button>
         </Link>
       </Modal.Footer>

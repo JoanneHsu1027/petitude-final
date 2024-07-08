@@ -13,7 +13,7 @@ export default function Card() {
       description:
         '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事。',
       details: '免費結緣往生被/十字被\n\n免費靈體冰存14天\n\n免費懷念骨灰罐',
-      imageSrc: '/pics/Vector 20.png',
+      imageSrc: '/funeral/Vector 20.png',
       link: '/pages/cart',
     },
     {
@@ -21,7 +21,7 @@ export default function Card() {
       description:
         '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事。',
       details: '免費結緣往生被/十字被\n\n免費靈體冰存14天\n\n免費懷念骨灰罐',
-      imageSrc: '/pics/index_n5.png',
+      imageSrc: '/funeral/index_n5.png',
       link: '/pages/funeral',
     },
     {
@@ -29,7 +29,7 @@ export default function Card() {
       description:
         '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事。',
       details: '免費結緣往生被/十字被\n\n免費靈體冰存14天\n\n免費懷念骨灰罐',
-      imageSrc: '/pics/Vector 21.png',
+      imageSrc: '/funeral/Vector 21.png',
       link: '/pages/funeral',
     },
   ]
@@ -50,7 +50,7 @@ export default function Card() {
               <h5>{card.title}</h5>
               <h6>{card.description}</h6>
               <div
-                Styles={{
+                style={{
                   display: 'flex',
                   justifyContent: 'space-between',
                   height: '55px',

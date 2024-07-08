@@ -9,50 +9,50 @@ export default function MasonryCard() {
   const images = [
     // r1c2
     {
-      front: '/pics/7.jpg',
-      back: '/pics/14.jpg',
+      front: '/funeral/7.jpg',
+      back: '/funeral/14.jpg',
       width: 200,
       height: 200,
     },
     // r1c3
     {
-      front: '/pics/7.jpg',
-      back: '/pics/19.jpg',
+      front: '/funeral/7.jpg',
+      back: '/funeral/19.jpg',
       width: 200,
       height: 200,
     },
     // r1c4
     {
-      front: '/pics/7.jpg',
-      back: '/pics/19.jpg',
+      front: '/funeral/7.jpg',
+      back: '/funeral/19.jpg',
       width: 200,
       height: 200,
     },
     // r1c1
     {
-      front: '/pics/7.jpg',
-      back: '/pics/19.jpg',
+      front: '/funeral/7.jpg',
+      back: '/funeral/19.jpg',
       width: 280,
       height: 230,
     },
     // r2c2
     {
-      front: '/pics/8.jpg',
-      back: '/pics/13.jpg',
+      front: '/funeral/8.jpg',
+      back: '/funeral/13.jpg',
       width: 200,
       height: 200,
     },
     // r2c3
     {
-      front: '/pics/8.jpg',
-      back: '/pics/13.jpg',
+      front: '/funeral/8.jpg',
+      back: '/funeral/13.jpg',
       width: 200,
       height: 200,
     },
     // r2c4
     {
-      front: '/pics/8.jpg',
-      back: '/pics/13.jpg',
+      front: '/funeral/8.jpg',
+      back: '/funeral/13.jpg',
       width: 200,
       height: 200,
     },

@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
-import ImageComponent from '../../component/common/image'
-import Layout1 from '../../component/layout/layout1'
+import ImageComponent from '../../../components/common/funeral/image'
+import Layout from '../../../components/layout/layout'
+import { useRouter } from 'next/router'
 
 export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
+  const router = useRouter()
 
   return (
-    <Layout1>
+    <Layout>
       {/* <!-- pagination --> */}
       <div className="container-fluid d-flex  justify-content-center align-items-center">
         <div className="row">
           <div className="col-12">
             <ImageComponent
-              src="/pics/麵包屑1.png"
+              src="/funeral/麵包屑1.png"
               width={550}
               height={80}
               alt=""
@@ -306,7 +308,7 @@ export default function BookingList() {
               <div className="card-body" style={{ backgroundColor: '#FFF5CF' }}>
                 <div className="col d-flex justify-content-between align-items-center">
                   <ImageComponent
-                    src="/pics/Frame 685.png"
+                    src="/funeral/Frame 685.png"
                     width={150}
                     height={150}
                     alt=""
@@ -345,20 +347,17 @@ export default function BookingList() {
                 </div>
                 <div className="d-flex justify-content-center align-items-center">
                   {/* button跳轉頁面 */}
-                  <a
-                    type="button"
-                    href="/funeral/confirm"
-                    style={{
-                      width: '40%',
-                      backgroundColor: '#6a513d',
-                      color: '#fff5cf',
-                      borderRadius: '30px',
-                      textAlign: 'center',
-                      textDecoration: 'none',
+                  <button
+                    className="btn btn-warning"
+                    onClick={() => {
+                      if (confirm('確定嗎?')) {
+                        router.push('/funeral/funeral/confirm')
+                      }
                     }}
+                    style={{ width: '120px', marginTop: '20px' }}
                   >
                     確認結帳
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -430,6 +429,6 @@ export default function BookingList() {
           }
         `}</style>
       </div>
-    </Layout1>
+    </Layout>
   )
 }

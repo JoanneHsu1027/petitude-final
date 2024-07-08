@@ -1,15 +1,15 @@
 import React from 'react'
-import Layout1 from '../../component/layout/layout1'
-import ImageComponent from '../../component/common/image'
-import ModalComponent from '../../component/funeral/booking-list/modal'
+import Layout from '../../../components/layout/layout'
+import ImageComponent from '../../../components/common/funeral/image'
+import ModalComponent from '../../../components/funeral/funeral/booking-list/modal'
 
 export default function Confirm() {
   return (
-    <Layout1>
+    <Layout>
       {/* <!-- pagination --> */}
       <div className="col-12 d-flex justify-content-center">
         <ImageComponent
-          src="/pics/麵包屑2.png"
+          src="/funeral/麵包屑2.png"
           width={500}
           height={70}
           alt=""
@@ -27,7 +27,7 @@ export default function Confirm() {
                   style={{ justifyContent: 'center', alignContent: 'center' }}
                 >
                   <ImageComponent
-                    src="/pics/Frame 685.png"
+                    src="/funeral/Frame 685.png"
                     width={400}
                     height={250}
                     alt=""
@@ -91,6 +91,6 @@ export default function Confirm() {
           </div>
         </div>
       </div>
-    </Layout1>
+    </Layout>
   )
 }

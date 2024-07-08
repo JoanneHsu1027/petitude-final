@@ -136,7 +136,7 @@ export default function HomePage() {
             }}
           >
             <Link href="/funeral/funeral/masonry">
-              <Button onClick={handleShow} className="btn btn-secondary">
+              <Button onClick={handleShow} className="btn btn-warning">
                 進入頁面
               </Button>
             </Link>
