@@ -15,37 +15,37 @@ export default function Navbar() {
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <a className="nav-link" href="#">
-                    <img src="./pic/about-icon.png" alt="" />
+                    <img src="./pi-pic/about-icon.png" alt="" />
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    <img src="./pic/product-icon.png" alt="" />
+                  <a className="nav-link" href="estore">
+                    <img src="./pi-pic/product-icon.png" alt="" />
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    <img src="./pic/insurance-icon.png" alt="" />
+                  <a className="nav-link" href="insurance">
+                    <img src="./pi-pic/insurance-icon.png" alt="" />
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    <img src="./pic/petitude-icon.png" alt="" />
+                  <a className="nav-link" href="index">
+                    <img src="./pi-pic/petitude-icon.png" alt="" />
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    <img src="./pic/funeral-icon.png" alt="" />
+                  <a className="nav-link" href="funeral">
+                    <img src="./pi-pic/funeral-icon.png" alt="" />
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    <img src="./pic/forum-icon.png" alt="" />
+                  <a className="nav-link" href="platforum">
+                    <img src="./pi-pic/forum-icon.png" alt="" />
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    <img src="./pic/member-icon.png" alt="" />
+                  <a className="nav-link" href="member">
+                    <img src="./pi-pic/member-icon.png" alt="" />
                   </a>
                 </li>
               </ul>
@@ -60,7 +60,7 @@ export default function Navbar() {
       >
         <div className="container-fluid">
           <a className="navbar-brand mx-auto" href="#">
-            <img src="./pic/petitude-mobile-icon.png" alt="" />
+            <img src="./pi-pic/petitude-mobile-icon.png" alt="" />
           </a>
           <button
             className="navbar-toggler p-3"

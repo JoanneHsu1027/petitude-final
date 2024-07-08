@@ -2,21 +2,25 @@ import React from 'react'
 import ProgressBar from './progress-bar'
 import styles from './insurance.module.css'
 import Link from 'next/link'
+import ProgressBarCopy from './progress-bar-copy'
+import withProgressBar from './withProgressBar'
+import Head from 'next/head'
 
-export default function PiPayment05() {
+function PiPayment05() {
   return (
     <>
+    <Head><title>投保完成 | Petitude</title></Head>
       <div className="container-fluid mb-5">
         <div className="row justify-content-center">
           {/* 進度條 */}
-          <ProgressBar />
+          <ProgressBarCopy />
           {/* 圖片 */}
           <div
             className="col-8"
             style={{ margin: '1.25rem 0 1.875rem 0', padding: '0 240px' }}
           >
             <img
-              src="/pic/payment-done.jpg"
+              src="/pi-pic/payment-done.jpg"
               className="img-fluid"
               style={{ borderRadius: '1.875rem' }}
               alt=""
@@ -45,3 +49,4 @@ export default function PiPayment05() {
     </>
   )
 }
+export default withProgressBar(PiPayment05);

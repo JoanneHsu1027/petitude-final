@@ -21,7 +21,7 @@ export default function PetInsurance() {
               <img
                 // className="w-100 h-100"
                 loading="lazy"
-                src="/pic/dog-with-cat-v4.png"
+                src="/pi-pic/dog-with-cat-v4.png"
                 alt=""
                 style={{ width: '150%', height: '150%' }}
               />
@@ -47,7 +47,7 @@ export default function PetInsurance() {
               <div className="d-flex justify-content-center overflow-hidden">
                 <img
                   loading="lazy"
-                  src="/pic/Dog_Bone.png"
+                  src="/pi-pic/Dog_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{
@@ -58,14 +58,14 @@ export default function PetInsurance() {
                 />
                 <img
                   loading="lazy"
-                  src="/pic/Fish_Bone.png"
+                  src="/pi-pic/Fish_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{ width: '6.25rem', height: '6.25rem' }}
                 />
                 <img
                   loading="lazy"
-                  src="/pic/Dog_Bone.png"
+                  src="/pi-pic/Dog_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{
@@ -76,14 +76,14 @@ export default function PetInsurance() {
                 />
                 <img
                   loading="lazy"
-                  src="/pic/Fish_Bone.png"
+                  src="/pi-pic/Fish_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{ width: '6.25rem', height: '6.25rem' }}
                 />
                 <img
                   loading="lazy"
-                  src="/pic/Dog_Bone.png"
+                  src="/pi-pic/Dog_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{
@@ -94,14 +94,14 @@ export default function PetInsurance() {
                 />
                 <img
                   loading="lazy"
-                  src="/pic/Fish_Bone.png"
+                  src="/pi-pic/Fish_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{ width: '6.25rem', height: '6.25rem' }}
                 />
                 <img
                   loading="lazy"
-                  src="/pic/Dog_Bone.png"
+                  src="/pi-pic/Dog_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{
@@ -112,14 +112,14 @@ export default function PetInsurance() {
                 />
                 <img
                   loading="lazy"
-                  src="/pic/Fish_Bone.png"
+                  src="/pi-pic/Fish_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{ width: '6.25rem', height: '6.25rem' }}
                 />
                 <img
                   loading="lazy"
-                  src="/pic/Dog_Bone.png"
+                  src="/pi-pic/Dog_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{
@@ -130,14 +130,14 @@ export default function PetInsurance() {
                 />
                 <img
                   loading="lazy"
-                  src="/pic/Fish_Bone.png"
+                  src="/pi-pic/Fish_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{ width: '6.25rem', height: '6.25rem' }}
                 />
                 <img
                   loading="lazy"
-                  src="/pic/Dog_Bone.png"
+                  src="/pi-pic/Dog_Bone.png"
                   alt=""
                   className="img-fluid"
                   style={{
@@ -192,7 +192,7 @@ export default function PetInsurance() {
               <img
                 className="w-100"
                 loading="lazy"
-                src="/pic/section2-top-bar2.png"
+                src="/pi-pic/section2-top-bar2.png"
                 alt=""
               />
             </div>
@@ -225,7 +225,7 @@ export default function PetInsurance() {
                 <img
                   className="img-fluid"
                   loading="lazy"
-                  src="/pic/point-line.png"
+                  src="/pi-pic/point-line.png"
                   alt=""
                 />
               </div>
@@ -237,7 +237,7 @@ export default function PetInsurance() {
                     className="rounded-circle"
                     style={{ padding: 20, backgroundColor: '#FFF5CF' }}
                   >
-                    <img loading="lazy" src="/pic/dog-stoma.png" alt="" />
+                    <img loading="lazy" src="/pi-pic/dog-stoma.png" alt="" />
                   </div>
                 </li>
                 <li
@@ -248,7 +248,7 @@ export default function PetInsurance() {
                     className="rounded-circle"
                     style={{ padding: 20, backgroundColor: '#FFF5CF' }}
                   >
-                    <img loading="lazy" src="/pic/dog-heart.png" alt="" />
+                    <img loading="lazy" src="/pi-pic/dog-heart.png" alt="" />
                   </div>
                 </li>
                 <li className="d-flex justify-content-start mb-2">
@@ -256,7 +256,7 @@ export default function PetInsurance() {
                     className="rounded-circle"
                     style={{ padding: 20, backgroundColor: '#FFF5CF' }}
                   >
-                    <img loading="lazy" src="/pic/dog-skin.png" alt="" />
+                    <img loading="lazy" src="/pi-pic/dog-skin.png" alt="" />
                   </div>
                 </li>
                 <li className="d-flex justify-content-end mb-2">
@@ -264,7 +264,7 @@ export default function PetInsurance() {
                     className="rounded-circle"
                     style={{ padding: 20, backgroundColor: '#FFF5CF' }}
                   >
-                    <img loading="lazy" src="/pic/dog-accident.png" alt="" />
+                    <img loading="lazy" src="/pi-pic/dog-accident.png" alt="" />
                   </div>
                 </li>
               </ul>
@@ -282,7 +282,7 @@ export default function PetInsurance() {
                 <img
                   className="img-fluid"
                   loading="lazy"
-                  src="/pic/dog-for-sick02.png"
+                  src="/pi-pic/dog-for-sick02.png"
                   alt=""
                 />
               </div>
@@ -292,7 +292,7 @@ export default function PetInsurance() {
             <img
               className="w-100 h-100"
               loading="lazy"
-              src="/pic/section2-bottom-bar2.png"
+              src="/pi-pic/section2-bottom-bar2.png"
               alt=""
             />
           </div>
@@ -312,7 +312,7 @@ export default function PetInsurance() {
                     <img
                       className="img-fluid"
                       loading="lazy"
-                      src="/pic/full-secur-01.png"
+                      src="/pi-pic/full-secur-01.png"
                       alt=""
                     />
                   </div>
@@ -330,7 +330,7 @@ export default function PetInsurance() {
                     <img
                       className="img-fluid"
                       loading="lazy"
-                      src="/pic/fast-pay-01.png"
+                      src="/pi-pic/fast-pay-01.png"
                       alt=""
                     />
                   </div>
@@ -346,7 +346,7 @@ export default function PetInsurance() {
                     <img
                       className="img-fluid"
                       loading="lazy"
-                      src="/pic/agile-project-01.png"
+                      src="/pi-pic/agile-project-01.png"
                       alt=""
                     />
                   </div>
@@ -362,7 +362,7 @@ export default function PetInsurance() {
                     <img
                       className="img-fluid"
                       loading="lazy"
-                      src="/pic/pro-service-01.png"
+                      src="/pi-pic/pro-service-01.png"
                       alt=""
                     />
                   </div>
@@ -382,7 +382,7 @@ export default function PetInsurance() {
                 className="img-fluid"
                 style={{ width: '60%' }}
                 loading="lazy"
-                src="/pic/dogs-no-background1.png"
+                src="/pi-pic/dogs-no-background1.png"
                 alt=""
               />
             </div>
@@ -417,7 +417,7 @@ export default function PetInsurance() {
                 <img
                   className="img-fluid"
                   loading="lazy"
-                  src="/pic/cat-btn.png"
+                  src="/pi-pic/cat-btn.png"
                   alt=""
                 />
               </button>
@@ -433,7 +433,7 @@ export default function PetInsurance() {
                 <img
                   className="img-fluid"
                   loading="lazy"
-                  src="/pic/dog-btn.png"
+                  src="/pi-pic/dog-btn.png"
                   alt=""
                 />
               </button>
@@ -462,7 +462,7 @@ export default function PetInsurance() {
               className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
             >
               <img
-                src="/pic/customer-feedback01.jpg"
+                src="/pi-pic/customer-feedback01.jpg"
                 alt="巨石(鬥牛犬)"
                 className={styles['pet-image']}
               />
@@ -483,7 +483,7 @@ export default function PetInsurance() {
               className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
             >
               <img
-                src="/pic/customer-feedback02.jpg"
+                src="/pi-pic/customer-feedback02.jpg"
                 alt="米亞(虎斑貓)"
                 className={styles['pet-image']}
               />
@@ -515,7 +515,7 @@ export default function PetInsurance() {
           <img
             className="img-fluid w-100"
             loading="lazy"
-            src="/pic/section6-top-bar2.png"
+            src="/pi-pic/section6-top-bar2.png"
             alt=""
           />
         </div>
@@ -528,7 +528,7 @@ export default function PetInsurance() {
                 <img
                   className="img-fluid"
                   loading="lazy"
-                  src="/pic/cat-paw.png"
+                  src="/pi-pic/cat-paw.png"
                   alt=""
                 />
                 寵物保險常見問題
