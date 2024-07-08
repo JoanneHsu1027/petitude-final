@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Button from '../component/common/button'
-import ImageComponent from '../component/common/image'
+import Button from '../../components/common/funeral/button'
+import ImageComponent from '../../components/common/funeral/image'
 // import ModalComponent from '../component/common/modal'
 // import { transform } from 'next/dist/build/swc'
 import Link from 'next/link'
@@ -35,7 +35,7 @@ export default function HomePage() {
           }}
         >
           <ImageComponent
-            src="/pics/Vector 436.png"
+            src="/funeral/Vector 436.png"
             alt="Description of the image"
             width={1200}
             height={100}
@@ -61,7 +61,7 @@ export default function HomePage() {
           <div className="leftCard">
             <ImageComponent
               className="indexIcon"
-              src="/pics/title.png"
+              src="/funeral/title.png"
               alt="Description of the image"
               width={200}
               height={100}
@@ -73,7 +73,7 @@ export default function HomePage() {
             />
             <ImageComponent
               className="img1"
-              src="/pics/1.jpg"
+              src="/funeral/1.jpg"
               alt="Description of the image"
               width={200}
               height={180}
@@ -88,7 +88,7 @@ export default function HomePage() {
           </div>
           <ImageComponent
             className="img1"
-            src="/pics/3.jpg"
+            src="/funeral/3.jpg"
             alt="Description of the image"
             width={300}
             height={400}
@@ -115,7 +115,7 @@ export default function HomePage() {
               我們提供各項寵物禮儀服務客製化每位毛小孩的旅程，全程協助陪伴每位家屬，學習悲傷，轉悲為喜。你會發現，毛小孩教會我們的至始至終都是愛
             </p>
             <ImageComponent
-              src="/pics/Line 25.png"
+              src="/funeral/Line 25.png"
               alt="Description of the image"
               width={5}
               height={30}
@@ -135,9 +135,11 @@ export default function HomePage() {
               alignContent: 'center',
             }}
           >
-            <Link href='/funeral/masonry'><Button onClick={handleShow} className="btn btn-secondary">
-              進入頁面
-            </Button></Link>
+            <Link href="/funeral/funeral/masonry">
+              <Button onClick={handleShow} className="btn btn-secondary">
+                進入頁面
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -154,7 +156,7 @@ export default function HomePage() {
       >
         {/* 底下波浪圖 */}
         <ImageComponent
-          src="/pics/Vector 436.png"
+          src="/funeral/Vector 436.png"
           alt=""
           width={1200}
           height={100}
@@ -189,7 +191,7 @@ export default function HomePage() {
 
 //   {/* 引入image做組件 */}
 //   <ImageComponent
-//     src="/pics/1.jpg"
+//     src="/funeral/1.jpg"
 //     alt="Description of the image"
 //     width={600}
 //     height={400}

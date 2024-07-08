@@ -1,8 +1,7 @@
 import React from 'react'
-import ImageComponent from '../../component/common/image'
-import Navbar from '../../component/layout/navbar'
-import Styles from '../../component/funeral/masonry/masonry-card.module.css'
-import MasonryCard from '../../component/funeral/masonry/masonry-card'
+import ImageComponent from '../../../components/common/funeral/image'
+import Navbar from '../../../components/layout/layout'
+import MasonryCard from '../../../components/funeral/funeral/masonry/masonry-card'
 
 export default function MasonryPage() {
   return (

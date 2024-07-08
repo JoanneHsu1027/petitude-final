@@ -34,7 +34,7 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="funeral">
+                  <a className="nav-link" href="funeral/home">
                     <img src="./pi-pic/funeral-icon.png" alt="" />
                   </a>
                 </li>
