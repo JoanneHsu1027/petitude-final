@@ -1,0 +1,102 @@
+.full {
+  background-color: #FFF5CF;
+  font-family: "Noto Serif TC", serif;
+}
+
+.rounded5 {
+  border-radius: 15px;
+}
+
+.w-10 {
+  width: 245px;
+}
+
+.borderCoffee {
+  border: 1px solid #6a513d;
+}
+
+.btnHover:hover {
+  background-color: #f6d554;
+  border: 1px solid #f6d554;
+}
+
+.goTopBtn {
+  text-decoration: none;
+  color: #f69a30;
+}
+
+.goTopBtn:hover {
+  color: #f6d554;
+}
+
+.searchL {
+  border-end-end-radius: unset;
+  border-top-right-radius: unset;
+}
+
+.searchR {
+  border-start-start-radius: unset;
+  border-bottom-left-radius: unset;
+}
+
+.list {
+  /* background-color: plum; */
+  padding-top: 1%;
+  padding-left: 60px;
+  padding-right: 60px;
+  padding-bottom: 1%;
+
+}
+
+.pagination,
+.pageNumbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btnNav,
+.btnPage,
+.dots {
+  color: #fff;
+  background-color: #FFF5CF;
+  font-weight: 900;
+}
+
+.btnNav {
+  width: 42px;
+  height: 42px;
+  padding: 8px;
+  border-radius: 50%;
+  border: 1.5px solid #FFF5CF;
+  color: #fff;
+}
+
+.btnNav:hover,
+.btnPage:hover {
+  border-radius: 50%;
+  background-color: #F6D554;
+  color: #6A513D;
+}
+
+.btnPage {
+  border: none;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+}
+
+.btnSelected {
+  background-color: #F6D554;
+  color: #6A513D;
+}
+
+.cart {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1.5px solid #F6D554;
+  background-color: #F6D554;
+  color: #6A513D;
+}
