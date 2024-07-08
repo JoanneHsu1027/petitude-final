@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import ImageComponent from '../../../components/common/funeral/image'
 import Layout from '../../../components/layout/layout'
 import { useRouter } from 'next/router'
+import ProgressBar from '@/components/insurance/progress-bar'
 
 export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
@@ -9,22 +10,8 @@ export default function BookingList() {
 
   return (
     <Layout>
-      {/* <!-- pagination --> */}
-      <div className="container-fluid d-flex  justify-content-center align-items-center">
-        <div className="row">
-          <div className="col-12">
-            <ImageComponent
-              src="/funeral/麵包屑1.png"
-              width={550}
-              height={80}
-              alt=""
-              style={{ maxWidth: '100%', display: 'inline-block' }}
-              className="img-fluid"
-            />
-          </div>
-        </div>
-      </div>
-      {/* <!-- pagination --> */}
+      <ProgressBar />
+
       <div className="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-stretch mb-5">
         <div className="row">
           {/* leftCard */}
