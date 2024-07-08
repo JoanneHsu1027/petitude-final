@@ -1,6 +1,8 @@
 import React from 'react'
 import Layout from '@/components/layout/layout'
 import styles from './pi-index.module.css'
+import CatCalculate from '@/components/insurance/cat-calculate'
+import DogCalculate from '@/components/insurance/dog-calculate'
 
 export default function PetInsurance() {
   return (
@@ -19,11 +21,10 @@ export default function PetInsurance() {
               style={{ padding: '0 6.25rem' }}
             >
               <img
-                // className="w-100 h-100"
                 loading="lazy"
                 src="/pi-pic/dog-with-cat-v4.png"
                 alt=""
-                style={{ width: '150%', height: '150%' }}
+                style={{ width: '130%', height: '130%' }}
               />
             </div>
             <div className="col-lg-7" style={{ padding: '0 1.5625rem 0 0' }}>
@@ -405,7 +406,12 @@ export default function PetInsurance() {
               </h2>
             </div>
           </div>
-          <div className="row mt-3 d-flex justify-content-center">
+          <div className="row mt-5 d-flex justify-content-center">
+            <CatCalculate />
+            <DogCalculate />
+          </div>
+          
+          {/* <div className="row mt-3 d-flex justify-content-center">
             <div className="col-4 d-flex justify-content-center">
               <button
                 style={{ backgroundColor: 'white' }}
@@ -438,7 +444,7 @@ export default function PetInsurance() {
                 />
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
         {/* section 4 end */}
 
@@ -478,7 +484,7 @@ export default function PetInsurance() {
                 </div>
               </div>
             </div>
-            <div className="col-1" />
+            <div className={`col-1 ${styles.smHidden}`}/>
             <div
               className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
             >

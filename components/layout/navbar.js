@@ -29,12 +29,12 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="index">
+                  <a className="nav-link" href="home">
                     <img src="./pi-pic/petitude-icon.png" alt="" />
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="funeral">
+                  <a className="nav-link" href="funeral/home">
                     <img src="./pi-pic/funeral-icon.png" alt="" />
                   </a>
                 </li>
@@ -84,27 +84,27 @@ export default function Navbar() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="estore">
                   購物商城
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="insurance">
                   寵物保險
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="funeral/home">
                   生命禮儀
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="platforum">
                   貓狗論壇
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <a className="nav-link" href="member">
                   會員中心
                 </a>
               </li>

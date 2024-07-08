@@ -3,7 +3,7 @@ import React from 'react'
 import Layout1 from '../../components/layout/layout1'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import styles from '../../styles/estore/productList.module.css'
+import styles from '@/styles/estore/productList.module.css'
 
 export default function ProjectList() {
   return (

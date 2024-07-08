@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from './insurance.module.css'
-import { useProgress } from '@/context/insurance/progressContext'
+import { useProgress } from '@/contexts/insurance/ProgressContext'
 
 const steps = [
   {
@@ -45,9 +45,6 @@ export default function ProgressBarCopy() {
 
   return (
     <>
-    <div>
-      <p>Current step: {currentStep}</p>
-      <p>Local step: {localStep}</p>
     <div className="col-8" style={{ padding: '0 50px' }}>
       <div className="d-flex flex-row justify-content-center align-items-center">
         {steps.map((step, index) => (
@@ -77,7 +74,7 @@ export default function ProgressBarCopy() {
         ))}
       </div>
     </div>
-    </div>
+
     </>
   )
 }

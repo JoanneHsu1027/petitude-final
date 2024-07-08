@@ -39,7 +39,7 @@ function PiPayment05() {
               <Link href="/insurance" className="text-decoration-none">
                 <button className={styles['own-btn4']}>回首頁</button>
               </Link>
-              <Link href="#/" className="text-decoration-none">
+              <Link href="/member" className="text-decoration-none">
                 <button className={styles['own-btn4']}>會員中心</button>
               </Link>
             </div>

@@ -192,12 +192,20 @@
   box-shadow: none; 
 }
 
+@media (max-width: 1070px) {
+.smHidden {
+    display: none;
+  }
+}
+
 /* 顧客回饋 end */
 
 /* 試算彈跳窗 */
 .modal-header {
   border-bottom: none; /* 取消底部邊框 */
 }
+
+
 
 
 /* 優點介紹文字圖案間距 */
