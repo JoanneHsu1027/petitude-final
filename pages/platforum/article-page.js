@@ -33,10 +33,7 @@ export default function ArticlePage() {
                         }}
                         className="border rounded bg-white d-flex justify-content-center align-items-center position-fixed d-xl-none d-xxl-block d-xxl-none"
                       >
-                        <a
-                          className={`${styles.AReset}`}
-                          href="./article-list.html"
-                        >
+                        <a className={`${styles.AReset}`} href="./article-list">
                           <BsChevronLeft></BsChevronLeft>
                         </a>
                       </div>
@@ -255,7 +252,7 @@ export default function ArticlePage() {
                         <div className="position-sticky bottom-0">
                           <input
                             style={{ height: '45px' }}
-                            className="card w-100 border-3 BorderBlue"
+                            className={`card w-100 border-3 ${styles.BorderBlue} ${styles.SetPlaceholder}`}
                             type="text"
                             placeholder="回覆......"
                           />

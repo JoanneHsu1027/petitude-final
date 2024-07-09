@@ -106,9 +106,9 @@ export default function Navbar({ pageName = '' }) {
         className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 ${styles['bg-image']}`}
       >
         <div className="container-fluid">
-          <a className="navbar-brand mx-auto" href="#">
+          <Link className="navbar-brand mx-auto" href="/home">
             <img src="/pi-pic/petitude-mobile-icon.png" alt="" />
-          </a>
+          </Link>
           <button
             className="navbar-toggler p-3"
             type="button"

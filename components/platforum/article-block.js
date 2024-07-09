@@ -6,7 +6,7 @@ import { BsChatText } from 'react-icons/bs'
 export default function ArticleBlock() {
   return (
     <>
-      <a className={`${styles.AReset}`} href="./article-page.html">
+      <a className={`${styles.AReset}`} href="../../platforum/article-page">
         <div className="m-2 border-bottom">
           <div className="mx-2 d-flex">
             <p className="me-3 border border-dark rounded-3">主題名稱</p>
