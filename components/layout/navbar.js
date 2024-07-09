@@ -1,9 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from '@/components/insurance/insurance.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Link from 'next/link'
+import { useAuth } from '@/contexts/member/auth-context'
+import { useRouter } from 'next/router'
+import LoginForm from '@/components/member/LoginForm'
+import Modal from '@/components/member/LoginModal'
 
-export default function Navbar() {
+export default function Navbar({ pageName = '' }) {
+  const { auth, logout } = useAuth()
+  const router = useRouter()
+  const [showModal, setShowModal] = useState(false)
+
+  const handleLogout = async () => {
+    await logout()
+    router.push('/') // 登出後重定向到登入頁面或首頁
+  }
+
+  const isActive = (page) =>
+    pageName === page ? 'font-weight-bold text-primary' : ''
   return (
     <>
       {/* 電腦版 nav 這裡開始 */}
@@ -49,12 +64,43 @@ export default function Navbar() {
                     <img src="/pi-pic/member-icon.png" alt="" />
                   </Link>
                 </li>
+                {auth.id ? (
+                  <>
+                    <li className="nav-item">
+                      <a className="nav-link">{auth.b2c_name}</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href="#/" onClick={handleLogout}>
+                        登出
+                      </a>
+                    </li>
+                  </>
+                ) : (
+                  <li className="nav-item">
+                    <a
+                      className={`nav-link ${isActive('login-jwt')}`}
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        setShowModal(true)
+                      }}
+                    >
+                      登入
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
         </div>
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <LoginForm onClose={() => setShowModal(false)} />
+          </Modal>
+        )}
       </nav>
       {/* 電腦版 nav 這裡結束 */}
+
       {/* 手機版 nav 這裡開始 */}
       <nav
         className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 ${styles['bg-image']}`}
