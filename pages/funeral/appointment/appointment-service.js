@@ -30,12 +30,11 @@ export default function AppointmentService() {
               <h2
                 className="title"
                 style={{
-                  width: '100%',
-                  height: 'auto',
+                  width: '80%',
                   textAlign: 'center',
                   zIndex: 2,
                   position: 'relative',
-                  marginBottom: '-10px', // 確保與 pattern 有足夠的間距
+                  marginBottom: '-10px',
                 }}
               >
                 寵物殯葬服務
@@ -46,25 +45,23 @@ export default function AppointmentService() {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  width: '100%',
+                  width: '80%', // 調整寬度以適應較小螢幕
                   height: 'auto',
                   position: 'relative',
                   zIndex: 1,
-                  marginTop: '-50px', // 確保與標題重疊
+                  marginTop: '-8%',
                 }}
               >
-                {/* 淺黃色圖形 */}
+                {/* 綠色圖形 */}
                 <img
-                  className="lightYellow"
+                  className="green"
                   src="/funeral/Vector 433.png"
                   alt=""
-                  width={250}
-                  height={80}
                   style={{
-                    maxWidth: '100%',
+                    width: '35%',
                     height: 'auto',
                     zIndex: 1,
-                    marginRight: '-60px', // 添加右側間距
+                    marginRight: '-35px',
                   }}
                 />
                 {/* 深黃色圖形 */}
@@ -72,12 +69,10 @@ export default function AppointmentService() {
                   className="yellow"
                   src="/funeral/Vector 431.png"
                   alt=""
-                  width={250}
-                  height={80}
                   style={{
-                    maxWidth: '100%',
+                    width: '40%',
                     height: 'auto',
-                    marginLeft: '-60px', // 添加左側間距
+                    marginLeft: '-35px',
                   }}
                 />
               </div>
@@ -96,7 +91,11 @@ export default function AppointmentService() {
             >
               <div
                 className="content text-center"
-                style={{ marginTop: '30px', marginBottom: '20px' }}
+                style={{
+                  marginTop: '30px',
+                  marginBottom: '0px',
+                  margin: '30px',
+                }}
               >
                 <p>毛寶貝，你值得永遠的守護</p>
                 <p>
@@ -117,7 +116,7 @@ export default function AppointmentService() {
                 </p>
               </div>
               <button
-                className="btn btn-primary"
+                className="btn btn-warning"
                 onClick={handleButtonClick}
                 style={{
                   backgroundColor: '#6a513d',
@@ -136,13 +135,10 @@ export default function AppointmentService() {
               className="dog"
               src="/funeral/unsplash_g2FtlFrc164 2.png"
               alt=""
-              width={250}
-              height={400}
+              width="70%"
+              height="auto"
               style={{
-                marginTop: '110px',
-                marginLeft: '60px',
-                maxWidth: '100%',
-                height: 'auto',
+                maxWidth: '80%',
               }}
             />
           </div>
@@ -151,13 +147,12 @@ export default function AppointmentService() {
             className="vector"
             src="/funeral/Vector 436.png"
             alt=""
-            width={1440}
-            height={250}
+            width="100%"
+            height="50%"
             style={{
               position: 'fixed',
               bottom: '0',
               padding: '0',
-              width: '100%',
               zIndex: -1,
               overflow: 'hidden',
             }}
@@ -168,17 +163,53 @@ export default function AppointmentService() {
       <style jsx>{`
         @media (max-width: 768px) {
           .container-fluid {
-            padding: 30px;
+            padding: 15px;
           }
           .row {
-            margin: 20px;
+            margin: 10px;
+          }
+          .title {
+            width: 80%;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+          }
+          .content p {
+            font-size: 0.9rem;
           }
           .dog {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 20%;
-            margin-right: 3%;
+            width: 30%;
+            margin-right: -85%;
+            margin-top: -35%;
+          }
+          .green,
+          .yellow {
+            margin-top: 1%;
+          }
+          .btn-warning {
+            font-size: 0.8rem; /* 在較小螢幕下設定較小的按鈕字體大小 */
+            padding: 5px 10px; /* 調整按鈕內邊距 */
+          }
+        }
+        @media (max-width: 580px) {
+          .title {
+            font-size: 1.3rem; /* 在較小螢幕下進行調整 */
+          }
+          .content p {
+            font-size: 0.9rem;
+          }
+          .dog {
+            width: 30%;
+            margin-right: -85%;
+            margin-top: -35%;
+          }
+          .green,
+          .yellow {
+            margin-top: 1%;
+          }
+          .btn-warning {
+            font-size: 0.8rem; /* 在較小螢幕下設定較小的按鈕字體大小 */
+            padding: 5px 10px; /* 調整按鈕內邊距 */
           }
         }
         /* modal內部css設定 */
@@ -187,7 +218,7 @@ export default function AppointmentService() {
         .modal-body,
         .modal-footer {
           background-color: #fcfaee;
-          width: 100%;
+          width: 80%;
         }
       `}</style>
     </>
