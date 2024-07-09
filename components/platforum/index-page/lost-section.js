@@ -2,10 +2,10 @@ import React from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import styles from '../../styles/platforum/platforum-style.module.css'
+import styles from '../../../styles/platforum/platforum-style.module.css'
 import { BsPlusCircleFill } from 'react-icons/bs'
 
-function LostBlock() {
+function LostSection() {
   const settings = {
     arrows: false,
     dots: false,
@@ -93,4 +93,4 @@ function LostBlock() {
   )
 }
 
-export default LostBlock
+export default LostSection

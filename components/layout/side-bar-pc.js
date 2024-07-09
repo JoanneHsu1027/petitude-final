@@ -40,14 +40,14 @@ export default function SideBarPc() {
               熱門討論
             </a>
             <a
-              href="./article-list.html"
+              href="../../platforum/article-list"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} btn btn-outline-dark mb-2`}
             >
               最新文章
             </a>
             <a
-              href="./favorite-article.html"
+              href=""
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} btn btn-outline-dark mb-2`}
             >

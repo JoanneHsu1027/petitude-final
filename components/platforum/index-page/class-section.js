@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { BsPlusCircleFill } from 'react-icons/bs'
-import styles from '../../styles/platforum/platforum-style.module.css'
+import styles from '../../../styles/platforum/platforum-style.module.css'
 
-export default function ClassBlock() {
+export default function ClassSection() {
   const [activeTab, setActiveTab] = useState('tab1')
   const [hoveredImg, setHoveredImg] = useState({
     tab1: '/forum-pic/p01.png',

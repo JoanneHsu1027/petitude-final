@@ -11,6 +11,12 @@
     cursor: pointer;
 }
 
+.BtnReset{
+    border:0;
+    background-color:white;
+    outline:none;
+}
+
 .FavHover:hover {
     color: #4CB1C8;
 }
