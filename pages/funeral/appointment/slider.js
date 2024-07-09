@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import ImageComponent from '../../../components/common/funeral/image'
 import Navbar from '../../../components/layout/layout'
-import Service from '../appointment/service'
+import Service from './appointment-service'
 import Environment from '../appointment/environment'
 import Question from '../appointment/question'
 

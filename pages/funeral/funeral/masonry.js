@@ -8,7 +8,7 @@ import Service from './service'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Slider from '../appointment/slider'
-import AppointmentService from '../appointment/service'
+import AppointmentService from '../appointment/appointment-service'
 import Environment from '../appointment/environment'
 import Question from '../appointment/question'
 
