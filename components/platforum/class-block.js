@@ -274,7 +274,11 @@ export default function ClassBlock() {
           </div>
         </div>
         <div className="d-flex flex-column align-items-end mt-4 me-5 mb-2">
-          <a className={`${styles.AReset}`} style={{ color: 'black' }} href="#">
+          <a
+            className={`${styles.AReset}`}
+            style={{ color: 'black' }}
+            href="../../platforum/class-list"
+          >
             <span style={{ color: '#f6d554' }}>
               <BsPlusCircleFill />
             </span>

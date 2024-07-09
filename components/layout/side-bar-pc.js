@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '@/components/platforum/side-bar.module.css'
+import styles from '../../styles/platforum/platforum-style.module.css'
 import { BsFillTriangleFill } from 'react-icons/bs'
 import { BsSearch } from 'react-icons/bs'
 
@@ -26,7 +26,7 @@ export default function SideBarPc() {
               </button>
             </form>
             <a
-              href="./class-list.html"
+              href="../../platforum/class-list"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} btn btn-outline-dark mb-2`}
             >
