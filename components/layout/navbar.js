@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from '@/components/insurance/insurance.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Link from 'next/link'
 
 export default function Navbar() {
   return (
@@ -14,39 +15,39 @@ export default function Navbar() {
             <div className="d-flex justify-content-center w-100">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    <img src="./pi-pic/about-icon.png" alt="" />
-                  </a>
+                  <Link className="nav-link" href="#">
+                    <img src="/pi-pic/about-icon.png" alt="" />
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="estore">
-                    <img src="./pi-pic/product-icon.png" alt="" />
-                  </a>
+                  <Link className="nav-link" href="/estore/">
+                    <img src="/pi-pic/product-icon.png" alt="" />
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="insurance">
-                    <img src="./pi-pic/insurance-icon.png" alt="" />
-                  </a>
+                  <Link className="nav-link" href="/insurance/">
+                    <img src="/pi-pic/insurance-icon.png" alt="" />
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="index">
-                    <img src="./pi-pic/petitude-icon.png" alt="" />
-                  </a>
+                  <Link className="nav-link" href="/home">
+                    <img src="/pi-pic/petitude-icon.png" alt="" />
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="funeral">
-                    <img src="./pi-pic/funeral-icon.png" alt="" />
-                  </a>
+                  <Link className="nav-link" href="/funeral/">
+                    <img src="/pi-pic/funeral-icon.png" alt="" />
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="platforum">
-                    <img src="./pi-pic/forum-icon.png" alt="" />
-                  </a>
+                  <Link className="nav-link" href="/platforum/">
+                    <img src="/pi-pic/forum-icon.png" alt="" />
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="member">
-                    <img src="./pi-pic/member-icon.png" alt="" />
-                  </a>
+                  <Link className="nav-link" href="member">
+                    <img src="/pi-pic/member-icon.png" alt="" />
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -60,7 +61,7 @@ export default function Navbar() {
       >
         <div className="container-fluid">
           <a className="navbar-brand mx-auto" href="#">
-            <img src="./pi-pic/petitude-mobile-icon.png" alt="" />
+            <img src="/pi-pic/petitude-mobile-icon.png" alt="" />
           </a>
           <button
             className="navbar-toggler p-3"
@@ -79,34 +80,34 @@ export default function Navbar() {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" href="#">
                   關於我們
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" href="/estore/">
                   購物商城
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" href="/insurance/">
                   寵物保險
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" href="/funeral/">
                   生命禮儀
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" href="/platforum/">
                   貓狗論壇
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" href="#">
                   會員中心
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

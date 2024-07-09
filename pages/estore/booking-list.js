@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 // import ImageComponent from '../../component/common/image'
-import Layout1 from '../../components/layout/layout1'
+import Layout from '../../components/layout/layout'
 import Confirm from './confirm'
 import Link from 'next/link'
 
@@ -8,7 +8,7 @@ export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
 
   return (
-    <Layout1>
+    <Layout>
       {/* <!-- pagination --> */}
       <div className="container-fluid d-flex  justify-content-center align-items-center">
         <div className="row">
@@ -432,6 +432,6 @@ export default function BookingList() {
           }
         `}</style>
       </div>
-    </Layout1>
+    </Layout>
   )
 }
