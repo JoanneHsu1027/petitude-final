@@ -11,7 +11,7 @@ export default function AppointmentService() {
 
   return (
     <>
-      <div className="container-fluid p-4 mt-5">
+      <div className="container-fluid p-4 mt-5" style={{ overflow: 'hidden' }}>
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-8 position-relative p-0">
             {/* 上方文字+圖形區塊 */}
@@ -25,6 +25,7 @@ export default function AppointmentService() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 flexDirection: 'column',
+                marginTop: '25px',
               }}
             >
               <h2
@@ -147,14 +148,15 @@ export default function AppointmentService() {
             className="vector"
             src="/funeral/Vector 436.png"
             alt=""
-            width="100%"
-            height="50%"
+            maxWidth="100%"
+            height="55%"
             style={{
               position: 'fixed',
               bottom: '0',
               padding: '0',
               zIndex: -1,
               overflow: 'hidden',
+              maxWidth: '100%',
             }}
           />
         </div>
@@ -193,7 +195,7 @@ export default function AppointmentService() {
         }
         @media (max-width: 580px) {
           .title {
-            font-size: 1.3rem; /* 在較小螢幕下進行調整 */
+            font-size: 1.4rem; /* 在較小螢幕下進行調整 */
           }
           .content p {
             font-size: 0.9rem;
@@ -208,7 +210,7 @@ export default function AppointmentService() {
             margin-top: 1%;
           }
           .btn-warning {
-            font-size: 0.8rem; /* 在較小螢幕下設定較小的按鈕字體大小 */
+            font-size: 0.9rem; /* 在較小螢幕下設定較小的按鈕字體大小 */
             padding: 5px 10px; /* 調整按鈕內邊距 */
           }
         }

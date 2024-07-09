@@ -30,37 +30,40 @@ export default function SimpleSlider() {
   }
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-lg-12">
-          <Slider {...settings}>
-            <div>
-              <img
-                src="/funeral/appointment1.png"
-                alt=""
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                  display: 'block',
-                  margin: '0 auto',
-                }}
-              />
-            </div>
-            <div>
-              <img
-                src="/funeral/appointment2.png"
-                alt=""
-                style={{
-                  maxWidth: '100%',
-                  height: 'auto',
-                  display: 'block',
-                  margin: '0 auto',
-                }}
-              />
-            </div>
-          </Slider>
+    <>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-12 p-0">
+            <Slider {...settings}>
+              <div>
+                <img
+                  src="/funeral/appointment1.png"
+                  alt=""
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    margin: '0 auto',
+                  }}
+                />
+              </div>
+              <div>
+                <img
+                  src="/funeral/appointment2.png"
+                  alt=""
+                  style={{
+                    maxWidth: '100%',
+                    height: 'auto',
+                    display: 'block',
+                    margin: '0 auto',
+                  }}
+                />
+              </div>
+            </Slider>
+          </div>
         </div>
       </div>
-    </div>
+      <style jsx>{``}</style>
+    </>
   )
 }

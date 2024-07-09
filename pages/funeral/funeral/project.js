@@ -1,11 +1,11 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Card from '../../../components/funeral/funeral/project/card'
+import Card from '@/components/funeral/project/card'
 
 export default function Project() {
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid mt-5">
         <div className="row justify-content-center" style={{ margin: '10px' }}>
           <div className="col-12">
             <div style={{ display: 'flex' }}>

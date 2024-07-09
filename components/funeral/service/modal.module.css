@@ -5,22 +5,25 @@
 
 .headerCard2 {
   background-color: #e2f9ff;
+  border-bottom: none;
 }
 
 .card {
-  width: 500px;
+  width: 550px;
 }
-
-.card-header {
-  border-bottom: none;
+.cardBody{
+  list-style-type: none;
+  text-decoration: none;
 }
 
 .list-group {
   list-style: none;
+  text-decoration: none;
 }
 
 .list-group-item {
   border: none;
+  text-decoration: none;
 }
 
 .form-check {

@@ -1,8 +1,6 @@
 import React from 'react'
-import Button from '../../common/button'
-import Styles from './card.module.css'
+import Styles from '@/components/funeral/project/card.module.css'
 import { useRouter } from 'next/router'
-
 
 export default function Card() {
   const router = useRouter()
@@ -36,15 +34,9 @@ export default function Card() {
   return (
     <div className="row">
       {cardData.map((card, index) => (
-        <div className="col-md-4 text-center" key={index}>
+        <div className="col-md-4 text-center p-2" key={index}>
           <div className={Styles.card}>
-            <img
-              className={Styles.cardImage}
-              src={card.imageSrc}
-              alt=""
-              width={240}
-              height={190}
-            />
+            <img className={Styles.cardImage} src={card.imageSrc} alt="" />
             <div className={Styles.cardContent}>
               <h5>{card.title}</h5>
               <h6>{card.description}</h6>
@@ -68,12 +60,12 @@ export default function Card() {
                   選擇方案
                 </button>
 
-                <Button
+                <button
                   type="button"
                   className={`btnPlan1 btn btn-warning ${Styles.btnPlan1}`}
                 >
                   加入購物車
-                </Button>
+                </button>
               </div>
             </div>
           </div>

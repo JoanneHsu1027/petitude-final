@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Layout from '@/components/layout/layout'
-import MasonryCard from '@/components/funeral/funeral/masonry/masonry-card'
+import MasonryCard from '@/components/funeral/masonry/masonry-card'
 import Project from './project'
 import Service from './service'
 import { useRouter } from 'next/router'
