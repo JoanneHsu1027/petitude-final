@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '@/components/layout/layout'
-import styles from './platforum-style.module.css'
+import styles from '../../styles/platforum/platforum-style.module.css'
 import SideBarPc from '@/components/layout/side-bar-pc'
 import NewsBlock from './news-block'
 import LostBlock from './lost-block'

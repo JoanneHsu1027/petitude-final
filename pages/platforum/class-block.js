@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { BsPlusCircleFill } from 'react-icons/bs'
-import styles from './platforum-style.module.css'
+import styles from '../../styles/platforum/platforum-style.module.css'
 
 export default function ClassBlock() {
   const [activeTab, setActiveTab] = useState('tab1')
