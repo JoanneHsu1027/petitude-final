@@ -1,8 +1,8 @@
 import React from 'react'
-import ImageComponent from '../../component/common/image'
-import Navbar from '../../component/layout/navbar'
-import Styles from '../../component/funeral/masonry/masonry-card.module.css'
-import MasonryCard from '../../component/funeral/masonry/masonry-card'
+import ImageComponent from '../../../components/funeral/common/image'
+import Layout from '../../../components/layout/layout'
+import Styles from '../../../components/funeral/funeral/masonry/masonry-card.module.css'
+import MasonryCard from '../../../components/funeral/funeral/masonry/masonry-card'
 
 export default function MasonryPage() {
   return (
@@ -36,7 +36,7 @@ export default function MasonryPage() {
                   zIndex: '1',
                 }}
               >
-                <Navbar />
+                <Layout />
               </div>
             </div>
             <MasonryCard />
