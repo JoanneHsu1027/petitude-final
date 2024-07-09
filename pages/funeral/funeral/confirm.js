@@ -1,8 +1,7 @@
 import React from 'react'
 import Layout from '../../../components/layout/layout'
-import ImageComponent from '../../../components/common/funeral/image'
 import ModalComponent from '../../../components/funeral/funeral/booking-list/modal'
-// import ProgressBar from '../../../components/funeral/progress-bar'
+
 
 export default function Confirm() {
   return (
@@ -18,7 +17,7 @@ export default function Confirm() {
                   className="col-md-7 d-flex pt-2"
                   style={{ justifyContent: 'center', alignContent: 'center' }}
                 >
-                  <ImageComponent
+                  <img
                     src="/funeral/Frame 685.png"
                     width={400}
                     height={250}

@@ -1,10 +1,8 @@
 import React from 'react'
 import Button from '../../common/button'
-import ImageComponent from '../../common/image'
 import Styles from './card.module.css'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-// import Cart from '../../../pages/cart'
+
 
 export default function Card() {
   const router = useRouter()
@@ -40,7 +38,7 @@ export default function Card() {
       {cardData.map((card, index) => (
         <div className="col-md-4 text-center" key={index}>
           <div className={Styles.card}>
-            <ImageComponent
+            <img
               className={Styles.cardImage}
               src={card.imageSrc}
               alt=""

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Image from 'next/image'
-import ImageComponent from '../../../components/common/funeral/image'
 
 export default function Environment() {
   const environmentPic = [
@@ -95,7 +94,7 @@ export default function Environment() {
               }}
             >
               {/* 綠色圖形 */}
-              <ImageComponent
+              <img
                 className="yellow"
                 src="/funeral/Vector 431.png"
                 alt=""
@@ -109,7 +108,7 @@ export default function Environment() {
                 }}
               />
               {/* 深黃色圖形 */}
-              <ImageComponent
+              <img
                 className="green"
                 src="/funeral/Vector 433.png"
                 alt=""

@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import ImageComponent from '../../components/funeral/common/image'
-// import ModalComponent from '../component/common/modal'
-// import { transform } from 'next/dist/build/swc'
 import Link from 'next/link'
 
 export default function HomePage() {
@@ -37,7 +34,7 @@ export default function HomePage() {
             zIndex: '0',
           }}
         >
-          <ImageComponent
+          <img
             src="/funeral/Vector 436.png"
             alt="Description of the image"
             width={2000}
@@ -61,7 +58,7 @@ export default function HomePage() {
           }}
         >
           <div className="leftCard">
-            <ImageComponent
+            <img
               className="indexIcon"
               src="/funeral/title.png"
               alt="Description of the image"
@@ -73,7 +70,7 @@ export default function HomePage() {
                 position: 'relative',
               }}
             />
-            <ImageComponent
+            <img
               className="img1"
               src="/funeral/1.jpg"
               alt="Description of the image"
@@ -88,7 +85,7 @@ export default function HomePage() {
               }}
             />
           </div>
-          <ImageComponent
+          <img
             className="img1"
             src="/funeral/3.jpg"
             alt="Description of the image"
@@ -126,7 +123,7 @@ export default function HomePage() {
             <p>
               我們提供各項寵物禮儀服務客製化每位毛小孩的旅程，全程協助陪伴每位家屬，學習悲傷，轉悲為喜。你會發現，毛小孩教會我們的至始至終都是愛
             </p>
-            <ImageComponent
+            <img
               src="/funeral/Line 25.png"
               alt="Description of the image"
               width={5}
@@ -169,7 +166,7 @@ export default function HomePage() {
           }}
         >
           {/* 底下波浪圖 */}
-          <ImageComponent
+          <img
             src="/funeral/Vector 436.png"
             alt=""
             width={2000}

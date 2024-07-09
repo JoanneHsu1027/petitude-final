@@ -1,6 +1,5 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import ImageComponent from '../../../components/common/funeral/image'
 import { useRouter } from 'next/router'
 
 export default function AppointmentService() {
@@ -55,7 +54,7 @@ export default function AppointmentService() {
                 }}
               >
                 {/* 淺黃色圖形 */}
-                <ImageComponent
+                <img
                   className="lightYellow"
                   src="/funeral/Vector 433.png"
                   alt=""
@@ -69,7 +68,7 @@ export default function AppointmentService() {
                   }}
                 />
                 {/* 深黃色圖形 */}
-                <ImageComponent
+                <img
                   className="yellow"
                   src="/funeral/Vector 431.png"
                   alt=""
@@ -133,7 +132,7 @@ export default function AppointmentService() {
           </div>
           <div className="col-md-4 text-center">
             {/* 右邊狗圖 */}
-            <ImageComponent
+            <img
               className="dog"
               src="/funeral/unsplash_g2FtlFrc164 2.png"
               alt=""
@@ -148,12 +147,12 @@ export default function AppointmentService() {
             />
           </div>
           {/* 底部圖片 */}
-          <ImageComponent
+          <img
             className="vector"
             src="/funeral/Vector 436.png"
             alt=""
             width={1440}
-            height={300}
+            height={250}
             style={{
               position: 'fixed',
               bottom: '0',

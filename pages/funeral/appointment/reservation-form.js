@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import ImageComponent from '../../../components/common/funeral/image'
-import Link from 'next/link'
 // import { RV_LIST } from '@/configs/api-path'
 import { useRouter } from 'next/router'
 // import { z } from 'zod'
@@ -62,7 +59,7 @@ export default function ReservationForm() {
                 }}
               >
                 {/* 綠色圖形 */}
-                <ImageComponent
+                <img
                   className="green"
                   src="/funeral/Vector 433.png"
                   alt=""
@@ -76,7 +73,7 @@ export default function ReservationForm() {
                   }}
                 />
                 {/* 深黃色圖形 */}
-                <ImageComponent
+                <img
                   className="yellow"
                   src="/funeral/Vector 431.png"
                   alt=""
@@ -177,12 +174,7 @@ export default function ReservationForm() {
               </div>
 
               <div className="modal-body d-flex justify-content-center">
-                <ImageComponent
-                  src="/funeral/57.jpg"
-                  width={300}
-                  height={300}
-                  alt=""
-                />
+                <img src="/funeral/57.jpg" width={300} height={300} alt="" />
               </div>
 
               <div className="modal-footer d-flex justify-content-center ">
@@ -237,7 +229,7 @@ export default function ReservationForm() {
         </div>
         {/* Modal */}
       </div>
-      <ImageComponent
+      <img
         className="bookingPaw position-absolute"
         src="/funeral/dog2.png"
         alt=""
@@ -250,7 +242,7 @@ export default function ReservationForm() {
           zIndex: '0',
         }}
       />
-      <ImageComponent
+      <img
         className="bookingDog position-absolute text-start"
         src="/funeral/bookingDog.png"
         alt=""
@@ -262,7 +254,7 @@ export default function ReservationForm() {
           zIndex: '0',
         }}
       />
-      <ImageComponent
+      <img
         className="bookingDog position-absolute text-start"
         src="/funeral/bone.png"
         alt=""
@@ -276,7 +268,7 @@ export default function ReservationForm() {
           opacity: '0.4',
         }}
       />
-      <ImageComponent
+      <img
         className="bookingDog position-absolute text-start"
         src="/funeral/bone.png"
         alt=""
@@ -291,7 +283,7 @@ export default function ReservationForm() {
           opacity: '0.4',
         }}
       />
-      <ImageComponent
+      <img
         className="bookingDog position-absolute text-start"
         src="/funeral/bone.png"
         alt=""
@@ -305,7 +297,7 @@ export default function ReservationForm() {
           opacity: '0.4',
         }}
       />
-      <ImageComponent
+      <img
         className="bookingDog position-absolute text-start"
         src="/funeral/bone.png"
         alt=""

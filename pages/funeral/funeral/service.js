@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Button from '@/components/funeral/common/button'
-import ImageComponent from '../../../components/common/funeral/image'
 import Modal1 from '../../../components/funeral/funeral/service/modal1'
 import Styles from '../../../components/funeral/funeral/service/modal.module.css'
 
@@ -33,7 +32,7 @@ export default function Service() {
                 <ul className="list-group">
                   <li className="list-group-item">基礎淨身</li>
                   <li className="list-group-item">
-                    <ImageComponent
+                    <img
                       src="/funeral/arrow.png"
                       alt=""
                       width={30}
@@ -42,7 +41,7 @@ export default function Service() {
                   </li>
                   <li className="list-group-item">道別/禱告/誦經</li>
                   <li className="list-group-item">
-                    <ImageComponent
+                    <img
                       src="/funeral/arrow.png"
                       alt=""
                       width={30}
@@ -51,7 +50,7 @@ export default function Service() {
                   </li>
                   <li className="list-group-item">火化遺體</li>
                   <li className="list-group-item">
-                    <ImageComponent
+                    <img
                       src="/funeral/arrow.png"
                       alt=""
                       width={30}
@@ -60,7 +59,7 @@ export default function Service() {
                   </li>
                   <li className="list-group-item">骨灰安置</li>
                   <li className="list-group-item">
-                    <ImageComponent
+                    <img
                       src="/funeral/arrow.png"
                       alt=""
                       width={30}
@@ -85,7 +84,7 @@ export default function Service() {
                 <ul className="list-group">
                   <li className="list-group-item">火化遺體</li>
                   <li className="list-group-item">
-                    <ImageComponent
+                    <img
                       src="/funeral/arrow.png"
                       alt=""
                       width={30}
@@ -94,7 +93,7 @@ export default function Service() {
                   </li>
                   <li className="list-group-item">骨灰安置</li>
                   <li className="list-group-item">
-                    <ImageComponent
+                    <img
                       src="/funeral/arrow.png"
                       alt=""
                       width={30}

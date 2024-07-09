@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
-import ImageComponent from '../../../components/common/funeral/image'
+import { useState } from 'react'
 import Layout from '../../../components/layout/layout'
 import { useRouter } from 'next/router'
-// import ProgressBar from '../../../components/funeral/progress-bar'
 
 export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
@@ -294,7 +292,7 @@ export default function BookingList() {
               <div className="card-header bg-warning text-center">結帳明細</div>
               <div className="card-body" style={{ backgroundColor: '#FFF5CF' }}>
                 <div className="col d-flex justify-content-between align-items-center">
-                  <ImageComponent
+                  <img
                     src="/funeral/Frame 685.png"
                     width={150}
                     height={150}

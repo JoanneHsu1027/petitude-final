@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react'
-import ImageComponent from '@/components/common/funeral/image'
 import Layout from '@/components/layout/layout'
-// import Navbar from '@/components/layout/navbar'
 import MasonryCard from '@/components/funeral/funeral/masonry/masonry-card'
 import Project from './project'
 import Service from './service'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Slider from '../appointment/slider'
 import AppointmentService from '../appointment/appointment-service'
@@ -23,7 +20,7 @@ export default function MasonryPage() {
             <div>
               {/* 頂端圖片 */}
               {/* <div>
-                <ImageComponent
+                <img
                   src="/funeral/Vector 436.png"
                   alt="Description of the image"
                   width={1440}

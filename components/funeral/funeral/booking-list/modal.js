@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import ImageComponent from '../../../../components/funeral/common/image'
 import { useRouter } from 'next/router'
-// import ProgressBar from '../../progress-bar'
 
 export default function ModalComponent() {
   const router = useRouter()
@@ -32,7 +30,7 @@ export default function ModalComponent() {
               ></button>
             </div>
             <div className="modal-body">
-              <ImageComponent
+              <img
                 src="/funeral/thanks.png"
                 width={300}
                 height={200}

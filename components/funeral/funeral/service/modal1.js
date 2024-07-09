@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import ImageComponent from '../../common/image'
+
 import RecommendationModal from './RecommendationModal'
 
 export default function Modal1({ show, handleClose }) {
@@ -183,7 +183,7 @@ export default function Modal1({ show, handleClose }) {
                   />
                   <label className="form-check-label" htmlFor="cat">
                     <div className="image-container">
-                      <ImageComponent
+                      <img
                         src="/funeral/cat-btn.png"
                         alt=""
                         className="pet-image"
@@ -211,7 +211,7 @@ export default function Modal1({ show, handleClose }) {
                   />
                   <label className="form-check-label" htmlFor="dog">
                     <div className="image-container">
-                      <ImageComponent
+                      <img
                         src="/funeral/dog-btn.png"
                         alt=""
                         className="pet-image"
