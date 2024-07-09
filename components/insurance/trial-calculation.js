@@ -401,7 +401,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <Link
-                        href="./insurance-payment01"
+                        href="./insurance/insurance-payment01"
                         className="text-decoration-none"
                       >
                         <button className={styles['own-btn4']}>立即投保</button>
@@ -418,7 +418,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <Link
-                        href="./insurance-payment01"
+                        href="./insurance/insurance-payment01"
                         className="text-decoration-none"
                       >
                         <button className={styles['own-btn4']}>立即投保</button>
@@ -435,7 +435,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <Link
-                        href="./insurance-payment01"
+                        href="./insurance/insurance-payment01"
                         className="text-decoration-none"
                       >
                         <button className={styles['own-btn4']}>立即投保</button>

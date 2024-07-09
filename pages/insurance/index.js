@@ -1,10 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '@/components/layout/layout'
 import styles from './pi-index.module.css'
 import CatCalculate from '@/components/insurance/cat-calculate'
 import DogCalculate from '@/components/insurance/dog-calculate'
+import TrialCalculation from '@/components/insurance/trial-calculation'
 
 export default function PetInsurance() {
+  // 確認是否有收到試算的表單資料
+  const [catDataReceived, setCatDataReceived] = useState(false)
+  const [dogDataReceived, setDogDataReceived] = useState(false)
+
+  // 假設這是處理從 catcalculate 收到的表單資料的函式
+  const handleCatData = (data) => {
+    // 處理表單資料的邏輯
+    // 例如存儲資料到某個變數或資料庫
+
+    setCatDataReceived(true)
+  }
+
+  // 假設這是處理從 dogcalculate 收到的表單資料的函式
+  const handleDogData = (data) => {
+    // 處理表單資料的邏輯
+    // 例如存儲資料到某個變數或資料庫
+
+    setDogDataReceived(true)
+  }
+
   return (
     <>
       <Layout title="寵度寵物保險" pageName="pet-insurance">
@@ -410,41 +431,8 @@ export default function PetInsurance() {
             <CatCalculate />
             <DogCalculate />
           </div>
-          
-          {/* <div className="row mt-3 d-flex justify-content-center">
-            <div className="col-4 d-flex justify-content-center">
-              <button
-                style={{ backgroundColor: 'white' }}
-                className=" border-0 no-outline"
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#ModalCat"
-              >
-                <img
-                  className="img-fluid"
-                  loading="lazy"
-                  src="/pi-pic/cat-btn.png"
-                  alt=""
-                />
-              </button>
-            </div>
-            <div className="col-4 d-flex justify-content-center">
-              <button
-                style={{ backgroundColor: 'white' }}
-                className=" border-0 no-outline"
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#ModalDog"
-              >
-                <img
-                  className="img-fluid"
-                  loading="lazy"
-                  src="/pi-pic/dog-btn.png"
-                  alt=""
-                />
-              </button>
-            </div>
-          </div> */}
+          {/* 使用三元判斷式來判斷是否收到catcalculate 或 dogcalculate的表單決定是否顯示試算表 */}
+          {catDataReceived || dogDataReceived ? <TrialCalculation /> : null}
         </div>
         {/* section 4 end */}
 
@@ -484,7 +472,7 @@ export default function PetInsurance() {
                 </div>
               </div>
             </div>
-            <div className={`col-1 ${styles.smHidden}`}/>
+            <div className={`col-1 ${styles.smHidden}`} />
             <div
               className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
             >

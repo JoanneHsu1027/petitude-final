@@ -100,6 +100,11 @@
 .own-btn3:hover {
   background-color: #f0f0f0; /* 懸停效果 */
 }
+
+.btn-check {
+  display: none;
+}
+
 .btn-check:checked + .own-btn3 {
   background-color: #F69A30;
   color: white;
