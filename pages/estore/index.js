@@ -1,13 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
-import Layout1 from '../../components/layout/layout1'
+import Layout from '../../components/layout/layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../styles/estore/productList.module.css'
+import Link from 'next/link'
 
 export default function ProjectList() {
   return (
-    <Layout1>
+    <Layout>
       <main className={`flex-shrink-0 pt-5 ${styles.full}`}>
         <div className="container-fluid list">
           <div className="row">
@@ -36,25 +37,25 @@ export default function ProjectList() {
                     type="button"
                     className={`${styles.borderCoffee} ${styles.btnHover} btn btn-outline-dark mb-2`}
                   >
-                    主題分類
+                    最新商品
                   </button>
                   <button
                     type="button"
                     className={`${styles.borderCoffee} ${styles.btnHover} btn btn-outline-dark mb-2`}
                   >
-                    熱門討論
+                    熱門商品
                   </button>
                   <button
                     type="button"
                     className={`${styles.borderCoffee} ${styles.btnHover} btn btn-outline-dark mb-2`}
                   >
-                    最新文章
+                    貓狗食品
                   </button>
                   <button
                     type="button"
                     className={`${styles.borderCoffee} ${styles.btnHover} btn btn-outline-dark mb-2`}
                   >
-                    文章收藏
+                    寵物玩具
                   </button>
                 </div>
                 <div className="d-flex justify-content-center mt-3">
@@ -70,28 +71,33 @@ export default function ProjectList() {
               {/* <!-- 商品區 --> */}
               <div className="row mt-2 pt-2 mb-1 pb-1 d-flex justify-content-start">
                 <div className="col-6 col-lg-4 col-xl-3 my-2">
-                  <div className="card">
-                    <img
-                      src="/estore/狗.png"
-                      className="card-img-top w-100"
-                      alt="..."
-                    />
-                    <div className="card-body">
-                      <h6 className="card-title">
-                        雞腿絨毛啾啾玩具 (17公分) (貓玩具)(狗玩具)
-                      </h6>
-                      <div className="row mt-5 mx-0">
-                        <div className="col-9 p-0 d-flex justify-content-start align-items-center">
-                          $1.490
-                        </div>
-                        <div className="col-3 p-0 d-flex justify-content-end">
-                          <button className={styles.cart}>
-                            <i className="bi bi-bag-fill cartItem"></i>
-                          </button>
+                  <Link
+                    href="/estore/product/productid"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <div className="card">
+                      <img
+                        src="/estore/狗.png"
+                        className="card-img-top w-100"
+                        alt="..."
+                      />
+                      <div className="card-body">
+                        <h6 className="card-title">
+                          雞腿絨毛啾啾玩具 (17公分) (貓玩具)(狗玩具)
+                        </h6>
+                        <div className="row mt-5 mx-0">
+                          <div className="col-9 p-0 d-flex justify-content-start align-items-center">
+                            $1.490
+                          </div>
+                          <div className="col-3 p-0 d-flex justify-content-end">
+                            <button className={styles.cart}>
+                              <i className="bi bi-bag-fill cartItem"></i>
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
                 <div className="col-6 col-lg-4 col-xl-3 my-2">
                   <div className="card">
@@ -256,6 +262,6 @@ export default function ProjectList() {
           </div>
         </div>
       </main>
-    </Layout1>
+    </Layout>
   )
 }

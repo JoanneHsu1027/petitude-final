@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react'
-import Layout1 from '../../../components/layout/layout1'
+import Layout from '../../../components/layout/layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../../styles/estore/product.module.css'
@@ -17,7 +17,7 @@ export default function Productid() {
     useEffect, useState
   }
   return (
-    <Layout1>
+    <Layout>
       <main className={`flex-shrink-0 mt-5 pt-5 ${styles.full}`}>
         {/* <!-- 產品區 --> */}
         <div
@@ -451,6 +451,6 @@ export default function Productid() {
 
         {/* <!-- 頁籤區 --> */}
       </main>
-    </Layout1>
+    </Layout>
   )
 }

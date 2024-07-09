@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
-import Layout1 from '../../components/layout/layout1'
+import Layout from '../../components/layout/layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../styles/estore/cart.module.css'
 
 export default function ProjectList() {
   return (
-    <Layout1>
+    <Layout>
       <main className={`flex-shrink-0 pt-5 ${styles.full}`}>
         <div className="container d-flex justify-content-center">
           <h1 className={styles.title}>購物車</h1>
@@ -143,6 +143,6 @@ export default function ProjectList() {
         {/* <!-- 生前契約 --> */}
         {/* <!-- 生前契約 --> */}
       </main>
-    </Layout1>
+    </Layout>
   )
 }

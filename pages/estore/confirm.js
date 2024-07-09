@@ -1,11 +1,11 @@
 import React from 'react'
-import Layout1 from '../../components/layout/layout1'
+import Layout from '../../components/layout/layout'
 // import ImageComponent from '../../component/common/image'
 import ModalComponent from '../../components/estore/modal'
 
 export default function Confirm() {
   return (
-    <Layout1>
+    <Layout>
       {/* <!-- pagination --> */}
       <div className="col-12 d-flex justify-content-center">
         {/* <ImageComponent
@@ -91,6 +91,6 @@ export default function Confirm() {
           </div>
         </div>
       </div>
-    </Layout1>
+    </Layout>
   )
 }

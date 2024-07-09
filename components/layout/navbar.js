@@ -19,7 +19,7 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="">
+                  <a className="nav-link" href="estore">
                     <img src="/pi-pic/product-icon.png" alt="" />
                   </a>
                 </li>
@@ -29,7 +29,7 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="index">
+                  <a className="nav-link" href="home">
                     <img src="/pi-pic/petitude-icon.png" alt="" />
                   </a>
                 </li>
