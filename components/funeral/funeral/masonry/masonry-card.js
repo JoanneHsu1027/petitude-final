@@ -9,50 +9,50 @@ export default function MasonryCard() {
   const images = [
     // r1c2
     {
-      front: '/pics/7.jpg',
-      back: '/pics/14.jpg',
+      front: '/funeral/7.jpg',
+      back: '/funeral/14.jpg',
       width: 200,
       height: 200,
     },
     // r1c3
     {
-      front: '/pics/7.jpg',
-      back: '/pics/19.jpg',
+      front: '/funeral/7.jpg',
+      back: '/funeral/19.jpg',
       width: 200,
       height: 200,
     },
     // r1c4
     {
-      front: '/pics/7.jpg',
-      back: '/pics/19.jpg',
+      front: '/funeral/7.jpg',
+      back: '/funeral/19.jpg',
       width: 200,
       height: 200,
     },
     // r1c1
     {
-      front: '/pics/7.jpg',
-      back: '/pics/19.jpg',
+      front: '/funeral/7.jpg',
+      back: '/funeral/19.jpg',
       width: 280,
       height: 230,
     },
     // r2c2
     {
-      front: '/pics/8.jpg',
-      back: '/pics/13.jpg',
+      front: '/funeral/8.jpg',
+      back: '/funeral/13.jpg',
       width: 200,
       height: 200,
     },
     // r2c3
     {
-      front: '/pics/8.jpg',
-      back: '/pics/13.jpg',
+      front: '/funeral/8.jpg',
+      back: '/funeral/13.jpg',
       width: 200,
       height: 200,
     },
     // r2c4
     {
-      front: '/pics/8.jpg',
-      back: '/pics/13.jpg',
+      front: '/funeral/8.jpg',
+      back: '/funeral/13.jpg',
       width: 200,
       height: 200,
     },
@@ -85,14 +85,14 @@ export default function MasonryCard() {
           style={{
             height: '100%',
             position: 'relative',
-            marginTop: '-40px',
+            marginTop: '100px',
             marginLeft: '50px',
           }}
         >
           {/* 左上方星球+文字 */}
           <div
             className="justify-content-center align-items-center"
-            style={{ position: 'relative', marginTop: '-20px' }}
+            style={{ position: 'relative', marginTop: '-22px' }}
           >
             <div>
               <SVGComponent />
@@ -109,7 +109,7 @@ export default function MasonryCard() {
                   marginBottom: '30px',
                 }}
               >
-                寵物生前契約
+                寵物生命禮儀
               </h1>
             </div>
           </div>
@@ -158,6 +158,34 @@ export default function MasonryCard() {
               </div>
             </div>
           ))}
+          {/* 底部文字 */}
+          <div>
+            <div
+              style={{
+                zIndex: '1',
+                position: 'absolute',
+                top: '450px',
+                left: '730px',
+              }}
+            >
+              <h2 style={{ marginBottom: '20px' }}>守護每一段回憶</h2>
+              <h2 style={{ marginLeft: '60px' }}>圓滿最美好的緣分</h2>
+            </div>
+            {/* 底下波浪圖 */}
+            {/* <ImageComponent
+                src="/funeral/Vector 436.png"
+                alt=""
+                width={1440}
+                height={150}
+                style={{
+                  maxWidth: '100%',
+                  zIndex: '0',
+                  position: 'absolute',
+                  top: '450px',
+                  overFlow: 'hidden',
+                }}
+              /> */}
+          </div>
         </Masonry>
       </ResponsiveMasonry>
     </>

@@ -1,21 +1,13 @@
 import React from 'react'
-import Layout1 from '../../component/layout/layout1'
-import ImageComponent from '../../component/common/image'
-import ModalComponent from '../../component/funeral/booking-list/modal'
+import Layout from '../../../components/layout/layout'
+import ImageComponent from '../../../components/common/funeral/image'
+import ModalComponent from '../../../components/funeral/funeral/booking-list/modal'
+// import ProgressBar from '../../../components/funeral/progress-bar'
 
 export default function Confirm() {
   return (
-    <Layout1>
-      {/* <!-- pagination --> */}
-      <div className="col-12 d-flex justify-content-center">
-        <ImageComponent
-          src="/pics/麵包屑2.png"
-          width={500}
-          height={70}
-          alt=""
-        />
-      </div>
-      {/* <!-- pagination --> */}
+    <Layout>
+      {/* <ProgressBar /> */}
       <div className="container-fluid m-0 p-0">
         <div className="row d-flex justify-content-center">
           <div className="col-12 justify-content-center">
@@ -27,7 +19,7 @@ export default function Confirm() {
                   style={{ justifyContent: 'center', alignContent: 'center' }}
                 >
                   <ImageComponent
-                    src="/pics/Frame 685.png"
+                    src="/funeral/Frame 685.png"
                     width={400}
                     height={250}
                     alt=""
@@ -91,6 +83,6 @@ export default function Confirm() {
           </div>
         </div>
       </div>
-    </Layout1>
+    </Layout>
   )
 }

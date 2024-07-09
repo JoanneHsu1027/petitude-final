@@ -192,6 +192,17 @@ export default function Question() {
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .accordion-item .accordion-button {
+          background-color: #ffe4c4;
+          color: #515151;
+          font-weight: bolder;
+        }
+        .accordion-body {
+          background-color: white; /* 修改為你想要的內容背景顏色 */
+          color: #515151; /* 修改為你想要的內容文字顏色 */
+        }
+      `}</style>
     </>
   )
 }

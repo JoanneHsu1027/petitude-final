@@ -1,12 +1,14 @@
 import React from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import Link from 'next/link'
+import Router, { useRouter } from 'next/router'
 
 export default function RecommendationModal({
   show,
   handleClose,
   recommendation,
 }) {
+  const router = useRouter()
   // 解構 recommendation 物件，取出 text / image / details
   const { text, image, details } = recommendation
 
@@ -20,7 +22,7 @@ export default function RecommendationModal({
           <div className="row">
             <div className="col-12 d-flex justify-content-between align-items-center">
               {/* 顯示推薦方案的圖片 */}
-              <div className="col-md-6">
+              <div className="col-md-6 col-sm-7">
                 {image && (
                   <div className="text-center">
                     <img
@@ -32,7 +34,7 @@ export default function RecommendationModal({
                 )}
               </div>
               {/* 顯示推薦方案的文字和詳細描述 */}
-              <div className="col-md-6">
+              <div className="col-md-6 col-sm-5">
                 <h4 style={{ fontWeight: '900' }}>{text}</h4>
                 <p style={{ fontSize: '14px' }}>{details}</p>
                 <div>
@@ -61,9 +63,17 @@ export default function RecommendationModal({
           關閉
         </Button>
         {/* 跳轉到funeral/booking-list頁面做結帳 */}
-        <Link href="/funeral/booking-list" variant="warning">
-          <button className="btn btn-warning">確定結帳</button>
-        </Link>
+
+        <button
+          className="btn btn-warning"
+          onClick={() => {
+            if (confirm('確定嗎?')) {
+              router.push('/funeral/funeral/booking-list')
+            }
+          }}
+        >
+          確定結帳
+        </button>
       </Modal.Footer>
     </Modal>
   )

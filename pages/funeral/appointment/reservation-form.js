@@ -1,24 +1,24 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import ImageComponent from '../../component/common/image'
-
+import ImageComponent from '../../../components/common/funeral/image'
+import Link from 'next/link'
 // import { RV_LIST } from '@/configs/api-path'
-// import Link from 'next/link'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 // import { z } from 'zod'
 // import { RV_ADD_POST } from '@/configs/api-path'
 
 // appointment / service用的form
 export default function ReservationForm() {
   const [showModal, setShowModal] = useState(false)
+  const router = useRouter()
 
   return (
     <>
       {/* 第一區 */}
       <div
         className="col-12 position-relative justify-content-center"
-        style={{ backgroundImage: 'url("/pics/bg-img.png")' }}
+        style={{ backgroundImage: 'url("/funeral/bg-img.png")' }}
       >
         <div className="row justify-content-center">
           <div className="header mt-3">
@@ -64,7 +64,7 @@ export default function ReservationForm() {
                 {/* 綠色圖形 */}
                 <ImageComponent
                   className="green"
-                  src="/pics/Vector 433.png"
+                  src="/funeral/Vector 433.png"
                   alt=""
                   width={150}
                   height={60}
@@ -78,7 +78,7 @@ export default function ReservationForm() {
                 {/* 深黃色圖形 */}
                 <ImageComponent
                   className="yellow"
-                  src="/pics/Vector 431.png"
+                  src="/funeral/Vector 431.png"
                   alt=""
                   width={150}
                   height={60}
@@ -166,7 +166,7 @@ export default function ReservationForm() {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalToggleLabel2">
-                  謝謝您的購買!
+                  謝謝您的預約, 專人會與您聯繫~
                 </h5>
                 <button
                   type="button"
@@ -176,35 +176,33 @@ export default function ReservationForm() {
                 ></button>
               </div>
 
-              <div className="modal-body">
+              <div className="modal-body d-flex justify-content-center">
                 <ImageComponent
-                  src="/pics/thanks.png"
+                  src="/funeral/57.jpg"
                   width={300}
-                  height={200}
+                  height={300}
                   alt=""
-                  style={{
-                    borderRadius: '15px',
-                    backgroundColor: 'orange',
-                  }}
                 />
               </div>
 
-              <div className="modal-footer">
+              <div className="modal-footer d-flex justify-content-center ">
                 <button
                   className="btn btn-warning"
                   data-bs-target="#exampleModalToggle"
                   data-bs-toggle="modal"
-                  onClick={() => setShowModal(true)}
+                  onClick={() => {
+                    if (confirm('確定嗎?')) {
+                      router.push('/funeral/funeral/masonry')
+                    }
+                  }}
                   style={{
-                    width: '30%',
+                    width: '100%',
                     backgroundColor: 'orange',
                     borderRadius: '10px',
                     color: '#fff5cf',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: '5px',
                     fontWeight: 'bolder',
+                    display: 'inline-block',
+                    textAlign: 'center',
                   }}
                 >
                   回首頁
@@ -241,7 +239,7 @@ export default function ReservationForm() {
       </div>
       <ImageComponent
         className="bookingPaw position-absolute"
-        src="/pics/dog2.png"
+        src="/funeral/dog2.png"
         alt=""
         width={130}
         height={250}
@@ -254,7 +252,7 @@ export default function ReservationForm() {
       />
       <ImageComponent
         className="bookingDog position-absolute text-start"
-        src="/pics/bookingDog.png"
+        src="/funeral/bookingDog.png"
         alt=""
         width={120}
         height={270}
@@ -266,7 +264,7 @@ export default function ReservationForm() {
       />
       <ImageComponent
         className="bookingDog position-absolute text-start"
-        src="/pics/bone.png"
+        src="/funeral/bone.png"
         alt=""
         width={120}
         height={120}
@@ -280,12 +278,12 @@ export default function ReservationForm() {
       />
       <ImageComponent
         className="bookingDog position-absolute text-start"
-        src="/pics/bone.png"
+        src="/funeral/bone.png"
         alt=""
         width={50}
         height={50}
         style={{
-          top: '260px',
+          top: '280px',
           left: '400px',
           overflow: 'hidden',
           zIndex: '0',
@@ -295,13 +293,13 @@ export default function ReservationForm() {
       />
       <ImageComponent
         className="bookingDog position-absolute text-start"
-        src="/pics/bone.png"
+        src="/funeral/bone.png"
         alt=""
         width={80}
         height={80}
         style={{
           bottom: '60px',
-          right: '300px',
+          right: '200px',
           overflow: 'hidden',
           zIndex: '0',
           opacity: '0.4',
@@ -309,7 +307,7 @@ export default function ReservationForm() {
       />
       <ImageComponent
         className="bookingDog position-absolute text-start"
-        src="/pics/bone.png"
+        src="/funeral/bone.png"
         alt=""
         width={70}
         height={70}

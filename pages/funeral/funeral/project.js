@@ -1,8 +1,8 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import ImageComponent from '../../component/common/image'
-import Card from '../../component/funeral/project/card'
+import ImageComponent from '../../../components/funeral/common/image'
+import Card from '../../../components/funeral/funeral/project/card'
 
 export default function Project() {
   return (
@@ -12,7 +12,7 @@ export default function Project() {
           <div className="col-12">
             <div style={{ display: 'flex' }}>
               <ImageComponent
-                src="/pics/Line 25.png"
+                src="/funeral/Line 25.png"
                 alt=""
                 width={5}
                 height={40}

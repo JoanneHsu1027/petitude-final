@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Button } from 'react-bootstrap'
-import ImageComponent from '../../component/common/image'
-import Modal1 from '../../component/funeral/service/modal1'
-import Styles from '../../component/funeral/service/modal.module.css' // 確保引入了正確的 CSS Modules 文件
+import Button from '@/components/funeral/common/button'
+import ImageComponent from '../../../components/common/funeral/image'
+import Modal1 from '../../../components/funeral/funeral/service/modal1'
+import Styles from '../../../components/funeral/funeral/service/modal.module.css'
 
 export default function Service() {
   const [showModal1, setShowModal1] = useState(false) // 定義 showModal1 狀態
@@ -34,7 +34,7 @@ export default function Service() {
                   <li className="list-group-item">基礎淨身</li>
                   <li className="list-group-item">
                     <ImageComponent
-                      src="/pics/arrow.png"
+                      src="/funeral/arrow.png"
                       alt=""
                       width={30}
                       height={30}
@@ -43,7 +43,7 @@ export default function Service() {
                   <li className="list-group-item">道別/禱告/誦經</li>
                   <li className="list-group-item">
                     <ImageComponent
-                      src="/pics/arrow.png"
+                      src="/funeral/arrow.png"
                       alt=""
                       width={30}
                       height={30}
@@ -52,7 +52,7 @@ export default function Service() {
                   <li className="list-group-item">火化遺體</li>
                   <li className="list-group-item">
                     <ImageComponent
-                      src="/pics/arrow.png"
+                      src="/funeral/arrow.png"
                       alt=""
                       width={30}
                       height={30}
@@ -61,7 +61,7 @@ export default function Service() {
                   <li className="list-group-item">骨灰安置</li>
                   <li className="list-group-item">
                     <ImageComponent
-                      src="/pics/arrow.png"
+                      src="/funeral/arrow.png"
                       alt=""
                       width={30}
                       height={30}
@@ -86,7 +86,7 @@ export default function Service() {
                   <li className="list-group-item">火化遺體</li>
                   <li className="list-group-item">
                     <ImageComponent
-                      src="/pics/arrow.png"
+                      src="/funeral/arrow.png"
                       alt=""
                       width={30}
                       height={30}
@@ -95,7 +95,7 @@ export default function Service() {
                   <li className="list-group-item">骨灰安置</li>
                   <li className="list-group-item">
                     <ImageComponent
-                      src="/pics/arrow.png"
+                      src="/funeral/arrow.png"
                       alt=""
                       width={30}
                       height={30}
@@ -108,7 +108,7 @@ export default function Service() {
             </div>
           </div>
           <Button
-            variant="warning"
+            className="btn btn-warning"
             onClick={handleShowModal1}
             style={{ width: '120px', marginTop: '20px' }}
           >
