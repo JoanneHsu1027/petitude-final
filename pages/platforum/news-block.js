@@ -15,7 +15,7 @@ function NewsBlock() {
     autoplaySpeed: 1000,
     vertical: true,
     draggable: true,
-    verticalSwiping: true,
+    verticalSwiping: false,
     responsive: [
       {
         breakpoint: 1024,
