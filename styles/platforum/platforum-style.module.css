@@ -72,6 +72,18 @@
     border: 1px solid #f6d554;
 }
 
+.CreateArticleBtn{
+    color: black;
+    border-color: #DEE2E6;
+    background-color: #F8F9FA;
+}
+
+.CreateArticleBtn:hover{
+    color: black;
+    border-color: #DEE2E6;
+    background-color: #F8F9FA;
+}
+
 .GoTopBtn {
     text-decoration: none;
     color: #f69a30;

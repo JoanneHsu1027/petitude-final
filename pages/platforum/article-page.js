@@ -6,6 +6,7 @@ import { BsChevronLeft } from 'react-icons/bs'
 import { BsFillPencilFill } from 'react-icons/bs'
 import { BsBookmarkFill } from 'react-icons/bs'
 import { BsFillShareFill } from 'react-icons/bs'
+import ReMessageBlock from '@/components/platforum/re-message-block'
 
 export default function ArticlePage() {
   return (
@@ -23,7 +24,7 @@ export default function ArticlePage() {
                 >
                   <div className="row">
                     <div className="col-lg-12 col-md-12 d-flex flex-column justify-content-center mt-4">
-                      {/* monile only go-back-page-btn */}
+                      {/* mobile only go-back-page-btn */}
                       <div
                         style={{
                           width: '30px',
@@ -67,7 +68,7 @@ export default function ArticlePage() {
                           </div>
 
                           {/* main */}
-                          <div className="mx-3 my-4">
+                          <div className="mx-4 my-4">
                             <p>
                               首先說我一向支持領養代替購買，自己的貓也是領養來的。但我理解有人就是喜歡品種貓，否則寵物版也不會幾乎每天都有人問貓舍評價了。
                               這篇文是我整理了很多貓舍的經驗文與朋友經驗下濃縮的貓舍初步判斷標準。這個標準不是單純的「合法」而更傾向重視動物福利的道德層面。
@@ -139,113 +140,10 @@ export default function ArticlePage() {
                         {/* article-content 這裡結束 */}
                         {/* message-content 這裡開始 */}
                         <section>
-                          <div className="d-flex border-bottom my-4">
-                            <div className="mx-2">
-                              <img
-                                src="../../public/forum-pic/avatar.png"
-                                alt=""
-                              />
-                            </div>
-                            <div className="flex-grow-1 me-2">
-                              <p>使用者1</p>
-                              <p>
-                                留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容
-                              </p>
-                              <div className="d-flex ms-4">
-                                <p className="me-4">2024-06-03 12:00</p>
-                                <a
-                                  className={`${styles.AReset} ${styles.LightGray}`}
-                                  href=""
-                                >
-                                  回覆
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="d-flex border-bottom my-4">
-                            <div className="mx-2">
-                              <img src="./pet_img/avatar.png" alt="" />
-                            </div>
-                            <div className="flex-grow-1 me-2">
-                              <p>使用者1</p>
-                              <p>
-                                留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容
-                              </p>
-                              <div className="d-flex ms-4">
-                                <p className="me-4">2024-06-03 12:00</p>
-                                <a
-                                  className={`${styles.AReset} ${styles.LightGray}`}
-                                  href=""
-                                >
-                                  回覆
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="d-flex border-bottom my-4">
-                            <div className="mx-2">
-                              <img src="./pet_img/avatar.png" alt="" />
-                            </div>
-                            <div className="flex-grow-1 me-2">
-                              <p>使用者1</p>
-                              <p>
-                                留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容
-                              </p>
-                              <div className="d-flex ms-4">
-                                <p className="me-4">2024-06-03 12:00</p>
-                                <a
-                                  className={`${styles.AReset} ${styles.LightGray}`}
-                                  href=""
-                                >
-                                  回覆
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="d-flex border-bottom my-4">
-                            <div className="mx-2">
-                              <img src="./pet_img/avatar.png" alt="" />
-                            </div>
-                            <div className="flex-grow-1 me-2">
-                              <p>使用者1</p>
-                              <p>
-                                留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容
-                              </p>
-                              <div className="d-flex ms-4">
-                                <p className="me-4">2024-06-03 12:00</p>
-                                <a
-                                  className={`${styles.AReset} ${styles.LightGray}`}
-                                  href=""
-                                >
-                                  回覆
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="d-flex border-bottom my-4">
-                            <div className="mx-2">
-                              <img src="./pet_img/avatar.png" alt="" />
-                            </div>
-                            <div className="flex-grow-1 me-2">
-                              <p>使用者1</p>
-                              <p>
-                                留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容
-                              </p>
-                              <div className="d-flex ms-4">
-                                <p className="me-4">2024-06-03 12:00</p>
-                                <a
-                                  className={`${styles.AReset} ${styles.LightGray}`}
-                                  href=""
-                                >
-                                  回覆
-                                </a>
-                              </div>
-                            </div>
-                          </div>
+                          <ReMessageBlock></ReMessageBlock>
+                          <ReMessageBlock></ReMessageBlock>
+                          <ReMessageBlock></ReMessageBlock>
+                          <ReMessageBlock></ReMessageBlock>
                         </section>
                         {/* message-content 這裡結束 */}
                         {/* re-message-block 這裡開始 */}

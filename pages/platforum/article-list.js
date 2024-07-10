@@ -24,7 +24,7 @@ export default function ArticleList() {
                       <SideBarMobile></SideBarMobile>
 
                       <a
-                        href="./creat-article.html"
+                        href="./create-article"
                         className={`${styles.AReset} d-flex text-black-50 flex-row-reverse me-2`}
                       >
                         <h5 className="me-3 fw-bold">+ 建立文章</h5>
