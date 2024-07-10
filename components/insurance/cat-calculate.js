@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from '@/components/insurance/insurance.module.css'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
@@ -18,20 +18,37 @@ export default function CatCalculate() {
   const [modal, setModal] = useState(null)
   const router = useRouter()
 
+  const insuranceStartDateRef = useRef(null)
+  const catBirthdayRef = useRef(null)
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
     try {
       // 收集所有表單數據
       const formData = new FormData(e.target)
+
+      console.log('Form Data:', {
+        catBreed: formData.get('cat-breed'),
+        catGender: formData.get('cat-gender'),
+        catBirthday: formData.get('cat-birthday'),
+        insuranceStartDate: formData.get('insurance-start-date'),
+      })
+
       const catBreed = formData.get('cat-breed')
       const catGender = formData.get('cat-gender')
       const catBirthday = formData.get('cat-birthday')
       const insuranceStartDate = formData.get('insurance-start-date')
 
       // 檢查必要欄位是否填寫
-      if (!catBreed || !catGender || !catBirthday || !insuranceStartDate) {
-        throw new Error('請填寫所有必要的欄位')
+      const missingFields = []
+      if (!catBreed) missingFields.push('貓咪品種')
+      if (!catGender) missingFields.push('寵物性別')
+      if (!catBirthday) missingFields.push('寵物生日')
+      if (!insuranceStartDate) missingFields.push('投保起始日期')
+
+      if (missingFields.length > 0) {
+        throw new Error(`請填寫以下必要欄位：${missingFields.join(', ')}`)
       }
 
       // 保存所有數據到 localStorage
@@ -45,26 +62,37 @@ export default function CatCalculate() {
         }),
       )
 
-      // 關閉 modal
-      if (modal) {
-        modal.hide()
-      }
-
+      // // 關閉 modal
+      // if (modal) {
+      //   modal.hide()
+      // }
+      // // 移除 modal 背景
+      // document.body.classList.remove('modal-open')
+      // const modalBackdrop = document.querySelector('.modal-backdrop')
+      // if (modalBackdrop) {
+      //   modalBackdrop.remove()
+      // }
       // 成功提示
       alert('資料已成功保存，請繼續下一步驟')
 
+      // 使用 setTimeout 確保 modal 有足夠時間關閉
+      setTimeout(() => {
+        // 移除 modal 背景
+        document.body.classList.remove('modal-open')
+        const modalBackdrop = document.querySelector('.modal-backdrop')
+        if (modalBackdrop) {
+          modalBackdrop.remove()
+        }
+        // 導航到下一個頁面
+        router.push('/insurance')
+      }, 300) // 300ms 應該足夠 modal 關閉
+
       // 可以在這裡添加導航到下一個頁面的邏輯
-      router.push('/insurance')
+      // router.push('/insurance')
     } catch (error) {
       console.error('保存失敗:', error)
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')
     }
-    console.log('Form Data:', {
-      catBreed: formData.get('cat-breed'),
-      catGender: formData.get('cat-gender'),
-      catBirthday: formData.get('cat-birthday'),
-      insuranceStartDate: formData.get('insurance-start-date'),
-    })
   }
   //   您可能需要在成功保存數據後添加一些導航邏輯，將用戶引導到下一個頁面或結帳步驟。
   // 在後續的結帳步驟中，您可以使用以下代碼來獲取保存的數據：
@@ -294,14 +322,15 @@ export default function CatCalculate() {
                       disableFuture={true}
                       onChange={(date) => {
                         handleBirthdayChange(date)
-                        document.getElementById('cat-birthday-input').value =
-                          date
+                        if (catBirthdayRef.current) {
+                          catBirthdayRef.current.value = date
+                        }
                       }}
                     />
                     <input
                       type="hidden"
-                      id="cat-birthday-input"
                       name="cat-birthday"
+                      ref={catBirthdayRef}
                     />
                     <div className="d-flex justify-content-center">
                       <h4 className="text-color">
@@ -319,7 +348,17 @@ export default function CatCalculate() {
                         endYear={new Date().getFullYear() + 2}
                         disableFuture={false}
                         disablePast={true} // 添加這個 prop
-                        onChange={handleInsuranceStartChange}
+                        onChange={(date) => {
+                          handleInsuranceStartChange(date)
+                          if (insuranceStartDateRef.current) {
+                            insuranceStartDateRef.current.value = date
+                          }
+                        }}
+                      />
+                      <input
+                        type="hidden"
+                        name="insurance-start-date"
+                        ref={insuranceStartDateRef}
                       />
                     </div>
                   </div>
@@ -333,6 +372,7 @@ export default function CatCalculate() {
                   type="submit"
                   // onClick={handleSubmit}
                   className={styles['own-btn1']}
+                  data-bs-dismiss="modal"
                 >
                   開始試算
                 </button>
