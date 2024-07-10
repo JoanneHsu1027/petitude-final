@@ -130,10 +130,10 @@ export default function ReservationForm() {
             </div>
             <div className="mb-3 text-start">
               <label htmlFor="exampleFormControlInput4" className="form-label">
-                聯絡時間
+                預約時間
               </label>
               <input
-                type="date"
+                type="datetime-local"
                 className="form-control"
                 id="exampleFormControlInput4"
               />
