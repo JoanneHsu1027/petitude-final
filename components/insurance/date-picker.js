@@ -11,15 +11,18 @@ export default function DatePicker({
   const [years, setYears] = useState([])
   const [months, setMonths] = useState([])
   const [days, setDays] = useState([])
-  const [selectedYear, setSelectedYear] = useState(startYear)
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1)
-  const [selectedDay, setSelectedDay] = useState(new Date().getDate())
+  const [selectedYear, setSelectedYear] = useState('')
+  const [selectedMonth, setSelectedMonth] = useState('')
+  const [selectedDay, setSelectedDay] = useState('')
 
   useEffect(() => {
-    const yearsArray = Array.from(
-      { length: endYear - startYear + 1 },
-      (_, i) => startYear + i,
-    )
+    const yearsArray = [
+      { value: '', label: '請選擇' },
+      ...Array.from({ length: endYear - startYear + 1 }, (_, i) => ({
+        value: startYear + i,
+        label: startYear + i,
+      })),
+    ]
     setYears(yearsArray)
   }, [startYear, endYear])
 
@@ -27,64 +30,79 @@ export default function DatePicker({
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth() + 1
 
-    const monthsArray = Array.from({ length: 12 }, (_, i) => {
-      const month = i + 1
-      return {
-        value: month,
-        disabled:
-          (disableFuture &&
-            selectedYear === currentYear &&
-            month > currentMonth) ||
-          (disablePast && selectedYear === currentYear && month < currentMonth), // 添加這個條件
-      }
-    })
+    const monthsArray = [
+      { value: '', label: '請選擇', disabled: false },
+      ...Array.from({ length: 12 }, (_, i) => {
+        const month = i + 1
+        return {
+          value: month,
+          label: month,
+          disabled:
+            (disableFuture &&
+              selectedYear === currentYear &&
+              month > currentMonth) ||
+            (disablePast &&
+              selectedYear === currentYear &&
+              month < currentMonth),
+        }
+      }),
+    ]
     setMonths(monthsArray)
-  }, [selectedYear, disableFuture, disablePast]) // 添加 disablePast 到依賴數組
+  }, [selectedYear, disableFuture, disablePast])
 
   useEffect(() => {
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth() + 1
     const currentDay = new Date().getDate()
 
-    const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate()
-    const daysArray = Array.from({ length: daysInMonth }, (_, i) => {
-      const day = i + 1
-      return {
-        value: day,
-        disabled:
-          (disableFuture &&
-            selectedYear === currentYear &&
-            selectedMonth === currentMonth &&
-            day > currentDay) ||
-          (disablePast &&
-            selectedYear === currentYear &&
-            selectedMonth === currentMonth &&
-            day < currentDay), // 添加這個條件
-      }
-    })
+    const daysInMonth = selectedMonth
+      ? new Date(selectedYear, selectedMonth, 0).getDate()
+      : 31
+    const daysArray = [
+      { value: '', label: '請選擇', disabled: false },
+      ...Array.from({ length: daysInMonth }, (_, i) => {
+        const day = i + 1
+        return {
+          value: day,
+          label: day,
+          disabled:
+            (disableFuture &&
+              selectedYear === currentYear &&
+              selectedMonth === currentMonth &&
+              day > currentDay) ||
+            (disablePast &&
+              selectedYear === currentYear &&
+              selectedMonth === currentMonth &&
+              day < currentDay),
+        }
+      }),
+    ]
     setDays(daysArray)
-  }, [selectedYear, selectedMonth, disableFuture, disablePast]) // 添加 disablePast 到依賴數組
+  }, [selectedYear, selectedMonth, disableFuture, disablePast])
 
   const handleYearChange = (e) => {
-    setSelectedYear(parseInt(e.target.value))
-    setSelectedMonth(1)
-    setSelectedDay(1)
+    const value = e.target.value
+    setSelectedYear(value ? parseInt(value) : '')
+    setSelectedMonth('')
+    setSelectedDay('')
   }
 
   const handleMonthChange = (e) => {
-    setSelectedMonth(parseInt(e.target.value))
+    const value = e.target.value
+    setSelectedMonth(value ? parseInt(value) : '')
     setSelectedDay(1)
   }
 
   const handleDayChange = (e) => {
-    setSelectedDay(parseInt(e.target.value))
+    const value = e.target.value
+    setSelectedDay(value ? parseInt(value) : '')
   }
 
   useEffect(() => {
-    if (onChange) {
+    if (onChange && selectedYear && selectedMonth && selectedDay) {
       onChange({ year: selectedYear, month: selectedMonth, day: selectedDay })
     }
-  }, [selectedYear, selectedMonth, selectedDay])
+  }, [selectedYear, selectedMonth, selectedDay, onChange])
 
   return (
     <form className="d-flex" name="datePicker">
@@ -97,8 +115,8 @@ export default function DatePicker({
           required
         >
           {years.map((year) => (
-            <option key={year} value={year}>
-              {year}
+            <option key={year.value} value={year.value}>
+              {year.label}
             </option>
           ))}
         </select>
@@ -120,7 +138,7 @@ export default function DatePicker({
               value={month.value}
               disabled={month.disabled}
             >
-              {month.value}
+              {month.label}
             </option>
           ))}
         </select>
@@ -138,7 +156,7 @@ export default function DatePicker({
         >
           {days.map((day) => (
             <option key={day.value} value={day.value} disabled={day.disabled}>
-              {day.value}
+              {day.label}
             </option>
           ))}
         </select>

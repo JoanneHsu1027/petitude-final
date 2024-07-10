@@ -1,29 +1,52 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Layout from '@/components/layout/layout'
 import styles from './pi-index.module.css'
 import CatCalculate from '@/components/insurance/cat-calculate'
 import DogCalculate from '@/components/insurance/dog-calculate'
 import TrialCalculation from '@/components/insurance/trial-calculation'
+import { useRouter } from 'next/router'
 
 export default function PetInsurance() {
   // 確認是否有收到試算的表單資料
   const [catDataReceived, setCatDataReceived] = useState(false)
   const [dogDataReceived, setDogDataReceived] = useState(false)
+  // const TrialCalculationRef = useRef(null)
+  const router = useRouter()
 
-  // 假設這是處理從 catcalculate 收到的表單資料的函式
-  const handleCatData = (data) => {
-    // 處理表單資料的邏輯
-    // 例如存儲資料到某個變數或資料庫
+  useEffect(() => {
+    const checkStorage = () => {
+      const catData = localStorage.getItem('catDataReceived')
+      const dogData = localStorage.getItem('dogDataReceived')
 
-    setCatDataReceived(true)
-  }
+      setCatDataReceived(catData === 'true')
+      setDogDataReceived(dogData === 'true')
 
-  // 假設這是處理從 dogcalculate 收到的表單資料的函式
-  const handleDogData = (data) => {
-    // 處理表單資料的邏輯
-    // 例如存儲資料到某個變數或資料庫
+      // // 如果有數據，滾動到 TrialCalculation
+      // if (catData === 'true' || dogData === 'true') {
+      //   setTimeout(() => {
+      //     TrialCalculationRef.current?.scrollIntoView({ behavior: 'smooth' })
+      //   }, 100) // 給予一些時間讓組件渲染
+      // }
+    }
+    // 初始檢查
+    checkStorage()
+    // 添加事件監聽器以檢測 localStorage 的變化
+    window.addEventListener('localStorageChange', checkStorage)
+    window.addEventListener('storage', checkStorage) // 保留這個以防其他標籤頁更改 localStorage
 
-    setDogDataReceived(true)
+    // 清理函數
+    return () => {
+      window.removeEventListener('localStorageChange', checkStorage)
+      window.removeEventListener('storage', checkStorage)
+    }
+  }, [])
+
+  // 清除 localStorage 的函數
+  const clearLocalStorage = () => {
+    localStorage.removeItem('catDataReceived')
+    localStorage.removeItem('dogDataReceived')
+    setCatDataReceived(false)
+    setDogDataReceived(false)
   }
 
   return (
@@ -427,17 +450,34 @@ export default function PetInsurance() {
               </h2>
             </div>
           </div>
-          <div className="row mt-5 d-flex justify-content-center">
+          <div
+            className="row mt-5 d-flex justify-content-center"
+            id="showTrial"
+          >
             <CatCalculate />
             <DogCalculate />
           </div>
           {/* 使用三元判斷式來判斷是否收到catcalculate 或 dogcalculate的表單決定是否顯示試算表 */}
-          {catDataReceived || dogDataReceived ? <TrialCalculation /> : null}
+          {(catDataReceived || dogDataReceived) && (
+            <>
+              <div>
+                <TrialCalculation />
+              </div>
+              <div className="d-flex justify-content-center">
+                <button
+                  className={`${styles['own-btn2']} border-0`}
+                  onClick={clearLocalStorage}
+                >
+                  <h5 style={{ margin: 0 }}>重新計算</h5>
+                </button>
+              </div>
+            </>
+          )}
         </div>
         {/* section 4 end */}
 
         {/* section 5 顧客意見回饋 start */}
-        <div className="container-fluid">
+        <div className="container-fluid mt-5">
           <div className="row mt-3 d-flex justify-content-center">
             <div className="col-9">
               <h2

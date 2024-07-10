@@ -30,7 +30,7 @@ export default function TrialCalculation() {
             最低每天只要$5起
           </h5>
           {/* 表格 */}
-          <div className="col-8 mt-5">
+          <div className="col-8 mt-4">
             <table className="table table-bordered">
               <thead>
                 <tr>

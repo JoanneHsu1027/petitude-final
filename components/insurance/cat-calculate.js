@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from '@/components/insurance/insurance.module.css'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 // 使用動態導入避免衝突
@@ -8,11 +7,25 @@ const DatePicker = dynamic(() => import('./date-picker'), { ssr: false })
 
 export default function CatCalculate() {
   const handleBirthdayChange = (date) => {
-    console.log('Birthday:', date)
+    if (date.year && date.month && date.day) {
+      const formattedDate = `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`
+      if (catBirthdayRef.current) {
+        catBirthdayRef.current.value = formattedDate
+      }
+    } else if (catBirthdayRef.current) {
+      catBirthdayRef.current.value = ''
+    }
   }
 
   const handleInsuranceStartChange = (date) => {
-    console.log('Insurance Start:', date)
+    if (date.year && date.month && date.day) {
+      const formattedDate = `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`
+      if (insuranceStartDateRef.current) {
+        insuranceStartDateRef.current.value = formattedDate
+      }
+    } else if (insuranceStartDateRef.current) {
+      insuranceStartDateRef.current.value = ''
+    }
   }
 
   const [modal, setModal] = useState(null)
@@ -28,17 +41,14 @@ export default function CatCalculate() {
       // 收集所有表單數據
       const formData = new FormData(e.target)
 
-      console.log('Form Data:', {
-        catBreed: formData.get('cat-breed'),
-        catGender: formData.get('cat-gender'),
-        catBirthday: formData.get('cat-birthday'),
-        insuranceStartDate: formData.get('insurance-start-date'),
-      })
-
       const catBreed = formData.get('cat-breed')
       const catGender = formData.get('cat-gender')
-      const catBirthday = formData.get('cat-birthday')
-      const insuranceStartDate = formData.get('insurance-start-date')
+      const catBirthday = catBirthdayRef.current
+        ? catBirthdayRef.current.value
+        : null
+      const insuranceStartDate = insuranceStartDateRef.current
+        ? insuranceStartDateRef.current.value
+        : null
 
       // 檢查必要欄位是否填寫
       const missingFields = []
@@ -62,39 +72,38 @@ export default function CatCalculate() {
         }),
       )
 
-      // // 關閉 modal
-      // if (modal) {
-      //   modal.hide()
-      // }
-      // // 移除 modal 背景
-      // document.body.classList.remove('modal-open')
-      // const modalBackdrop = document.querySelector('.modal-backdrop')
-      // if (modalBackdrop) {
-      //   modalBackdrop.remove()
-      // }
+      // 設置一個標誌表示已收到貓咪數據
+      localStorage.setItem('catDataReceived', 'true')
+      window.dispatchEvent(new Event('localStorageChange'))
+
       // 成功提示
       alert('資料已成功保存，請繼續下一步驟')
 
-      // 使用 setTimeout 確保 modal 有足夠時間關閉
-      setTimeout(() => {
-        // 移除 modal 背景
-        document.body.classList.remove('modal-open')
-        const modalBackdrop = document.querySelector('.modal-backdrop')
-        if (modalBackdrop) {
-          modalBackdrop.remove()
-        }
-        // 導航到下一個頁面
-        router.push('/insurance')
-      }, 300) // 300ms 應該足夠 modal 關閉
+      const closeModalAndNavigate = () => {
+        return new Promise((resolve) => {
+          // 移除 modal 背景
+          document.body.classList.remove('modal-open')
+          const modalBackdrop = document.querySelector('.modal-backdrop')
+          if (modalBackdrop) {
+            modalBackdrop.remove()
+          }
+          // 给予一些时间让 modal 完全关闭
+          setTimeout(resolve, 300)
+        })
+      }
 
-      // 可以在這裡添加導航到下一個頁面的邏輯
-      // router.push('/insurance')
+      // 执行关闭 modal 和导航
+      closeModalAndNavigate().then(() => {
+        router.push('/insurance/#showTrial').then(() => {
+          // 可以在这里添加导航完成后的逻辑
+          console.log('导航完成')
+        })
+      })
     } catch (error) {
       console.error('保存失敗:', error)
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')
     }
   }
-  //   您可能需要在成功保存數據後添加一些導航邏輯，將用戶引導到下一個頁面或結帳步驟。
   // 在後續的結帳步驟中，您可以使用以下代碼來獲取保存的數據：
   // jsxCopyconst savedData = JSON.parse(localStorage.getItem('catInsuranceData'));
 
@@ -119,6 +128,7 @@ export default function CatCalculate() {
       })
     }
   }, [])
+
   return (
     <>
       <div className="col-4 d-flex justify-content-center">
@@ -317,15 +327,10 @@ export default function CatCalculate() {
                       <h3>寵物生日</h3>
                     </div>
                     <DatePicker
-                      startYear={new Date().getFullYear() - 30}
+                      startYear={new Date().getFullYear() - 15}
                       endYear={new Date().getFullYear()}
                       disableFuture={true}
-                      onChange={(date) => {
-                        handleBirthdayChange(date)
-                        if (catBirthdayRef.current) {
-                          catBirthdayRef.current.value = date
-                        }
-                      }}
+                      onChange={handleBirthdayChange}
                     />
                     <input
                       type="hidden"
@@ -348,12 +353,7 @@ export default function CatCalculate() {
                         endYear={new Date().getFullYear() + 2}
                         disableFuture={false}
                         disablePast={true} // 添加這個 prop
-                        onChange={(date) => {
-                          handleInsuranceStartChange(date)
-                          if (insuranceStartDateRef.current) {
-                            insuranceStartDateRef.current.value = date
-                          }
-                        }}
+                        onChange={handleInsuranceStartChange}
                       />
                       <input
                         type="hidden"
@@ -367,16 +367,13 @@ export default function CatCalculate() {
               <div
                 className={`modal-footer ${styles['bg-image']} d-flex justify-content-center border-0 no-outline`}
               >
-                {/* <Link href="/insurance"> */}
                 <button
                   type="submit"
-                  // onClick={handleSubmit}
                   className={styles['own-btn1']}
                   data-bs-dismiss="modal"
                 >
                   開始試算
                 </button>
-                {/* </Link> */}
               </div>
             </form>
           </div>
