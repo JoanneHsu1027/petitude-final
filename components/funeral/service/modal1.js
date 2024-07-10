@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Modal } from 'react-bootstrap'
-import RecommendationModal from './RecommendationModal'
+import RecommendationModal from '@/components/funeral/service/recommendationModal'
 
 export default function Modal1({ show, handleClose }) {
   const [selection, setSelection] = useState({
@@ -23,6 +23,15 @@ export default function Modal1({ show, handleClose }) {
 
   const [showRecommendationModal, setShowRecommendationModal] = useState(false)
 
+  // 載入時從 localStorage 中讀取選項值
+  useEffect(() => {
+    const savedSelection = JSON.parse(localStorage.getItem('selection'))
+    if (savedSelection) {
+      setSelection(savedSelection)
+    }
+  }, [])
+
+  // 點擊選項更新 selection 狀態值
   const handleRadioChange = (e) => {
     const { name, value } = e.target
     setSelection((prevState) => ({
@@ -33,6 +42,14 @@ export default function Modal1({ show, handleClose }) {
       ...prevState,
       [name]: false,
     }))
+    // 將更新後的 selection 存入 localStorage
+    localStorage.setItem(
+      'selection',
+      JSON.stringify({
+        ...selection,
+        [name]: value,
+      }),
+    )
   }
 
   const validateSelection = () => {
@@ -130,6 +147,7 @@ export default function Modal1({ show, handleClose }) {
         none: { text: '無須其他服務' },
       },
     }
+
     // 會依照選擇的寵物種類及布置方案做推薦
     const recommendationText =
       recommendationMap[pet]?.[setup]?.text ||
@@ -138,6 +156,7 @@ export default function Modal1({ show, handleClose }) {
       recommendationMap[pet]?.[kg]?.text ||
       recommendationMap[pet]?.[other]?.text ||
       'defaultRecommendation'
+
     const recommendationDetails =
       recommendationMap[pet]?.[setup]?.details ||
       recommendationMap[pet]?.[ashes]?.details ||
@@ -162,12 +181,16 @@ export default function Modal1({ show, handleClose }) {
       recommendationMap[pet]?.[other]?.image ||
       '/path/to/defaultImage.jpg'
 
-    return {
+    const recommendation = {
       text: recommendationText,
       image: recommendationImage,
       details: recommendationDetails,
       price: recommendationPrice,
     }
+    // 把更新後的的 selection資料 存入 localStorage
+    localStorage.setItem('selection', JSON.stringify(selection))
+
+    return recommendation
   }
 
   return (

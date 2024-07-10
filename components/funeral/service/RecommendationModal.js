@@ -1,6 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal } from 'react-bootstrap'
 import Router, { useRouter } from 'next/router'
+
+// 假設的從資料庫中獲取推薦方案的函式
+const fetchRecommendationFromDatabase = () => {
+  // 假設這裡實際上是從資料庫中取得推薦方案的邏輯
+  return {
+    text: '從資料庫中取得的推薦方案文字',
+    image: '/path/to/database/image.jpg',
+    details: '從資料庫中取得的推薦方案詳細內容',
+    price: '從資料庫中取得的推薦方案價格',
+  }
+}
 
 export default function RecommendationModal({
   show,
@@ -8,8 +19,18 @@ export default function RecommendationModal({
   recommendation,
 }) {
   const router = useRouter()
-  // 解構 recommendation 物件，取出 text / image / details
-  const { text, image, details, price } = recommendation
+  const [recommendationData, setRecommendationData] = useState(null)
+
+  // 使用 useEffect 在模態框顯示時調用從資料庫中獲取推薦方案的函式
+  useEffect(() => {
+    if (show) {
+      const data = fetchRecommendationFromDatabase()
+      setRecommendationData(data)
+    }
+  }, [show])
+
+  // 解構 recommendationData 物件，取出 text / image / details
+  const { text, image, details, price } = recommendationData || {}
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
