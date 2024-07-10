@@ -1,17 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '@/components/layout/layout'
 import styles from './pi-index.module.css'
 import CatCalculate from '@/components/insurance/cat-calculate'
 import DogCalculate from '@/components/insurance/dog-calculate'
 import TrialCalculation from '@/components/insurance/trial-calculation'
-import { useRouter } from 'next/router'
+import PetSick from '@/components/insurance/pet-sick'
 
 export default function PetInsurance() {
   // 確認是否有收到試算的表單資料
   const [catDataReceived, setCatDataReceived] = useState(false)
   const [dogDataReceived, setDogDataReceived] = useState(false)
-  // const TrialCalculationRef = useRef(null)
-  const router = useRouter()
 
   useEffect(() => {
     const checkStorage = () => {
@@ -20,13 +18,6 @@ export default function PetInsurance() {
 
       setCatDataReceived(catData === 'true')
       setDogDataReceived(dogData === 'true')
-
-      // // 如果有數據，滾動到 TrialCalculation
-      // if (catData === 'true' || dogData === 'true') {
-      //   setTimeout(() => {
-      //     TrialCalculationRef.current?.scrollIntoView({ behavior: 'smooth' })
-      //   }, 100) // 給予一些時間讓組件渲染
-      // }
     }
     // 初始檢查
     checkStorage()
@@ -231,7 +222,8 @@ export default function PetInsurance() {
         {/* section 1 end */}
 
         {/* section 2 常見醫療花費 start */}
-        <div className="container-fluid" style={{ padding: 0 }}>
+        <PetSick />
+        {/* <div className="container-fluid" style={{ padding: 0 }}>
           <div className="row">
             <div className="col-12" style={{ height: '7.5rem' }}>
               <img
@@ -341,7 +333,7 @@ export default function PetInsurance() {
               alt=""
             />
           </div>
-        </div>
+        </div> */}
         {/* section 2 end */}
 
         {/* section 3 優點介紹 start */}

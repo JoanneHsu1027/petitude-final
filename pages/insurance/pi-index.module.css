@@ -156,10 +156,7 @@
   color: #94BF5C;
 }
 
-.stats-container {
-  background-color: #CFE7B1;
-  border-radius: 1.25rem;
-}
+
 
 /* 轉檔後沒用到?
 .sick-icon {
@@ -199,11 +196,6 @@
 }
 
 /* 顧客回饋 end */
-
-/* 試算彈跳窗 */
-.modal-header {
-  border-bottom: none; /* 取消底部邊框 */
-}
 
 
 

@@ -132,6 +132,37 @@
   
 }
 
+.own-btn4:hover {
+  border-radius: 1.25rem;
+  background-color: #F69A30;
+  border: 1px solid #F69A30;
+  color: white;
+  font-size: 1rem;
+  font-weight: 900;
+  white-space: nowrap;
+  width: 9.375rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  margin: 5px; 
+  cursor: pointer;
+  box-shadow: 0 .125rem 1rem  #F69A30;
+}
+
+/* section 2 的pet-sick */
+.stats-container {
+  background-color: #CFE7B1;
+  border-radius: 1.25rem;
+}
+
+
+
+
+
+
 /* radio btn樣式 */
 .form-check-input {
   width: 25px;
