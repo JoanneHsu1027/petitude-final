@@ -13,7 +13,7 @@ export default function BookingList() {
       <div className="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-stretch mb-5">
         <div className="row">
           {/* leftCard */}
-          <div className="col-md-8 justify-content-center align-items-center">
+          <div className="col-md-7 justify-content-center align-items-center">
             {/* <!-- 付款方式 --> */}
             <div
               className="card my-3"
@@ -284,7 +284,7 @@ export default function BookingList() {
           </div>
           {/* leftCard */}
           {/* rightCard */}
-          <div className="col-md-4 justify-content-center align-items-center">
+          <div className="col-md-5 justify-content-center align-items-center">
             <div
               className="card my-3"
               style={{ maxWidth: '100%', height: 'auto', marginTop: '0.3rem' }}
@@ -294,12 +294,11 @@ export default function BookingList() {
                 <div className="col d-flex justify-content-between align-items-center">
                   <img
                     src="/funeral/Frame 685.png"
-                    width={150}
-                    height={150}
                     alt=""
+                    style={{ width: '11rem', height: '8rem' }}
                   />
                   <h5 className="card-title text-center">
-                    尊榮寵物 - 個別羽化
+                    尊榮寵物 (個別羽化)
                   </h5>
                 </div>
                 <div className="col d-flex align-items-center">
@@ -376,14 +375,14 @@ export default function BookingList() {
 
           .card-header,
           .card-title {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
           }
 
           .form-check-label,
           .form-label,
           .form-control,
           .form-select {
-            font-size: 0.6rem;
+            font-size: 1rem;
           }
         `}</style>
       </div>

@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useRouter } from 'next/router'
 
 export default function ModalComponent() {
   const router = useRouter()
+
+  useEffect(() => {
+    const handleModalHidden = () => {
+      router.push('/home')
+    }
+
+    const modalElement = document.getElementById('exampleModalToggle2')
+    modalElement.addEventListener('hidden.bs.modal', handleModalHidden)
+
+    return () => {
+      modalElement.removeEventListener('hidden.bs.modal', handleModalHidden)
+    }
+  }, [router])
+  // 關閉modal在跳轉頁面到首頁
+  const handleCloseModalAndNavigate = () => {
+    const modalElement = document.getElementById('exampleModalToggle2')
+    if (modalElement) {
+      const modalBackdrop = document.querySelector('.modal-backdrop')
+      if (modalBackdrop) {
+        modalBackdrop.parentNode.removeChild(modalBackdrop)
+      }
+      modalElement.classList.remove('show')
+      modalElement.style.display = 'none'
+      modalElement.setAttribute('aria-hidden', 'true')
+      modalElement.removeAttribute('aria-modal')
+      modalElement.removeAttribute('role')
+      router.push('/home')
+    }
+  }
 
   return (
     <>
@@ -17,7 +46,7 @@ export default function ModalComponent() {
       >
         {/* <ProgressBar /> */}
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
+          <div className="modal-content d-flex">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalToggleLabel2">
                 謝謝您的購買!
@@ -29,26 +58,22 @@ export default function ModalComponent() {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">
+            <div className="modal-body justify-content-center">
               <img
                 src="/funeral/thanks.png"
-                width={300}
-                height={200}
                 alt=""
                 style={{
                   borderRadius: '15px',
                   backgroundColor: 'orange',
+                  width: '29rem',
+                  height: '16rem',
                 }}
               />
             </div>
             <div className="modal-footer">
               <button
                 className="btn btn-warning"
-                onClick={() => {
-                  if (confirm('確定嗎?')) {
-                    router.push('/funeral/funeral/masonry')
-                  }
-                }}
+                onClick={handleCloseModalAndNavigate}
                 style={{ width: '120px', marginTop: '20px' }}
               >
                 回首頁

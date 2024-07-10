@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Button } from 'react-bootstrap'
-
+import { Modal } from 'react-bootstrap'
 import RecommendationModal from './RecommendationModal'
 
 export default function Modal1({ show, handleClose }) {
@@ -90,12 +89,14 @@ export default function Modal1({ show, handleClose }) {
           image: '/funeral/Vector 20.png',
           details:
             '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事，編入時間的長河。',
+          price: 'NTD 7000',
         },
         honor: {
           text: '尊榮布置',
           image: '/funeral/index_n5.png',
           details:
             '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事，編入時間的長河。',
+          price: 'NTD 9000',
         },
         underFiveKg: { text: '五公斤以下' },
         underTenKg: { text: '十公斤以下' },
@@ -113,12 +114,14 @@ export default function Modal1({ show, handleClose }) {
           image: '/funeral/Vector 20.png',
           details:
             '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事，編入時間的長河。',
+          price: 'NTD 7000',
         },
         honor: {
           text: '尊榮布置',
           image: '/funeral/index_n5.png',
           details:
             '生命雖短，愛卻無疆。我們為愛寵設計的告別儀式，不僅是對生命的尊重，更是對每份愛的證明。無論何時決定，免費冰存都將為您騰出思考的空間。在這份旅程終點，讓我們攜手將愛寵的故事，編入時間的長河。',
+          price: 'NTD 9000',
         },
         underFiveKg: { text: '五公斤以下' },
         underTenKg: { text: '十公斤以下' },
@@ -143,6 +146,14 @@ export default function Modal1({ show, handleClose }) {
       recommendationMap[pet]?.[other]?.details ||
       'defaultDetails'
 
+    const recommendationPrice =
+      recommendationMap[pet]?.[setup]?.price ||
+      recommendationMap[pet]?.[ashes]?.price ||
+      recommendationMap[pet]?.[service]?.price ||
+      recommendationMap[pet]?.[kg]?.price ||
+      recommendationMap[pet]?.[other]?.price ||
+      'defaultPrice'
+
     const recommendationImage =
       recommendationMap[pet]?.[setup]?.image ||
       recommendationMap[pet]?.[ashes]?.image ||
@@ -155,6 +166,7 @@ export default function Modal1({ show, handleClose }) {
       text: recommendationText,
       image: recommendationImage,
       details: recommendationDetails,
+      price: recommendationPrice,
     }
   }
 
@@ -173,7 +185,7 @@ export default function Modal1({ show, handleClose }) {
               >
                 <div className="form-check">
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="pet"
                     id="cat"
@@ -181,14 +193,13 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="cat">
+                  <label className="form-check-label own-btn4" htmlFor="cat">
                     <div className="image-container">
                       <img
                         src="/funeral/cat-btn.png"
                         alt=""
                         className="pet-image"
-                        width={280}
-                        height={100}
+                        style={{ width: '100%' }}
                       />
                     </div>
                   </label>
@@ -201,7 +212,7 @@ export default function Modal1({ show, handleClose }) {
                 </div>
                 <div className="form-check">
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="pet"
                     id="dog"
@@ -209,14 +220,13 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="dog">
+                  <label className="form-check-label own-btn4" htmlFor="dog">
                     <div className="image-container">
                       <img
                         src="/funeral/dog-btn.png"
                         alt=""
                         className="pet-image"
-                        width={280}
-                        height={100}
+                        style={{ width: '100%' }}
                       />
                     </div>
                   </label>
@@ -229,11 +239,11 @@ export default function Modal1({ show, handleClose }) {
               </div>
             </div>
             <div className="col-12 d-flex justify-content-center">
-              <div className="optionGroup me-3" id="optionGroup2">
-                <div className="form-check">
+              <div className="optionGroup m-2" id="optionGroup2">
+                <div className="form-check text-center">
                   <h5>寶貝重量</h5>
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="kg"
                     id="underFiveKg"
@@ -241,7 +251,10 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="underFiveKg">
+                  <label
+                    className="form-check-label own-btn3"
+                    htmlFor="underFiveKg"
+                  >
                     5公斤以下
                   </label>
                   {errors.kg && (
@@ -250,9 +263,9 @@ export default function Modal1({ show, handleClose }) {
                     </span>
                   )}
                 </div>
-                <div className="form-check">
+                <div className="form-check text-center">
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="kg"
                     id="underTenKg"
@@ -260,7 +273,10 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="underTenKg">
+                  <label
+                    className="form-check-label own-btn3"
+                    htmlFor="underTenKg"
+                  >
                     10公斤以下
                   </label>
                   {errors.kg && (
@@ -269,9 +285,9 @@ export default function Modal1({ show, handleClose }) {
                     </span>
                   )}
                 </div>
-                <div className="form-check">
+                <div className="form-check text-center">
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="kg"
                     id="underTwentyKg"
@@ -279,7 +295,10 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="underTwentyKg">
+                  <label
+                    className="form-check-label own-btn3"
+                    htmlFor="underTwentyKg"
+                  >
                     20公斤以下
                   </label>
                   {errors.kg && (
@@ -289,11 +308,11 @@ export default function Modal1({ show, handleClose }) {
                   )}
                 </div>
               </div>
-              <div className="optionGroup me-2" id="optionGroup3">
-                <div className="form-check">
+              <div className="optionGroup m-2" id="optionGroup3">
+                <div className="form-check text-center">
                   <h5>骨灰安置</h5>
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="ashes"
                     id="bringBack"
@@ -301,7 +320,10 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="bringBack">
+                  <label
+                    className="form-check-label own-btn3"
+                    htmlFor="bringBack"
+                  >
                     家長帶回
                   </label>
                   {errors.ashes && (
@@ -310,9 +332,9 @@ export default function Modal1({ show, handleClose }) {
                     </span>
                   )}
                 </div>
-                <div className="form-check">
+                <div className="form-check text-center">
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="ashes"
                     id="flowerBurial"
@@ -320,7 +342,10 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="flowerBurial">
+                  <label
+                    className="form-check-label own-btn3"
+                    htmlFor="flowerBurial"
+                  >
                     園區花葬
                   </label>
                   {errors.ashes && (
@@ -330,11 +355,11 @@ export default function Modal1({ show, handleClose }) {
                   )}
                 </div>
               </div>
-              <div className="optionGroup me-2" id="optionGroup4">
-                <div className="form-check">
+              <div className="optionGroup m-2" id="optionGroup4">
+                <div className="form-check text-center">
                   <h5>接體服務</h5>
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="service"
                     id="pd"
@@ -342,7 +367,7 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="pd">
+                  <label className="form-check-label own-btn3" htmlFor="pd">
                     家長親送
                   </label>
                   {errors.service && (
@@ -353,7 +378,7 @@ export default function Modal1({ show, handleClose }) {
                 </div>
                 <div className="form-check">
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="service"
                     id="ps"
@@ -361,7 +386,7 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="ps">
+                  <label className="form-check-label own-btn3" htmlFor="ps">
                     專人接體
                   </label>
                   {errors.service && (
@@ -371,11 +396,11 @@ export default function Modal1({ show, handleClose }) {
                   )}
                 </div>
               </div>
-              <div className="optionGroup me-2" id="optionGroup5">
-                <div className="form-check">
+              <div className="optionGroup m-2" id="optionGroup5">
+                <div className="form-check text-center">
                   <h5>告別式布置</h5>
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="setup"
                     id="Warm"
@@ -383,7 +408,7 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="Warm">
+                  <label className="form-check-label own-btn3" htmlFor="Warm">
                     溫馨布置
                   </label>
                   {errors.setup && (
@@ -392,9 +417,9 @@ export default function Modal1({ show, handleClose }) {
                     </span>
                   )}
                 </div>
-                <div className="form-check">
+                <div className="form-check text-center">
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="setup"
                     id="honor"
@@ -402,7 +427,7 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="honor">
+                  <label className="form-check-label own-btn3" htmlFor="honor">
                     尊榮布置
                   </label>
                   {errors.setup && (
@@ -412,11 +437,11 @@ export default function Modal1({ show, handleClose }) {
                   )}
                 </div>
               </div>
-              <div className="optionGroup me-2" id="optionGroup6">
-                <div className="form-check">
+              <div className="optionGroup m-2" id="optionGroup6">
+                <div className="form-check text-center">
                   <h5>其他服務</h5>
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="other"
                     id="spa"
@@ -424,7 +449,7 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="spa">
+                  <label className="form-check-label own-btn3" htmlFor="spa">
                     禮體SPA美容
                   </label>
                   {errors.other && (
@@ -433,9 +458,9 @@ export default function Modal1({ show, handleClose }) {
                     </span>
                   )}
                 </div>
-                <div className="form-check">
+                <div className="form-check text-center">
                   <input
-                    className="form-check-input"
+                    className="form-check-input btn-check"
                     type="radio"
                     name="other"
                     id="none"
@@ -443,7 +468,7 @@ export default function Modal1({ show, handleClose }) {
                     onChange={handleRadioChange}
                     required
                   />
-                  <label className="form-check-label" htmlFor="none">
+                  <label className="form-check-label own-btn3" htmlFor="none">
                     無須其他服務
                   </label>
                   {errors.other && (
@@ -458,9 +483,9 @@ export default function Modal1({ show, handleClose }) {
         </div>
       </Modal.Body>
       <Modal.Footer style={{ backgroundColor: '#FFF5CF' }}>
-        <Button variant="warning" onClick={validateSelection}>
-          送出
-        </Button>
+        <button className="btn btn-warning" onClick={validateSelection}>
+          確定
+        </button>
       </Modal.Footer>
       {/* 當所有選項都已選擇, 則呼叫getRecommendation(selection) 來獲得推薦方案 */}
       <RecommendationModal
@@ -471,6 +496,83 @@ export default function Modal1({ show, handleClose }) {
         recommendation={getRecommendation(selection)}
         // recommendation 屬性是由 getRecommendation(selection) 函數return，而selection 也包含所有選項的狀態值
       />
+      <style jsx>{`
+        .form-check-input {
+          display: none;
+        }
+        .form-check {
+          padding: 0;
+          margin-bottom: 12px;
+        }
+        .own-btn3 {
+          border-radius: 1.25rem;
+          background-color: white;
+          border: 1px solid #f69a30;
+          color: #515151;
+          font-size: 1rem;
+          font-weight: 900;
+          white-space: nowrap;
+          width: 7rem;
+          height: 3rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          padding: 0;
+          margin: 5px;
+          cursor: pointer;
+        }
+        .own-btn3:hover {
+          background-color: #f0f0f0;
+        }
+        .btn-check {
+          display: none;
+        }
+        .btn-check:checked + .own-btn3 {
+          background-color: #f69a30;
+          color: white;
+          border-color: #f69a30;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .own-btn4 {
+          border-radius: 1.25rem;
+          background-color: #cfe7b1;
+          color: #515151;
+          width: 20rem;
+          height: 7rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          padding: 0;
+          margin: 5px;
+          cursor: pointer;
+        }
+        .btn-check {
+          display: none;
+        }
+        .btn-check:checked + .own-btn4 {
+          background-color: #cfe7b1;
+          color: white;
+          border-color: #f69a30;
+          border: 3px solid #f69a30;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @media screen and (max-width: 1005px) {
+          .own-btn3 {
+            width: 90%;
+            height: 2.5rem;
+            font-size: 0.8rem;
+          }
+          .own-btn4 {
+            // 調整寬度和高度等樣式
+            width: 90%;
+            height: 5rem;
+          }
+        }
+      `}</style>
     </Modal>
   )
 }
