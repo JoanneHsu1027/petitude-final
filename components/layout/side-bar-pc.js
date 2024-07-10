@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '../../styles/platforum/platforum-style.module.css'
 import { BsFillTriangleFill } from 'react-icons/bs'
 import { BsSearch } from 'react-icons/bs'
+import Link from 'next/link'
 
 export default function SideBarPc() {
   return (
@@ -25,39 +26,42 @@ export default function SideBarPc() {
                 <BsSearch />
               </button>
             </form>
-            <a
+            <Link
               href="../../platforum/class-list"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} btn btn-outline-dark mb-2`}
             >
               主題分類
-            </a>
-            <a
+            </Link>
+            <Link
               href=""
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} btn btn-outline-dark mb-2`}
             >
               熱門討論
-            </a>
-            <a
+            </Link>
+            <Link
               href="../../platforum/article-list"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} btn btn-outline-dark mb-2`}
             >
               最新文章
-            </a>
-            <a
+            </Link>
+            <Link
               href=""
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} btn btn-outline-dark mb-2`}
             >
               文章收藏
-            </a>
+            </Link>
           </div>
           <div className="d-flex justify-content-center mt-3">
-            <a className={`${styles.AReset} ${styles.GoTopBtn} mb-2`} href="#">
+            <Link
+              className={`${styles.AReset} ${styles.GoTopBtn} mb-2`}
+              href="#"
+            >
               Go Top <BsFillTriangleFill />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
