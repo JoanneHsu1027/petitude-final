@@ -11,6 +11,23 @@
     cursor: pointer;
 }
 
+.TitleOverHide{
+    white-space:nowrap; 
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+
+.ContentOverHide{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;   
+    -webkit-line-clamp: 2;
+    height: 42px;
+    line-height: 20px;
+}
+
 .BtnReset{
     border:0;
     background-color:white;
@@ -36,6 +53,11 @@
 .W10 {
     width: 245px;
 }
+
+.W60 {
+    width: 60%;
+}
+
 
 .W80 {
     width: 80%;

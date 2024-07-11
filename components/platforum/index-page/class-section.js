@@ -86,7 +86,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p01')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         我的狗狗不見了，有人見過嗎？
                       </p>
                     </a>
@@ -97,7 +99,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p02')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         貓咪走失，懇請大家幫忙找尋
                       </p>
                     </a>
@@ -108,7 +112,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p03')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         小兔子不見了，急尋！
                       </p>
                     </a>
@@ -119,7 +125,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p04')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         小鳥飛走了，懇請幫忙找尋
                       </p>
                     </a>
@@ -130,7 +138,11 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p05')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>三花虎斑貓走失</p>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
+                        三花虎斑貓走失
+                      </p>
                     </a>
                   </div>
                 </div>
@@ -158,7 +170,11 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab2', 'p01')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>飼養貓咪的那些事</p>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
+                        飼養貓咪的那些事
+                      </p>
                     </a>
                   </div>
                   <div className={`hover-change border-bottom ${styles.W80}`}>
@@ -167,7 +183,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab2', 'p02')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         飼養狗狗的快樂與挑戰
                       </p>
                     </a>
@@ -178,7 +196,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab2', 'p03')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         初次飼養兔子的經驗分享
                       </p>
                     </a>
@@ -189,7 +209,11 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab2', 'p04')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>養倉鼠的甜蜜時光</p>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
+                        養倉鼠的甜蜜時光
+                      </p>
                     </a>
                   </div>
                   <div className={`hover-change border-bottom ${styles.W80}`}>
@@ -198,7 +222,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab2', 'p05')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         分辨優良貓舍的初步鋩角
                       </p>
                     </a>
@@ -228,7 +254,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab3', 'p01')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         你的寵物有什麼有趣的行為？
                       </p>
                     </a>
@@ -239,7 +267,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab3', 'p02')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         如何選擇合適的飼料？
                       </p>
                     </a>
@@ -250,7 +280,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab3', 'p03')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         你家的寵物會做什麼特技？
                       </p>
                     </a>
@@ -261,7 +293,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab3', 'p04')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         你們會帶寵物出國旅行嗎？
                       </p>
                     </a>
@@ -272,7 +306,9 @@ export default function ClassSection() {
                       href="#"
                       onMouseOver={(e) => handleMouseOver(e, 'tab3', 'p05')}
                     >
-                      <p className={`ps-4 ${styles.Hover}`}>
+                      <p
+                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
+                      >
                         飼養寵物的最佳居住環境？
                       </p>
                     </a>

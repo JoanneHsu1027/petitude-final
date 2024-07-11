@@ -29,7 +29,11 @@ export default function ClassList() {
                           className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
                           data-img="p01"
                         >
-                          <h3 className="flex-grow-1">寵物遺失</h3>
+                          <h3
+                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
+                          >
+                            寵物遺失
+                          </h3>
                           <p
                             className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
                           >
@@ -43,7 +47,11 @@ export default function ClassList() {
                           href="#"
                           data-img="p01"
                         >
-                          <h3 className="flex-grow-1">飼養心得</h3>
+                          <h3
+                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
+                          >
+                            飼養心得
+                          </h3>
                           <p
                             className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
                           >
@@ -57,7 +65,11 @@ export default function ClassList() {
                           href="#"
                           data-img="p01"
                         >
-                          <h3 className="flex-grow-1">聊天討論</h3>
+                          <h3
+                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
+                          >
+                            聊天討論
+                          </h3>
                           <p
                             className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
                           >
@@ -71,7 +83,11 @@ export default function ClassList() {
                           href="#"
                           data-img="p01"
                         >
-                          <h3 className="flex-grow-1">寵物健康醫療</h3>
+                          <h3
+                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
+                          >
+                            寵物健康醫療
+                          </h3>
                           <p
                             className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
                           >
@@ -85,7 +101,11 @@ export default function ClassList() {
                           href="#"
                           data-img="p01"
                         >
-                          <h3 className="flex-grow-1">寵物營養</h3>
+                          <h3
+                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
+                          >
+                            寵物營養
+                          </h3>
                           <p
                             className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
                           >
@@ -99,7 +119,11 @@ export default function ClassList() {
                           href="#"
                           data-img="p01"
                         >
-                          <h3 className="flex-grow-1">寵物訓練</h3>
+                          <h3
+                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
+                          >
+                            寵物訓練
+                          </h3>
                           <p
                             className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
                           >
@@ -113,7 +137,11 @@ export default function ClassList() {
                           href="#"
                           data-img="p01"
                         >
-                          <h3 className="flex-grow-1">寵物相關新聞</h3>
+                          <h3
+                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
+                          >
+                            寵物相關新聞
+                          </h3>
                           <p
                             className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
                           >

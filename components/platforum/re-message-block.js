@@ -4,7 +4,7 @@ import styles from '../../styles/platforum/platforum-style.module.css'
 export default function ReMessageBlock() {
   return (
     <>
-      <div className="d-flex border-bottom my-4 mx-1">
+      <div className="d-flex border-bottom mt-4 mb-2 mx-1">
         <div className="mx-2">
           <img src="/forum-pic/avatar.png" alt="" />
         </div>

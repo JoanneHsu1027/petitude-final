@@ -20,7 +20,7 @@ export default function ArticlePage() {
               <div className="col-xl-9 col-lg-12">
                 {/* article-page 這裡開始 */}
                 <div
-                  className={`container card my-3 ${styles.Rounded5} border-0 h-100`}
+                  className={`container card my-1 ${styles.Rounded5} border-0 h-100 px-2`}
                 >
                   <div className="row">
                     <div className="col-lg-12 col-md-12 d-flex flex-column justify-content-center mt-4">
@@ -147,13 +147,15 @@ export default function ArticlePage() {
                         </section>
                         {/* message-content 這裡結束 */}
                         {/* re-message-block 這裡開始 */}
-                        <div className="position-sticky bottom-0">
-                          <input
-                            style={{ height: '45px' }}
-                            className={`card w-100 border-3 ${styles.BorderBlue} ${styles.SetPlaceholder}`}
-                            type="text"
-                            placeholder="回覆......"
-                          />
+                        <div className="position-sticky bottom-0 ">
+                          <div className="p-3">
+                            <input
+                              style={{ height: '45px' }}
+                              className={`card w-100 border-3 ${styles.BorderBlue} ${styles.SetPlaceholder}`}
+                              type="text"
+                              placeholder="回覆......"
+                            />
+                          </div>
                         </div>
                         {/* re-message-block 這裡結束 */}
                       </div>
