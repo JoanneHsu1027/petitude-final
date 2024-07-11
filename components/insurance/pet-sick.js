@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from '@/components/insurance/insurance.module.css'
 
 export default function PetSick() {
@@ -6,21 +6,33 @@ export default function PetSick() {
     {
       accidentType: '腸胃炎',
       accidentExpense: '$2,500',
+      icon: '/pi-pic/dog-stoma3.png',
     },
     {
       accidentType: '心臟病',
       accidentExpense: '$4500',
+      icon: '/pi-pic/dog-heart.png',
     },
     {
       accidentType: '膿皮症',
       accidentExpense: '$3,000',
+      icon: '/pi-pic/dog-skin.png',
     },
     {
       accidentType: '椎間盤突出',
       accidentExpense: '$11,000',
+      icon: '/pi-pic/dog-accident.png',
     },
   ]
 
+  const [selectedAccident, setSelectedAccident] = useState(accidentTypes[0])
+
+  const [iconClicked, setIconClicked] = useState(null)
+
+  const handleIconClick = (index) => {
+    setSelectedAccident(accidentTypes[index])
+    setIconClicked(index)
+  }
   return (
     <>
       <div className="container-fluid" style={{ padding: 0 }}>
@@ -52,10 +64,12 @@ export default function PetSick() {
               className={`${styles['stats-container']} text-center`}
               style={{ padding: '1.25rem 3.125rem', width: '100%}' }}
             >
-              <h5>膿皮症</h5>
+              <h4 style={{ fontWeight: '700' }}>
+                {selectedAccident.accidentType}
+              </h4>
               <h5>平均每次治療金額</h5>
               <h4 className={styles['own-orange']} style={{ margin: 0 }}>
-                $3,000
+                {selectedAccident.accidentExpense}
               </h4>
             </div>
             <div>
@@ -67,43 +81,34 @@ export default function PetSick() {
               />
             </div>
           </div>
-          <div className="col-lg-2  d-flex align-items-center pt-5">
+          <div className="col-lg-2 d-flex align-items-center pt-5">
             <ul className="list-unstyled" style={{ width: '100%' }}>
-              <li className="d-flex justify-content-end mb-2">
-                <div
-                  className="rounded-circle"
-                  style={{ padding: 20, backgroundColor: '#FFF5CF' }}
+              {accidentTypes.map((accident, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleIconClick(index)}
+                  className={`d-flex ${
+                    index === 0 || index === 3
+                      ? 'justify-content-end'
+                      : 'justify-content-start'
+                  }`}
+                  style={
+                    index === 1
+                      ? { marginBottom: '3.125rem' }
+                      : { marginBottom: '0.5rem' }
+                  }
                 >
-                  <img loading="lazy" src="/pi-pic/dog-stoma2.png" alt="" />
-                </div>
-              </li>
-              <li
-                className="d-flex justify-content-start"
-                style={{ marginBottom: 50 }}
-              >
-                <div
-                  className="rounded-circle"
-                  style={{ padding: 20, backgroundColor: '#FFF5CF' }}
-                >
-                  <img loading="lazy" src="/pi-pic/dog-heart.png" alt="" />
-                </div>
-              </li>
-              <li className="d-flex justify-content-start mb-2">
-                <div
-                  className="rounded-circle"
-                  style={{ padding: 20, backgroundColor: '#FFF5CF' }}
-                >
-                  <img loading="lazy" src="/pi-pic/dog-skin.png" alt="" />
-                </div>
-              </li>
-              <li className="d-flex justify-content-end mb-2">
-                <div
-                  className="rounded-circle"
-                  style={{ padding: 20, backgroundColor: '#FFF5CF' }}
-                >
-                  <img loading="lazy" src="/pi-pic/dog-accident.png" alt="" />
-                </div>
-              </li>
+                  <div
+                    className={`rounded-circle ${styles.circleColorChange} ${iconClicked === index ? styles.clicked : ''}`}
+                  >
+                    <img
+                      loading="lazy"
+                      src={accident.icon}
+                      alt={accident.accidentType}
+                    />
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="col-lg-5">

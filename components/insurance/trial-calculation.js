@@ -1,9 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '@/components/insurance/insurance.module.css'
 import Link from 'next/link'
 
 export default function TrialCalculation() {
+  // 確認是否有收到試算的表單資料
+  const [catDataReceived, setCatDataReceived] = useState(true)
+  const [dogDataReceived, setDogDataReceived] = useState(true)
+
+  // 設定進入付款流程時, 主畫面隱藏式算結果
+  useEffect(() => {
+    const checkStorage = () => {
+      const catData = localStorage.getItem('catDataReceived')
+      const dogData = localStorage.getItem('dogDataReceived')
+
+      setCatDataReceived(catData === 'false')
+      setDogDataReceived(dogData === 'false')
+    }
+    // 初始檢查
+    checkStorage()
+    // 添加事件監聽器以檢測 localStorage 的變化
+    window.addEventListener('localStorageChange', checkStorage)
+    window.addEventListener('storage', checkStorage) // 保留這個以防其他標籤頁更改 localStorage
+
+    // 清理函數
+    return () => {
+      window.removeEventListener('localStorageChange', checkStorage)
+      window.removeEventListener('storage', checkStorage)
+    }
+  }, [])
+
+  // 清除 localStorage 的函數
+  const clearLocalStorage = () => {
+    localStorage.removeItem('catDataReceived')
+    localStorage.removeItem('dogDataReceived')
+    setCatDataReceived(false)
+    setDogDataReceived(false)
+    localStorage.removeItem('catInsuranceData')
+    localStorage.removeItem('dogInsuranceData')
+  }
+
   return (
     <>
       <div className="container-fluid">
@@ -404,7 +440,12 @@ export default function TrialCalculation() {
                         href="./insurance/insurance-payment01"
                         className="text-decoration-none"
                       >
-                        <button className={styles['own-btn4']}>立即投保</button>
+                        <button
+                          className={styles['own-btn4']}
+                          onClick={clearLocalStorage}
+                        >
+                          立即投保
+                        </button>
                       </Link>
                     </div>
                   </td>
@@ -421,7 +462,12 @@ export default function TrialCalculation() {
                         href="./insurance/insurance-payment01"
                         className="text-decoration-none"
                       >
-                        <button className={styles['own-btn4']}>立即投保</button>
+                        <button
+                          className={styles['own-btn4']}
+                          onClick={clearLocalStorage}
+                        >
+                          立即投保
+                        </button>
                       </Link>
                     </div>
                   </td>
@@ -438,7 +484,12 @@ export default function TrialCalculation() {
                         href="./insurance/insurance-payment01"
                         className="text-decoration-none"
                       >
-                        <button className={styles['own-btn4']}>立即投保</button>
+                        <button
+                          className={styles['own-btn4']}
+                          onClick={clearLocalStorage}
+                        >
+                          立即投保
+                        </button>
                       </Link>
                     </div>
                   </td>

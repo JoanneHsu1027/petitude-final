@@ -127,6 +127,12 @@
   
 }
 
+/* section 1  */
+.stats-container {
+  background-color: #CFE7B1;
+  border-radius: 1.25rem;
+}
+
 /* radio btn樣式 */
 .form-check-input {
   width: 25px;

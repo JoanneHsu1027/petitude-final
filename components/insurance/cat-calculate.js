@@ -133,7 +133,11 @@ export default function CatCalculate() {
     <>
       <div className="col-4 d-flex justify-content-center">
         <button
-          style={{ backgroundColor: 'white' }}
+          style={{
+            backgroundColor: 'white',
+            outline: 'none',
+            boxShadow: 'none',
+          }}
           className=" border-0 no-outline"
           type="button"
           data-bs-toggle="modal"

@@ -158,15 +158,26 @@
   border-radius: 1.25rem;
 }
 
+.circleColorChange{
+  padding: 1.25rem;
+  background-color: #FFF5CF;
+  cursor:pointer
+}
+.circleColorChange:hover{
+  background-color: #F6D554;
+}
 
+.clicked{
+  background-color: #F6D554;
+}
 
 
 
 
 /* radio btn樣式 */
 .form-check-input {
-  width: 25px;
-  height: 25px;
+  width: 1.5625rem;
+  height: 1.5625rem;
 }
 
 /* 資料填選框 */
@@ -262,6 +273,11 @@
     border-radius: 35px;
     padding: 5px 20px;
   }
+
+  .read{
+    background-color: #94BF5C;
+  }
+  
   
   .InfoDetail {
     width: 100%; 
