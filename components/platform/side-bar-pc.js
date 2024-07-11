@@ -43,18 +43,18 @@ export default function SideBarPc() {
               </button>
             </form>
             <Link
+              href="/platform"
+              type="button"
+              className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === '' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
+            >
+              論壇首頁
+            </Link>
+            <Link
               href="/platform/class-list"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'class-list' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
             >
               主題分類
-            </Link>
-            <Link
-              href="/platform/hot-topics"
-              type="button"
-              className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'hot-topics' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
-            >
-              熱門討論
             </Link>
             <Link
               href="/platform/article-list"

@@ -51,19 +51,20 @@ export default function SideBarMobile() {
       >
         <div className={`d-flex text-nowrap overflow-scroll`}>
           <Link
+            href="../../platform"
+            type="button"
+            className={`${styles.AReset} p-3 text-black ${activeLink === '' ? styles.MobilePageSelect : ''}`}
+          >
+            論壇首頁
+          </Link>
+          <Link
             href="../../platform/class-list"
             type="button"
             className={`${styles.AReset} p-3 text-black ${activeLink === 'class-list' ? styles.MobilePageSelect : ''}`}
           >
             主題分類
           </Link>
-          <Link
-            href="../../platform/hot-topics"
-            type="button"
-            className={`${styles.AReset} p-3 text-black ${activeLink === 'hot-topics' ? styles.MobilePageSelect : ''}`}
-          >
-            熱門討論
-          </Link>
+
           <Link
             href="../../platform/article-list"
             type="button"
