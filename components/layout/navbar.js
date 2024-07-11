@@ -24,6 +24,7 @@ export default function Navbar({ pageName = '' }) {
       {/* 電腦版 nav 這裡開始 */}
       <nav
         className={`navbar navbar-expand-lg navbar-light d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block ${styles['bg-image']}`}
+        style={{ backgroundColor: '#FFF5CF' }}
       >
         <div className="container-fluid">
           <div className="collapse navbar-collapse">

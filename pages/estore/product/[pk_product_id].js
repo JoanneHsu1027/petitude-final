@@ -4,8 +4,24 @@ import Layout from '../../../components/layout/layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../../styles/estore/product.module.css'
+import { useRouter } from 'next/router'
+import { product_GET_ITEM } from '@/configs/estore/api-path'
 
 export default function Productid() {
+  const router = useRouter()
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    if (!router.isReady) return
+
+    fetch(`${product_GET_ITEM}/${router.query.pk_product_id}`)
+      .then((r) => r.json())
+      .then((myData) => {
+        console.log(myData.data)
+        setData(myData.data)
+      })
+  }, [router])
+
   // document.querySelectorAll('.thumbnail').forEach((item) => {
   //   item.addEventListener('click', (event) => {
   //     const mainImage = document.getElementById('mainImage')
@@ -13,12 +29,12 @@ export default function Productid() {
   //   })
   // })
 
-  {
-    useEffect, useState
-  }
   return (
     <Layout>
-      <main className={`flex-shrink-0 mt-5 pt-5 ${styles.full}`}>
+      <main
+        className={`flex-shrink-0 mt-5 pt-5 ${styles.full}`}
+        key={data.pk_product_id}
+      >
         {/* <!-- 產品區 --> */}
         <div
           className={`container-fluid d-flax justify-content-center ${styles.product}`}
@@ -119,8 +135,12 @@ export default function Productid() {
             <div className="d-none d-md-block col-md-6">
               <div className="row">
                 <div className="row" style={{ marginBottom: 10 + '%' }}>
-                  <div className={`fs-1 ${styles.title}`}>希爾寵物食品</div>
-                  <div className={`fs-1 ${styles.title}`}>成貓 低卡</div>
+                  <div className={`fs-1 ${styles.title}`}>
+                    {data.product_brand}
+                  </div>
+                  <div className={`fs-1 ${styles.title}`}>
+                    {data.product_name}
+                  </div>
                 </div>
                 <div
                   className="row p-0"
@@ -187,27 +207,27 @@ export default function Productid() {
                   className={`fs-4 ${styles.depicition}`}
                   style={({ marginTop: 12 + 'px' }, { marginBottom: 5 + 'px' })}
                 >
-                  $1,990
+                  $ {data.product_price}
                 </div>
                 <div
                   className={`fs-4 ${styles.depicition}`}
                   style={{ margin: 5 + 'px' + ' ' + 0 + 'px' }}
                 >
-                  規格 2kg
+                  規格 {data.product_specification}
                 </div>
                 <hr
                   className={styles.line}
                   style={{ margin: 12 + 'px' + ' ' + 0 + 'px' }}
                 />
                 <div className={`fs-4 ${styles.depicition2}`}>
-                  熱量相較於希爾寵物食品 成貓配方減少20%
+                  {data.description_short}
                 </div>
                 <div
                   className={`row d-flax bd-highlight p-0 ${styles.depicition2}`}
                 >
                   <div className="me-auto fs-4 col-6">特殊需求</div>
                   <div className="bd-highlight fs-4 col-6 text-end">
-                    1-6歲 成貓
+                    {data.special_needs}
                   </div>
                 </div>
                 <div
@@ -215,14 +235,16 @@ export default function Productid() {
                 >
                   <div className="me-auto fs-4 col-6">口味</div>
                   <div className="bd-highlight fs-4 col-6 text-end">
-                    肌肉特調食譜
+                    {data.flavor}
                   </div>
                 </div>
                 <div
                   className={`row d-flax bd-highlight p-0 ${styles.depicition2}`}
                 >
                   <div className="me-auto fs-4 col-6">生命階段</div>
-                  <div className="bd-highlight fs-4 col-6 text-end">Adult</div>
+                  <div className="bd-highlight fs-4 col-6 text-end">
+                    {data.life_stage}
+                  </div>
                 </div>
               </div>
             </div>
@@ -231,8 +253,12 @@ export default function Productid() {
             <div className="d-block d-md-none col-12">
               <div className="row">
                 <div className="row" style={{ marginBottom: 5 + '%' }}>
-                  <div className="fs-5 title text-center">希爾寵物食品</div>
-                  <div className="fs-2 title title text-center">成貓 低卡</div>
+                  <div className="fs-5 title text-center">
+                    {data.product_brand}
+                  </div>
+                  <div className="fs-2 title title text-center">
+                    {data.product_name}
+                  </div>
                 </div>
                 <div
                   className="row p-0 d-flax justify-content-center"
@@ -287,40 +313,44 @@ export default function Productid() {
                   className={`fs-5 text-center ${styles.depicition}`}
                   style={({ marginTop: 12 + 'px' }, { marginBottom: 5 + 'px' })}
                 >
-                  $1,990
+                  $ {data.product_price}
                 </div>
                 <div
                   className={`fs-5 text-center ${styles.depicition}`}
                   style={{ margin: 5 + 'px' + ' ' + 0 + 'px' }}
                 >
-                  規格 2kg
+                  規格 {data.product_specification}
                 </div>
                 <hr style={{ margin: 12 + 'px' + ' ' + 0 + 'px' }} />
                 <div
                   className={`fs-5 ${styles.depicition}`}
                   style={({ marginTop: 5 + 'px' }, { marginBottom: 10 + 'px' })}
                 >
-                  熱量相較於希爾寵物食品 成貓配方減少20%
+                  {data.description_short}
                 </div>
                 <div
                   className={`row d-flax bd-highlight p-0 ${styles.depicition2}`}
                 >
                   <div className="me-auto col-6">特殊需求</div>
-                  <div className="bd-highlight col-6 text-end">1-6歲 成貓</div>
+                  <div className="bd-highlight col-6 text-end">
+                    {data.special_needs}
+                  </div>
                 </div>
                 <div
                   className={`row d-flax bd-highlight p-0 ${styles.depicition2}`}
                 >
                   <div className="me-auto col-6">口味</div>
                   <div className="bd-highlight col-6 text-end">
-                    肌肉特調食譜
+                    {data.flavor}
                   </div>
                 </div>
                 <div
                   className={`row d-flax bd-highlight p-0 ${styles.depicition2}`}
                 >
                   <div className="me-auto col-6">生命階段</div>
-                  <div className="bd-highlight col-6 text-end">Adult</div>
+                  <div className="bd-highlight col-6 text-end">
+                    {data.life_stage}
+                  </div>
                 </div>
               </div>
             </div>
@@ -361,39 +391,13 @@ export default function Productid() {
                 role="tab"
                 aria-controls="s2"
                 aria-selected="false"
-                style={{ backgroundColor: '#CFE7B1' }}
+                style={{
+                  backgroundColor: '#CFE7B1',
+                  borderRadius:
+                    20 + 'px' + ' ' + 20 + 'px' + ' ' + 0 + 'px' + 0 + 'px',
+                }}
               >
                 &emsp;原料&emsp;
-              </button>
-            </li>
-            <li className="nav-item" role="presentation">
-              <button
-                className={`nav-link nav-btn ${styles.page}`}
-                id="contact-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#s3"
-                type="button"
-                role="tab"
-                aria-controls="s3"
-                aria-selected="false"
-                style={{ backgroundColor: '#CFE7B1' }}
-              >
-                餵食指南
-              </button>
-            </li>
-            <li className="nav-item" role="presentation">
-              <button
-                className={`nav-link nav-btn ${styles.page}`}
-                id="ingredients-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#s4"
-                type="button"
-                role="tab"
-                aria-controls="s4"
-                aria-selected="false"
-                style={{ backgroundColor: '#CFE7B1' }}
-              >
-                主要成分
               </button>
             </li>
           </ul>
@@ -424,28 +428,6 @@ export default function Productid() {
               <div>bbb</div>
             </div>
             {/* 原料 end */}
-
-            {/* 餵食指南 start */}
-            <div
-              className="tab-pane fade"
-              id="s3"
-              role="tabpanel"
-              aria-labelledby="contact-tab"
-            >
-              <div>ccc</div>
-            </div>
-            {/* 餵食指南 end */}
-
-            {/* 主要成分 start */}
-            <div
-              className="tab-pane fade"
-              id="s4"
-              role="tabpanel"
-              aria-labelledby="ingredients-tab"
-            >
-              <div>ddd</div>
-            </div>
-            {/* 主要成分 end */}
           </div>
         </div>
 
