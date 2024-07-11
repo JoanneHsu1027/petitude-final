@@ -133,6 +133,18 @@
   border-radius: 1.25rem;
 }
 
+.s1RWD{
+  width: 90%;
+  height: 90%;
+}
+
+@media (max-width: 992px) {
+.s1RWD{
+  width: 50%;
+  height: 50%;
+}
+}
+
 /* radio btn樣式 */
 .form-check-input {
   width: 25px;

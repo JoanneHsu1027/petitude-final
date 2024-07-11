@@ -51,21 +51,21 @@ export default function PetInsurance() {
           className={`container-fluid d-flex justify-content-center ${styles['bg-image']} pt-5`}
         >
           <div
-            className="row align-items-center"
+            className="row align-items-center d-flex"
             style={{ margin: 0, padding: '0 60px' }}
           >
-            <div
-              className="col-lg-5 d-flex justify-content-center"
-              style={{ padding: '0 6.25rem' }}
-            >
+            <div className="col-lg-5 col-sm-12 d-flex justify-content-center">
               <img
                 loading="lazy"
                 src="/pi-pic/dog-with-cat-v4.png"
                 alt=""
-                style={{ width: '130%', height: '130%' }}
+                className={styles.s1RWD}
               />
             </div>
-            <div className="col-lg-7" style={{ padding: '0 1.5625rem 0 0' }}>
+            <div
+              className="col-lg-7 col-md-12"
+              style={{ padding: '0 1.5625rem 0 0' }}
+            >
               <div className="d-flex">
                 <h2 className={styles['text-color']}>
                   讓每一個寵物家庭，都有專屬的健康
