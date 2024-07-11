@@ -171,8 +171,26 @@
   background-color: #F6D554;
 }
 
+.forDeskTop {
+  display: flex;
+}
 
+@media (max-width: 992px) {
+  .forDeskTop {
+    display: none;
+  }
+}
 
+.forPhone {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .forPhone {
+    display: flex;
+    flex-direction: column;
+  }
+}
 
 /* radio btn樣式 */
 .form-check-input {
@@ -212,6 +230,12 @@
   
   }
   
+  /* 試算內容 */
+  .downScroll {
+    height: 450px;
+    overflow-y: auto
+  }
+
   /* 試算表 */
   .pi-options {
     text-align: center;
@@ -284,7 +308,7 @@
     resize: none; 
     box-sizing: border-box; 
     padding: 10px;
-  }
+  } 
 
   /* .InfoDetail :focus {
     width: 100%; 

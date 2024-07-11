@@ -179,7 +179,7 @@ export default function CatCalculate() {
             </div>
             <form onSubmit={handleSubmit}>
               <div
-                className={`modal-body ${styles['bg-image']}`}
+                className={`modal-body ${styles['bg-image']} ${styles.downScroll}`}
                 style={{ paddingTop: 0 }}
               >
                 <div className="d-flex justify-content-center">

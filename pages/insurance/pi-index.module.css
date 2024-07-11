@@ -142,7 +142,40 @@
 .s1RWD{
   width: 50%;
   height: 50%;
+  margin-bottom: 2rem;
 }
+}
+
+/* section 3 優點介紹 */
+@media (max-width: 922px) {
+  .xl-hide {
+  display: none;
+}
+}
+
+/* 優點介紹文字圖案間距 */
+/* 預設樣式 */
+.img-container {
+  margin-top: -9.375rem;
+}
+
+/* 當畫面寬度小於 1350px 時應用此樣式 */
+@media (max-width: 1350px) {
+  .img-container {
+      margin-top: -130px;
+  }
+}
+/* 當畫面寬度小於 1200px 時應用此樣式 */
+@media (max-width: 1200px) {
+  .img-container {
+      margin-top: -100px;
+  }
+}
+/* 當畫面寬度小於 1200px 時應用此樣式 */
+@media (max-width: 1200px) {
+  .img-container {
+      margin-top: -200px;
+  }
 }
 
 /* radio btn樣式 */
@@ -218,15 +251,3 @@
 
 
 
-/* 優點介紹文字圖案間距 */
-/* 預設樣式 */
-.img-container {
-  margin-top: -7.5rem;
-}
-
-/* 當畫面寬度小於 1735px 時應用此樣式 */
-@media (max-width: 1735px) {
-  .img-container {
-      margin-top: 0;
-  }
-}
