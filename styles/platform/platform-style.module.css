@@ -89,6 +89,12 @@
 }
 
 .BtnHover:hover {
+    background-color:white;
+    color: #f6d554;
+    border: 1px solid #f6d554;
+}
+
+.PageSelect {
     background-color: #f6d554;
     color: white;
     border: 1px solid #f6d554;
@@ -130,7 +136,7 @@
     border-bottom: 3px solid #f6d554;
 }
 
-.MobileSidebar:hover {
+.MobilePageSelect {
     color: #f6d554 !important;
     border-bottom: 3px solid #f6d554;
 }

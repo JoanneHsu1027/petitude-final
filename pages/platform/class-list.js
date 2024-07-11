@@ -1,8 +1,8 @@
 import React from 'react'
 import Layout from '@/components/layout/layout'
 import styles from '../../styles/platform/platform-style.module.css'
-import SideBarPc from '@/components/layout/side-bar-pc'
-import SideBarMobile from '@/components/layout/side-bar-mobile'
+import SideBarPc from '@/components/platform/side-bar-pc'
+import SideBarMobile from '@/components/platform/side-bar-mobile'
 // import Link from 'next/link'
 
 export default function ClassList() {

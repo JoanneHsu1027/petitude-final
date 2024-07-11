@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from '@/components/layout/layout'
 import styles from '../../styles/platform/platform-style.module.css'
-import SideBarPc from '@/components/layout/side-bar-pc'
+import SideBarPc from '@/components/platform/side-bar-pc'
 import { BsChevronLeft } from 'react-icons/bs'
 import { BsFillPencilFill } from 'react-icons/bs'
 import { BsBookmarkFill } from 'react-icons/bs'

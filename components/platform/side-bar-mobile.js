@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useRouter } from 'next/router'
 import styles from '../../styles/platform/platform-style.module.css'
 import { BsSearch } from 'react-icons/bs'
+import Link from 'next/link'
 
 export default function SideBarMobile() {
+  const router = useRouter()
+  const [activeLink, setActiveLink] = React.useState('')
+
+  useEffect(() => {
+    if (router.pathname.includes('class-list')) {
+      setActiveLink('class-list')
+    } else if (router.pathname.includes('article-list')) {
+      setActiveLink('article-list')
+    } else if (router.pathname.includes('hot-topics')) {
+      setActiveLink('hot-topics')
+    } else if (router.pathname.includes('favorites')) {
+      setActiveLink('favorites')
+    }
+  }, [router.pathname])
+
   return (
     <>
       <style jsx>{`
@@ -33,34 +50,34 @@ export default function SideBarMobile() {
         className="border-bottom border-dark bg-white position-sticky top-0 d-xl-none d-xxl-block d-xxl-none mb-3 p-0"
       >
         <div className={`d-flex text-nowrap overflow-scroll`}>
-          <a
+          <Link
             href="../../platform/class-list"
             type="button"
-            className={`${styles.AReset} p-3 ${styles.MobileSidebar} text-black`}
+            className={`${styles.AReset} p-3 text-black ${activeLink === 'class-list' ? styles.MobilePageSelect : ''}`}
           >
             主題分類
-          </a>
-          <a
-            href=""
+          </Link>
+          <Link
+            href="../../platform/hot-topics"
             type="button"
-            className={`${styles.AReset} p-3 ${styles.MobileSidebar} text-black`}
+            className={`${styles.AReset} p-3 text-black ${activeLink === 'hot-topics' ? styles.MobilePageSelect : ''}`}
           >
             熱門討論
-          </a>
-          <a
+          </Link>
+          <Link
             href="../../platform/article-list"
             type="button"
-            className={`${styles.AReset} p-3 ${styles.MobileSidebar} text-black`}
+            className={`${styles.AReset} p-3 text-black ${activeLink === 'article-list' ? styles.MobilePageSelect : ''}`}
           >
             最新文章
-          </a>
-          <a
-            href="./favorite-article.html"
+          </Link>
+          <Link
+            href="../../platform/favorites"
             type="button"
-            className={`${styles.AReset} p-3 ${styles.MobileSidebar} text-black`}
+            className={`${styles.AReset} p-3 text-black ${activeLink === 'favorites' ? styles.MobilePageSelect : ''}`}
           >
             文章收藏
-          </a>
+          </Link>
         </div>
       </div>
     </>
