@@ -94,6 +94,30 @@
     border: 1px solid #f6d554;
 }
 
+.CreatArticle{
+    color: #a0a0a0;
+    border: 1px solid white;
+    padding: 4px;
+}
+
+.CreatArticle:hover {
+    color: #f6d554;
+    border: 1px solid #f6d554;
+    border-radius: 5px;
+    padding: 4px;
+    /* margin: -1px; */
+}
+
+.MobileBtnHover:hover{
+    margin-top: 5px;
+    margin-bottom: -5px;
+    background-color:#f6d554;
+    color: white !important;
+    border-bottom: none;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
 .PageSelect {
     background-color: #f6d554;
     color: white;

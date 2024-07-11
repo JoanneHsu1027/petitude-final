@@ -25,9 +25,11 @@ export default function ArticleList() {
 
                       <a
                         href="./create-article"
-                        className={`${styles.AReset} d-flex text-black-50 flex-row-reverse me-2`}
+                        className={`${styles.AReset} d-flex  flex-row-reverse me-2`}
                       >
-                        <h5 className="me-3 fw-bold">+ 建立文章</h5>
+                        <h5 className={`${styles.CreatArticle} me-3 fw-bold`}>
+                          + 建立文章
+                        </h5>
                       </a>
                       <ArticleBlock></ArticleBlock>
                       <ArticleBlock></ArticleBlock>

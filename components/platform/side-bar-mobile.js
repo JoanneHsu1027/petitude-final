@@ -53,14 +53,14 @@ export default function SideBarMobile() {
           <Link
             href="../../platform"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${activeLink === '' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === '' ? styles.MobilePageSelect : ''}`}
           >
             論壇首頁
           </Link>
           <Link
             href="../../platform/class-list"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${activeLink === 'class-list' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'class-list' ? styles.MobilePageSelect : ''}`}
           >
             主題分類
           </Link>
@@ -68,14 +68,14 @@ export default function SideBarMobile() {
           <Link
             href="../../platform/article-list"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${activeLink === 'article-list' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'article-list' ? styles.MobilePageSelect : ''}`}
           >
             最新文章
           </Link>
           <Link
             href="../../platform/favorites"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${activeLink === 'favorites' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'favorites' ? styles.MobilePageSelect : ''}`}
           >
             文章收藏
           </Link>
