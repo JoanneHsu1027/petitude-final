@@ -1,27 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '@/components/insurance/insurance.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Link from 'next/link'
 import { useAuth } from '@/contexts/member/auth-context'
 import { useRouter } from 'next/router'
 import LoginForm from '@/components/member/LoginForm'
 import Modal from '@/components/member/LoginModal'
+import Link from 'next/link'
 
 export default function Navbar({ pageName = '' }) {
   const { auth, logout } = useAuth()
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
 
+  useEffect(() => {
+    // Log auth to check if it updates
+    console.log('Current auth state:', auth)
+  }, [auth])
+
   const handleLogout = async () => {
     await logout()
-    router.push('/') // 登出後重定向到登入頁面或首頁
+    router.push('/') // Redirect to the login page or homepage
   }
 
   const isActive = (page) =>
     pageName === page ? 'font-weight-bold text-primary' : ''
+
   return (
     <>
-      {/* 電腦版 nav 這裡開始 */}
       <nav
         className={`navbar navbar-expand-lg navbar-light d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block ${styles['bg-image']}`}
       >
@@ -30,41 +35,55 @@ export default function Navbar({ pageName = '' }) {
             <div className="d-flex justify-content-center w-100">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <Link className="nav-link" href="#">
-                    <img src="/pi-pic/about-icon.png" alt="" />
+                  <Link href="#" legacyBehavior>
+                    <a className="nav-link">
+                      <img src="./pi-pic/about-icon.png" alt="" />
+                    </a>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/estore/">
-                    <img src="/pi-pic/product-icon.png" alt="" />
+                  <Link href="estore" legacyBehavior>
+                    <a className="nav-link">
+                      <img src="./pi-pic/product-icon.png" alt="" />
+                    </a>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/insurance/">
-                    <img src="/pi-pic/insurance-icon.png" alt="" />
+                  <Link href="insurance" legacyBehavior>
+                    <a className="nav-link">
+                      <img src="./pi-pic/insurance-icon.png" alt="" />
+                    </a>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/home">
-                    <img src="/pi-pic/petitude-icon.png" alt="" />
+                  <Link href="/" legacyBehavior>
+                    <a className="nav-link">
+                      <img src="./pi-pic/petitude-icon.png" alt="" />
+                    </a>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/funeral/">
-                    <img src="/pi-pic/funeral-icon.png" alt="" />
+                  <Link href="funeral" legacyBehavior>
+                    <a className="nav-link">
+                      <img src="./pi-pic/funeral-icon.png" alt="" />
+                    </a>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/platforum/">
-                    <img src="/pi-pic/forum-icon.png" alt="" />
+                  <Link href="platforum" legacyBehavior>
+                    <a className="nav-link">
+                      <img src="./pi-pic/forum-icon.png" alt="" />
+                    </a>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="member">
-                    <img src="/pi-pic/member-icon.png" alt="" />
+                  <Link href="member" legacyBehavior>
+                    <a className="nav-link">
+                      <img src="./pi-pic/member-icon.png" alt="" />
+                    </a>
                   </Link>
                 </li>
-                {auth.id ? (
+                {auth.b2c_id ? (
                   <>
                     <li className="nav-item">
                       <a className="nav-link">{auth.b2c_name}</a>
@@ -99,15 +118,13 @@ export default function Navbar({ pageName = '' }) {
           </Modal>
         )}
       </nav>
-      {/* 電腦版 nav 這裡結束 */}
 
-      {/* 手機版 nav 這裡開始 */}
       <nav
         className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 ${styles['bg-image']}`}
       >
         <div className="container-fluid">
           <a className="navbar-brand mx-auto" href="#">
-            <img src="/pi-pic/petitude-mobile-icon.png" alt="" />
+            <img src="./pi-pic/petitude-mobile-icon.png" alt="" />
           </a>
           <button
             className="navbar-toggler p-3"
@@ -126,40 +143,69 @@ export default function Navbar({ pageName = '' }) {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link" href="#">
+                <a className="nav-link" href="#">
                   關於我們
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="/estore/">
+                <a className="nav-link" href="#">
                   購物商城
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="/insurance/">
+                <a className="nav-link" href="#">
                   寵物保險
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="/funeral/">
+                <a className="nav-link" href="#">
                   生命禮儀
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="/platforum/">
+                <a className="nav-link" href="#">
                   貓狗論壇
-                </Link>
+                </a>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="#">
+                <a className="nav-link" href="#">
                   會員中心
-                </Link>
+                </a>
               </li>
+              {auth.b2c_id ? (
+                <>
+                  <li className="nav-item">
+                    <a className="nav-link">{auth.b2c_name}</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="#/" onClick={handleLogout}>
+                      登出
+                    </a>
+                  </li>
+                </>
+              ) : (
+                <li className="nav-item">
+                  <a
+                    className={`nav-link ${isActive('login-jwt')}`}
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setShowModal(true)
+                    }}
+                  >
+                    登入
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <LoginForm onClose={() => setShowModal(false)} />
+          </Modal>
+        )}
       </nav>
-      {/* 手機版 nav 這裡結束 */}
     </>
   )
 }
