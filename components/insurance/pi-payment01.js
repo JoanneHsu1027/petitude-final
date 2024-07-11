@@ -239,13 +239,21 @@ function PiPayment01() {
     },
   ]
 
-  const [agreementClicked, setAgreementClicked] = useState(null)
+  // 為了聲明勾選的狀況
+  const [agreementClicked, setAgreementClicked] = useState(new Set())
+  // 為了顯示選擇的聲明內容
+  const [selectedAgreement, setSelectedAgreement] = useState(agreements[0])
 
   const handleClick = (index) => {
-    setAgreementClicked(index)
+    setAgreementClicked((prevClicked) => {
+      const newClicked = new Set(prevClicked)
+      if (!newClicked.has(index)) {
+        newClicked.add(index) // 如果沒有點擊過，則添加
+        setSelectedAgreement(agreements[index]) //更新選中的聲明內容
+      }
+      return newClicked
+    })
   }
-
-  const [selectedAgreement, setSelectedAgreement] = useState(agreements[0])
 
   return (
     <>
@@ -256,6 +264,7 @@ function PiPayment01() {
         <div className="row justify-content-center">
           {/* 進度條 */}
           <ProgressBarCopy />
+
           {/* 投保寵物資料 */}
           <div className="col-8" style={{ marginTop: '30px' }}>
             <h4 className={styles['top-frame']}>投保寵物資料</h4>
@@ -588,7 +597,8 @@ function PiPayment01() {
                             margin: '0 5px 0 0',
                           }}
                           type="checkbox"
-                          onClick={() => handleClick(index)}
+                          onChange={() => handleClick(index)}
+                          checked={agreementClicked.has(index)}
                           id={agreement.id}
                           required
                         />
@@ -605,8 +615,7 @@ function PiPayment01() {
                   <textarea
                     rows={10}
                     className={`mt-3 ${styles.InfoDetail} border-0 no-outline`}
-                    defaultValue={agreements[0].agreementContent}
-                    value={agreements[agreementClicked]?.agreementContent}
+                    value={selectedAgreement.agreementContent}
                     readOnly
                   />
                 </form>
@@ -663,6 +672,7 @@ function PiPayment01() {
               </label>
             </div>
           </div>
+
           {/* 下一步 */}
           <div className="col-8">
             <div>
