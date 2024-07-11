@@ -1,9 +1,9 @@
 import React from 'react'
 import Layout from '@/components/layout/layout'
-import styles from '../../styles/platforum/platforum-style.module.css'
+import styles from '../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/layout/side-bar-pc'
 import SideBarMobile from '@/components/layout/side-bar-mobile'
-import ArticleBlock from '@/components/platforum/article-block'
+import ArticleBlock from '@/components/platform/article-block'
 
 export default function ArticleList() {
   return (

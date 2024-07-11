@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '@/components/layout/layout'
-import styles from '../../styles/platforum/platforum-style.module.css'
+import styles from '../../styles/platform/platform-style.module.css'
 import { BsXLg } from 'react-icons/bs'
 
 export default function CreateArticle() {

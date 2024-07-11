@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../styles/platforum/platforum-style.module.css'
+import styles from '../../styles/platform/platform-style.module.css'
 import { BsSearch } from 'react-icons/bs'
 
 export default function SideBarMobile() {
@@ -34,7 +34,7 @@ export default function SideBarMobile() {
       >
         <div className={`d-flex text-nowrap overflow-scroll`}>
           <a
-            href="../../platforum/class-list"
+            href="../../platform/class-list"
             type="button"
             className={`${styles.AReset} p-3 ${styles.MobileSidebar} text-black`}
           >
@@ -48,7 +48,7 @@ export default function SideBarMobile() {
             熱門討論
           </a>
           <a
-            href="../../platforum/article-list"
+            href="../../platform/article-list"
             type="button"
             className={`${styles.AReset} p-3 ${styles.MobileSidebar} text-black`}
           >

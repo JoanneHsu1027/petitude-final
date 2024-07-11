@@ -1,12 +1,12 @@
 import React from 'react'
 import Layout from '@/components/layout/layout'
-import styles from '../../styles/platforum/platforum-style.module.css'
+import styles from '../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/layout/side-bar-pc'
 import { BsChevronLeft } from 'react-icons/bs'
 import { BsFillPencilFill } from 'react-icons/bs'
 import { BsBookmarkFill } from 'react-icons/bs'
 import { BsFillShareFill } from 'react-icons/bs'
-import ReMessageBlock from '@/components/platforum/re-message-block'
+import ReMessageBlock from '@/components/platform/re-message-block'
 
 export default function ArticlePage() {
   return (

@@ -1,12 +1,12 @@
 import React from 'react'
-import styles from '../../styles/platforum/platforum-style.module.css'
+import styles from '../../styles/platform/platform-style.module.css'
 import { BsBookmarkFill } from 'react-icons/bs'
 import { BsChatText } from 'react-icons/bs'
 
 export default function ArticleBlock() {
   return (
     <>
-      <a className={`${styles.AReset}`} href="../../platforum/article-page">
+      <a className={`${styles.AReset}`} href="../../platform/article-page">
         <div className="m-2 border-bottom">
           <div className="mx-2 d-flex">
             <p className="me-3 border border-dark rounded-3">主題名稱</p>

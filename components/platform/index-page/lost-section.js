@@ -2,7 +2,7 @@ import React from 'react'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import styles from '../../../styles/platforum/platforum-style.module.css'
+import styles from '../../../styles/platform/platform-style.module.css'
 import { BsPlusCircleFill } from 'react-icons/bs'
 
 function LostSection() {

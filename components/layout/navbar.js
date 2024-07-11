@@ -55,7 +55,7 @@ export default function Navbar({ pageName = '' }) {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/platforum/">
+                  <Link className="nav-link" href="/platform/">
                     <img src="/pi-pic/forum-icon.png" alt="" />
                   </Link>
                 </li>
@@ -146,7 +146,7 @@ export default function Navbar({ pageName = '' }) {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="/platforum/">
+                <Link className="nav-link" href="/platform/">
                   貓狗論壇
                 </Link>
               </li>

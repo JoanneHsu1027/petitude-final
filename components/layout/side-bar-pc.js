@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../styles/platforum/platforum-style.module.css'
+import styles from '../../styles/platform/platform-style.module.css'
 import { BsFillTriangleFill } from 'react-icons/bs'
 import { BsSearch } from 'react-icons/bs'
 import Link from 'next/link'
@@ -27,7 +27,7 @@ export default function SideBarPc() {
               </button>
             </form>
             <Link
-              href="../../platforum/class-list"
+              href="../../platform/class-list"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} btn btn-outline-dark mb-2`}
             >
@@ -41,7 +41,7 @@ export default function SideBarPc() {
               熱門討論
             </Link>
             <Link
-              href="../../platforum/article-list"
+              href="../../platform/article-list"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} btn btn-outline-dark mb-2`}
             >

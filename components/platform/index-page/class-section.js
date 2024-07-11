@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { BsPlusCircleFill } from 'react-icons/bs'
-import styles from '../../../styles/platforum/platforum-style.module.css'
+import styles from '../../../styles/platform/platform-style.module.css'
 
 export default function ClassSection() {
   const [activeTab, setActiveTab] = useState('tab1')
@@ -321,7 +321,7 @@ export default function ClassSection() {
             <a
               className={`${styles.AReset}`}
               style={{ color: 'black' }}
-              href="../../platforum/class-list"
+              href="../../platform/class-list"
             >
               <span style={{ color: '#f6d554' }}>
                 <BsPlusCircleFill />

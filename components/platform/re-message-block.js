@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../styles/platforum/platforum-style.module.css'
+import styles from '../../styles/platform/platform-style.module.css'
 
 export default function ReMessageBlock() {
   return (
