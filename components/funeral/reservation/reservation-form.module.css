@@ -1,0 +1,18 @@
+@media (max-width: 767px) {
+          .form-container {
+            padding:20px;
+            width: 20%;
+          }
+          .form-control {
+            font-size: 0.7rem;
+            padding: 0.5rem;
+          }
+          .form-label {
+            font-size: 0.7rem;
+          }
+          .text {
+          font-size: 0.7rem;
+          padding: 30px;
+
+        }
+    }

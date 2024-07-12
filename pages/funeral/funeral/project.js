@@ -1,17 +1,15 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import ImageComponent from '../../../components/funeral/common/image'
-import Card from '../../../components/funeral/funeral/project/card'
+import Card from '@/components/funeral/project/card'
 
 export default function Project() {
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid mt-5">
         <div className="row justify-content-center" style={{ margin: '10px' }}>
           <div className="col-12">
             <div style={{ display: 'flex' }}>
-              <ImageComponent
+              <img
                 src="/funeral/Line 25.png"
                 alt=""
                 width={5}

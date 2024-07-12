@@ -1,7 +1,17 @@
-import React from 'react'
-import { Modal, Button } from 'react-bootstrap'
-import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
+import { Modal } from 'react-bootstrap'
 import Router, { useRouter } from 'next/router'
+
+// 假設的從資料庫中獲取推薦方案的函式
+const fetchRecommendationFromDatabase = () => {
+  // 假設這裡實際上是從資料庫中取得推薦方案的邏輯
+  return {
+    text: '從資料庫中取得的推薦方案文字',
+    image: '/path/to/database/image.jpg',
+    details: '從資料庫中取得的推薦方案詳細內容',
+    price: '從資料庫中取得的推薦方案價格',
+  }
+}
 
 export default function RecommendationModal({
   show,
@@ -9,8 +19,18 @@ export default function RecommendationModal({
   recommendation,
 }) {
   const router = useRouter()
-  // 解構 recommendation 物件，取出 text / image / details
-  const { text, image, details } = recommendation
+  const [recommendationData, setRecommendationData] = useState(null)
+
+  // 使用 useEffect 在模態框顯示時調用從資料庫中獲取推薦方案的函式
+  useEffect(() => {
+    if (show) {
+      const data = fetchRecommendationFromDatabase()
+      setRecommendationData(data)
+    }
+  }, [show])
+
+  // 解構 recommendationData 物件，取出 text / image / details
+  const { text, image, details, price } = recommendationData || {}
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -22,36 +42,46 @@ export default function RecommendationModal({
           <div className="row">
             <div className="col-12 d-flex justify-content-between align-items-center">
               {/* 顯示推薦方案的圖片 */}
-              <div className="col-md-6 col-sm-7">
+              <div className="col-md-6">
                 {image && (
                   <div className="text-center">
                     <img
                       src={image}
                       alt=""
-                      style={{ maxWidth: '100%', height: 'auto' }}
+                      className="img-fluid"
+                      style={{
+                        maxWidth: '100%',
+                        height: 'auto',
+                        marginBottom: '1rem',
+                      }}
                     />
                   </div>
                 )}
               </div>
               {/* 顯示推薦方案的文字和詳細描述 */}
-              <div className="col-md-6 col-sm-5">
+              <div className="col-md-6">
                 <h4 style={{ fontWeight: '900' }}>{text}</h4>
                 <p style={{ fontSize: '14px' }}>{details}</p>
-                <div>
-                  <p
-                    style={{
-                      color: '#A0722A',
-                      fontWeight: '900',
-                      fontSize: '12px',
-                    }}
-                  >
-                    免費結緣往生被/十字被
-                    <br />
-                    免費靈體冰存14天
-                    <br />
-                    免費懷念骨灰
-                    <br />
-                  </p>
+                <div className="d-flex justify-content-between">
+                  <div>
+                    <p
+                      style={{
+                        color: '#A0722A',
+                        fontWeight: '900',
+                        fontSize: '12px',
+                      }}
+                    >
+                      免費結緣往生被/十字被
+                      <br />
+                      免費靈體冰存14天
+                      <br />
+                      免費懷念骨灰
+                      <br />
+                    </p>
+                  </div>
+                  <div>
+                    <p style={{ fontSize: '18px' }}>{price}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -59,11 +89,10 @@ export default function RecommendationModal({
         </div>
       </Modal.Body>
       <Modal.Footer style={{ backgroundColor: '#FFF5CF' }}>
-        <Button variant="warning" onClick={handleClose}>
-          關閉
-        </Button>
+        <button className="btn btn-warning" onClick={handleClose}>
+          取消
+        </button>
         {/* 跳轉到funeral/booking-list頁面做結帳 */}
-
         <button
           className="btn btn-warning"
           onClick={() => {

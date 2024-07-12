@@ -1,6 +1,5 @@
 import React from 'react'
 import Layout from '../../components/layout/layout'
-// import ImageComponent from '../../component/common/image'
 import ModalComponent from '../../components/estore/modal'
 
 export default function Confirm() {

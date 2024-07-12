@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import ImageComponent from '../../../components/common/funeral/image'
-import Link from 'next/link'
-// import { RV_LIST } from '@/configs/api-path'
+import Styles from '@/components/funeral/reservation/reservation-form.module.css'
+import { RV_LIST } from '@/configs/api-path'
 import { useRouter } from 'next/router'
 // import { z } from 'zod'
 // import { RV_ADD_POST } from '@/configs/api-path'
@@ -13,15 +11,43 @@ export default function ReservationForm() {
   const [showModal, setShowModal] = useState(false)
   const router = useRouter()
 
+  const [data, setData] = useState({
+    success: false,
+    rows: [],
+  })
+
+  // useEffect放在return上面(串後端api)
+  useEffect(() => {
+    // setLoading(true);
+    const controller = new AbortController()
+    const signal = controller.signal
+
+    fetch(`${RV_LIST}?${new URLSearchParams(router.query)}`, { signal })
+      .then((r) => r.json())
+      .then((myData) => {
+        console.log(data)
+        setData(myData)
+        // setLoading(false);
+      })
+      .catch((ex) => {
+        // setLoadingError('載入資料時發生錯誤');
+        // setLoading(false);
+        console.log('fetch-ex:', ex)
+      })
+
+    return () => {
+      controller.abort() // 取消上一次的 ajax
+    }
+  }, [router])
+
+  console.log(`RV_LIST render--------`)
+
   return (
     <>
       {/* 第一區 */}
-      <div
-        className="col-12 position-relative justify-content-center"
-        style={{ backgroundImage: 'url("/funeral/bg-img.png")' }}
-      >
-        <div className="row justify-content-center">
-          <div className="header mt-3">
+      <div className="container-fluid d-flex justify-content-center align-items-center position-relative my-5">
+        <div className="row d-flex flex-column align-items-center">
+          <div className="col-12 col-md-6 header justify-content-center">
             {/* 上方文字+圖形區塊 */}
             <div
               className="headSection"
@@ -62,28 +88,26 @@ export default function ReservationForm() {
                 }}
               >
                 {/* 綠色圖形 */}
-                <ImageComponent
+                <img
                   className="green"
                   src="/funeral/Vector 433.png"
                   alt=""
-                  width={150}
-                  height={60}
                   style={{
                     maxWidth: '100%',
+                    width: '150px',
                     height: 'auto',
                     zIndex: 1,
-                    marginRight: '-20px', // 添加右側間距
+                    marginRight: '-20px',
                   }}
                 />
                 {/* 深黃色圖形 */}
-                <ImageComponent
+                <img
                   className="yellow"
                   src="/funeral/Vector 431.png"
                   alt=""
-                  width={150}
-                  height={60}
                   style={{
                     maxWidth: '100%',
+                    width: '150px',
                     height: 'auto',
                     marginLeft: '-20px', // 添加左側間距
                   }}
@@ -92,13 +116,22 @@ export default function ReservationForm() {
             </div>
           </div>
           {/* 表單 */}
-          <div className="col-md-6" style={{ zIndex: '1' }}>
-            <p style={{ textAlign: 'center', marginTop: '40px' }}>
+          <div
+            className="col-12 col-md-6 justify-content-center"
+            style={{ zIndex: '1' }}
+          >
+            <p
+              className="text"
+              style={{ textAlign: 'center', marginTop: '40px' }}
+            >
               我們提供多元服務管道，
               您可以撥打24小時免費客服專線0800-899-999由專人即時解答，
               也可以填寫下列資訊，客服人員會在週一 ～
               週五08：30-17：30主動與您聯繫
             </p>
+            {/* {data.row.map((reservation)=>(
+              
+            ))} */}
             <div className="mb-3 text-start">
               <label htmlFor="exampleFormControlInput1" className="form-label">
                 姓名
@@ -131,10 +164,10 @@ export default function ReservationForm() {
             </div>
             <div className="mb-3 text-start">
               <label htmlFor="exampleFormControlInput4" className="form-label">
-                聯絡時間
+                預約時間
               </label>
               <input
-                type="date"
+                type="datetime-local"
                 className="form-control"
                 id="exampleFormControlInput4"
               />
@@ -153,170 +186,163 @@ export default function ReservationForm() {
               ></textarea>
             </div>
           </div>
-        </div>
-        {/* Modal */}
-        <div
-          className="modal fade"
-          id="exampleModalToggle2"
-          aria-hidden="true"
-          aria-labelledby="exampleModalToggleLabel2"
-          tabindex="-1"
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalToggleLabel2">
-                  謝謝您的預約, 專人會與您聯繫~
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
 
-              <div className="modal-body d-flex justify-content-center">
-                <ImageComponent
-                  src="/funeral/57.jpg"
-                  width={300}
-                  height={300}
-                  alt=""
-                />
-              </div>
+          {/* Modal */}
+          <div
+            className="modal fade"
+            id="exampleModalToggle2"
+            aria-hidden="true"
+            aria-labelledby="exampleModalToggleLabel2"
+            tabindex="-1"
+          >
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalToggleLabel2">
+                    謝謝您的預約, 專人會與您聯繫~
+                  </h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
 
-              <div className="modal-footer d-flex justify-content-center ">
-                <button
-                  className="btn btn-warning"
-                  data-bs-target="#exampleModalToggle"
-                  data-bs-toggle="modal"
-                  onClick={() => {
-                    if (confirm('確定嗎?')) {
-                      router.push('/funeral/funeral/masonry')
-                    }
-                  }}
-                  style={{
-                    width: '100%',
-                    backgroundColor: 'orange',
-                    borderRadius: '10px',
-                    color: '#fff5cf',
-                    fontWeight: 'bolder',
-                    display: 'inline-block',
-                    textAlign: 'center',
-                  }}
-                >
-                  回首頁
-                </button>
+                <div className="modal-body d-flex justify-content-center">
+                  <img
+                    src="/funeral/57.jpg"
+                    alt=""
+                    style={{ width: '200px' }}
+                  />
+                </div>
+
+                <div className="modal-footer d-flex justify-content-center ">
+                  <button
+                    className="btn btn-warning"
+                    data-bs-target="#exampleModalToggle"
+                    data-bs-toggle="modal"
+                    onClick={() => {
+                      if (confirm('確定嗎?')) {
+                        router.push('/funeral')
+                      }
+                    }}
+                    style={{
+                      width: '100%',
+                      backgroundColor: 'orange',
+                      borderRadius: '10px',
+                      color: '#fff5cf',
+                      fontWeight: 'bolder',
+                      display: 'inline-block',
+                      textAlign: 'center',
+                    }}
+                  >
+                    回首頁
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="sendBtn"
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <a
-            className="btn btn-warning"
-            data-bs-toggle="modal"
-            href="#exampleModalToggle2"
-            role="button"
+          <div
+            className="sendBtn"
             style={{
-              width: '10%',
-              backgroundColor: '#6a513d',
-              borderRadius: '60px',
-              color: '#fff5cf',
-              marginBottom: '5px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            立即預約
-          </a>
+            <button
+              className="btn btn-warning"
+              data-bs-toggle="modal"
+              href="#exampleModalToggle2"
+              style={{
+                width: '10%',
+                backgroundColor: '#6a513d',
+                borderRadius: '60px',
+                color: '#fff5cf',
+                marginBottom: '5px',
+              }}
+            >
+              立即預約
+            </button>
+          </div>
+          {/* Modal */}
         </div>
-        {/* Modal */}
       </div>
-      <ImageComponent
+      <img
         className="bookingPaw position-absolute"
         src="/funeral/dog2.png"
         alt=""
-        width={130}
-        height={250}
         style={{
-          bottom: '-155px',
+          bottom: '-27px',
+          width: '100px',
           right: '0px',
           overflow: 'hidden',
           zIndex: '0',
         }}
       />
-      <ImageComponent
+      <img
         className="bookingDog position-absolute text-start"
         src="/funeral/bookingDog.png"
         alt=""
-        width={120}
-        height={270}
         style={{
           top: '50px',
+          width: '100px',
           overflow: 'hidden',
           zIndex: '0',
         }}
       />
-      <ImageComponent
-        className="bookingDog position-absolute text-start"
+      <img
+        className="bookingbone position-absolute text-start"
         src="/funeral/bone.png"
         alt=""
-        width={120}
-        height={120}
         style={{
           top: '500px',
           left: '150px',
+          width: '120px',
           overflow: 'hidden',
           zIndex: '0',
           opacity: '0.4',
         }}
       />
-      <ImageComponent
-        className="bookingDog position-absolute text-start"
+      <img
+        className="bookingbone position-absolute text-start"
         src="/funeral/bone.png"
         alt=""
-        width={50}
-        height={50}
         style={{
           top: '280px',
           left: '400px',
+          width: '50px',
           overflow: 'hidden',
           zIndex: '0',
           transform: 'scaleX(-1)', // 將圖片左右翻轉
           opacity: '0.4',
         }}
       />
-      <ImageComponent
-        className="bookingDog position-absolute text-start"
+      <img
+        className="bookingbone position-absolute text-start"
         src="/funeral/bone.png"
         alt=""
-        width={80}
-        height={80}
         style={{
-          bottom: '60px',
-          right: '200px',
+          bottom: '120px',
+          width: '70px',
+          right: '240px',
           overflow: 'hidden',
           zIndex: '0',
           opacity: '0.4',
         }}
       />
-      <ImageComponent
-        className="bookingDog position-absolute text-start"
+      <img
+        className="bookingbone position-absolute text-start"
         src="/funeral/bone.png"
         alt=""
-        width={70}
-        height={70}
         style={{
           top: '100px',
           right: '300px',
+          width: '60px',
           overflow: 'hidden',
           zIndex: '0',
-          transform: 'scaleX(-1)', // 將圖片左右翻轉
+          transform: 'scaleX(-1)',
           opacity: '0.4',
         }}
       />
@@ -324,7 +350,8 @@ export default function ReservationForm() {
   )
 }
 
-// export default function ReservationEdit() {
+{
+  /* // export default function ReservationEdit() {
 //   const router = useRouter()
 
 //   const [myForm, setMyForm] = useState({
@@ -383,7 +410,7 @@ export default function ReservationForm() {
 //       const result = await r.json()
 //       console.log(result)
 //       if (result.success) {
-//         router.push(`/appointment/service`) // 跳頁
+//         router.push(/appointment/service) // 跳頁
 //       } else {
 //       }
 //     } catch (ex) {
@@ -486,4 +513,5 @@ export default function ReservationForm() {
 //       </div>
 //     </div>
 //   )
-// }
+// } */
+}

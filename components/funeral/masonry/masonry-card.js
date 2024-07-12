@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
-import ImageComponent from '../../common/image'
+
 import Styles from './masonry-card.module.css'
 
 export default function MasonryCard() {
@@ -131,7 +131,7 @@ export default function MasonryCard() {
               }}
             >
               <div className={Styles.imageSide}>
-                <ImageComponent
+                <img
                   src={image.front}
                   alt=""
                   width={image.width}
@@ -144,7 +144,7 @@ export default function MasonryCard() {
                 />
               </div>
               <div className={`${Styles.imageSide} ${Styles.back}`}>
-                <ImageComponent
+                <img
                   src={image.back}
                   alt=""
                   width={image.width}
@@ -172,7 +172,7 @@ export default function MasonryCard() {
               <h2 style={{ marginLeft: '60px' }}>圓滿最美好的緣分</h2>
             </div>
             {/* 底下波浪圖 */}
-            {/* <ImageComponent
+            {/* <img
                 src="/funeral/Vector 436.png"
                 alt=""
                 width={1440}
