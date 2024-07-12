@@ -118,7 +118,7 @@ export default function ArticlePage() {
                           </div>
 
                           {/* foot */}
-                          <div className="border-bottom border-secondary d-flex justify-content-around pb-3">
+                          <div className="border-bottom border-secondary d-flex justify-content-around pb-4">
                             <a
                               className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover}`}
                             >
