@@ -7,17 +7,17 @@ import Link from 'next/link'
 export default function SideBarPc() {
   const router = useRouter()
   const [activeLink, setActiveLink] = useState('')
-  const [sidebarOffset, setSidebarOffset] = useState(150) // 设置初始偏移量为 300px
+  const [sidebarOffset, setSidebarOffset] = useState(150)
 
   useEffect(() => {
     if (router.pathname.includes('class-list')) {
       setActiveLink('class-list')
     } else if (router.pathname.includes('article-list')) {
       setActiveLink('article-list')
-    } else if (router.pathname.includes('hot-topics')) {
-      setActiveLink('hot-topics')
     } else if (router.pathname.includes('favorites')) {
       setActiveLink('favorites')
+    } else if (router.pathname.includes('article-page')) {
+      setActiveLink('article-page')
     }
   }, [router.pathname])
 
@@ -25,7 +25,7 @@ export default function SideBarPc() {
     const handleScroll = () => {
       const isBottom =
         window.outerHeight + window.scrollY >= document.body.offsetHeight
-      setSidebarOffset(isBottom ? -15 : 150) // 滚动到底部时向上移动 100px
+      setSidebarOffset(isBottom ? -15 : 150)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -56,7 +56,7 @@ export default function SideBarPc() {
             </button>
           </form>
           <Link
-            href="/platform"
+            href="/platform/"
             type="button"
             className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === '' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
           >
