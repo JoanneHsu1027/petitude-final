@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Styles from '@/components/funeral/reservation/reservation-form.module.css'
-// import { RV_LIST } from '@/configs/api-path'
+import { RV_LIST } from '@/configs/api-path'
 import { useRouter } from 'next/router'
 // import { z } from 'zod'
 // import { RV_ADD_POST } from '@/configs/api-path'
@@ -10,6 +10,37 @@ import { useRouter } from 'next/router'
 export default function ReservationForm() {
   const [showModal, setShowModal] = useState(false)
   const router = useRouter()
+
+  const [data, setData] = useState({
+    success: false,
+    rows: [],
+  })
+
+  // useEffect放在return上面(串後端api)
+  useEffect(() => {
+    // setLoading(true);
+    const controller = new AbortController()
+    const signal = controller.signal
+
+    fetch(`${RV_LIST}?${new URLSearchParams(router.query)}`, { signal })
+      .then((r) => r.json())
+      .then((myData) => {
+        console.log(data)
+        setData(myData)
+        // setLoading(false);
+      })
+      .catch((ex) => {
+        // setLoadingError('載入資料時發生錯誤');
+        // setLoading(false);
+        console.log('fetch-ex:', ex)
+      })
+
+    return () => {
+      controller.abort() // 取消上一次的 ajax
+    }
+  }, [router])
+
+  console.log(`RV_LIST render--------`)
 
   return (
     <>
@@ -98,6 +129,9 @@ export default function ReservationForm() {
               也可以填寫下列資訊，客服人員會在週一 ～
               週五08：30-17：30主動與您聯繫
             </p>
+            {/* {data.row.map((reservation)=>(
+              
+            ))} */}
             <div className="mb-3 text-start">
               <label htmlFor="exampleFormControlInput1" className="form-label">
                 姓名
@@ -308,7 +342,7 @@ export default function ReservationForm() {
           width: '60px',
           overflow: 'hidden',
           zIndex: '0',
-          transform: 'scaleX(-1)', // 將圖片左右翻轉
+          transform: 'scaleX(-1)',
           opacity: '0.4',
         }}
       />
