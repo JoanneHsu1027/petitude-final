@@ -52,10 +52,10 @@ export const PJ_LIST = `${API_SERVER}/project/api`
 // reservation(預約)
 // (串前端reservation-form的api)
 export const RV_LIST = `${API_SERVER}/reservation/api`
-// export const RV_ADD_POST = `${API_SERVER}/reservation/add`
+export const RV_ADD_POST = `${API_SERVER}/reservation/add`
 
 // // `${API_SERVER}/reservation/api/${reservation_id}`, method: DELETE
-// export const RV_ITEM_DELETE = `${API_SERVER}/reservation/api`
+export const RV_ITEM_DELETE = `${API_SERVER}/reservation/api`
 
 // // `${API_SERVER}/reservation/api/${reservation_id}`, method: GET, 取得單筆資料
 // export const RV_GET_ITEM = `${API_SERVER}/reservation/api`
@@ -66,4 +66,4 @@ export const RV_LIST = `${API_SERVER}/reservation/api`
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // 登入, 表單資料 {email, password}
-// export const JWT_LOGIN_POST = `${API_SERVER}/login-jwt`
+export const JWT_LOGIN_POST = `${API_SERVER}/login-jwt`

@@ -6,6 +6,7 @@ import axios from 'axios'
 
 export default function Card() {
   const router = useRouter()
+  
   const [data, setData] = useState({
     success: false,
     rows: [],

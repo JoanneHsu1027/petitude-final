@@ -43,13 +43,13 @@ export default function Modal1({ show, handleClose }) {
       [name]: false,
     }))
     // 將更新後的 selection 存入 localStorage
-    localStorage.setItem(
-      'selection',
-      JSON.stringify({
-        ...selection,
-        [name]: value,
-      }),
-    )
+    // localStorage.setItem(
+    //   'selection',
+    //   JSON.stringify({
+    //     ...selection,
+    //     [name]: value,
+    //   }),
+    // )
   }
 
   const validateSelection = () => {
@@ -188,7 +188,7 @@ export default function Modal1({ show, handleClose }) {
       price: recommendationPrice,
     }
     // 把更新後的的 selection資料 存入 localStorage
-    localStorage.setItem('selection', JSON.stringify(selection))
+    // localStorage.setItem('selection', JSON.stringify(selection))
 
     return recommendation
   }

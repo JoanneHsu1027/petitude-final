@@ -2,50 +2,108 @@ import React, { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Styles from '@/components/funeral/reservation/reservation-form.module.css'
 import { RV_LIST } from '@/configs/api-path'
+import { RV_ADD_POST } from '@/configs/api-path'
 import { useRouter } from 'next/router'
-// import { z } from 'zod'
-// import { RV_ADD_POST } from '@/configs/api-path'
+import { z } from 'zod'
 
 // appointment / service用的form
 export default function ReservationForm() {
   const [showModal, setShowModal] = useState(false)
   const router = useRouter()
 
-  const [data, setData] = useState({
-    success: false,
-    rows: [],
+  const [myForm, setMyForm] = useState({
+    b2c_name: '',
+    b2c_mobile: '',
+    b2c_email: '',
+    reservation_date: '',
+    note: '',
+  })
+  const [myFormErrors, setMyFormErrors] = useState({
+    reservation_date: '',
+    note: '',
   })
 
-  // useEffect放在return上面(串後端api)
   useEffect(() => {
-    // setLoading(true);
-    const controller = new AbortController()
-    const signal = controller.signal
-
-    fetch(`${RV_LIST}?${new URLSearchParams(router.query)}`, { signal })
-      .then((r) => r.json())
-      .then((myData) => {
-        console.log(data)
-        setData(myData)
-        // setLoading(false);
-      })
-      .catch((ex) => {
-        // setLoadingError('載入資料時發生錯誤');
-        // setLoading(false);
-        console.log('fetch-ex:', ex)
-      })
-
-    return () => {
-      controller.abort() // 取消上一次的 ajax
+    // 获取会员信息并设置到表单
+    async function b2c_members() {
+      try {
+        const response = await fetch('/api/b2c_members') // 修改为实际的会员信息接口
+        const data = await response.json()
+        setMyForm({
+          ...myForm,
+          b2c_name: data.b2c_name,
+          b2c_email: data.b2c_email,
+          b2c_mobile: data.b2c_mobile,
+        })
+      } catch (error) {
+        console.error('获取会员信息失败:', error)
+      }
     }
-  }, [router])
 
-  console.log(`RV_LIST render--------`)
+    b2c_members()
+  }, [])
+
+  const onChange = (e) => {
+    console.log(e.target.name, e.target.value)
+
+    const schemaForm = z.object({
+      reservation_date: z
+        .string()
+        .min(1, { message: '請填寫日期' })
+        .regex(/^\d{4}-\d{2}-\d{2}$/, { message: '日期格式應為 YYYY-MM-DD' }),
+      note: z.string().min(10, { message: '請填寫至少十個字' }),
+    })
+
+    const newForm = { ...myForm, [e.target.name]: e.target.value }
+    const result2 = schemaForm.safeParse(newForm)
+    console.log(JSON.stringify(result2, null, 4))
+
+    // 重置 myFormErrors
+    const newFormErrors = {
+      reservation_date: '',
+      note: '',
+    }
+
+    if (!result2.success && result2?.error?.issues?.length) {
+      for (let issue of result2.error.issues) {
+        newFormErrors[issue.path[0]] = issue.message
+      }
+    }
+    setMyFormErrors(newFormErrors)
+    console.log(newForm)
+    setMyForm(newForm)
+  }
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    // 如果表單驗證有通過的話
+    try {
+      const r = await fetch(RV_ADD_POST, {
+        method: 'POST',
+        body: JSON.stringify(myForm),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const result = await r.json()
+      console.log(result)
+      if (result.success) {
+        router.push(`/funeral/service`) // 跳頁
+      } else {
+      }
+    } catch (ex) {
+      console.log(ex)
+    }
+  }
 
   return (
     <>
       {/* 第一區 */}
-      <div className="container-fluid d-flex justify-content-center align-items-center position-relative my-5">
+      <div
+        title="線上預約"
+        pageName="reservation-form"
+        className="container-fluid d-flex justify-content-center align-items-center position-relative my-5"
+      >
         <div className="row d-flex flex-column align-items-center">
           <div className="col-12 col-md-6 header justify-content-center">
             {/* 上方文字+圖形區塊 */}
@@ -129,62 +187,87 @@ export default function ReservationForm() {
               也可以填寫下列資訊，客服人員會在週一 ～
               週五08：30-17：30主動與您聯繫
             </p>
-            {/* {data.row.map((reservation)=>(
-              
-            ))} */}
-            <div className="mb-3 text-start">
-              <label htmlFor="exampleFormControlInput1" className="form-label">
-                姓名
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleFormControlInput1"
-              />
-            </div>
-            <div className="mb-3 text-start">
-              <label htmlFor="exampleFormControlInput2" className="form-label">
-                電話
-              </label>
-              <input
-                type="mobile"
-                className="form-control"
-                id="exampleFormControlInput2"
-              />
-            </div>
-            <div className="mb-3 text-start">
+            <form name="form1" onSubmit={onSubmit}>
+              <div className="mb-3 text-start">
+                <label
+                  htmlFor="exampleFormControlInput1"
+                  className="form-label"
+                >
+                  姓名
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="fk_b2c_id"
+                  name="fk_b2c_id"
+                  value={myForm.fk_b2c_id}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="mb-3 text-start">
+                <label
+                  htmlFor="exampleFormControlInput2"
+                  className="form-label"
+                >
+                  電話
+                </label>
+                <input
+                  type="mobile"
+                  className="form-control"
+                  id="fk_pet_id"
+                  name="fk_pet_id"
+                  value={myForm.fk_pet_id}
+                  onChange={onChange}
+                />
+              </div>
+              {/* <div className="mb-3 text-start">
               <label htmlFor="exampleFormControlInput3" className="form-label">
                 Email
               </label>
               <input
                 type="email"
                 className="form-control"
-                id="exampleFormControlInput3"
+                id="fk_b2b_email"
+                name="fk_b2b_email"
+                value={myForm.fk_b2b_email}
+                onChange={onChange}
               />
-            </div>
-            <div className="mb-3 text-start">
-              <label htmlFor="exampleFormControlInput4" className="form-label">
-                預約時間
-              </label>
-              <input
-                type="datetime-local"
-                className="form-control"
-                id="exampleFormControlInput4"
-              />
-            </div>
-            <div className="mb-3 text-start">
-              <label
-                htmlFor="exampleFormControlTextarea1"
-                className="form-label"
-              >
-                其他備註
-              </label>
-              <textarea
-                className="form-control"
-                id="exampleFormControlTextarea1"
-                rows="3"
-              ></textarea>
-            </div>
+            </div> */}
+              <div className="mb-3 text-start">
+                <label
+                  htmlFor="exampleFormControlInput4"
+                  className="form-label"
+                >
+                  預約時間
+                </label>
+                <input
+                  type="datetime-local"
+                  className="form-control"
+                  id="reservation_date"
+                  name="reservation_date"
+                  value={myForm.reservation_date}
+                  onChange={onChange}
+                />
+                <div className="form-text">{myFormErrors.reservation_date}</div>
+              </div>
+              <div className="mb-3 text-start">
+                <label
+                  htmlFor="exampleFormControlTextarea1"
+                  className="form-label"
+                >
+                  其他備註
+                </label>
+                <textarea
+                  className="form-control"
+                  id="note"
+                  name="note"
+                  rows="3"
+                  value={myForm.note}
+                  onChange={onChange}
+                ></textarea>
+                <div className="form-text">{myFormErrors.note}</div>
+              </div>
+            </form>
           </div>
 
           {/* Modal */}
