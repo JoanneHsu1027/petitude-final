@@ -1,0 +1,174 @@
+.BgImg {
+    background-image: url('/forum-pic/bg-img.png'); 
+}
+.AReset {
+    text-decoration: none;
+    color: #000;
+}
+
+.AReset:hover {
+    color: #000;
+    cursor: pointer;
+}
+
+.TitleOverHide{
+    white-space:nowrap; 
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+
+.ContentOverHide{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;   
+    -webkit-line-clamp: 2;
+    height: 42px;
+    line-height: 20px;
+}
+
+.BtnReset{
+    border:0;
+    background-color:white;
+    outline:none;
+}
+
+.FavHover:hover {
+    color: #4CB1C8;
+}
+
+.DelHover:hover {
+    color: red;
+}
+
+.Rounded5 {
+    border-radius: 15px;
+}
+
+.H70 {
+    height: 70%;
+}
+
+.W10 {
+    width: 245px;
+}
+
+.W60 {
+    width: 60%;
+}
+
+
+.W80 {
+    width: 80%;
+}
+
+.OrangeYellow {
+    color: #F69A30;
+}
+
+.LightGray {
+    color: #C8C8C8;
+}
+
+.Hover:hover {
+    color: #F4BC7A;
+}
+
+.BorderCoffee {
+    border-color: #6a513d;
+}
+
+.SetPlaceholder::placeholder {
+    color: #4CB1C8;
+    padding-left: 5%;
+}
+
+.BorderBlue {
+    border-color: #4CB1C8;
+}
+
+.BtnHover:hover {
+    background-color:white;
+    color: #f6d554;
+    border: 1px solid #f6d554;
+}
+
+.CreatArticle{
+    color: #a0a0a0;
+    border: 1px solid white;
+    padding: 4px;
+}
+
+.CreatArticle:hover {
+    color: #f6d554;
+    border: 1px solid #f6d554;
+    border-radius: 5px;
+    padding: 4px;
+    /* margin: -1px; */
+}
+
+.MobileBtnHover:hover{
+    margin-top: 5px;
+    margin-bottom: -5px;
+    background-color:#f6d554;
+    color: white !important;
+    border-bottom: none;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.PageSelect {
+    background-color: #f6d554;
+    color: white;
+    border: 1px solid #f6d554;
+}
+
+.CreateArticleBtn{
+    color: black;
+    border-color: #DEE2E6;
+    background-color: #F8F9FA;
+}
+
+.CreateArticleBtn:hover{
+    color: black;
+    border-color: #DEE2E6;
+    background-color: #F8F9FA;
+}
+
+.GoTopBtn {
+    text-decoration: none;
+    color: #f69a30;
+}
+
+.GoTopBtn:hover {
+    color: #f6d554;
+}
+
+.BorderEndDel {
+    border-end-end-radius: unset;
+    border-top-right-radius: unset;
+}
+
+.BorderStartDel {
+    border-start-start-radius: unset;
+    border-bottom-left-radius: unset;
+}
+
+.MyActive {
+    color: #f6d554 !important;
+    border-bottom: 3px solid #f6d554;
+}
+
+.MobilePageSelect {
+    color: #f6d554 !important;
+    border-bottom: 3px solid #f6d554;
+}
+
+.DisplayChange {
+    display: none;
+}
+
+.DisplayChange.active {
+    display: block;
+}

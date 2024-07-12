@@ -55,7 +55,7 @@ export default function Navbar({ pageName = '' }) {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/platforum/">
+                  <Link className="nav-link" href="/platform/">
                     <img src="/pi-pic/forum-icon.png" alt="" />
                   </Link>
                 </li>
@@ -106,9 +106,9 @@ export default function Navbar({ pageName = '' }) {
         className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 ${styles['bg-image']}`}
       >
         <div className="container-fluid">
-          <a className="navbar-brand mx-auto" href="#">
+          <Link className="navbar-brand mx-auto" href="/home">
             <img src="/pi-pic/petitude-mobile-icon.png" alt="" />
-          </a>
+          </Link>
           <button
             className="navbar-toggler p-3"
             type="button"
@@ -146,7 +146,7 @@ export default function Navbar({ pageName = '' }) {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="/platforum/">
+                <Link className="nav-link" href="/platform/">
                   貓狗論壇
                 </Link>
               </li>
