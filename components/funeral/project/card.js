@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Styles from '@/components/funeral/project/card.module.css'
 import { useRouter } from 'next/router'
 import { PJ_LIST } from '@/configs/api-path'
+import axios from 'axios'
 
 export default function Card() {
   const router = useRouter()
@@ -39,31 +40,24 @@ export default function Card() {
 
   // useEffect放在return上面(串後端api)
   useEffect(() => {
-    // setLoading(true);
-    const controller = new AbortController()
-    const signal = controller.signal
-    
-
-    fetch(`${PJ_LIST}?${new URLSearchParams(router.query)}`, { signal })
-      .then((r) => r.json())
-      .then((myData) => {
-        console.log(data)
+    const fetchData = async () => {
+      const page = router.query.page || 1
+      const keyword = ''
+      try {
+        const res = await fetch(`${PJ_LIST}?page=${page}`)
+        const myData = await res.json()
+        console.log(myData)
         setData(myData)
-        // setLoading(false);
-      })
-      .catch((ex) => {
-        // setLoadingError('載入資料時發生錯誤');
-        // setLoading(false);
-        console.log('fetch-ex:', ex)
-      })
+      } catch (error) {
+        console.error('Failed to fetch data:', error)
+      }
 
-    return () => {
-      controller.abort() // 取消上一次的 ajax
+      const searchKeyword = new URLSearchParams(keyword)
+
+      const res = await axios.get(`${PJ_LIST}?${searchKeyword.toString()}`)
     }
-  }, [router])
-
-  console.log(`PJ_LIST render--------`)
-  console.log('Data to render:', data) // 確認設置的資料
+    fetchData()
+  }, [router.query])
 
   return (
     <div title="生前契約" pageName="project-list">
@@ -77,11 +71,14 @@ export default function Card() {
                   <h5>{r.project_name}</h5>
                   <h6>{r.project_content}</h6>
                   <div>
-                    {r.project_level.split('\n\n').map((project_level, idx) => (
-                      <p key={idx} className={Styles.cardDetails}>
-                        {project_level}
-                      </p>
-                    ))}
+                    {typeof r.project_content === 'string' &&
+                      r.project_content
+                        .split('\n\n')
+                        .map((project_content, idx) => (
+                          <p key={idx} className={Styles.cardDetails}>
+                            {project_content}
+                          </p>
+                        ))}
                   </div>
                   <div className="d-flex justify-content-end align-items-right mb-3">
                     <button
