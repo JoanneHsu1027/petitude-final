@@ -25,7 +25,6 @@ export default function ProjectList() {
   const [selectedCategories, setSelectedCategories] = useState([])
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
-  const [activeLink, setActiveLink] = React.useState('')
 
   const fetchData = async () => {
     const page = router.query.page || 1
@@ -48,8 +47,15 @@ export default function ProjectList() {
   }
 
   useEffect(() => {
-    fetchData()
-  }, [router.query.page, selectedCategories, searchTerm])
+    if (router.isReady) {
+      const queryKeyword = router.query.keyword
+      if (queryKeyword) {
+        setSearchKeyword(queryKeyword)
+        setSearchTerm(queryKeyword)
+      }
+      fetchData()
+    }
+  }, [router.isReady, router.query])
 
   const handleCategoryChange = (code_desc, isChecked) => {
     console.log('handleCategoryChange called:', code_desc, isChecked)
@@ -70,7 +76,13 @@ export default function ProjectList() {
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     setSearchTerm(searchKeyword)
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, keyword: searchKeyword, page: 1 },
+    })
   }
+
+  const [activeLink, setActiveLink] = React.useState('')
 
   useEffect(() => {
     if (router.pathname.includes('class-list')) {
@@ -128,28 +140,21 @@ export default function ProjectList() {
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    貓類食品
+                    热门讨论
                   </Link>
                   <Link
                     href=""
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    犬類食品
+                    最新文章
                   </Link>
                   <Link
                     href=""
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    成貓成犬
-                  </Link>
-                  <Link
-                    href=""
-                    type="button"
-                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
-                  >
-                    幼貓幼犬
+                    文章收藏
                   </Link>
                 </div>
                 <div className="d-flex justify-content-center mt-3">
@@ -198,40 +203,33 @@ export default function ProjectList() {
             >
               <div className={`d-flex text-nowrap overflow-scroll`}>
                 <Link
-                  href=""
+                  href="../../platform"
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === '' ? styles3.MobilePageSelect : ''}`}
                 >
                   全部商品
                 </Link>
                 <Link
-                  href=""
+                  href="../../platform/class-list"
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'class-list' ? styles3.MobilePageSelect : ''}`}
                 >
-                  貓類食品
+                  主題分類
                 </Link>
 
                 <Link
-                  href=""
+                  href="../../platform/article-list"
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'article-list' ? styles3.MobilePageSelect : ''}`}
                 >
-                  犬類食品
+                  最新文章
                 </Link>
                 <Link
-                  href=""
+                  href="../../platform/favorites"
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'favorites' ? styles3.MobilePageSelect : ''}`}
                 >
-                  成貓成犬
-                </Link>
-                <Link
-                  href=""
-                  type="button"
-                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'favorites' ? styles3.MobilePageSelect : ''}`}
-                >
-                  幼貓幼犬
+                  文章收藏
                 </Link>
               </div>
             </div>

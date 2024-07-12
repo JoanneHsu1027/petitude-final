@@ -25,7 +25,6 @@ export default function ProjectList() {
   const [selectedCategories, setSelectedCategories] = useState([])
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
-  const [activeLink, setActiveLink] = React.useState('')
 
   const fetchData = async () => {
     const page = router.query.page || 1
@@ -48,8 +47,15 @@ export default function ProjectList() {
   }
 
   useEffect(() => {
-    fetchData()
-  }, [router.query.page, selectedCategories, searchTerm])
+    if (router.isReady) {
+      const queryKeyword = router.query.keyword
+      if (queryKeyword) {
+        setSearchKeyword(queryKeyword)
+        setSearchTerm(queryKeyword)
+      }
+      fetchData()
+    }
+  }, [router.isReady, router.query])
 
   const handleCategoryChange = (code_desc, isChecked) => {
     console.log('handleCategoryChange called:', code_desc, isChecked)
@@ -70,7 +76,13 @@ export default function ProjectList() {
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     setSearchTerm(searchKeyword)
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, keyword: searchKeyword, page: 1 },
+    })
   }
+
+  const [activeLink, setActiveLink] = React.useState('')
 
   useEffect(() => {
     if (router.pathname.includes('class-list')) {
