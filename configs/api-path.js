@@ -1,4 +1,6 @@
-export const API_SERVER = 'http://localhost:3001'
+// 生命禮儀
+
+export const API_SERVER = 'http://localhost:3000'
 
 // test^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 // export const AB_LIST = `${API_SERVER}/address-book/api`
