@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../components/layout/layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../styles/estore/productList.module.css'
-import SideBarMobile from '@/components/estore/side-bar-mobile'
 import Link from 'next/link'
 import { ProductList } from '@/configs/estore/api-path'
 import { useRouter } from 'next/router'
@@ -12,6 +11,7 @@ import axios from 'axios'
 import styles2 from '@/styles/estore/side-bar-style.module.css'
 import { BsFillTriangleFill } from 'react-icons/bs'
 import { BsSearch } from 'react-icons/bs'
+import styles3 from '@/styles/platform/platform-style.module.css'
 
 export default function ProjectList() {
   const router = useRouter()
@@ -22,20 +22,20 @@ export default function ProjectList() {
     totalPages: 1,
   })
 
-  // 用於存儲選中的類別的狀態
   const [selectedCategories, setSelectedCategories] = useState([])
-  //用來儲存關鍵字的狀態
   const [searchKeyword, setSearchKeyword] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [activeLink, setActiveLink] = React.useState('')
 
-  const fetchData = useCallback(async () => {
+  const fetchData = async () => {
     const page = router.query.page || 1
     try {
-      setData((prevData) => ({ ...prevData, success: false })) // 設置加載狀態
+      setData((prevData) => ({ ...prevData, success: false }))
       const res = await axios.get(`${ProductList}`, {
         params: {
           page: page,
           code_desc: selectedCategories.join('-'),
-          keyword: searchKeyword,
+          keyword: searchTerm,
         },
       })
       const myData = res.data
@@ -45,17 +45,15 @@ export default function ProjectList() {
       console.error('Failed to fetch data:', error)
       setData((prevData) => ({ ...prevData, success: false }))
     }
-  }, [router.query, selectedCategories, searchKeyword])
+  }
 
   useEffect(() => {
     fetchData()
-  }, [fetchData])
+  }, [router.query.page, selectedCategories, searchTerm])
 
-  // 處理類別選擇變化的函數(使用checkbox進行篩選)
   const handleCategoryChange = (code_desc, isChecked) => {
     console.log('handleCategoryChange called:', code_desc, isChecked)
     setSelectedCategories((prev) => {
-      // 如果有選擇類別，就加入陣列，沒有就移除
       const newSelectedCategories = isChecked
         ? [...prev, code_desc]
         : prev.filter((cat) => cat !== code_desc)
@@ -71,8 +69,20 @@ export default function ProjectList() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
-    fetchData()
+    setSearchTerm(searchKeyword)
   }
+
+  useEffect(() => {
+    if (router.pathname.includes('class-list')) {
+      setActiveLink('class-list')
+    } else if (router.pathname.includes('article-list')) {
+      setActiveLink('article-list')
+    } else if (router.pathname.includes('hot-topics')) {
+      setActiveLink('hot-topics')
+    } else if (router.pathname.includes('favorites')) {
+      setActiveLink('favorites')
+    }
+  }, [router.pathname])
 
   return (
     <Layout title="商品列表" pageName="index">
@@ -82,7 +92,7 @@ export default function ProjectList() {
           style={{ padding: 0 + 'px ' + ' ' + 60 + 'px' }}
         >
           <div className="row">
-            {/* <!-- side-bar 這裡開始 --> */}
+            {/* <!-- side-bar 这里开始 --> */}
             <div className="col-md-3 d-md-flex d-none my-4 justify-content-center">
               <div
                 className={`bg-white ${styles2.Rounded5} ${styles2.H70} px-3 pt-4 d-flex flex-column justify-content-between`}
@@ -98,48 +108,48 @@ export default function ProjectList() {
                       name="keyword"
                       value={searchKeyword}
                       onChange={handleSearchInputChange}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          e.preventDefault()
-                          handleSearchSubmit(e)
-                        }
-                      }}
                     />
                     <button
                       className={`${styles2.BorderStartDel} btn btn-outline-success border-start-0`}
-                      type="button"
-                      onClick={handleSearchSubmit}
+                      type="submit"
                     >
                       <BsSearch />
                     </button>
                   </form>
                   <Link
-                    href="../../platform/class-list"
+                    href=""
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    主題分類
+                    全部商品
                   </Link>
                   <Link
                     href=""
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    熱門討論
-                  </Link>
-                  <Link
-                    href="../../platform/article-list"
-                    type="button"
-                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
-                  >
-                    最新文章
+                    貓類食品
                   </Link>
                   <Link
                     href=""
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    文章收藏
+                    犬類食品
+                  </Link>
+                  <Link
+                    href=""
+                    type="button"
+                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                  >
+                    成貓成犬
+                  </Link>
+                  <Link
+                    href=""
+                    type="button"
+                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                  >
+                    幼貓幼犬
                   </Link>
                 </div>
                 <div className="d-flex justify-content-center mt-3">
@@ -152,6 +162,7 @@ export default function ProjectList() {
                 </div>
               </div>
             </div>
+            {/* 手機版 */}
             <style jsx>{`
               ::-webkit-scrollbar {
                 display: none;
@@ -165,24 +176,17 @@ export default function ProjectList() {
                 onSubmit={handleSearchSubmit}
               >
                 <input
-                  className={`${styles.BorderEndDel} form-control border-success border-end-0`}
+                  className={`${styles3.BorderEndDel} form-control border-success border-end-0`}
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
                   name="keyword"
                   value={searchKeyword}
                   onChange={handleSearchInputChange}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault()
-                      handleSearchSubmit(e)
-                    }
-                  }}
                 />
                 <button
-                  className={`${styles.BorderStartDel} btn btn-outline-success border-start-0`}
-                  type="button"
-                  onClick={handleSearchSubmit}
+                  className={`${styles3.BorderStartDel} btn btn-outline-success border-start-0`}
+                  type="submit"
                 >
                   <BsSearch></BsSearch>
                 </button>
@@ -190,43 +194,51 @@ export default function ProjectList() {
             </div>
             <div
               style={{ height: 60 }}
-              className="border-bottom border-dark bg-white top-0 d-md-none mb-3 p-0 d-flex justify-content-center"
+              className="border-bottom border-dark bg-white position-sticky top-0 d-xl-none d-xxl-block d-xxl-none mb-3 p-0"
             >
               <div className={`d-flex text-nowrap overflow-scroll`}>
-                <a
-                  href="../../platform/class-list"
-                  type="button"
-                  className={`${styles.AReset} p-3 ${styles.MobileSidebar} text-black`}
-                >
-                  主題分類
-                </a>
-                <a
+                <Link
                   href=""
                   type="button"
-                  className={`${styles.AReset} p-3 ${styles.MobileSidebar} text-black`}
+                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === '' ? styles3.MobilePageSelect : ''}`}
                 >
-                  熱門討論
-                </a>
-                <a
-                  href="../../platform/article-list"
+                  全部商品
+                </Link>
+                <Link
+                  href=""
                   type="button"
-                  className={`${styles.AReset} p-3 ${styles.MobileSidebar} text-black`}
+                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'class-list' ? styles3.MobilePageSelect : ''}`}
                 >
-                  最新文章
-                </a>
-                <a
-                  href="./favorite-article.html"
+                  貓類食品
+                </Link>
+
+                <Link
+                  href=""
                   type="button"
-                  className={`${styles.AReset} p-3 ${styles.MobileSidebar} text-black`}
+                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'article-list' ? styles3.MobilePageSelect : ''}`}
                 >
-                  文章收藏
-                </a>
+                  犬類食品
+                </Link>
+                <Link
+                  href=""
+                  type="button"
+                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'favorites' ? styles3.MobilePageSelect : ''}`}
+                >
+                  成貓成犬
+                </Link>
+                <Link
+                  href=""
+                  type="button"
+                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'favorites' ? styles3.MobilePageSelect : ''}`}
+                >
+                  幼貓幼犬
+                </Link>
               </div>
             </div>
-            {/* <!-- side-bar 這裡結束 --> */}
-            {/* <!-- section 這裡開始 --> */}
+            {/* <!-- side-bar 这里结束 --> */}
+            {/* <!-- section 这里开始 --> */}
             <div className="col-md-9 col-12">
-              {/* <!-- 商品區 --> */}
+              {/* <!-- 商品区 --> */}
               <div className="row mt-2 pt-2 mb-1 pb-1 d-flex justify-content-start">
                 {data.success ? (
                   data.rows.map((r, i) => {
@@ -269,7 +281,7 @@ export default function ProjectList() {
                   <p>Loading...</p>
                 )}
               </div>
-              {/* <!-- 商品區 --> */}
+              {/* <!-- 商品区 --> */}
               <div className="row">
                 <div className={styles.pagination}>
                   <div className={`${styles.pageNumbers} rounded-circle`}>
@@ -300,7 +312,7 @@ export default function ProjectList() {
                 </div>
               </div>
               <div className="row"></div>
-              {/* <!-- section 這裡結束 --> */}
+              {/* <!-- section 这里结束 --> */}
             </div>
           </div>
         </div>
