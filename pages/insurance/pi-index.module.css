@@ -152,6 +152,29 @@
   display: none;
 }
 }
+.advantageFlatTop {
+  padding-top: 8.125rem;
+}
+.advantageFlatBottom {
+  padding-bottom: 8.125rem;
+}
+.advantageHeight {
+  height: 23.75rem;
+}
+
+@media (max-width: 656px) {
+  .advantageFlatTop {
+  padding: 0;
+}
+  .advantageFlatBottom {
+  padding: 0;
+}
+.advantageHeight {
+  height: auto;
+  margin-bottom: 0;
+}
+}
+
 
 /* 優點介紹文字圖案間距 */
 /* 預設樣式 */
@@ -165,12 +188,7 @@
       margin-top: -130px;
   }
 }
-/* 當畫面寬度小於 1200px 時應用此樣式 */
-/* @media (max-width: 1200px) {
-  .img-container {
-      margin-top: -100px;
-  }
-} */
+
 /* 當畫面寬度小於 1200px 時應用此樣式 */
 @media (max-width: 1200px) {
   .img-container {
@@ -183,7 +201,53 @@
       margin-top: -200px;
   }
 }
+/* 當畫面寬度小於 656px 時應用此樣式 */
+@media (max-width: 656px) {
+  .img-container {
+      display: none !important;
+      /* margin-top: -100px; */
+  }
+}
 
+/* 保險試算 */
+.crossBoarder{
+  margin-top: -8.125rem;
+  background-color: white;
+}
+
+.calculateUpperSpace {
+  margin-top: 96px;
+}
+
+.calculateArray {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+@media (max-width: 980px) {
+  .calculateArray {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+  }
+}
+@media (max-width: 656px) {
+  .crossBoarder {
+    margin-top: 0;
+  }
+  .calculateUpperSpace {
+    margin-top: 0;
+  }
+  .calculateArray {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+  }
+}
 /* radio btn樣式 */
 .form-check-input {
   width: 25px;
@@ -215,45 +279,24 @@
 
 
 
-/* 轉檔後沒用到?
-.sick-icon {
-  padding: 1.25rem;
-  background-color: #FFF5CF;
-} */
 
 /* 顧客回饋 start */
 .pentagon-container {
   position: relative;
-  width: 100%;
-  max-width: 100%; /* 不確定 */
+  width: auto;
   background-color: #FFF5CF;
   clip-path: polygon(0% 0%, 85% 0%, 100% 20%, 100% 100%, 0% 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 20px;/* 不確定 */
-  box-sizing: border-box;
+  display: inline-block;
+  padding: 0 20px;
+  max-width: 100%;
 }
 
 .pet-image {
   border-radius: 50%;
-  width: 100%;
-  max-width: 100%; /* 不確定 */
-  height: auto;
+  width: 9.375rem;
+  height: 9.375rem;
   object-fit: cover;
-  margin: 20px 0;
-}
-
-@media (max-width: 768px) {
-  .pentagon-container {
-    max-width: 100%; /* 確保在小螢幕上五邊形佔滿父容器 */
-    padding: 10px; /* 減少 padding 以適應小螢幕 */
-  }
-
-  .pet-image {
-    max-width: 100%; /* 不確定 */
-    margin: 10px 0;
-  }
+  margin: 20px;
 }
 
 .no-outline:focus, .no-outline:active {
@@ -264,6 +307,40 @@
 @media (max-width: 1070px) {
 .smHidden {
     display: none;
+  }
+}
+
+.feedbackLap{
+  display: block;
+}
+
+.feedbackPhone{
+  display: none !important;
+}
+
+.btnUpSpace{
+  margin-top: 1.875rem;
+}
+
+@media (max-width: 430px) {
+  .feedbackLap{
+    display: none !important;
+  }
+  .feedbackPhone{
+    display: block !important;
+  }
+  .pentagon-container {
+    padding: 0 ;
+  }
+  .pet-image {
+    border-radius: 50%;
+    width: 3.125rem;
+    height: 3.125rem;
+    object-fit: cover;
+    margin: 10px;
+  }
+  .btnUpSpace{
+    margin-top: 0;
   }
 }
 

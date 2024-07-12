@@ -105,11 +105,10 @@ export default function DatePicker({
   }, [selectedYear, selectedMonth, selectedDay, onChange])
 
   return (
-    <form className="d-flex" name="datePicker">
+    <form className="d-flex justify-content-center" name="datePicker">
       <div className="form-group d-flex align-items-center">
         <select
           className={`form-control ${styles['own-btn3']}`}
-          style={{ width: 176, height: 66 }}
           value={selectedYear}
           onChange={handleYearChange}
           required
@@ -121,13 +120,12 @@ export default function DatePicker({
           ))}
         </select>
         <label htmlFor="year">
-          <h2 className="mx-2">年</h2>
+          <p className="mx-2 my-2">年</p>
         </label>
       </div>
       <div className="form-group d-flex align-items-center">
         <select
           className={`form-control ${styles['own-btn3']}`}
-          style={{ width: 176, height: 66 }}
           value={selectedMonth}
           onChange={handleMonthChange}
           required
@@ -143,13 +141,12 @@ export default function DatePicker({
           ))}
         </select>
         <label htmlFor="month">
-          <h2 className="mx-2">月</h2>
+          <p className="mx-2 my-2">月</p>
         </label>
       </div>
       <div className="form-group d-flex align-items-center">
         <select
           className={`form-control ${styles['own-btn3']}`}
-          style={{ width: 176, height: 66 }}
           value={selectedDay}
           onChange={handleDayChange}
           required
@@ -161,7 +158,7 @@ export default function DatePicker({
           ))}
         </select>
         <label htmlFor="day">
-          <h2 className="mx-2">日</h2>
+          <p className="mx-2 my-2">日</p>
         </label>
       </div>
     </form>

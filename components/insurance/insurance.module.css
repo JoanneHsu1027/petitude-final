@@ -85,11 +85,11 @@
   background-color: white;
   border: 1px solid #F69A30;
   color: #515151;
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 900;
   white-space: nowrap;
-  width: 15.625rem;
-  height: 5rem;
+  width: 7rem;
+  height: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,6 +102,28 @@
   background-color: #f0f0f0; /* 懸停效果 */
 }
 
+@media (max-width: 430px) {
+  .own-btn3 {
+    border-radius: 1.25rem;
+    background-color: white;
+    border: 1px solid #F69A30;
+    color: #515151;
+    font-size: 1rem;
+    font-weight: 900;
+    white-space: nowrap;
+    width: 5rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    margin: 5px; 
+    cursor: pointer;
+  }
+  
+}
+
 .btn-check {
   display: none;
 }
@@ -112,6 +134,8 @@
   border-color: #F69A30;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+
 
 .own-btn4 {
   border-radius: 1.25rem;
@@ -154,15 +178,37 @@
 }
 
 /* section 2 的pet-sick */
+.barHight {
+  height: 7.5rem;
+}
+
 .stats-container {
   background-color: #CFE7B1;
   border-radius: 1.25rem;
 }
-
+.sick-expense{
+  padding: 1.25rem 0;
+  width: 50%;
+}
 .circleColorChange{
   padding: 1.25rem;
   background-color: #FFF5CF;
   cursor:pointer
+}
+@media (max-width: 430px) {
+  .barHight {
+    height: 1rem;
+  }
+  .sick-expense{
+    padding: 0.5rem 0;
+    width: 80%;
+  }
+  
+  .circleColorChange{
+    padding: 8px;
+    background-color: #FFF5CF;
+    cursor:pointer
+  }
 }
 .circleColorChange:hover{
   background-color: #F6D554;
@@ -193,6 +239,8 @@
   }
 }
 
+
+
 /* radio btn樣式 */
 .form-check-input {
   width: 1.5625rem;
@@ -208,6 +256,7 @@
   font-size: 1rem;
   font-weight: 500;
   color: #6F6F6F;
+  padding-left: .625rem;
 }
 
 
@@ -233,8 +282,27 @@
   
   /* 試算內容 */
   .downScroll {
-    height: 450px;
+    max-height: 500px;
     overflow-y: auto
+  }
+
+  .formLayout{
+    align-items: start;
+    margin-top: 1rem;
+  }
+
+  .formSpace{
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 992px) {
+    .formLayout{
+      flex-direction:column;
+      align-items: center;
+      margin-top: 0;
+    }
+    .formSpace{
+      margin-bottom: 0;
+    }
   }
 
   /* 試算表 */

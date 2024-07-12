@@ -3,14 +3,6 @@ import React from 'react'
 export default function Footer() {
   return (
     <>
-<<<<<<< HEAD
-      <footer
-        style={{ backgroundColor: '#f4bc7a', marginTop: 'auto' }}
-        className="footer mt-auto py-3 text-center text-black fw-bold"
-      >
-        @ CopyRight 2024 Petitude
-      </footer>
-=======
       <div className="container-fluid">
         <div className="row d-flex justify-content-between">
           <div className="col-sm-3 d-flex flex-column align-items-start mt-auto">
@@ -37,7 +29,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
->>>>>>> origin/funeral
     </>
   )
 }

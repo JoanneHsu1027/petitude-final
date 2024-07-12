@@ -37,7 +37,7 @@ export default function PetSick() {
     <>
       <div className="container-fluid" style={{ padding: 0 }}>
         <div className="row">
-          <div className="col-12" style={{ height: '7.5rem' }}>
+          <div className={`col-12 ${styles.barHight}`}>
             <img
               className="w-100"
               loading="lazy"
@@ -85,9 +85,10 @@ export default function PetSick() {
               />
             </div>
           </div>
-          <div className="col-lg-3 d-flex align-items-center pt-5">
+          <div className="col-lg-3 col-xxl-2 d-flex align-items-center pt-5">
             <ul className="list-unstyled" style={{ width: '100%' }}>
               {accidentTypes.map((accident, index) => (
+                // eslint-disable-next-line
                 <li
                   key={index}
                   onClick={() => handleIconClick(index)}
@@ -115,14 +116,15 @@ export default function PetSick() {
               ))}
             </ul>
           </div>
-          <div className="col-lg-5">
+          <div className="col-lg-5 col-xxl-6">
             <div
-              className="d-flex justify-content-start"
+              className="d-flex justify-content-center"
               style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                padding: 80,
+                paddingTop: 80,
+                paddingBottom: 80,
               }}
             >
               <img
@@ -143,6 +145,7 @@ export default function PetSick() {
             <div className="pt-1">
               <div className="d-flex justify-content-evenly">
                 {accidentTypes.map((accident, index) => (
+                  // eslint-disable-next-line
                   <div
                     key={index}
                     onClick={() => handleIconClick(index)}
@@ -159,8 +162,7 @@ export default function PetSick() {
               </div>
             </div>
             <div
-              className={`${styles['stats-container']} text-center mt-5`}
-              style={{ padding: '1.25rem 0', width: '50%' }}
+              className={`${styles['stats-container']} ${styles['sick-expense']} text-center mt-3`}
             >
               <h4 style={{ fontWeight: '700' }}>
                 {selectedAccident.accidentType}
@@ -187,7 +189,6 @@ export default function PetSick() {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                // padding: 80,
               }}
             >
               <img
@@ -199,13 +200,16 @@ export default function PetSick() {
             </div>
           </div>
         </div>
-        <div className="col-12" style={{ height: '7.5rem' }}>
-          <img
-            className="w-100 h-100"
-            loading="lazy"
-            src="/pi-pic/section2-bottom-bar2.png"
-            alt=""
-          />
+
+        <div className="row">
+          <div className={`col-12 ${styles.barHight}`}>
+            <img
+              className="w-100 h-100"
+              loading="lazy"
+              src="/pi-pic/section2-bottom-bar2.png"
+              alt=""
+            />
+          </div>
         </div>
       </div>
     </>
