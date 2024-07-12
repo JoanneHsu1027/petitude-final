@@ -20,7 +20,7 @@ export default function ArticlePage() {
               <div className="col-xl-9 col-lg-12">
                 {/* article-page 這裡開始 */}
                 <div
-                  className={`container card my-1 ${styles.Rounded5} border-0 h-100 px-2`}
+                  className={`container card my-1 ${styles.Rounded5} border-0 h-100 px-3`}
                 >
                   <div className="row">
                     <div className="col-lg-12 col-md-12 d-flex flex-column justify-content-center mt-4">
@@ -29,7 +29,7 @@ export default function ArticlePage() {
                         style={{
                           width: '30px',
                           height: '30px',
-                          top: '142px',
+                          top: '240px',
                           left: '12px',
                         }}
                         className="border rounded bg-white d-flex justify-content-center align-items-center position-fixed d-xl-none d-xxl-block d-xxl-none"
@@ -44,8 +44,8 @@ export default function ArticlePage() {
                         <section>
                           {/* head */}
                           <div className="border-bottom border-secondary mt-3 mx-2">
-                            <h2>文章名稱</h2>
-                            <div className="d-flex me-3">
+                            <h2 className="ms-2">文章名稱</h2>
+                            <div className="d-flex me-3 ms-2">
                               <div className="m-2 d-flex flex-grow-1 word-wrap">
                                 <a className={`${styles.AReset}`} href="">
                                   <p className="border border-dark rounded-3 me-2 word-wrap">
