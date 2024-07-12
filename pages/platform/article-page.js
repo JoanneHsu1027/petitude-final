@@ -148,10 +148,10 @@ export default function ArticlePage() {
                         {/* message-content 這裡結束 */}
                         {/* re-message-block 這裡開始 */}
                         <div className="position-sticky bottom-0 ">
-                          <div className="p-3">
+                          <div className="p-3 d-flex justify-content-center">
                             <input
                               style={{ height: '45px' }}
-                              className={`card w-100 border-3 ${styles.BorderBlue} ${styles.SetPlaceholder}`}
+                              className={`card ${styles.W95} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder}`}
                               type="text"
                               placeholder="回覆......"
                             />
