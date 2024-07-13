@@ -129,32 +129,39 @@ export default function ProjectList() {
                     </button>
                   </form>
                   <Link
-                    href=""
+                    href="/estore"
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    全部商品
+                    全部產品
                   </Link>
                   <Link
                     href=""
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    热门讨论
+                    犬類食品
                   </Link>
                   <Link
                     href=""
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    最新文章
+                    貓類食品
                   </Link>
                   <Link
                     href=""
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    文章收藏
+                    成貓成犬
+                  </Link>
+                  <Link
+                    href=""
+                    type="button"
+                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                  >
+                    幼貓幼犬
                   </Link>
                 </div>
                 <div className="d-flex justify-content-center mt-3">
@@ -203,14 +210,14 @@ export default function ProjectList() {
             >
               <div className={`d-flex text-nowrap overflow-scroll`}>
                 <Link
-                  href="../../platform"
+                  href=""
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === '' ? styles3.MobilePageSelect : ''}`}
                 >
                   全部商品
                 </Link>
                 <Link
-                  href="../../platform/class-list"
+                  href=""
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'class-list' ? styles3.MobilePageSelect : ''}`}
                 >
@@ -218,14 +225,14 @@ export default function ProjectList() {
                 </Link>
 
                 <Link
-                  href="../../platform/article-list"
+                  href=""
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'article-list' ? styles3.MobilePageSelect : ''}`}
                 >
                   最新文章
                 </Link>
                 <Link
-                  href="../../platform/favorites"
+                  href=""
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'favorites' ? styles3.MobilePageSelect : ''}`}
                 >

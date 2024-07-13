@@ -22,26 +22,34 @@ export default function ProjectList() {
     totalPages: 1,
   })
 
-  const [selectedCategories, setSelectedCategories] = useState([])
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
+  const [category, setCategory] = useState('')
 
   const fetchData = async () => {
     const page = router.query.page || 1
     try {
       setData((prevData) => ({ ...prevData, success: false }))
-      const res = await axios.get(`${ProductList}`, {
+      const res = await axios.get(ProductList, {
         params: {
           page: page,
-          code_desc: selectedCategories.join('-'),
           keyword: searchTerm,
+          category: category,
         },
       })
       const myData = res.data
-      console.log(myData)
-      setData(myData)
+      console.log('Received data:', myData)
+      if (myData.success) {
+        setData(myData)
+      } else {
+        console.error('API request was not successful:', myData)
+      }
     } catch (error) {
       console.error('Failed to fetch data:', error)
+      if (error.response) {
+        console.error('Response data:', error.response.data)
+        console.error('Response status:', error.response.status)
+      }
       setData((prevData) => ({ ...prevData, success: false }))
     }
   }
@@ -49,23 +57,29 @@ export default function ProjectList() {
   useEffect(() => {
     if (router.isReady) {
       const queryKeyword = router.query.keyword
+      const queryCategory = router.query.category
       if (queryKeyword) {
         setSearchKeyword(queryKeyword)
         setSearchTerm(queryKeyword)
+      }
+      if (queryCategory) {
+        setCategory(queryCategory)
       }
       fetchData()
     }
   }, [router.isReady, router.query])
 
-  const handleCategoryChange = (code_desc, isChecked) => {
-    console.log('handleCategoryChange called:', code_desc, isChecked)
-    setSelectedCategories((prev) => {
-      const newSelectedCategories = isChecked
-        ? [...prev, code_desc]
-        : prev.filter((cat) => cat !== code_desc)
+  useEffect(() => {
+    if (router.isReady) {
+      fetchData()
+    }
+  }, [category, searchTerm, router.query.page])
 
-      console.log('New selected categories:', newSelectedCategories)
-      return newSelectedCategories
+  const handleCategoryClick = (selectedCategory) => {
+    setCategory(selectedCategory)
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, category: selectedCategory, page: 1 },
     })
   }
 
@@ -81,20 +95,6 @@ export default function ProjectList() {
       query: { ...router.query, keyword: searchKeyword, page: 1 },
     })
   }
-
-  const [activeLink, setActiveLink] = React.useState('')
-
-  useEffect(() => {
-    if (router.pathname.includes('class-list')) {
-      setActiveLink('class-list')
-    } else if (router.pathname.includes('article-list')) {
-      setActiveLink('article-list')
-    } else if (router.pathname.includes('hot-topics')) {
-      setActiveLink('hot-topics')
-    } else if (router.pathname.includes('favorites')) {
-      setActiveLink('favorites')
-    }
-  }, [router.pathname])
 
   return (
     <Layout title="商品列表" pageName="index">
@@ -129,33 +129,47 @@ export default function ProjectList() {
                     </button>
                   </form>
                   <Link
-                    href=""
+                    href="/estore"
                     type="button"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
                   >
-                    全部商品
+                    全部產品
                   </Link>
-                  <Link
-                    href=""
-                    type="button"
+                  <button
+                    type="submit"
+                    category="dog"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                    onChange={handleCategoryClick}
                   >
-                    热门讨论
-                  </Link>
-                  <Link
+                    犬類食品
+                  </button>
+                  <button
                     href=""
-                    type="button"
+                    type="submit"
+                    category="cat"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                    onChange={handleCategoryClick}
                   >
-                    最新文章
-                  </Link>
-                  <Link
+                    貓類食品
+                  </button>
+                  <button
                     href=""
-                    type="button"
+                    type="submit"
+                    category="adult"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                    onChange={handleCategoryClick}
                   >
-                    文章收藏
-                  </Link>
+                    成貓成犬
+                  </button>
+                  <button
+                    href=""
+                    type="submit"
+                    category="young"
+                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                    onChange={handleCategoryClick}
+                  >
+                    幼貓幼犬
+                  </button>
                 </div>
                 <div className="d-flex justify-content-center mt-3">
                   <Link
@@ -203,31 +217,31 @@ export default function ProjectList() {
             >
               <div className={`d-flex text-nowrap overflow-scroll`}>
                 <Link
-                  href="../../platform"
+                  href=""
                   type="button"
-                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === '' ? styles3.MobilePageSelect : ''}`}
+                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover}`}
                 >
                   全部商品
                 </Link>
                 <Link
-                  href="../../platform/class-list"
+                  href=""
                   type="button"
-                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'class-list' ? styles3.MobilePageSelect : ''}`}
+                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover}`}
                 >
                   主題分類
                 </Link>
 
                 <Link
-                  href="../../platform/article-list"
+                  href=""
                   type="button"
-                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'article-list' ? styles3.MobilePageSelect : ''}`}
+                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover}`}
                 >
                   最新文章
                 </Link>
                 <Link
-                  href="../../platform/favorites"
+                  href=""
                   type="button"
-                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover} ${activeLink === 'favorites' ? styles3.MobilePageSelect : ''}`}
+                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover}`}
                 >
                   文章收藏
                 </Link>
