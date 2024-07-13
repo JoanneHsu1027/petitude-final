@@ -139,34 +139,31 @@ export default function ProjectList() {
                     type="submit"
                     category="dog"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
-                    onChange={handleCategoryClick}
+                    onClick={() => handleCategoryClick('dog')}
                   >
                     犬類食品
                   </button>
                   <button
-                    href=""
                     type="submit"
                     category="cat"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
-                    onChange={handleCategoryClick}
+                    onClick={() => handleCategoryClick('cat')}
                   >
                     貓類食品
                   </button>
                   <button
-                    href=""
                     type="submit"
                     category="adult"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
-                    onChange={handleCategoryClick}
+                    onClick={() => handleCategoryClick('adult')}
                   >
                     成貓成犬
                   </button>
                   <button
-                    href=""
                     type="submit"
                     category="young"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
-                    onChange={handleCategoryClick}
+                    onClick={() => handleCategoryClick('young')}
                   >
                     幼貓幼犬
                   </button>
