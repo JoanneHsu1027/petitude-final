@@ -63,5 +63,8 @@ export const RV_LIST = `${API_SERVER}/reservation/api`
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+//platform   article-list
+export const Article_LIST = `${API_SERVER}/article-list/api`
+
 // 登入, 表單資料 {email, password}
 // export const JWT_LOGIN_POST = `${API_SERVER}/login-jwt`
