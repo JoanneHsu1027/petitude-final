@@ -3,9 +3,24 @@ import Layout from '@/components/layout/layout'
 import styles from '../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
 import SideBarMobile from '@/components/platform/side-bar-mobile'
-// import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { CLASS_LIST } from '@/configs/api-path'
 
 export default function ClassList() {
+  const [data, setData] = useState({
+    success: false,
+    rows: [],
+  })
+
+  useEffect(() => {
+    fetch(`${CLASS_LIST}`)
+      .then((r) => r.json())
+      .then((myData) => {
+        console.log(data)
+        setData(myData)
+      })
+  }, [])
+
   return (
     <>
       <section className={`${styles.BgImg}`}>
@@ -23,132 +38,33 @@ export default function ClassList() {
 
                   <div className="row">
                     <div className="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center mt-3 mb-5">
-                      <div className="border-bottom w-75">
-                        <a
-                          href="./article-list.html"
-                          className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
-                          data-img="p01"
-                        >
-                          <h3
-                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
-                          >
-                            寵物遺失
-                          </h3>
-                          <p
-                            className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
-                          >
-                            6篇文章
-                          </p>
-                        </a>
-                      </div>
-                      <div className="border-bottom w-75">
-                        <a
-                          className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
-                          href="#"
-                          data-img="p01"
-                        >
-                          <h3
-                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
-                          >
-                            飼養心得
-                          </h3>
-                          <p
-                            className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
-                          >
-                            6篇文章
-                          </p>
-                        </a>
-                      </div>
-                      <div className="border-bottom w-75">
-                        <a
-                          className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
-                          href="#"
-                          data-img="p01"
-                        >
-                          <h3
-                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
-                          >
-                            聊天討論
-                          </h3>
-                          <p
-                            className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
-                          >
-                            6篇文章
-                          </p>
-                        </a>
-                      </div>
-                      <div className="border-bottom w-75">
-                        <a
-                          className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
-                          href="#"
-                          data-img="p01"
-                        >
-                          <h3
-                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
-                          >
-                            寵物健康醫療
-                          </h3>
-                          <p
-                            className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
-                          >
-                            6篇文章
-                          </p>
-                        </a>
-                      </div>
-                      <div className="border-bottom w-75">
-                        <a
-                          className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
-                          href="#"
-                          data-img="p01"
-                        >
-                          <h3
-                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
-                          >
-                            寵物營養
-                          </h3>
-                          <p
-                            className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
-                          >
-                            6篇文章
-                          </p>
-                        </a>
-                      </div>
-                      <div className="border-bottom w-75">
-                        <a
-                          className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
-                          href="#"
-                          data-img="p01"
-                        >
-                          <h3
-                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
-                          >
-                            寵物訓練
-                          </h3>
-                          <p
-                            className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
-                          >
-                            6篇文章
-                          </p>
-                        </a>
-                      </div>
-                      <div className="border-bottom w-75">
-                        <a
-                          className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
-                          href="#"
-                          data-img="p01"
-                        >
-                          <h3
-                            className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
-                          >
-                            寵物相關新聞
-                          </h3>
-                          <p
-                            className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
-                          >
-                            6篇文章
-                          </p>
-                        </a>
-                      </div>
+                      {data.rows.map((r) => {
+                        return (
+                          <>
+                            <div
+                              key={r.class_id}
+                              className="border-bottom w-75"
+                            >
+                              <a
+                                href="./article-list.html"
+                                className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
+                                data-img="p01"
+                              >
+                                <h3
+                                  className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
+                                >
+                                  {r.class_name}
+                                </h3>
+                                <p
+                                  className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
+                                >
+                                  6篇文章
+                                </p>
+                              </a>
+                            </div>
+                          </>
+                        )
+                      })}
                     </div>
                   </div>
                 </div>

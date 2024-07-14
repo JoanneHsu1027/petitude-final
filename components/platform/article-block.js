@@ -3,7 +3,7 @@ import styles from '../../styles/platform/platform-style.module.css'
 import { BsBookmarkFill } from 'react-icons/bs'
 import { BsChatText } from 'react-icons/bs'
 import { useEffect, useState } from 'react'
-import { Article_LIST } from '@/configs/api-path'
+import { ARTICLE_LIST } from '@/configs/api-path'
 
 export default function ArticleBlock() {
   const [data, setData] = useState({
@@ -12,7 +12,7 @@ export default function ArticleBlock() {
   })
 
   useEffect(() => {
-    fetch(`${Article_LIST}`)
+    fetch(`${ARTICLE_LIST}`)
       .then((r) => r.json())
       .then((myData) => {
         console.log(data)
