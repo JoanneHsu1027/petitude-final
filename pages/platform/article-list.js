@@ -32,11 +32,6 @@ export default function ArticleList() {
                         </h5>
                       </a>
                       <ArticleBlock></ArticleBlock>
-                      <ArticleBlock></ArticleBlock>
-                      <ArticleBlock></ArticleBlock>
-                      <ArticleBlock></ArticleBlock>
-                      <ArticleBlock></ArticleBlock>
-                      <ArticleBlock></ArticleBlock>
                     </div>
                   </div>
                 </div>
