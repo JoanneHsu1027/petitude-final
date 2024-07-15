@@ -1,19 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '@/components/layout/layout'
 import styles from '../../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
-import { BsChevronLeft } from 'react-icons/bs'
-import { BsFillPencilFill } from 'react-icons/bs'
-import { BsBookmarkFill } from 'react-icons/bs'
-import { BsFillShareFill } from 'react-icons/bs'
-import { useEffect, useState } from 'react'
+import {
+  BsChevronLeft,
+  BsFillPencilFill,
+  BsBookmarkFill,
+  BsFillShareFill,
+} from 'react-icons/bs'
 import { useRouter } from 'next/router'
 import { ARTICLE_PAGE } from '@/configs/platform/api-path'
 import ReMessageBlock from '@/components/platform/re-message-block'
 
 export default function ArticleId() {
   const router = useRouter()
-  const [data, setData] = useState([])
+  const [data, setData] = useState({})
 
   useEffect(() => {
     if (!router.isReady) return
@@ -25,6 +26,7 @@ export default function ArticleId() {
         setData(myData.data)
       })
   }, [router])
+
   return (
     <>
       <section className={`${styles.BgImg}`}>
@@ -65,7 +67,7 @@ export default function ArticleId() {
                               <div className="m-2 d-flex flex-grow-1 word-wrap">
                                 <a className={`${styles.AReset}`} href="">
                                   <p className="border border-dark rounded-3 me-2 word-wrap">
-                                    主題名稱
+                                    {data.class_name}
                                   </p>
                                 </a>
                                 <p className="me-1 word-wrap">
@@ -85,7 +87,7 @@ export default function ArticleId() {
 
                           {/* main */}
                           <div className="mx-4 my-4">
-                            <p>{data.article_content} </p>
+                            <p>{data.article_content}</p>
                           </div>
 
                           {/* foot */}
