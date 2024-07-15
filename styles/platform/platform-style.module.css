@@ -46,6 +46,10 @@
     border-radius: 15px;
 }
 
+.H60 {
+    height: 60%;
+}
+
 .H70 {
     height: 70%;
 }
@@ -61,6 +65,10 @@
 
 .W80 {
     width: 80%;
+}
+
+.W95 {
+    width: 95%;
 }
 
 .OrangeYellow {

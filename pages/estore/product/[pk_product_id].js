@@ -405,27 +405,30 @@ export default function Productid() {
           <div
             className="tab-content"
             id="myTabContent"
-            style={{ padding: '0px 60px' }}
+            style={{
+              padding: 0 + 'px' + ' ' + 60 + 'px',
+              marginBottom: 48 + 'px',
+            }}
           >
             {/* 主要效益 start */}
             <div
-              className="tab-pane fade show active"
+              className="tab-pane fade show active fs-5"
               id="s1"
               role="tabpanel"
               aria-labelledby="home-tab"
             >
-              <div>aaa</div>
+              <div>{data.description_long}</div>
             </div>
             {/* 主要效益 end */}
 
             {/* 原料 start */}
             <div
-              className="tab-pane fade"
+              className="tab-pane fade fs-5"
               id="s2"
               role="tabpanel"
               aria-labelledby="profile-tab"
             >
-              <div>bbb</div>
+              <div>{data.raw_material}</div>
             </div>
             {/* 原料 end */}
           </div>

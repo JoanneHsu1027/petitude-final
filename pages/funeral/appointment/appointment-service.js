@@ -148,13 +148,16 @@ export default function AppointmentService() {
             className="vector"
             src="/funeral/Vector 436.png"
             alt=""
-            maxWidth="100%"
-            height="55%"
             style={{
               position: 'fixed',
               bottom: '0',
+              left: '0',
               padding: '0',
+              margin: '0',
               zIndex: -1,
+              width: '100%',
+              height: '55%',
+              objectFit: 'cover',
               overflow: 'hidden',
               maxWidth: '100%',
             }}

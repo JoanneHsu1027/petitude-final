@@ -1,86 +1,79 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { JWT_LOGIN_POST } from '../configs/api-path'
+// import { createContext, useContext, useEffect, useState } from 'react'
+// import { JWT_LOGIN_POST } from '@/configs/funeral/api-path'
 
-// 會員登入ContextProvider
+// // 會員登入ContextProvider
 
-const AuthContext = createContext()
-// 保有狀態
-// login
-// logout
-// getAuthHeader
+// const AuthContext = createContext()
+// const storageKey = 'funeral-auth'
 
-// component
+// const emptyAuth = {
+//   b2c_id: '',
+//   b2c_email: '',
+//   b2c_name: '',
+//   token: '',
+// }
 
-const storageKey = 'funeral-auth'
+// export function AuthContextProvider({ children }) {
+//   const [auth, setAuth] = useState(emptyAuth)
 
-const emptyAuth = {
-  b2c_id: 0,
-  b2c_email: '',
-  b2c_name: '',
-  token: '',
-}
+//   const login = async (b2c_email, b2c_password) => {
+//     try {
+//       const r = await fetch(JWT_LOGIN_POST, {
+//         method: 'POST',
+//         body: JSON.stringify({ b2c_email, b2c_password }),
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       })
+//       const result = await r.json()
+//       if (result.success) {
+//         // token 和用戶的相關資料存到 localStorage
+//         localStorage.setItem(storageKey, JSON.stringify(result.data))
 
-export function AuthContextProvider({ children }) {
-  const [auth, setAuth] = useState(emptyAuth)
+//         // **** 變更狀態
+//         setAuth(result.data)
+//       }
 
-  const login = async (b2c_email, b2c_password) => {
-    try {
-      const r = await fetch(JWT_LOGIN_POST, {
-        method: 'POST',
-        body: JSON.stringify({ b2c_email, b2c_password }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      const result = await r.json()
-      if (result.success) {
-        // token 和用戶的相關資料存到 localStorage
-        localStorage.setItem(storageKey, JSON.stringify(result.data))
+//       return result.success
+//     } catch (ex) {
+//       console.log(ex)
+//       return false
+//     }
+//   }
 
-        // **** 變更狀態
-        setAuth(result.data)
-      }
+//   const logout = () => {
+//     localStorage.removeItem(storageKey)
+//     setAuth(emptyAuth)
+//   }
 
-      return result.success
-    } catch (ex) {
-      console.log(ex)
-      return false
-    }
-  }
+//   const getAuthHeader = () => {
+//     if (auth.token) {
+//       return {
+//         Authorization: `Bearer ${auth.token}`,
+//       }
+//     } else {
+//       return {}
+//     }
+//   }
 
-  const logout = () => {
-    localStorage.removeItem(storageKey)
-    setAuth(emptyAuth)
-  }
+//   // 用戶如果重刷頁面, 狀態可以由 localStorage 載入
+//   useEffect(() => {
+//     const str = localStorage.getItem(storageKey)
+//     if (!str) return
+//     try {
+//       const data = JSON.parse(str)
+//       if (data?.b2c_id && data?.token) {
+//         setAuth(data)
+//       }
+//     } catch (ex) {}
+//   }, [])
 
-  const getAuthHeader = () => {
-    if (auth.token) {
-      return {
-        Authorization: `Bearer ${auth.token}`,
-      }
-    } else {
-      return {}
-    }
-  }
+//   return (
+//     <AuthContext.Provider value={{ login, logout, auth, getAuthHeader }}>
+//       {children}
+//     </AuthContext.Provider>
+//   )
+// }
 
-  // 用戶如果重刷頁面, 狀態可以由 localStorage 載入
-  useEffect(() => {
-    const str = localStorage.getItem(storageKey)
-    if (!str) return
-    try {
-      const data = JSON.parse(str)
-      if (data?.b2c_id && data?.token) {
-        setAuth(data)
-      }
-    } catch (ex) {}
-  }, [])
-
-  return (
-    <AuthContext.Provider value={{ login, logout, auth, getAuthHeader }}>
-      {children}
-    </AuthContext.Provider>
-  )
-}
-
-export const useAuth = () => useContext(AuthContext)
-export default AuthContext
+// export const useAuth = () => useContext(AuthContext)
+// export default AuthContext

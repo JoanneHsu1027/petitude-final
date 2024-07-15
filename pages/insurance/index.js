@@ -212,10 +212,9 @@ export default function PetInsurance() {
           <div className="row" style={{ padding: '0 60px' }}>
             <div className="col-12 d-flex justify-content-center">
               <ul
-                className="list-unstyled d-inline-flex justify-content-between"
-                style={{ height: '23.75rem' }}
+                className={` list-unstyled d-inline-flex justify-content-between ${styles.advantageHeight}`}
               >
-                <li className="col-2" style={{ paddingTop: 130 }}>
+                <li className={`col-2 ${styles.advantageFlatTop}`}>
                   <div className="d-flex justify-content-center">
                     <img
                       className="img-fluid"
@@ -233,7 +232,7 @@ export default function PetInsurance() {
                     涵蓋意外、疾病、手術等多種醫療費用，讓您的寵物在需要醫療時得到全面的保障。
                   </p>
                 </li>
-                <li className="col-2" style={{ paddingBottom: 130 }}>
+                <li className={`col-2 ${styles.advantageFlatBottom}`}>
                   <div className="d-flex justify-content-center">
                     <img
                       className="img-fluid"
@@ -251,7 +250,7 @@ export default function PetInsurance() {
                     迅速處理您的理賠申請，減少等待時間，確保寵物及時獲得治療。
                   </p>
                 </li>
-                <li className="col-2" style={{ paddingBottom: 130 }}>
+                <li className={`col-2 ${styles.advantageFlatBottom}`}>
                   <div className="d-flex justify-content-center">
                     <img
                       className="img-fluid"
@@ -269,7 +268,7 @@ export default function PetInsurance() {
                     提供多樣化的保險方案，可以根據寵物的狀況以及您的預算，選擇最適合的方案。
                   </p>
                 </li>
-                <li className="col-2" style={{ paddingTop: 130 }}>
+                <li className={`col-2 ${styles.advantageFlatTop}`}>
                   <div className="d-flex justify-content-center">
                     <img
                       className="img-fluid"
@@ -306,21 +305,21 @@ export default function PetInsurance() {
 
         {/* section 4 保險試算 start */}
         <div
-          className="container-fluid d-flex flex-column justify-content-center"
-          style={{ marginTop: '-8.125rem', backgroundColor: 'white' }}
+          className={`container-fluid d-flex flex-column justify-content-center ${styles.crossBoarder}`}
         >
-          <div className="row mt-5 d-flex justify-content-center">
-            <div className="col-8 mt-5">
+          <div
+            className={`${styles.calculateUpperSpace} row d-flex justify-content-center`}
+          >
+            <div className="col-8">
               <h2
                 id="showTrial"
                 className={`d-flex justify-content-center ${styles['text-color']} mt-5`}
-                style={{ color: 515151 }}
               >
                 保險試算
               </h2>
             </div>
           </div>
-          <div className="row mt-5 d-flex justify-content-center">
+          <div className={`row ${styles.calculateArray}`}>
             <CatCalculate />
             <DogCalculate />
           </div>
@@ -355,12 +354,61 @@ export default function PetInsurance() {
               </h2>
             </div>
           </div>
+          {/* 電腦版 start*/}
           <div
-            className="row d-flex flex-sm-column flex-md-row justify-content-center mt-5"
+            className={`row d-flex flex-sm-column flex-md-row justify-content-center mt-5 ${styles.feedbackLap}`}
+            style={{ padding: '0 3.75rem' }}
+          >
+            <div
+              className={`col-md-4 d-flex ${styles['pentagon-container']} mb-5`}
+            >
+              <img
+                src="/pi-pic/customer-feedback01.jpg"
+                alt="巨石(鬥牛犬)"
+                className={styles['pet-image']}
+              />
+              <div className="d-flex align-items-center ps-2">
+                <div>
+                  <h4 className="text-left">巨石(鬥牛犬) 1歲</h4>
+                  <h6
+                    className="text-left text-wrap"
+                    style={{ width: '100%', height: '6.25rem' }}
+                  >
+                    雖然有其他更便宜的寵物保險選擇，但寵度是最方便的。我很怕麻煩，所以我想以最完整方便的方式照顧它。
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <div className={`col-1 ${styles.smHidden}`} />
+            <div
+              className={`col-md-4 d-flex ${styles['pentagon-container']} mb-5`}
+            >
+              <img
+                src="/pi-pic/customer-feedback02.jpg"
+                alt="米亞(虎斑貓)"
+                className={styles['pet-image']}
+              />
+              <div className="d-flex align-items-center ps-2">
+                <div>
+                  <h4 className="text-left">米亞(虎斑貓) 3歲</h4>
+                  <h6
+                    className="text-left text-wrap"
+                    style={{ width: '100%', height: '6.25rem' }}
+                  >
+                    我小時候就知道寵物保險了。當我養了米亞時，它非常有幫助。價格非常合情合理。
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* 電腦版 end*/}
+          {/* 手機板 start */}
+          <div
+            className={`row d-flex flex-sm-column flex-md-row justify-content-center ${styles.feedbackPhone}`}
             style={{ padding: '0 3.75rem 0 3.75rem' }}
           >
             <div
-              className={`col-md-3 d-flex ${styles['pentagon-container']} mb-5`}
+              className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
             >
               <img
                 src="/pi-pic/customer-feedback01.jpg"
@@ -379,9 +427,8 @@ export default function PetInsurance() {
                 </div>
               </div>
             </div>
-            <div className={`col-md-1 ${styles.smHidden}`} />
             <div
-              className={`col-md-3 d-flex ${styles['pentagon-container']} mb-5`}
+              className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
             >
               <img
                 src="/pi-pic/customer-feedback02.jpg"
@@ -401,10 +448,11 @@ export default function PetInsurance() {
               </div>
             </div>
           </div>
+          {/* 手機板 end */}
+
           <div className="d-flex justify-content-center">
             <button
-              className={`${styles['own-btn2']} border-0 d-flex justify-content-center align-items-center`}
-              style={{ marginTop: '1.875rem' }}
+              className={`${styles['own-btn2']} ${styles.btnUpSpace} border-0 d-flex justify-content-center align-items-center`}
             >
               <h5 style={{ margin: 0 }}>了解更多回饋</h5>
             </button>
@@ -436,7 +484,7 @@ export default function PetInsurance() {
                 寵物保險常見問題
               </h2>
             </div>
-            <div className="col-6">
+            <div className="col-sm-6 col-12">
               <div className="accordion" id="accordionExample">
                 <div className="accordion-item">
                   <h2 className="accordion-header" id="headingOne">
@@ -615,7 +663,7 @@ export default function PetInsurance() {
                         <li>2. 批改時必須提供新的寵物登記證影本。</li>
                         <li>
                           3.
-                          如欲申請批改作業，請上網連結至國泰產險官網/保戶服務/保單專區/保單變更/加保，下載新種險批改申請書https://www.cathay-ins.com.tw/INSPFWeb/servlet/HttpDispatcher/PFA5_0200/prompt，簽名或蓋章並附上匯款帳號，寄送回寵度產險：台北市大安區仁愛路四段296號7樓(意外保險部新種險科)收。批改所需文件：1.
+                          如欲申請批改作業，請上網連結至國泰產險官網/保戶服務/保單專區/保單變更/加保，下載新種險批改申請書，簽名或蓋章並附上匯款帳號，寄送回寵度產險：台北市大安區仁愛路四段296號7樓(意外保險部新種險科)收。批改所需文件：1.
                           批改申請書 2. 寵物登記證影本。
                         </li>
                       </ul>

@@ -20,7 +20,7 @@ export default function ArticlePage() {
               <div className="col-xl-9 col-lg-12">
                 {/* article-page 這裡開始 */}
                 <div
-                  className={`container card my-1 ${styles.Rounded5} border-0 h-100 px-2`}
+                  className={`container card my-1 ${styles.Rounded5} border-0 h-100 px-3`}
                 >
                   <div className="row">
                     <div className="col-lg-12 col-md-12 d-flex flex-column justify-content-center mt-4">
@@ -29,7 +29,7 @@ export default function ArticlePage() {
                         style={{
                           width: '30px',
                           height: '30px',
-                          top: '142px',
+                          top: '240px',
                           left: '12px',
                         }}
                         className="border rounded bg-white d-flex justify-content-center align-items-center position-fixed d-xl-none d-xxl-block d-xxl-none"
@@ -44,8 +44,8 @@ export default function ArticlePage() {
                         <section>
                           {/* head */}
                           <div className="border-bottom border-secondary mt-3 mx-2">
-                            <h2>文章名稱</h2>
-                            <div className="d-flex me-3">
+                            <h2 className="ms-2">文章名稱</h2>
+                            <div className="d-flex me-3 ms-2">
                               <div className="m-2 d-flex flex-grow-1 word-wrap">
                                 <a className={`${styles.AReset}`} href="">
                                   <p className="border border-dark rounded-3 me-2 word-wrap">
@@ -118,7 +118,7 @@ export default function ArticlePage() {
                           </div>
 
                           {/* foot */}
-                          <div className="border-bottom border-secondary d-flex justify-content-around pb-3">
+                          <div className="border-bottom border-secondary d-flex justify-content-around pb-4">
                             <a
                               className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover}`}
                             >
@@ -148,10 +148,10 @@ export default function ArticlePage() {
                         {/* message-content 這裡結束 */}
                         {/* re-message-block 這裡開始 */}
                         <div className="position-sticky bottom-0 ">
-                          <div className="p-3">
+                          <div className="p-3 d-flex justify-content-center">
                             <input
                               style={{ height: '45px' }}
-                              className={`card w-100 border-3 ${styles.BorderBlue} ${styles.SetPlaceholder}`}
+                              className={`card ${styles.W95} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder}`}
                               type="text"
                               placeholder="回覆......"
                             />
