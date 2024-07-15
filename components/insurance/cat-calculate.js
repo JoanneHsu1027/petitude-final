@@ -188,99 +188,101 @@ export default function CatCalculate() {
                     style={{ height: '20%', width: '20%' }}
                   />
                 </div>
-                <div
-                  className="btn-group d-flex flex-wrap justify-content-center align-items-center"
-                  role="group"
-                  aria-label="Basic radio toggle button group"
-                >
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="cat-breed"
-                    id="cat-breed-1"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="cat-breed-1">
-                    暹羅貓
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="cat-breed"
-                    id="cat-breed-2"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="cat-breed-2">
-                    布偶貓
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="cat-breed"
-                    id="cat-breed-3"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="cat-breed-3">
-                    藍貓
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="cat-breed"
-                    id="cat-breed-4"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="cat-breed-4">
-                    美短貓
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="cat-breed"
-                    id="cat-breed-5"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="cat-breed-5">
-                    英短貓
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="cat-breed"
-                    id="cat-breed-6"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="cat-breed-6">
-                    虎斑貓
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="cat-breed"
-                    id="cat-breed-7"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="cat-breed-7">
-                    米克斯貓
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="cat-breed"
-                    id="cat-breed-8"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="cat-breed-8">
-                    其他品種
-                  </label>
+                <div className="d-flex justify-content-center">
+                  <div
+                    className="col-8 btn-group d-flex flex-wrap justify-content-center align-items-center"
+                    role="group"
+                    aria-label="Basic radio toggle button group"
+                  >
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="cat-breed"
+                      id="cat-breed-1"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="cat-breed-1">
+                      暹羅貓
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="cat-breed"
+                      id="cat-breed-2"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="cat-breed-2">
+                      布偶貓
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="cat-breed"
+                      id="cat-breed-3"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="cat-breed-3">
+                      藍貓
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="cat-breed"
+                      id="cat-breed-4"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="cat-breed-4">
+                      美短貓
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="cat-breed"
+                      id="cat-breed-5"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="cat-breed-5">
+                      英短貓
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="cat-breed"
+                      id="cat-breed-6"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="cat-breed-6">
+                      虎斑貓
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="cat-breed"
+                      id="cat-breed-7"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="cat-breed-7">
+                      米克斯貓
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="cat-breed"
+                      id="cat-breed-8"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="cat-breed-8">
+                      其他品種
+                    </label>
+                  </div>
                 </div>
                 <div className="d-flex justify-content-center">
                   <p className="text-color mb-0">

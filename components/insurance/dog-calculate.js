@@ -176,99 +176,101 @@ export default function DogCalculate() {
                     style={{ height: '20%', width: '20%' }}
                   />
                 </div>
-                <div
-                  className="btn-group d-flex flex-wrap justify-content-center align-items-center"
-                  role="group"
-                  aria-label="Basic radio toggle button group"
-                >
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-1"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-1">
-                    拉布拉多犬
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-2"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-2">
-                    德國牧羊犬
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-3"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-3">
-                    黃金獵犬
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-4"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-4">
-                    臘腸狗
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-5"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-5">
-                    貴賓狗
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-6"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-6">
-                    柴犬
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-7"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-7">
-                    吉娃娃
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-8"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-8">
-                    其他犬種
-                  </label>
+                <div className="d-flex justify-content-center">
+                  <div
+                    className="col-8 btn-group d-flex flex-wrap justify-content-center align-items-center"
+                    role="group"
+                    aria-label="Basic radio toggle button group"
+                  >
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-1"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-1">
+                      拉布拉多犬
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-2"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-2">
+                      德國牧羊犬
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-3"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-3">
+                      黃金獵犬
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-4"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-4">
+                      臘腸狗
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-5"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-5">
+                      貴賓狗
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-6"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-6">
+                      柴犬
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-7"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-7">
+                      吉娃娃
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-8"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-8">
+                      其他犬種
+                    </label>
+                  </div>
                 </div>
                 <div className="d-flex justify-content-center">
                   <p className="text-color mb-0">
