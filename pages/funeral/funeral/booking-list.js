@@ -97,9 +97,7 @@ export default function BookingList() {
                     className="form-check-label mb-2"
                     htmlFor="otherMethods"
                   >
-                    其他方式付款
-                    <br />
-                    (ATM轉帳、7-11 ibon)
+                    Line Pay
                   </label>
                 </div>
               </div>
@@ -336,7 +334,7 @@ export default function BookingList() {
                         <p className="card-text">
                           {selectedPaymentMethod === 'creditCard'
                             ? '信用卡'
-                            : '其他方式付款'}
+                            : 'Line Pay'}
                         </p>
                       </div>
                     </div>
