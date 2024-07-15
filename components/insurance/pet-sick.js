@@ -10,7 +10,7 @@ export default function PetSick() {
     },
     {
       accidentType: '心臟病',
-      accidentExpense: '$4500',
+      accidentExpense: '$4,500',
       icon: '/pi-pic/dog-heart.png',
     },
     {

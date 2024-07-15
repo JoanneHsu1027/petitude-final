@@ -9,10 +9,12 @@ const DatePicker = dynamic(() => import('./date-picker'), { ssr: false })
 export default function CatCalculate() {
   const handleBirthdayChange = (date) => {
     if (date.year && date.month && date.day) {
-      // const formattedDate = `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`
       const formattedDate = new Date(date.year, date.month - 1, date.day)
+      const catAge = new Date() - formattedDate //年紀, 以毫秒為單位
+      let catAgeInMonths = catAge / (1000 * 60 * 60 * 24 * 30.4375) //將毫秒換成月份, 30.4375 是每月的平均天數
+      let catAgeMonth = Math.floor(catAgeInMonths)
       if (catBirthdayRef.current) {
-        catBirthdayRef.current.value = formattedDate - new Date()
+        catBirthdayRef.current.value = catAgeMonth
       }
     } else if (catBirthdayRef.current) {
       catBirthdayRef.current.value = ''

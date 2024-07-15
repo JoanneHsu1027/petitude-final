@@ -8,6 +8,11 @@ export default function TrialCalculation() {
   const [catDataReceived, setCatDataReceived] = useState(true)
   const [dogDataReceived, setDogDataReceived] = useState(true)
 
+  // 計算保險費用
+  const [basicPlan, setBasicPlan] = useState(0)
+  const [advancedPlan, setAdvancedPlan] = useState(0)
+  const [fullPlan, setFullPlan] = useState(0)
+
   // 設定進入付款流程時, 主畫面隱藏式算結果
   useEffect(() => {
     const checkStorage = () => {
@@ -30,7 +35,7 @@ export default function TrialCalculation() {
     }
   }, [])
 
-  // 清除 localStorage 的函數
+  // 清除 localStorage 內確認有送出表單的函數
   const clearLocalStorage = () => {
     localStorage.removeItem('catDataReceived')
     localStorage.removeItem('dogDataReceived')
@@ -38,6 +43,55 @@ export default function TrialCalculation() {
     setDogDataReceived(false)
   }
 
+  // 計算不同方案的保費
+  useEffect(() => {
+    const catData = JSON.parse(localStorage.getItem('catInsuranceData'))
+    const dogData = JSON.parse(localStorage.getItem('dogInsuranceData'))
+
+    if (catData || dogData) {
+      const data = catData || dogData
+      // 這裡假設有一個計算函數，根據實際情況進行調整
+      setBasicPlan(calculatePlan(data, 'basic'))
+      setAdvancedPlan(calculatePlan(data, 'advanced'))
+      setFullPlan(calculatePlan(data, 'full'))
+    }
+  }, [])
+
+  const calculatePlan = (data, type) => {
+    // 這裡需要根據實際的計算邏輯來實現
+    // 這只是一個示例
+    switch (type) {
+      case 'basic':
+        return 2840 // 基礎方案起始價格
+      case 'advanced':
+        return 4331 // 進階方案起始價格
+      case 'full':
+        return 4723 // 完整方案起始價格
+      default:
+        return 0
+    }
+  }
+
+  const handlePlanSelection = (plan) => {
+    localStorage.setItem(
+      'selectedPlan',
+      JSON.stringify({
+        type: plan,
+        price:
+          plan === 'basic'
+            ? basicPlan
+            : plan === 'advanced'
+              ? advancedPlan
+              : fullPlan,
+      }),
+    )
+  }
+
+  // 讓按鈕同時具有清除 '確認送出表單'標記和 '送出選擇的方案' 兩個功能
+  const handleButtonClick = (plan) => {
+    clearLocalStorage()
+    handlePlanSelection(plan)
+  }
   return (
     <>
       <div className="container-fluid">
@@ -430,7 +484,7 @@ export default function TrialCalculation() {
                       className="d-flex justify-content-center align-items-center"
                       style={{ marginTop: '1rem' }}
                     >
-                      <h3 style={{ color: 'red' }}>$2,840</h3>
+                      <h3 style={{ color: 'red' }}>${basicPlan}</h3>
                       <h5>起/年</h5>
                     </div>
                     <div className="d-flex justify-content-center">
@@ -440,7 +494,8 @@ export default function TrialCalculation() {
                       >
                         <button
                           className={styles['own-btn4']}
-                          onClick={clearLocalStorage}
+                          // onClick={clearLocalStorage}
+                          onClick={() => handleButtonClick('basic')}
                         >
                           立即投保
                         </button>
@@ -452,7 +507,7 @@ export default function TrialCalculation() {
                       className="d-flex justify-content-center align-items-center"
                       style={{ marginTop: '1rem' }}
                     >
-                      <h3 style={{ color: 'red' }}>$4,331</h3>
+                      <h3 style={{ color: 'red' }}>${advancedPlan}</h3>
                       <h5>起/年</h5>
                     </div>
                     <div className="d-flex justify-content-center">
@@ -462,7 +517,8 @@ export default function TrialCalculation() {
                       >
                         <button
                           className={styles['own-btn4']}
-                          onClick={clearLocalStorage}
+                          // onClick={clearLocalStorage}
+                          onClick={() => handleButtonClick('advanced')}
                         >
                           立即投保
                         </button>
@@ -474,7 +530,7 @@ export default function TrialCalculation() {
                       className="d-flex justify-content-center align-items-center"
                       style={{ marginTop: '1rem' }}
                     >
-                      <h3 style={{ color: 'red' }}>$4,723</h3>
+                      <h3 style={{ color: 'red' }}>${fullPlan}</h3>
                       <h5>起/年</h5>
                     </div>
                     <div className="d-flex justify-content-center">
@@ -484,7 +540,8 @@ export default function TrialCalculation() {
                       >
                         <button
                           className={styles['own-btn4']}
-                          onClick={clearLocalStorage}
+                          // onClick={clearLocalStorage}
+                          onClick={() => handleButtonClick('full')}
                         >
                           立即投保
                         </button>
