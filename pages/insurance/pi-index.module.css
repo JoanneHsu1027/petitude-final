@@ -242,7 +242,7 @@
   }
   .calculateArray {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     margin-top: 0;
   }
@@ -282,19 +282,15 @@
 /* 顧客回饋 start */
 .pentagon-container {
   position: relative;
-  width: 100%;
-  max-width: 100%; /* 不確定 */
   background-color: #FFF5CF;
   clip-path: polygon(0% 0%, 85% 0%, 100% 20%, 100% 100%, 0% 100%);
-  display: inline-block;
-  padding: 0 20px;
-  max-width: 100%;
+  padding:10px 10px 0px 20px;
 }
 
 .pet-image {
   border-radius: 50%;
-  width: 100%;
-  max-width: 100%; /* 不確定 */
+  width: 30%;
+ /* 不確定 */
   height: auto;
   object-fit: cover;
   margin: 20px 0;
@@ -343,15 +339,18 @@
     display: block !important;
   }
   .pentagon-container {
+    width: 100%;
     padding: 0 ;
   }
   .pet-image {
     border-radius: 50%;
-    width: 3.125rem;
+    width: 3.125rem ;
     height: 3.125rem;
     object-fit: cover;
     margin: 10px;
+    
   }
+
   .btnUpSpace{
     margin-top: 0;
   }

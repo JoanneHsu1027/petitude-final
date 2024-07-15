@@ -357,22 +357,22 @@ export default function PetInsurance() {
           {/* 電腦版 start*/}
           <div
             className={`row d-flex flex-sm-column flex-md-row justify-content-center mt-5 ${styles.feedbackLap}`}
-            style={{ padding: '0 3.75rem 0 3.75rem' }}
+            style={{ padding: '0 3.75rem' }}
           >
             <div
-              className={`col-md-3 d-flex ${styles['pentagon-container']} mb-5`}
+              className={`col-md-4 d-flex ${styles['pentagon-container']} mb-5`}
             >
               <img
                 src="/pi-pic/customer-feedback01.jpg"
                 alt="巨石(鬥牛犬)"
                 className={styles['pet-image']}
               />
-              <div className="d-flex align-items-center">
+              <div className="d-flex align-items-center ps-2">
                 <div>
                   <h4 className="text-left">巨石(鬥牛犬) 1歲</h4>
                   <h6
                     className="text-left text-wrap"
-                    style={{ width: '12.5rem', height: '6.25rem' }}
+                    style={{ width: '100%', height: '6.25rem' }}
                   >
                     雖然有其他更便宜的寵物保險選擇，但寵度是最方便的。我很怕麻煩，所以我想以最完整方便的方式照顧它。
                   </h6>
@@ -381,19 +381,19 @@ export default function PetInsurance() {
             </div>
             <div className={`col-1 ${styles.smHidden}`} />
             <div
-              className={`col-md-3 d-flex ${styles['pentagon-container']} mb-5`}
+              className={`col-md-4 d-flex ${styles['pentagon-container']} mb-5`}
             >
               <img
                 src="/pi-pic/customer-feedback02.jpg"
                 alt="米亞(虎斑貓)"
                 className={styles['pet-image']}
               />
-              <div className="d-flex align-items-center">
+              <div className="d-flex align-items-center ps-2">
                 <div>
                   <h4 className="text-left">米亞(虎斑貓) 3歲</h4>
                   <h6
                     className="text-left text-wrap"
-                    style={{ width: '12.5rem', height: '6.25rem' }}
+                    style={{ width: '100%', height: '6.25rem' }}
                   >
                     我小時候就知道寵物保險了。當我養了米亞時，它非常有幫助。價格非常合情合理。
                   </h6>
@@ -417,13 +417,13 @@ export default function PetInsurance() {
               />
               <div className="d-flex align-items-center">
                 <div>
-                  <p className="text-left">巨石(鬥牛犬) 1歲</p>
-                  <p
+                  <h4 className="text-left">巨石(鬥牛犬) 1歲</h4>
+                  <h6
                     className="text-left text-wrap"
                     style={{ width: '12.5rem', height: '6.25rem' }}
                   >
                     雖然有其他更便宜的寵物保險選擇，但寵度是最方便的。我很怕麻煩，所以我想以最完整方便的方式照顧它。
-                  </p>
+                  </h6>
                 </div>
               </div>
             </div>
