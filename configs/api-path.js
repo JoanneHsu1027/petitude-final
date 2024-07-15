@@ -15,3 +15,7 @@ export const AB_GET_ITEM = `${API_SERVER}/address-book/api`
 
 // `${API_SERVER}/address-book/api/${sid}`, method: PUT, 修改單筆資料
 export const AB_UPDATE_PUT = `${API_SERVER}/address-book/api`
+//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+// 登入, 表單資料 {email, password}
+// export const JWT_LOGIN_POST = `${API_SERVER}/login-jwt`
