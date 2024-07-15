@@ -137,8 +137,9 @@ const SignupForm = ({ onClose, switchToLogin }) => {
 
         <div className="mb-3">
           <label htmlFor="county" className="form-label">
-            請選擇縣市:
+            請填寫居住地區:
           </label>
+          {/* 縣市 */}
           <select
             id="county"
             name="county"
@@ -158,12 +159,8 @@ const SignupForm = ({ onClose, switchToLogin }) => {
             ))}
           </select>
           <div className="form-text">{formErrors.county}</div>
-        </div>
 
-        <div className="mb-3">
-          <label htmlFor="city" className="form-label">
-            請選擇城市:
-          </label>
+          {/* 城市 */}
           <select
             id="city"
             name="city"
@@ -180,6 +177,19 @@ const SignupForm = ({ onClose, switchToLogin }) => {
             ))}
           </select>
           <div className="form-text">{formErrors.city}</div>
+
+          {/* 詳細地址 */}
+          <input
+            id="b2c_address"
+            type="text"
+            className="form-control"
+            name="b2c_address"
+            value={formData.b2c_address}
+            onChange={handleChange}
+            placeholder="請填寫詳細地址"
+            required
+          />
+          <div className="form-text">{formErrors.b2c_address}</div>
         </div>
 
         <div className="mb-3">
