@@ -1,5 +1,4 @@
 export const counties = [
-  { value: '', label: '請選擇居住縣市' },
   { value: '1', label: '臺北市' },
   { value: '2', label: '基隆市' },
   { value: '3', label: '新北市' },
