@@ -1,14 +1,107 @@
 import React, { useState } from 'react'
+import { z } from 'zod'
+import { counties } from '@/components/common/county'
+import { cities } from '@/components/common/city'
 
 const SignupForm = ({ onClose, switchToLogin }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    mobile: '',
+    password: '',
+    county: '',
+    city: '',
+  })
+
+  const [formErrors, setFormErrors] = useState({
+    name: '',
+    email: '',
+    mobile: '',
+    password: '',
+    county: '',
+    city: '',
+  })
+
   const [error, setError] = useState('')
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    const schemaForm = z.object({
+      name: z.string().min(2, { message: '姓名至少兩個字' }),
+      email: z.string().email({ message: '請填寫正確的電郵格式' }),
+      mobile: z
+        .string()
+        .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
+      password: z.string().min(6, { message: '密碼至少6個字' }),
+      county: z.string().min(1, { message: '請選擇縣市' }),
+      city: z.string().min(1, { message: '請選擇城市' }),
+    })
+
+    const newFormData = { ...formData, [name]: value }
+    const result = schemaForm.safeParse(newFormData)
+
+    const newFormErrors = {
+      name: '',
+      email: '',
+      mobile: '',
+      password: '',
+      county: '',
+      city: '',
+    }
+
+    if (!result.success && result?.error?.issues?.length) {
+      for (let issue of result.error.issues) {
+        newFormErrors[issue.path[0]] = issue.message
+      }
+    }
+
+    setFormErrors(newFormErrors)
+    setFormData(newFormData)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // 這裡放置註冊邏輯
-    // 如果成功，調用 onClose()
+    const schemaForm = z.object({
+      name: z.string().min(2, { message: '姓名至少兩個字' }),
+      email: z.string().email({ message: '請填寫正確的電郵格式' }),
+      mobile: z
+        .string()
+        .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
+      password: z.string().min(6, { message: '密碼至少6個字' }),
+      county: z.string().min(1, { message: '請選擇縣市' }),
+      city: z.string().min(1, { message: '請選擇城市' }),
+    })
+
+    const result = schemaForm.safeParse(formData)
+
+    if (result.success) {
+      try {
+        const response = await fetch('/api/signup', {
+          method: 'POST',
+          body: JSON.stringify(formData),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        const resultData = await response.json()
+        if (resultData.success) {
+          onClose()
+        } else {
+          setError('註冊失敗')
+        }
+      } catch (ex) {
+        console.log(ex)
+        setError('註冊失敗')
+      }
+    } else {
+      setFormErrors((prevErrors) => ({
+        ...prevErrors,
+        ...result.error.issues.reduce((acc, issue) => {
+          acc[issue.path[0]] = issue.message
+          return acc
+        }, {}),
+      }))
+    }
   }
 
   return (
@@ -17,33 +110,117 @@ const SignupForm = ({ onClose, switchToLogin }) => {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
-            Email:
+            請填寫信箱:
           </label>
           <input
             id="email"
             type="email"
             className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
             required
           />
+          <div className="form-text">{formErrors.email}</div>
         </div>
+
         <div className="mb-3">
           <label htmlFor="password" className="form-label">
-            Password:
+            請填寫密碼:
           </label>
           <input
             id="password"
             type="password"
             className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
             required
           />
+          <div className="form-text">{formErrors.password}</div>
         </div>
+
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            請填寫稱呼:
+          </label>
+          <input
+            id="name"
+            type="text"
+            className="form-control"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+          <div className="form-text">{formErrors.name}</div>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="county" className="form-label">
+            請選擇縣市:
+          </label>
+          <select
+            id="county"
+            name="county"
+            className="form-control"
+            value={formData.county}
+            onChange={handleChange}
+            required
+          >
+            <option value="">請選擇縣市</option>
+            {counties.map((county) => (
+              <option key={county.value} value={county.value}>
+                {county.label}
+              </option>
+            ))}
+          </select>
+          <div className="form-text">{formErrors.county}</div>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="city" className="form-label">
+            請選擇城市:
+          </label>
+          <select
+            id="city"
+            name="city"
+            className="form-control"
+            value={formData.city}
+            onChange={handleChange}
+            required
+          >
+            <option value="">請選擇城市</option>
+            {cities
+              .filter((city) => city.countyId === formData.county)
+              .map((city) => (
+                <option key={city.value} value={city.value}>
+                  {city.label}
+                </option>
+              ))}
+          </select>
+          <div className="form-text">{formErrors.city}</div>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="mobile" className="form-label">
+            請填寫手機:
+          </label>
+          <input
+            id="mobile"
+            type="text"
+            className="form-control"
+            name="mobile"
+            value={formData.mobile}
+            onChange={handleChange}
+            required
+          />
+          <div className="form-text">{formErrors.mobile}</div>
+        </div>
+
         {error && <div className="alert alert-danger">{error}</div>}
         <button type="submit" className="btn btn-primary">
-          Sign Up
+          註冊
         </button>
       </form>
     </div>

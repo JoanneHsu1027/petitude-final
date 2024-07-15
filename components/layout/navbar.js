@@ -29,6 +29,7 @@ export default function Navbar({ pageName = '' }) {
     <>
       <nav
         className={`navbar navbar-expand-lg navbar-light d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block ${styles['bg-image']}`}
+        style={{ backgroundColor: '#FFF5CF' }}
       >
         <div className="container-fluid">
           <div className="collapse navbar-collapse">
@@ -70,10 +71,8 @@ export default function Navbar({ pageName = '' }) {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="platforum" legacyBehavior>
-                    <a className="nav-link">
-                      <img src="./pi-pic/forum-icon.png" alt="" />
-                    </a>
+                  <Link className="nav-link" href="/platform/">
+                    <img src="/pi-pic/forum-icon.png" alt="" />
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -123,9 +122,9 @@ export default function Navbar({ pageName = '' }) {
         className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 ${styles['bg-image']}`}
       >
         <div className="container-fluid">
-          <a className="navbar-brand mx-auto" href="#">
-            <img src="./pi-pic/petitude-mobile-icon.png" alt="" />
-          </a>
+          <Link className="navbar-brand mx-auto" href="/home">
+            <img src="/pi-pic/petitude-mobile-icon.png" alt="" />
+          </Link>
           <button
             className="navbar-toggler p-3"
             type="button"
@@ -163,9 +162,9 @@ export default function Navbar({ pageName = '' }) {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" href="/platform/">
                   貓狗論壇
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">

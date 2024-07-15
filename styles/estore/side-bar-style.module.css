@@ -1,0 +1,55 @@
+.Rounded5 {
+  border-radius: 15px;
+}
+
+.H70 {
+  height: 100%;
+}
+
+/* .W10 {
+  width: 100%;
+} */
+
+.BorderEndDel {
+  border-end-end-radius: unset;
+  border-top-right-radius: unset;
+}
+
+.BorderStartDel {
+  border-start-start-radius: unset;
+  border-bottom-left-radius: unset;
+}
+
+.AReset {
+  text-decoration: none;
+  color: #000;
+}
+
+.AReset:hover {
+  color: #000;
+  cursor: pointer;
+}
+
+.BorderCoffee {
+  border-color: #6a513d;
+}
+
+.BtnHover:hover {
+  background-color: #f6d554;
+  color: white;
+  border: 1px solid #f6d554;
+}
+
+.GoTopBtn {
+  text-decoration: none;
+  color: #f69a30;
+}
+
+.GoTopBtn:hover {
+  color: #f6d554;
+}
+
+.MobileSidebar:hover {
+  color: #f6d554 !important;
+  border-bottom: 3px solid #f6d554;
+}

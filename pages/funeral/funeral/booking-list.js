@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react'
-import ImageComponent from '../../../components/common/funeral/image'
+import { useState } from 'react'
 import Layout from '../../../components/layout/layout'
 import { useRouter } from 'next/router'
-// import ProgressBar from '../../../components/funeral/progress-bar'
 
 export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
@@ -15,7 +13,7 @@ export default function BookingList() {
       <div className="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-stretch mb-5">
         <div className="row">
           {/* leftCard */}
-          <div className="col-md-8 justify-content-center align-items-center">
+          <div className="col-md-7 justify-content-center align-items-center">
             {/* <!-- 付款方式 --> */}
             <div
               className="card my-3"
@@ -286,7 +284,7 @@ export default function BookingList() {
           </div>
           {/* leftCard */}
           {/* rightCard */}
-          <div className="col-md-4 justify-content-center align-items-center">
+          <div className="col-md-5 justify-content-center align-items-center">
             <div
               className="card my-3"
               style={{ maxWidth: '100%', height: 'auto', marginTop: '0.3rem' }}
@@ -294,14 +292,13 @@ export default function BookingList() {
               <div className="card-header bg-warning text-center">結帳明細</div>
               <div className="card-body" style={{ backgroundColor: '#FFF5CF' }}>
                 <div className="col d-flex justify-content-between align-items-center">
-                  <ImageComponent
+                  <img
                     src="/funeral/Frame 685.png"
-                    width={150}
-                    height={150}
                     alt=""
+                    style={{ width: '11rem', height: '8rem' }}
                   />
                   <h5 className="card-title text-center">
-                    尊榮寵物 - 個別羽化
+                    尊榮寵物 (個別羽化)
                   </h5>
                 </div>
                 <div className="col d-flex align-items-center">
@@ -351,34 +348,7 @@ export default function BookingList() {
           </div>
           {/* rightCard */}
         </div>
-      </div>
-      {/* <!-- bottom --> */}
-      <div className="container-fluid">
-        <div className="row d-flex justify-content-between">
-          <div className="col-sm-3 d-flex flex-column align-items-start mt-auto">
-            <h6 className="m-0 fw-bolder">會員專區</h6>
-            <a href="#">會員權益</a>
-            <a href="#">隱私權政策</a>
-          </div>
-          <div className="col-sm-3 d-flex flex-column align-items-start mt-auto">
-            <h6 className="m-0 fw-bolder">購物須知</h6>
-            <a href="#">付款與配送方式</a>
-            <a href="#">退換貨說明</a>
-          </div>
-          <div className="col-sm-3 d-flex flex-column align-items-start mt-auto">
-            <h6 className="m-0 fw-bolder">關於我們</h6>
-            <a href="#">品牌故事</a>
-            <p className="m-0">統一編號: 12345678</p>
-          </div>
-          <div className="col-sm-3 d-flex flex-column align-items-start mt-auto">
-            <h6 className="m-0 fw-bolder">聯絡我們</h6>
-            <a href="#">Facebook粉絲團</a>
-            <a href="#">Line官方粉絲團</a>
-            <p className="m-0">客服專線: 02-12345678</p>
-            <p className="m-0">地址: 臺北市大安區信義路三段</p>
-          </div>
-        </div>
-        {/* <!-- bottom --> */}
+
         <style jsx>{`
           .card-header,
           .card-body,
@@ -405,14 +375,14 @@ export default function BookingList() {
 
           .card-header,
           .card-title {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
           }
 
           .form-check-label,
           .form-label,
           .form-control,
           .form-select {
-            font-size: 0.6rem;
+            font-size: 1rem;
           }
         `}</style>
       </div>

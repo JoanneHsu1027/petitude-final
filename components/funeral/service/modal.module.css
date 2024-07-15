@@ -1,0 +1,61 @@
+.headerCard1 {
+  background-color: #ffe4c4;
+  border-bottom: none;
+}
+
+.headerCard2 {
+  background-color: #e2f9ff;
+  border-bottom: none;
+}
+
+.card {
+  width: 550px;
+}
+.cardBody{
+  list-style-type: none;
+  text-decoration: none;
+}
+
+.list-group {
+  list-style: none;
+  text-decoration: none;
+}
+
+.list-group-item {
+  border: none;
+  text-decoration: none;
+}
+
+.form-check {
+  position: relative;
+}
+
+.form-check-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.form-check-label {
+  display: flex;
+  cursor: pointer;
+  position: relative;
+}
+
+.form-check-input:checked + .form-check-label::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(249, 206, 206, 0.436);
+  border-radius: 5px;
+}
+
+.pet-image {
+  width: 200px;
+  height: auto;
+}

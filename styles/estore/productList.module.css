@@ -59,7 +59,7 @@
 .btnNav,
 .btnPage,
 .dots {
-  color: #fff;
+  color: #6A513D;
   background-color: #FFF5CF;
   font-weight: 900;
 }
@@ -70,7 +70,7 @@
   padding: 8px;
   border-radius: 50%;
   border: 1.5px solid #FFF5CF;
-  color: #fff;
+  color: #6A513D;
 }
 
 .btnNav:hover,
@@ -85,6 +85,9 @@
   width: 36px;
   height: 36px;
   font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btnSelected {
@@ -99,4 +102,11 @@
   border: 1.5px solid #F6D554;
   background-color: #F6D554;
   color: #6A513D;
+}
+
+.textStyle{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }

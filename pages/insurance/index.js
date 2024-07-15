@@ -1,10 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '@/components/layout/layout'
 import styles from './pi-index.module.css'
 import CatCalculate from '@/components/insurance/cat-calculate'
 import DogCalculate from '@/components/insurance/dog-calculate'
+import TrialCalculation from '@/components/insurance/trial-calculation'
+import PetSick from '@/components/insurance/pet-sick'
+import { Router, useRouter } from 'next/router'
 
 export default function PetInsurance() {
+  // 確認是否有收到試算的表單資料
+  const [catDataReceived, setCatDataReceived] = useState(false)
+  const [dogDataReceived, setDogDataReceived] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    const checkStorage = () => {
+      const catData = localStorage.getItem('catDataReceived')
+      const dogData = localStorage.getItem('dogDataReceived')
+
+      setCatDataReceived(catData === 'true')
+      setDogDataReceived(dogData === 'true')
+    }
+    // 初始檢查
+    checkStorage()
+    // 添加事件監聽器以檢測 localStorage 的變化
+    window.addEventListener('localStorageChange', checkStorage)
+    window.addEventListener('storage', checkStorage) // 保留這個以防其他標籤頁更改 localStorage
+
+    // 清理函數
+    return () => {
+      window.removeEventListener('localStorageChange', checkStorage)
+      window.removeEventListener('storage', checkStorage)
+    }
+  }, [])
+
+  // 清除 localStorage 的函數
+  const clearLocalStorage = () => {
+    localStorage.removeItem('catDataReceived')
+    localStorage.removeItem('dogDataReceived')
+    setCatDataReceived(false)
+    setDogDataReceived(false)
+    router.push('/insurance/#showTrial')
+  }
+
   return (
     <>
       <Layout title="寵度寵物保險" pageName="pet-insurance">
@@ -13,21 +51,21 @@ export default function PetInsurance() {
           className={`container-fluid d-flex justify-content-center ${styles['bg-image']} pt-5`}
         >
           <div
-            className="row align-items-center"
+            className="row align-items-center d-flex"
             style={{ margin: 0, padding: '0 60px' }}
           >
-            <div
-              className="col-lg-5 d-flex justify-content-center"
-              style={{ padding: '0 6.25rem' }}
-            >
+            <div className="col-lg-5 col-sm-12 d-flex justify-content-center">
               <img
                 loading="lazy"
                 src="/pi-pic/dog-with-cat-v4.png"
                 alt=""
-                style={{ width: '130%', height: '130%' }}
+                className={styles.s1RWD}
               />
             </div>
-            <div className="col-lg-7" style={{ padding: '0 1.5625rem 0 0' }}>
+            <div
+              className="col-lg-7 col-md-12"
+              style={{ padding: '0 1.5625rem 0 0' }}
+            >
               <div className="d-flex">
                 <h2 className={styles['text-color']}>
                   讓每一個寵物家庭，都有專屬的健康
@@ -45,107 +83,86 @@ export default function PetInsurance() {
               >
                 保護您的毛孩子，就像保護家人一樣
               </h4>
-              <div className="d-flex justify-content-center overflow-hidden">
+              <div className="d-flex justify-content-start overflow-hidden">
                 <img
                   loading="lazy"
                   src="/pi-pic/Dog_Bone.png"
                   alt=""
-                  className="img-fluid"
                   style={{
                     transform: 'rotate(-13deg)',
-                    width: '6.25rem',
-                    height: '6.25rem',
+                    width: '10%',
+                    height: '10%',
                   }}
                 />
                 <img
                   loading="lazy"
                   src="/pi-pic/Fish_Bone.png"
                   alt=""
-                  className="img-fluid"
-                  style={{ width: '6.25rem', height: '6.25rem' }}
+                  style={{ width: '10%', height: '10%' }}
                 />
                 <img
                   loading="lazy"
                   src="/pi-pic/Dog_Bone.png"
                   alt=""
-                  className="img-fluid"
                   style={{
                     transform: 'rotate(-13deg)',
-                    width: '6.25rem',
-                    height: '6.25rem',
+                    width: '10%',
+                    height: '10%',
                   }}
                 />
                 <img
                   loading="lazy"
                   src="/pi-pic/Fish_Bone.png"
                   alt=""
-                  className="img-fluid"
-                  style={{ width: '6.25rem', height: '6.25rem' }}
+                  style={{ width: '10%', height: '10%' }}
                 />
                 <img
                   loading="lazy"
                   src="/pi-pic/Dog_Bone.png"
                   alt=""
-                  className="img-fluid"
                   style={{
                     transform: 'rotate(-13deg)',
-                    width: '6.25rem',
-                    height: '6.25rem',
+                    width: '10%',
+                    height: '10%',
                   }}
                 />
                 <img
                   loading="lazy"
                   src="/pi-pic/Fish_Bone.png"
                   alt=""
-                  className="img-fluid"
-                  style={{ width: '6.25rem', height: '6.25rem' }}
+                  style={{ width: '10%', height: '10%' }}
                 />
                 <img
                   loading="lazy"
                   src="/pi-pic/Dog_Bone.png"
                   alt=""
-                  className="img-fluid"
                   style={{
                     transform: 'rotate(-13deg)',
-                    width: '6.25rem',
-                    height: '6.25rem',
+                    width: '10%',
+                    height: '10%',
                   }}
                 />
                 <img
                   loading="lazy"
                   src="/pi-pic/Fish_Bone.png"
                   alt=""
-                  className="img-fluid"
-                  style={{ width: '6.25rem', height: '6.25rem' }}
+                  style={{ width: '10%', height: '10%' }}
                 />
                 <img
                   loading="lazy"
                   src="/pi-pic/Dog_Bone.png"
                   alt=""
-                  className="img-fluid"
                   style={{
                     transform: 'rotate(-13deg)',
-                    width: '6.25rem',
-                    height: '6.25rem',
+                    width: '10%',
+                    height: '10%',
                   }}
                 />
                 <img
                   loading="lazy"
                   src="/pi-pic/Fish_Bone.png"
                   alt=""
-                  className="img-fluid"
-                  style={{ width: '6.25rem', height: '6.25rem' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  className="img-fluid"
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '6.25rem',
-                    height: '6.25rem',
-                  }}
+                  style={{ width: '10%', height: '10%' }}
                 />
               </div>
               <h5
@@ -187,117 +204,7 @@ export default function PetInsurance() {
         {/* section 1 end */}
 
         {/* section 2 常見醫療花費 start */}
-        <div className="container-fluid" style={{ padding: 0 }}>
-          <div className="row">
-            <div className="col-12" style={{ height: '7.5rem' }}>
-              <img
-                className="w-100"
-                loading="lazy"
-                src="/pi-pic/section2-top-bar2.png"
-                alt=""
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12 mb-2">
-              <h2
-                className={`d-flex justify-content-center ${styles['text-color']}`}
-              >
-                常見醫療花費
-              </h2>
-            </div>
-          </div>
-          <div className="row" style={{ padding: '0 60px' }}>
-            <div
-              className="col-lg-5 d-flex align-items-center justify-content-end"
-              style={{ paddingLeft: 20 }}
-            >
-              <div
-                className={`${styles['stats-container']} text-center`}
-                style={{ padding: '1.25rem 3.125rem', width: '100%}' }}
-              >
-                <h5>膿皮症</h5>
-                <h5>平均每次治療金額</h5>
-                <h4 className={styles['own-orange']} style={{ margin: 0 }}>
-                  $3,000
-                </h4>
-              </div>
-              <div>
-                <img
-                  className="img-fluid"
-                  loading="lazy"
-                  src="/pi-pic/point-line.png"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className="col-lg-2  d-flex align-items-center pt-5">
-              <ul className="list-unstyled" style={{ width: '100%' }}>
-                <li className="d-flex justify-content-end mb-2">
-                  <div
-                    className="rounded-circle"
-                    style={{ padding: 20, backgroundColor: '#FFF5CF' }}
-                  >
-                    <img loading="lazy" src="/pi-pic/dog-stoma.png" alt="" />
-                  </div>
-                </li>
-                <li
-                  className="d-flex justify-content-start"
-                  style={{ marginBottom: 50 }}
-                >
-                  <div
-                    className="rounded-circle"
-                    style={{ padding: 20, backgroundColor: '#FFF5CF' }}
-                  >
-                    <img loading="lazy" src="/pi-pic/dog-heart.png" alt="" />
-                  </div>
-                </li>
-                <li className="d-flex justify-content-start mb-2">
-                  <div
-                    className="rounded-circle"
-                    style={{ padding: 20, backgroundColor: '#FFF5CF' }}
-                  >
-                    <img loading="lazy" src="/pi-pic/dog-skin.png" alt="" />
-                  </div>
-                </li>
-                <li className="d-flex justify-content-end mb-2">
-                  <div
-                    className="rounded-circle"
-                    style={{ padding: 20, backgroundColor: '#FFF5CF' }}
-                  >
-                    <img loading="lazy" src="/pi-pic/dog-accident.png" alt="" />
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div className="col-lg-5">
-              <div
-                className="d-flex justify-content-start"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  padding: 80,
-                }}
-              >
-                <img
-                  className="img-fluid"
-                  loading="lazy"
-                  src="/pi-pic/dog-for-sick02.png"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col-12" style={{ height: '7.5rem' }}>
-            <img
-              className="w-100 h-100"
-              loading="lazy"
-              src="/pi-pic/section2-bottom-bar2.png"
-              alt=""
-            />
-          </div>
-        </div>
+        <PetSick />
         {/* section 2 end */}
 
         {/* section 3 優點介紹 start */}
@@ -305,7 +212,7 @@ export default function PetInsurance() {
           <div className="row" style={{ padding: '0 60px' }}>
             <div className="col-12 d-flex justify-content-center">
               <ul
-                className="list-unstyled d-inline-flex justify-content-around"
+                className="list-unstyled d-inline-flex justify-content-between"
                 style={{ height: '23.75rem' }}
               >
                 <li className="col-2" style={{ paddingTop: 130 }}>
@@ -321,7 +228,7 @@ export default function PetInsurance() {
                     保障全面
                   </h5>
                   <p
-                    className={`${styles['text-color']} text-center text-wrap`}
+                    className={`${styles[('text-color', 'xl-hide')]} text-center text-wrap `}
                   >
                     涵蓋意外、疾病、手術等多種醫療費用，讓您的寵物在需要醫療時得到全面的保障。
                   </p>
@@ -338,7 +245,9 @@ export default function PetInsurance() {
                   <h5 className={`${styles['text-color']} text-center mt-3`}>
                     理賠快速
                   </h5>
-                  <p className={`${styles['text-color']} text-center`}>
+                  <p
+                    className={`${styles[('text-color', 'xl-hide')]} text-center`}
+                  >
                     迅速處理您的理賠申請，減少等待時間，確保寵物及時獲得治療。
                   </p>
                 </li>
@@ -354,7 +263,9 @@ export default function PetInsurance() {
                   <h5 className={`${styles['text-color']} text-center mt-3`}>
                     方案靈活
                   </h5>
-                  <p className={`${styles['text-color']} text-center`}>
+                  <p
+                    className={`${styles[('text-color', 'xl-hide')]} text-center`}
+                  >
                     提供多樣化的保險方案，可以根據寵物的狀況以及您的預算，選擇最適合的方案。
                   </p>
                 </li>
@@ -370,7 +281,9 @@ export default function PetInsurance() {
                   <h5 className={`${styles['text-color']} text-center mt-3`}>
                     專業客服
                   </h5>
-                  <p className={`${styles['text-color']} text-center`}>
+                  <p
+                    className={`${styles[('text-color', 'xl-hide')]} text-center`}
+                  >
                     擁有專業的客服團隊，隨時為您解答有關保險的各種疑問。讓您感到安心和滿意。
                   </p>
                 </li>
@@ -399,6 +312,7 @@ export default function PetInsurance() {
           <div className="row mt-5 d-flex justify-content-center">
             <div className="col-8 mt-5">
               <h2
+                id="showTrial"
                 className={`d-flex justify-content-center ${styles['text-color']} mt-5`}
                 style={{ color: 515151 }}
               >
@@ -410,46 +324,27 @@ export default function PetInsurance() {
             <CatCalculate />
             <DogCalculate />
           </div>
-          
-          {/* <div className="row mt-3 d-flex justify-content-center">
-            <div className="col-4 d-flex justify-content-center">
-              <button
-                style={{ backgroundColor: 'white' }}
-                className=" border-0 no-outline"
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#ModalCat"
-              >
-                <img
-                  className="img-fluid"
-                  loading="lazy"
-                  src="/pi-pic/cat-btn.png"
-                  alt=""
-                />
-              </button>
-            </div>
-            <div className="col-4 d-flex justify-content-center">
-              <button
-                style={{ backgroundColor: 'white' }}
-                className=" border-0 no-outline"
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#ModalDog"
-              >
-                <img
-                  className="img-fluid"
-                  loading="lazy"
-                  src="/pi-pic/dog-btn.png"
-                  alt=""
-                />
-              </button>
-            </div>
-          </div> */}
+          {/* 使用三元判斷式來判斷是否收到catcalculate 或 dogcalculate的表單決定是否顯示試算表 */}
+          {(catDataReceived || dogDataReceived) && (
+            <>
+              <div>
+                <TrialCalculation />
+              </div>
+              <div className="d-flex justify-content-center">
+                <button
+                  className={`${styles['own-btn2']} border-0`}
+                  onClick={clearLocalStorage}
+                >
+                  <h5 style={{ margin: 0 }}>重新計算</h5>
+                </button>
+              </div>
+            </>
+          )}
         </div>
         {/* section 4 end */}
 
         {/* section 5 顧客意見回饋 start */}
-        <div className="container-fluid">
+        <div className="container-fluid mt-5">
           <div className="row mt-3 d-flex justify-content-center">
             <div className="col-9">
               <h2
@@ -465,7 +360,7 @@ export default function PetInsurance() {
             style={{ padding: '0 3.75rem 0 3.75rem' }}
           >
             <div
-              className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
+              className={`col-md-3 d-flex ${styles['pentagon-container']} mb-5`}
             >
               <img
                 src="/pi-pic/customer-feedback01.jpg"
@@ -484,9 +379,9 @@ export default function PetInsurance() {
                 </div>
               </div>
             </div>
-            <div className={`col-1 ${styles.smHidden}`}/>
+            <div className={`col-md-1 ${styles.smHidden}`} />
             <div
-              className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
+              className={`col-md-3 d-flex ${styles['pentagon-container']} mb-5`}
             >
               <img
                 src="/pi-pic/customer-feedback02.jpg"
@@ -515,6 +410,7 @@ export default function PetInsurance() {
             </button>
           </div>
         </div>
+
         {/* section 5 end */}
         {/* section 6 常見問題 start */}
         <div className="col-12 ">

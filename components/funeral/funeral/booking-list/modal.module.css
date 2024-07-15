@@ -1,0 +1,27 @@
+/* Confirm.module.css */
+.image {
+  max-width: 100%;
+  height: auto;
+
+}
+
+.rightSide {
+  font-size: 14px; 
+  background-color: #FFF5CF;
+  padding: 2rem;
+  box-shadow: 5px 5px 10px rgba(138, 138, 138, 0.4);
+}
+
+@media (max-width: 796px) {
+  .image {
+    width: 100%;
+  }
+  .rightSide {
+    width: 100%;
+    font-size: 12px; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  }
+

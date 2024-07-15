@@ -19,11 +19,11 @@ const LoginForm = ({ onClose, switchToSignup }) => {
 
   return (
     <div className="p-4">
-      <h2 className="mb-4">Login</h2>
+      <h2 className="mb-4">登入</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
-            Email:
+            會員信箱:
           </label>
           <input
             id="email"
@@ -36,7 +36,7 @@ const LoginForm = ({ onClose, switchToSignup }) => {
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">
-            Password:
+            會員密碼:
           </label>
           <input
             id="password"
@@ -49,7 +49,7 @@ const LoginForm = ({ onClose, switchToSignup }) => {
         </div>
         {error && <div className="alert alert-danger">{error}</div>}
         <button type="submit" className="btn btn-primary">
-          Login
+          登入
         </button>
       </form>
     </div>

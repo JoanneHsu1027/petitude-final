@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 export default function Question() {
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid mb-5">
         <div className="row justify-content-center align-items-center">
           <div className="col-md-8">
             <h2 className="text-center my-5">常見問題</h2>
@@ -199,8 +199,15 @@ export default function Question() {
           font-weight: bolder;
         }
         .accordion-body {
-          background-color: white; /* 修改為你想要的內容背景顏色 */
-          color: #515151; /* 修改為你想要的內容文字顏色 */
+          background-color: white;
+          color: #515151;
+        }
+
+        @media (max-width: 768px) {
+          .col-md-8 {
+            width: 100%;
+            padding: 5%;
+          }
         }
       `}</style>
     </>

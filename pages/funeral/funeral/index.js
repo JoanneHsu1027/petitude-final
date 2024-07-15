@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router'
+import React from 'react'
 
-export default function FuneralHome() {
-  const router = useRouter()
+export default function FuneralIndex() {
+  return <></>
 }
