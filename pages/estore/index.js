@@ -188,7 +188,7 @@ export default function ProjectList() {
                 overflow-y: hidden;
               }
             `}</style>
-            <div className="d-flex mt-4 ms-3 d-md-none justify-content-center">
+            <div className="d-flex mt-4 d-md-none justify-content-center">
               <form
                 className="d-flex mt-2 d-md-none mb-3 p-0 justify-content-center"
                 onSubmit={handleSearchSubmit}
@@ -212,9 +212,9 @@ export default function ProjectList() {
             </div>
             <div
               style={{ height: 60 }}
-              className="border-bottom border-dark bg-white position-sticky top-0 d-xl-none d-xxl-block d-xxl-none mb-3 p-0"
+              className="d-flex border-bottom border-dark bg-white position-sticky top-0 d-md-none mb-3 p-0"
             >
-              <div className={`d-flex text-nowrap overflow-scroll`}>
+              <div className={`d-flex d-md-none text-nowrap overflow-scroll`}>
                 <Link
                   href=""
                   type="button"
@@ -279,8 +279,8 @@ export default function ProjectList() {
                         >
                           <div className="card">
                             <img
-                              src="/estore/狗.png"
-                              className="card-img-top w-100"
+                              src={`http://localhost:3001/estore/A${r.pk_product_id}.png`}
+                              className="card-img-top w-auto m-1"
                               alt="..."
                             />
                             <div className="card-body">

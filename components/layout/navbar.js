@@ -41,7 +41,7 @@ export default function Navbar({ pageName = '' }) {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="estore">
+                  <Link className="nav-link" href="/estore/">
                     <img src="/pi-pic/product-icon.png" alt="" />
                   </Link>
                 </li>

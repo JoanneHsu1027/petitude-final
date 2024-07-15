@@ -47,7 +47,8 @@ export default function Productid() {
                 <div className="col-12">
                   <img
                     id={styles.mainImage}
-                    src="/estore/圖1.jpg"
+                    // src="/estore/圖1.jpg"
+                    src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
                     alt="MainImage"
                     className="img-fluid"
                   />
@@ -57,17 +58,17 @@ export default function Productid() {
                 <div className="d-none d-md-block col-md-3 mt-2 mb-3 py-1">
                   <img
                     className={styles.thumbnail}
-                    src="/estore/圖1.jpg"
+                    src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
                     alt="Thumbnail 1"
-                    data-main-image="/estore/圖1.jpg"
+                    data-main-image={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
                   />
                 </div>
                 <div className="d-none d-md-block col-md-3 mt-2 mb-3 py-1">
                   <img
                     className={styles.thumbnail}
-                    src="/estore/圖2.jpg"
+                    src={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
                     alt="Thumbnail 2"
-                    data-main-image="/estore/圖2.jpg"
+                    data-main-image={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
                   />
                 </div>
               </div>
@@ -87,14 +88,14 @@ export default function Productid() {
                       data-bs-interval="4000"
                     >
                       <img
-                        src="/estore/圖1.jpg"
+                        src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
                         className="d-block w-100"
                         alt="..."
                       />
                     </div>
                     <div className="carousel-item" data-bs-interval="4000">
                       <img
-                        src="/estore/圖1.jpg"
+                        src={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
                         className="d-block w-100"
                         alt="..."
                       />
@@ -264,7 +265,7 @@ export default function Productid() {
                   className="row p-0 d-flax justify-content-center"
                   style={{ margin: 11 + 'px' + ' ' + 0 + 'px' }}
                 >
-                  <div className="col-3" style={{ width: 'auto' }}>
+                  <div className="col-3 px-1" style={{ width: 'auto' }}>
                     <select className={styles.customSelect}>
                       <option className={styles.count} selected disabled>
                         {/* <i className="bi bi-caret-down-fill"></i> */}
@@ -287,7 +288,7 @@ export default function Productid() {
                     </select>
                   </div>
                   <div
-                    className="col-3 d-flex justify-content-center"
+                    className="col-3 d-flex justify-content-center px-1"
                     style={{ width: 'auto' }}
                   >
                     <button
@@ -298,7 +299,7 @@ export default function Productid() {
                     </button>
                   </div>
                   <div
-                    className="col-3 d-flex justify-content-center"
+                    className="col-3 d-flex justify-content-center px-1"
                     style={{ width: 'auto' }}
                   >
                     <button
