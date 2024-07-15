@@ -30,7 +30,7 @@ export default function ArticleBlock() {
             <a
               key={r.article_id}
               className={`${styles.AReset}`}
-              href="../../platform/article-page"
+              href={`../../platform/article-list/${r.article_id}`}
             >
               <div className="m-2 border-bottom">
                 <div className="mx-2 d-flex">
