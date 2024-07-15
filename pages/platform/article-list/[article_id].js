@@ -52,7 +52,10 @@ export default function ArticleId() {
                         }}
                         className="border rounded bg-white d-flex justify-content-center align-items-center position-fixed d-xl-none d-xxl-block d-xxl-none"
                       >
-                        <a className={`${styles.AReset}`} href="./article-list">
+                        <a
+                          className={`${styles.AReset}`}
+                          href="../article-list"
+                        >
                           <BsChevronLeft></BsChevronLeft>
                         </a>
                       </div>

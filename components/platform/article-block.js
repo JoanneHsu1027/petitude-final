@@ -34,7 +34,9 @@ export default function ArticleBlock() {
             >
               <div className="m-2 border-bottom">
                 <div className="mx-2 d-flex">
-                  <p className="me-3 border border-dark rounded-3">主題名稱</p>
+                  <p className="me-3 border border-dark rounded-3">
+                    {r.class_name}
+                  </p>
                   <p className={`${styles.LightGray}`}>{dateFormat}</p>
                 </div>
                 <div className="mx-3">
