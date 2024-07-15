@@ -405,7 +405,10 @@ export default function Productid() {
           <div
             className="tab-content"
             id="myTabContent"
-            style={{ padding: '0px 60px' }}
+            style={{
+              padding: 0 + 'px' + ' ' + 60 + 'px',
+              marginBottom: 48 + 'px',
+            }}
           >
             {/* 主要效益 start */}
             <div
