@@ -24,43 +24,22 @@ const SignupForm = ({ onClose, switchToLogin }) => {
 
   const [error, setError] = useState('')
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    const schemaForm = z.object({
-      name: z.string().min(2, { message: '姓名至少兩個字' }),
-      email: z.string().email({ message: '請填寫正確的電郵格式' }),
-      mobile: z
-        .string()
-        .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
-      password: z.string().min(6, { message: '密碼至少6個字' }),
-      county: z.string().min(1, { message: '請選擇縣市' }),
-      city: z.string().min(1, { message: '請選擇城市' }),
-    })
-
-    const newFormData = { ...formData, [name]: value }
-    const result = schemaForm.safeParse(newFormData)
-
-    const newFormErrors = {
-      name: '',
-      email: '',
-      mobile: '',
-      password: '',
-      county: '',
-      city: '',
-    }
-
-    if (!result.success && result?.error?.issues?.length) {
-      for (let issue of result.error.issues) {
-        newFormErrors[issue.path[0]] = issue.message
-      }
-    }
-
-    setFormErrors(newFormErrors)
-    setFormData(newFormData)
+  // 用于获取与所选县市相关的城市
+  const getFilteredCities = (countyId) => {
+    return cities.filter((city) => city.fk_county_id === parseInt(countyId, 10))
   }
 
+  // 处理输入变化
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({ ...prevData, [name]: value }))
+  }
+
+  // 表单提交处理
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // 验证模式
     const schemaForm = z.object({
       name: z.string().min(2, { message: '姓名至少兩個字' }),
       email: z.string().email({ message: '請填寫正確的電郵格式' }),
@@ -165,7 +144,10 @@ const SignupForm = ({ onClose, switchToLogin }) => {
             name="county"
             className="form-control"
             value={formData.county}
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e)
+              setFormData((prevData) => ({ ...prevData, city: '' })) // 重置城市
+            }}
             required
           >
             <option value="">請選擇縣市</option>
@@ -191,13 +173,11 @@ const SignupForm = ({ onClose, switchToLogin }) => {
             required
           >
             <option value="">請選擇城市</option>
-            {cities
-              .filter((city) => city.countyId === formData.county)
-              .map((city) => (
-                <option key={city.value} value={city.value}>
-                  {city.label}
-                </option>
-              ))}
+            {getFilteredCities(formData.county).map((city) => (
+              <option key={city.value} value={city.value}>
+                {city.label}
+              </option>
+            ))}
           </select>
           <div className="form-text">{formErrors.city}</div>
         </div>
