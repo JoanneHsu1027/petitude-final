@@ -148,7 +148,7 @@ export default function DogCalculate() {
         aria-labelledby="ModalDogLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-scrollable modal-xl">
+        <div className="modal-dialog modal-dialog-scrollable modal-lg">
           <div className="modal-content">
             <div
               className={`modal-header ${styles['bg-image']} pb-0 justify-content-end border-0 no-outline`}
@@ -171,113 +171,120 @@ export default function DogCalculate() {
                 style={{ paddingTop: 0 }}
               >
                 <div className="d-flex justify-content-center">
-                  <img src="/pi-pic/dog-on-btn.png" alt="" />
-                </div>
-                <div
-                  className="btn-group d-flex flex-wrap justify-content-center align-items-center"
-                  role="group"
-                  aria-label="Basic radio toggle button group"
-                >
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-1"
-                    autoComplete="off"
-                    required
+                  <img
+                    src="/pi-pic/dog-on-btn.png"
+                    style={{ height: '20%', width: '20%' }}
                   />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-1">
-                    拉布拉多犬
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-2"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-2">
-                    德國牧羊犬
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-3"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-3">
-                    黃金獵犬
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-4"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-4">
-                    臘腸狗
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-5"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-5">
-                    貴賓狗
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-6"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-6">
-                    柴犬
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-7"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-7">
-                    吉娃娃
-                  </label>
-                  <input
-                    type="radio"
-                    className={styles['btn-check']}
-                    name="dog-breed"
-                    id="dog-breed-8"
-                    autoComplete="off"
-                    required
-                  />
-                  <label className={styles[`own-btn3`]} htmlFor="dog-breed-8">
-                    其他犬種
-                  </label>
                 </div>
                 <div className="d-flex justify-content-center">
-                  <h4 className="text-color">
-                    ※如果不知道品種或不在選項中,請選擇其他犬種
-                  </h4>
+                  <div
+                    className="col-8 btn-group d-flex flex-wrap justify-content-center align-items-center"
+                    role="group"
+                    aria-label="Basic radio toggle button group"
+                  >
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-1"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-1">
+                      拉布拉多犬
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-2"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-2">
+                      德國牧羊犬
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-3"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-3">
+                      黃金獵犬
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-4"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-4">
+                      臘腸狗
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-5"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-5">
+                      貴賓狗
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-6"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-6">
+                      柴犬
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-7"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-7">
+                      吉娃娃
+                    </label>
+                    <input
+                      type="radio"
+                      className={styles['btn-check']}
+                      name="dog-breed"
+                      id="dog-breed-8"
+                      autoComplete="off"
+                      required
+                    />
+                    <label className={styles[`own-btn3`]} htmlFor="dog-breed-8">
+                      其他犬種
+                    </label>
+                  </div>
                 </div>
-                <div className="row align-items-start mt-4">
-                  <div className="col-4 ">
-                    <div className="d-flex justify-content-center">
-                      <h3>寵物性別</h3>
+                <div className="d-flex justify-content-center">
+                  <p className="text-color mb-0">
+                    ※如果不知道品種或不在選項中,請選擇其他犬種
+                  </p>
+                </div>
+                <div className={`row ${styles.formLayout}`}>
+                  <div className="col-lg-4 col-12 mb-3">
+                    <div
+                      className={`d-flex justify-content-center ${styles.formSpace}`}
+                    >
+                      <h5>寵物性別</h5>
                     </div>
-                    <div className="d-flex justify-content-center mt-3">
+                    <div className="d-flex justify-content-center">
                       <div
                         className={`me-5 ${styles['form-check']} d-flex justify-content-center align-items-center`}
                       >
@@ -292,7 +299,7 @@ export default function DogCalculate() {
                           className="form-check-label ms-2"
                           htmlFor="dog-gender-male"
                         >
-                          <h2 style={{ marginBottom: 0 }}>男生</h2>
+                          <h5 style={{ marginBottom: 0 }}>男生</h5>
                         </label>
                       </div>
                       <div
@@ -309,14 +316,14 @@ export default function DogCalculate() {
                           className="form-check-label ms-2"
                           htmlFor="dog-gender-female"
                         >
-                          <h2 style={{ marginBottom: 0 }}>女生</h2>
+                          <h5 style={{ marginBottom: 0 }}>女生</h5>
                         </label>
                       </div>
                     </div>
                   </div>
-                  <div className="col-8">
+                  <div className="col-12 col-sm-8">
                     <div className="d-flex justify-content-center">
-                      <h3>寵物生日</h3>
+                      <h5>寵物生日</h5>
                     </div>
                     <DatePicker
                       startYear={new Date().getFullYear() - 15}
@@ -330,15 +337,15 @@ export default function DogCalculate() {
                       ref={dogBirthdayRef}
                     />
                     <div className="d-flex justify-content-center">
-                      <h4 className="text-color">
+                      <p className="text-color mb-0">
                         ※請確認相關投保資料與寵物身分證明文件(寵物登記證)相符
-                      </h4>
+                      </p>
                     </div>
                   </div>
-                  <div className="d-flex justify-content-center mt-4 mb-2">
+                  <div className="d-flex justify-content-center mb-2">
                     <div className="col-8 mt-2">
                       <div className="d-flex justify-content-center">
-                        <h3>投保起始日期</h3>
+                        <h5>投保起始日期</h5>
                       </div>
                       <DatePicker
                         startYear={new Date().getFullYear()}
@@ -354,9 +361,21 @@ export default function DogCalculate() {
                       />
                     </div>
                   </div>
+
+                  <div
+                    className={`${styles['bg-image']} d-flex justify-content-center border-0 no-outline`}
+                  >
+                    <button
+                      type="submit"
+                      className={styles['own-btn1']}
+                      data-bs-dismiss="modal"
+                    >
+                      開始試算
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div
+              {/* <div
                 className={`modal-footer ${styles['bg-image']} d-flex justify-content-center border-0 no-outline`}
               >
                 <button
@@ -366,7 +385,7 @@ export default function DogCalculate() {
                 >
                   開始試算
                 </button>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>

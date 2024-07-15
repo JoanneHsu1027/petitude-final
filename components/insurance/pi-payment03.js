@@ -8,7 +8,9 @@ import Head from 'next/head'
 function PiPayment03() {
   return (
     <>
-    <Head><title>線上繳費 | Petitude</title></Head>
+      <Head>
+        <title>線上繳費 | Petitude</title>
+      </Head>
       <div className="container-fluid mb-5">
         <div className="row justify-content-center">
           {/* 進度條 */}
@@ -272,7 +274,7 @@ function PiPayment03() {
             <h5 className="me-1">總計保費</h5>
             <h2
               className={styles['own-orange']}
-              style={{ marginBottom: '-4px' }}
+              style={{ marginBottom: '4px' }}
             >
               NT$2,941
             </h2>
@@ -300,4 +302,4 @@ function PiPayment03() {
   )
 }
 
-export default withProgressBar(PiPayment03);
+export default withProgressBar(PiPayment03)
