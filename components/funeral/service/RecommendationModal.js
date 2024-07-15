@@ -2,35 +2,51 @@ import React, { useEffect, useState } from 'react'
 import { Modal } from 'react-bootstrap'
 import Router, { useRouter } from 'next/router'
 
-// 假設的從資料庫中獲取推薦方案的函式
-const fetchRecommendationFromDatabase = () => {
-  // 假設這裡實際上是從資料庫中取得推薦方案的邏輯
-  return {
-    text: '從資料庫中取得的推薦方案文字',
-    image: '/path/to/database/image.jpg',
-    details: '從資料庫中取得的推薦方案詳細內容',
-    price: '從資料庫中取得的推薦方案價格',
+// 假设的从数据库中获取推荐方案的函数
+const fetchRecommendationFromDatabase = (setup) => {
+  const recommendations = {
+    warm: {
+      title: '温馨布置方案',
+      image: '/funeral/Vector 20.png',
+      details: '这是温馨布置的详细内容。',
+      price: 'NTD 7000',
+    },
+    honor: {
+      title: '尊榮布置方案',
+      image: '/funeral/index_n5.png',
+      details: '这是尊荣布置的详细内容。',
+      price: 'NTD 9000',
+    },
   }
+
+  return (
+    recommendations[setup] || {
+      title: '找不到上面兩個',
+      image: '/pics/index_n5.png',
+      details: '所以顯示這裡',
+      price: 'NTD 1000',
+    }
+  )
 }
 
 export default function RecommendationModal({
   show,
   handleClose,
-  recommendation,
+  setup, // 从父组件传入的布置方案
 }) {
   const router = useRouter()
   const [recommendationData, setRecommendationData] = useState(null)
 
-  // 使用 useEffect 在模態框顯示時調用從資料庫中獲取推薦方案的函式
+  // 使用 useEffect 在模态框显示时调用从数据库中获取推荐方案的函数
   useEffect(() => {
     if (show) {
-      const data = fetchRecommendationFromDatabase()
+      const data = fetchRecommendationFromDatabase(setup) // 根据setup获取数据
       setRecommendationData(data)
     }
-  }, [show])
+  }, [show, setup])
 
-  // 解構 recommendationData 物件，取出 text / image / details
-  const { text, image, details, price } = recommendationData || {}
+  // 解构 recommendationData 物件，取出 title / image / details
+  const { title, image, details, price } = recommendationData || {}
 
   return (
     <Modal show={show} onHide={handleClose} centered size="lg">
@@ -60,7 +76,7 @@ export default function RecommendationModal({
               </div>
               {/* 顯示推薦方案的文字和詳細描述 */}
               <div className="col-md-6">
-                <h4 style={{ fontWeight: '900' }}>{text}</h4>
+                <h4 style={{ fontWeight: '900' }}>{title}</h4>
                 <p style={{ fontSize: '14px' }}>{details}</p>
                 <div className="d-flex justify-content-between">
                   <div>
@@ -107,174 +123,3 @@ export default function RecommendationModal({
     </Modal>
   )
 }
-
-// import React from 'react'
-// import { Modal, Button } from 'react-bootstrap'
-// import ImageComponent from '../../common/image'
-
-// // 定義推薦方案的內容
-// const recommendations = {
-//   pet: {
-//     cat: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇貓, 跳這</p>
-//         </Modal.Body>
-//       ),
-//     },
-//     dog: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇狗, 跳這</p>
-//         </Modal.Body>
-//       ),
-//     },
-//   },
-//   kg: {
-//     underFiveKg: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇5kg, 跳這</p>
-//           {/* 請根據需求添加相應的內容 */}
-//         </Modal.Body>
-//       ),
-//     },
-//     underTenKg: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇10kg, 跳這</p>
-//           {/* 請根據需求添加相應的內容 */}
-//         </Modal.Body>
-//       ),
-//     },
-//     underTwentyKg: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇20kg, 跳這</p>
-//           {/* 請根據需求添加相應的內容 */}
-//         </Modal.Body>
-//       ),
-//     },
-//   },
-//   ashes: {
-//     bringBack: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇家長帶回, 跳這</p>
-//           {/* 請根據需求添加相應的內容 */}
-//         </Modal.Body>
-//       ),
-//     },
-//     flowerBurial: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇園區花葬, 跳這</p>
-//           {/* 請根據需求添加相應的內容 */}
-//         </Modal.Body>
-//       ),
-//     },
-//   },
-//   service: {
-//     pd: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇家長親送, 跳這</p>
-//           {/* 請根據需求添加相應的內容 */}
-//         </Modal.Body>
-//       ),
-//     },
-//     ps: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇專人接體, 跳這</p>
-//           {/* 請根據需求添加相應的內容 */}
-//         </Modal.Body>
-//       ),
-//     },
-//   },
-//   setup: {
-//     warm: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇溫馨布置, 跳這</p>
-//           <ImageComponent
-//             src="/pics/Vector 20.png"
-//             alt="溫馨寵物"
-//             width={300}
-//             height={250}
-//           />
-//         </Modal.Body>
-//       ),
-//     },
-//     honor: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇尊榮布置, 跳這</p>
-//           <ImageComponent
-//             src="/pics/index_n5.png"
-//             alt="尊榮寵物"
-//             width={300}
-//             height={250}
-//           />
-//         </Modal.Body>
-//       ),
-//     },
-//   },
-//   other: {
-//     spa: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇禮體spa美容, 跳這</p>
-//           {/* 請根據需求添加相應的內容 */}
-//         </Modal.Body>
-//       ),
-//     },
-//     none: {
-//       content: (
-//         <Modal.Body>
-//           <p>選擇無須其他服務, 跳這</p>
-//           {/* 請根據需求添加相應的內容 */}
-//         </Modal.Body>
-//       ),
-//     },
-//   },
-// }
-
-// // 定義推薦方案組件
-// const RecommendationModal = ({ show, handleClose, recommendation }) => {
-//   // 渲染推薦方案
-//   const renderRecommendation = () => {
-//     let content = null
-
-//     for (let category in recommendation) {
-//       if (
-//         recommendation.hasOwnProperty(category) &&
-//         recommendations[category]?.[recommendation[category]]
-//       ) {
-//         content = recommendations[category][recommendation[category]].content
-//         break // 找到第一個符合條件的推薦方案即可
-//       }
-//     }
-
-//     return content
-//   }
-
-//   return (
-//     <Modal show={show} onHide={handleClose} centered size="lg">
-//       <Modal.Header closeButton>
-//         <Modal.Title>推薦方案</Modal.Title>
-//       </Modal.Header>
-//       {renderRecommendation()}
-//       <Modal.Footer>
-//         <Button variant="warning" onClick={handleClose}>
-//           取消
-//         </Button>
-//         <Button variant="warning" onClick={handleClose}>
-//           確認結帳
-//         </Button>
-//       </Modal.Footer>
-//     </Modal>
-//   )
-// }
-
-// export default RecommendationModal

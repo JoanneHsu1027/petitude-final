@@ -1,7 +1,5 @@
 import React from 'react'
-import Layout1 from '../../component/layout/layout1'
 import Head from 'next/head'
-import { project } from '../../data/project'
 
 export default function ProjectList() {
   const addToCart = (pid) => {
@@ -42,7 +40,7 @@ export default function ProjectList() {
   }
 
   return (
-    <Layout1 title="商品列表" pageName="project-list">
+    <div title="商品列表" pageName="project-list">
       <Head>
         <meta keyword="契約方案" />
       </Head>
@@ -79,6 +77,6 @@ export default function ProjectList() {
           })}
         </tbody>
       </table>
-    </Layout1>
+    </div>
   )
 }

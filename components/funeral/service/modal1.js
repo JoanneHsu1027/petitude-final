@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Modal } from 'react-bootstrap'
-import RecommendationModal from '@/components/funeral/service/recommendationModal'
+import RecommendationModal from '@/components/funeral/service/RecommendationModal'
 
 export default function Modal1({ show, handleClose }) {
   const [selection, setSelection] = useState({
+    // 使用 useState 来管理用戶選擇的選項，設定初始值
     pet: '',
     kg: '',
     ashes: '',
@@ -13,6 +14,7 @@ export default function Modal1({ show, handleClose }) {
   })
 
   const [errors, setErrors] = useState({
+    // 用來管理每個選項的驗證狀態, 初始值為所有選項未選取(呈false)
     pet: false,
     kg: false,
     ashes: false,
@@ -20,10 +22,10 @@ export default function Modal1({ show, handleClose }) {
     setup: false,
     other: false,
   })
-
+  // 控制modal的顯示狀態
   const [showRecommendationModal, setShowRecommendationModal] = useState(false)
 
-  // 載入時從 localStorage 中讀取選項值
+  // 組件載入時, 從localStorage 中讀取之前保存的選項值, 有的話更新selection狀態
   useEffect(() => {
     const savedSelection = JSON.parse(localStorage.getItem('selection'))
     if (savedSelection) {
@@ -31,18 +33,20 @@ export default function Modal1({ show, handleClose }) {
     }
   }, [])
 
-  // 點擊選項更新 selection 狀態值
+  // 當用戶選擇某個選項時, 就會使用到這個function
   const handleRadioChange = (e) => {
+    // 會得到選取的name和value, 並更新到上面selection狀態裡
     const { name, value } = e.target
     setSelection((prevState) => ({
       ...prevState,
       [name]: value,
     }))
+    // 同時也會清除error的預設狀態
     setErrors((prevState) => ({
       ...prevState,
       [name]: false,
     }))
-    // 將更新後的 selection 存入 localStorage
+    // 將更新後的 選取值(selection) 存到 localStorage
     localStorage.setItem(
       'selection',
       JSON.stringify({
@@ -51,7 +55,8 @@ export default function Modal1({ show, handleClose }) {
       }),
     )
   }
-
+  // 檢查選項是否都被選取, 有選則跳出modal, 未選則跳錯
+  // 每個欄位都需要被選到才可以繼續進行下一步
   const validateSelection = () => {
     const radioGroups = ['pet', 'kg', 'ashes', 'service', 'setup', 'other']
     let isValid = true
@@ -72,6 +77,7 @@ export default function Modal1({ show, handleClose }) {
   }
 
   const getRecommendation = (selection) => {
+    // 將用戶選擇的中文選項轉換為name的值
     const mapping = {
       pet: { 貓: 'cat', 犬: 'dog' },
       kg: {
@@ -84,17 +90,19 @@ export default function Modal1({ show, handleClose }) {
       setup: { 溫馨布置: 'warm', 尊榮布置: 'honor' },
       other: { 禮體SPA美容: 'spa', 無須其他服務: 'none' },
     }
-
+    // 便利用戶選擇的每個選項, 產生個新的函式(convertedSelection)
     const convertedSelection = Object.entries(selection).reduce(
       (acc, [key, value]) => {
+        // 根據轉換完的選項, 從 recommendationMap娶的推薦的向項目
         acc[key] = mapping[key][value] || value
+        // 未找到的話, 則返回
         return acc
       },
       {},
     )
 
     const { pet, kg, ashes, service, setup, other } = convertedSelection
-
+    // 最後會將推薦的項目裝在上方recommendation函式裡並返回
     const recommendationMap = {
       cat: {
         bringBack: { text: '家長帶回' },
@@ -149,46 +157,47 @@ export default function Modal1({ show, handleClose }) {
     }
 
     // 會依照選擇的寵物種類及布置方案做推薦
-    const recommendationText =
-      recommendationMap[pet]?.[setup]?.text ||
-      recommendationMap[pet]?.[ashes]?.text ||
-      recommendationMap[pet]?.[service]?.text ||
-      recommendationMap[pet]?.[kg]?.text ||
-      recommendationMap[pet]?.[other]?.text ||
-      'defaultRecommendation'
+    const recommendationKeys = [setup, ashes, service, kg, other]
+    let recommendationText = 'defaultRecommendation'
+    let recommendationDetails = 'defaultDetails'
+    let recommendationPrice = 'defaultPrice'
+    let recommendationImage = '/funeral/vector 20.png'
 
-    const recommendationDetails =
-      recommendationMap[pet]?.[setup]?.details ||
-      recommendationMap[pet]?.[ashes]?.details ||
-      recommendationMap[pet]?.[service]?.details ||
-      recommendationMap[pet]?.[kg]?.details ||
-      recommendationMap[pet]?.[other]?.details ||
-      'defaultDetails'
-
-    const recommendationPrice =
-      recommendationMap[pet]?.[setup]?.price ||
-      recommendationMap[pet]?.[ashes]?.price ||
-      recommendationMap[pet]?.[service]?.price ||
-      recommendationMap[pet]?.[kg]?.price ||
-      recommendationMap[pet]?.[other]?.price ||
-      'defaultPrice'
-
-    const recommendationImage =
-      recommendationMap[pet]?.[setup]?.image ||
-      recommendationMap[pet]?.[ashes]?.image ||
-      recommendationMap[pet]?.[service]?.image ||
-      recommendationMap[pet]?.[kg]?.image ||
-      recommendationMap[pet]?.[other]?.image ||
-      '/path/to/defaultImage.jpg'
+    for (const key of recommendationKeys) {
+      if (
+        recommendationMap[pet]?.[key]?.text &&
+        recommendationText === 'defaultRecommendation'
+      ) {
+        recommendationText = recommendationMap[pet][key].text
+      }
+      if (
+        recommendationMap[pet]?.[key]?.details &&
+        recommendationDetails === 'defaultDetails'
+      ) {
+        recommendationDetails = recommendationMap[pet][key].details
+      }
+      if (
+        recommendationMap[pet]?.[key]?.price &&
+        recommendationPrice === 'defaultPrice'
+      ) {
+        recommendationPrice = recommendationMap[pet][key].price
+      }
+      if (
+        recommendationMap[pet]?.[key]?.image &&
+        recommendationImage === '/path/to/defaultImage.jpg'
+      ) {
+        recommendationImage = recommendationMap[pet][key].image
+      }
+    }
 
     const recommendation = {
       text: recommendationText,
-      image: recommendationImage,
       details: recommendationDetails,
       price: recommendationPrice,
+      image: recommendationImage,
     }
     // 把更新後的的 selection資料 存入 localStorage
-    localStorage.setItem('selection', JSON.stringify(selection))
+    // localStorage.setItem('selection', JSON.stringify(selection))
 
     return recommendation
   }
@@ -264,7 +273,7 @@ export default function Modal1({ show, handleClose }) {
             <div className="col-12 d-flex justify-content-center">
               <div className="optionGroup m-2" id="optionGroup2">
                 <div className="form-check text-center">
-                  <h5>寶貝重量</h5>
+                  <h6>寶貝重量</h6>
                   <input
                     className="form-check-input btn-check"
                     type="radio"
@@ -333,7 +342,7 @@ export default function Modal1({ show, handleClose }) {
               </div>
               <div className="optionGroup m-2" id="optionGroup3">
                 <div className="form-check text-center">
-                  <h5>骨灰安置</h5>
+                  <h6>骨灰安置</h6>
                   <input
                     className="form-check-input btn-check"
                     type="radio"
@@ -380,7 +389,7 @@ export default function Modal1({ show, handleClose }) {
               </div>
               <div className="optionGroup m-2" id="optionGroup4">
                 <div className="form-check text-center">
-                  <h5>接體服務</h5>
+                  <h6>接體服務</h6>
                   <input
                     className="form-check-input btn-check"
                     type="radio"
@@ -421,7 +430,7 @@ export default function Modal1({ show, handleClose }) {
               </div>
               <div className="optionGroup m-2" id="optionGroup5">
                 <div className="form-check text-center">
-                  <h5>告別式布置</h5>
+                  <h6>告別式布置</h6>
                   <input
                     className="form-check-input btn-check"
                     type="radio"
@@ -462,7 +471,7 @@ export default function Modal1({ show, handleClose }) {
               </div>
               <div className="optionGroup m-2" id="optionGroup6">
                 <div className="form-check text-center">
-                  <h5>其他服務</h5>
+                  <h6>其他服務</h6>
                   <input
                     className="form-check-input btn-check"
                     type="radio"
@@ -585,12 +594,11 @@ export default function Modal1({ show, handleClose }) {
 
         @media screen and (max-width: 1005px) {
           .own-btn3 {
-            width: 90%;
+            width: 80%;
             height: 2.5rem;
-            font-size: 0.8rem;
+            font-size: 0.6rem;
           }
           .own-btn4 {
-            // 調整寬度和高度等樣式
             width: 90%;
             height: 5rem;
           }

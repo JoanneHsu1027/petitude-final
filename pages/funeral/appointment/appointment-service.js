@@ -11,7 +11,7 @@ export default function AppointmentService() {
 
   return (
     <>
-      <div className="container-fluid p-4 mt-5" style={{ overflow: 'hidden' }}>
+      <div className="container-fluid p-4 mt-5">
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-8 position-relative p-0">
             {/* 上方文字+圖形區塊 */}
@@ -148,13 +148,16 @@ export default function AppointmentService() {
             className="vector"
             src="/funeral/Vector 436.png"
             alt=""
-            maxWidth="100%"
-            height="55%"
             style={{
               position: 'fixed',
               bottom: '0',
+              left: '0',
               padding: '0',
+              margin: '0',
               zIndex: -1,
+              width: '100%',
+              height: '55%',
+              objectFit: 'cover',
               overflow: 'hidden',
               maxWidth: '100%',
             }}

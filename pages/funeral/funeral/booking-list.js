@@ -1,10 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Layout from '../../../components/layout/layout'
 import { useRouter } from 'next/router'
 
 export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
   const router = useRouter()
+  const [selectedOption, setSelectedOption] = useState(null)
+
+  useEffect(() => {
+    // 從 localStorage 讀取資料
+    const storedOption = localStorage.getItem('selectedOption')
+    if (storedOption) {
+      setSelectedOption(JSON.parse(storedOption))
+    }
+  }, [])
 
   return (
     <Layout>
@@ -291,58 +300,69 @@ export default function BookingList() {
             >
               <div className="card-header bg-warning text-center">結帳明細</div>
               <div className="card-body" style={{ backgroundColor: '#FFF5CF' }}>
-                <div className="col d-flex justify-content-between align-items-center">
-                  <img
-                    src="/funeral/Frame 685.png"
-                    alt=""
-                    style={{ width: '11rem', height: '8rem' }}
-                  />
-                  <h5 className="card-title text-center">
-                    尊榮寵物 (個別羽化)
-                  </h5>
-                </div>
-                <div className="col d-flex align-items-center">
-                  <div className="text-start m-2">
-                    <p className="card-text mb-1">贈送</p>
-                    <p className="card-text m-0">免費結緣往生被/十字被</p>
-                    <p className="card-text m-0">免費靈體冰存14天</p>
-                    <p className="card-text m-0">免費懷念骨灰罐</p>
-                  </div>
-                  <div className="text-end ms-5 ms-auto">
-                    <p className="card-text">$ 9000元</p>
-                  </div>
-                </div>
-                <hr />
-                <div className="col d-flex align-items-center">
-                  <div className="text-start m-2">
-                    <p className="card-text mb-1">付款方式</p>
-                  </div>
-                  <div className="text-end ms-5 ms-auto">
-                    <p className="card-text">信用卡</p>
-                  </div>
-                </div>
-                <div className="col d-flex align-items-center">
-                  <div className="text-start m-2">
-                    <p className="card-text mb-1">總金額</p>
-                  </div>
-                  <div className="text-end ms-5 ms-auto">
-                    <p className="card-text">$ 9000</p>
-                  </div>
-                </div>
-                <div className="d-flex justify-content-center align-items-center">
-                  {/* button跳轉頁面 */}
-                  <button
-                    className="btn btn-warning"
-                    onClick={() => {
-                      if (confirm('確定嗎?')) {
-                        router.push('/funeral/funeral/confirm')
-                      }
-                    }}
-                    style={{ width: '120px', marginTop: '20px' }}
-                  >
-                    確認結帳
-                  </button>
-                </div>
+                {selectedOption ? (
+                  <>
+                    <div className="col d-flex justify-content-between align-items-center">
+                      <img
+                        src={selectedOption.imageSrc}
+                        alt=""
+                        style={{ width: '10rem', height: '8rem' }}
+                      />
+                      <h3 className="card-title text-center">
+                        {selectedOption.title}
+                      </h3>
+                    </div>
+                    <div className="col d-flex align-items-center">
+                      <div className="text-start m-2">
+                        <p className="card-text">贈送</p>
+                        {selectedOption.details
+                          .split('\n\n')
+                          .map((detail, index) => (
+                            <p key={index} className="card-text m-0">
+                              {detail}
+                            </p>
+                          ))}
+                      </div>
+                      <div className="text-end ms-5 ms-auto">
+                        <p className="card-text">{selectedOption.price}</p>
+                      </div>
+                    </div>
+                    <hr />
+                    <div className="col d-flex align-items-center">
+                      <div className="text-start m-2">
+                        <p className="card-text mb-1">付款方式</p>
+                      </div>
+                      <div className="text-end ms-5 ms-auto">
+                        <p className="card-text">
+                          {selectedPaymentMethod === 'creditCard'
+                            ? '信用卡'
+                            : '其他方式付款'}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="col d-flex align-items-center">
+                      <div className="text-start m-2">
+                        <p className="card-text mb-1">總金額</p>
+                      </div>
+                      <div className="text-end ms-5 ms-auto">
+                        <p className="card-text">{selectedOption.price}</p>
+                      </div>
+                    </div>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <button
+                        className="btn btn-warning"
+                        onClick={() => {
+                          router.push('/funeral/funeral/confirm')
+                        }}
+                        style={{ width: '120px', marginTop: '20px' }}
+                      >
+                        確認結帳
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <p>沒有選擇的方案</p>
+                )}
               </div>
             </div>
           </div>
@@ -375,7 +395,7 @@ export default function BookingList() {
 
           .card-header,
           .card-title {
-            font-size: 0.9rem;
+            font-size: 1.2rem;
           }
 
           .form-check-label,
