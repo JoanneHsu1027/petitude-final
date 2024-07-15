@@ -12,17 +12,20 @@ export default function Service() {
 
   return (
     <>
-      <div className="container-fluid p-4 mt-5">
+      <div className="container-fluid mt-5 mb-5">
         <div className="row d-flex justify-content-center">
           <h2
             style={{
               textAlign: 'center',
-              marginBottom: '5%',
+              marginBottom: '4%',
             }}
           >
             寵物火化服務項目一覽
           </h2>
-          <div className="col-md-6  d-flex justify-content-center">
+          <div
+            className="col-md-6  d-flex justify-content-center mt-3"
+            style={{ width: '40%' }}
+          >
             <div
               className={`card text-dark mb-1 border-0 text-center ${Styles.card}`}
             >
@@ -54,7 +57,10 @@ export default function Service() {
               </div>
             </div>
           </div>
-          <div className="col-md-6 d-flex justify-content-center">
+          <div
+            className="col-md-6 d-flex justify-content-center mt-3"
+            style={{ width: '40%' }}
+          >
             <div
               className={`card text-dark mb-1 border-0 text-center ${Styles.card}`}
             >
@@ -78,16 +84,31 @@ export default function Service() {
               </div>
             </div>
           </div>
-          <button
-            className="btn btn-warning"
-            onClick={handleShowModal1}
-            style={{ width: '150px', marginTop: '20px' }}
-          >
-            客製化服務
-          </button>
+          <div className="d-flex justify-content-center align-items-center">
+            <button
+              className="btn btn-warning mt-5"
+              onClick={handleShowModal1}
+              style={{ width: '150px', marginTop: '20px' }}
+            >
+              客製化服務
+            </button>
+          </div>
         </div>
         <Modal1 show={showModal1} handleClose={() => setShowModal1(false)} />
       </div>
+      <style jsx>{`
+        .list-group {
+          padding: 0; /* 移除內邊距 */
+          margin: 0; /* 移除外邊距 */
+          border: none; /* 移除邊框 */
+        }
+
+        .list-group-item {
+          border: none; /* 移除每個項目的邊框 */
+          padding: 0.5rem 1rem; /* 自定義內邊距 */
+          background-color: transparent; /* 設定背景顏色為透明 */
+        }
+      `}</style>
     </>
   )
 }
