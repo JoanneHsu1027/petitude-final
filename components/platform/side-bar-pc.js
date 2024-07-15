@@ -7,7 +7,7 @@ import Link from 'next/link'
 export default function SideBarPc() {
   const router = useRouter()
   const [activeLink, setActiveLink] = useState('')
-  const [sidebarOffset, setSidebarOffset] = useState(150)
+  const [sidebarOffset, setSidebarOffset] = useState(140)
 
   useEffect(() => {
     if (router.pathname.includes('class-list')) {
@@ -24,8 +24,8 @@ export default function SideBarPc() {
   useEffect(() => {
     const handleScroll = () => {
       const isBottom =
-        window.outerHeight + window.scrollY >= document.body.offsetHeight
-      setSidebarOffset(isBottom ? -15 : 150)
+        window.innerHeight + window.scrollY >= document.body.offsetHeight
+      setSidebarOffset(isBottom ? 100 : 140)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -37,7 +37,7 @@ export default function SideBarPc() {
   return (
     <div className="col-xl-3 d-none d-xl-block mb-0">
       <div
-        className={`bg-white ${styles.W10} ${styles.Rounded5} ${styles.H70} px-3 pt-4 position-fixed d-flex flex-column justify-content-between`}
+        className={`bg-white ${styles.W10} ${styles.Rounded5} ${styles.H60} px-3 pt-4 position-fixed d-flex flex-column justify-content-between`}
         style={{ top: `${sidebarOffset}px`, transition: 'top 0.3s ease' }}
       >
         <div className="d-flex flex-column">

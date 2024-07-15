@@ -5,11 +5,11 @@ export default function Footer() {
   return (
     <>
       <div
-        className="container-fluid py-3"
+        className="container-fluid pt-4 pb-1"
         style={{ backgroundColor: '#FFDF79', marginTop: 'auto' }}
       >
-        <div className="row ms-3">
-          <div className="col-sm-3 d-flex flex-column border-start border-dark mb-3">
+        <div className="row ms-3  d-flex justify-content-center">
+          <div className="col-lg-2 col-md-3 d-flex flex-column border-start border-dark mb-3 px-4">
             <h6 className="m-0 fw-bolder">會員專區</h6>
             <a className={`${styles.AReset}`} href="#">
               會員權益
@@ -18,7 +18,7 @@ export default function Footer() {
               隱私權政策
             </a>
           </div>
-          <div className="col-sm-3 d-flex flex-column border-start border-dark mb-3">
+          <div className="col-lg-2 col-md-3 d-flex flex-column border-start border-dark mb-3 px-4">
             <h6 className="m-0 fw-bolder">購物須知</h6>
             <a className={`${styles.AReset}`} href="#">
               付款與配送方式
@@ -27,14 +27,14 @@ export default function Footer() {
               退換貨說明
             </a>
           </div>
-          <div className="col-sm-3 d-flex flex-column border-start border-dark mb-3">
+          <div className="col-lg-2 col-md-3 d-flex flex-column border-start border-dark mb-3 px-4">
             <h6 className="m-0 fw-bolder">關於我們</h6>
             <a className={`${styles.AReset}`} href="#">
               品牌故事
             </a>
             <p className="m-0">統一編號: 12345678</p>
           </div>
-          <div className="col-sm-3 d-flex flex-column border-start border-dark mb-3">
+          <div className="col-lg-2 col-md-3 d-flex flex-column border-start border-dark mb-3 px-4">
             <h6 className="m-0 fw-bolder">聯絡我們</h6>
             <a className={`${styles.AReset}`} href="#">
               Facebook粉絲團
