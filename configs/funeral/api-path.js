@@ -33,19 +33,19 @@ export const API_SERVER = 'http://localhost:3001'
 
 //  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-// reservation(預約)
+// project(契約)
 // (串前端project/card的api)
 export const PJ_LIST = `${API_SERVER}/project/api`
-// export const PJ_ADD_POST = `${API_SERVER}/reservation/add`
+// export const PJ_ADD_POST = `${API_SERVER}/project/add`
 
 // // `${API_SERVER}/reservation/api/${reservation_id}`, method: DELETE
-// export const PJ_ITEM_DELETE = `${API_SERVER}/reservation/api`
+// export const PJ_ITEM_DELETE = `${API_SERVER}/project/api`
 
 // // `${API_SERVER}/reservation/api/${reservation_id}`, method: GET, 取得單筆資料
 export const PJ_GET_ITEM = `${API_SERVER}/project/api`
 
 // // `${API_SERVER}/reservation/api/${reservation_id}`, method: PUT, 修改單筆資料
-// export const PJ_UPDATE_PUT = `${API_SERVER}/reservation/api`
+// export const PJ_UPDATE_PUT = `${API_SERVER}/project/api`
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
