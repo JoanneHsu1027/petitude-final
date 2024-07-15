@@ -36,8 +36,6 @@ export default function TrialCalculation() {
     localStorage.removeItem('dogDataReceived')
     setCatDataReceived(false)
     setDogDataReceived(false)
-    localStorage.removeItem('catInsuranceData')
-    localStorage.removeItem('dogInsuranceData')
   }
 
   return (

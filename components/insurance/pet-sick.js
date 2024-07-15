@@ -85,7 +85,7 @@ export default function PetSick() {
               />
             </div>
           </div>
-          <div className="col-lg-3 col-xxl-2 d-flex align-items-center pt-5">
+          <div className="col-lg-3 col-xxl-2 d-flex align-items-center pt-3">
             <ul className="list-unstyled" style={{ width: '100%' }}>
               {accidentTypes.map((accident, index) => (
                 // eslint-disable-next-line
@@ -104,9 +104,10 @@ export default function PetSick() {
                   }
                 >
                   <div
-                    className={`rounded-circle ${styles.circleColorChange} ${iconClicked === index ? styles.clicked : ''}`}
+                    className={`rounded-circle d-flex justify-content-center align-items-center ${styles.circleColorChange} ${iconClicked === index ? styles.clicked : ''}`}
                   >
                     <img
+                      style={{ width: '80%', height: '80%' }}
                       loading="lazy"
                       src={accident.icon}
                       alt={accident.accidentType}
@@ -123,8 +124,6 @@ export default function PetSick() {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                paddingTop: 80,
-                paddingBottom: 80,
               }}
             >
               <img
@@ -149,9 +148,10 @@ export default function PetSick() {
                   <div
                     key={index}
                     onClick={() => handleIconClick(index)}
-                    className={`rounded-circle ${styles.circleColorChange} ${iconClicked === index ? styles.clicked : ''}`}
+                    className={`rounded-circle d-flex justify-content-center align-items-center ${styles.circleColorChange} ${iconClicked === index ? styles.clicked : ''}`}
                   >
                     <img
+                      style={{ width: '80%', height: '80%' }}
                       className="img-fluid"
                       loading="lazy"
                       src={accident.icon}

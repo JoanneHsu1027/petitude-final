@@ -191,7 +191,7 @@
   width: 50%;
 }
 .circleColorChange{
-  padding: 1.25rem;
+  padding: .5rem;
   background-color: #FFF5CF;
   cursor:pointer
 }
@@ -205,7 +205,7 @@
   }
   
   .circleColorChange{
-    padding: 8px;
+    padding: 4px;
     background-color: #FFF5CF;
     cursor:pointer
   }
