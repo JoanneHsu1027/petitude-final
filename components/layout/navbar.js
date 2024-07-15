@@ -36,27 +36,27 @@ export default function Navbar({ pageName = '' }) {
             <div className="d-flex justify-content-center w-100">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <Link className="nav-link" href="#" legacyBehavior>
+                  <Link className="nav-link" href="#">
                     <img src="/pi-pic/about-icon.png" alt="" />
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="estore" legacyBehavior>
+                  <Link className="nav-link" href="estore">
                     <img src="/pi-pic/product-icon.png" alt="" />
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/insurance/" legacyBehavior>
+                  <Link className="nav-link" href="/insurance/">
                     <img src="/pi-pic/insurance-icon.png" alt="" />
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/" legacyBehavior>
+                  <Link className="nav-link" href="/">
                     <img src="/pi-pic/petitude-icon.png" alt="" />
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/funeral/" legacyBehavior>
+                  <Link className="nav-link" href="/funeral/">
                     <img src="/pi-pic/funeral-icon.png" alt="" />
                   </Link>
                 </li>
@@ -66,10 +66,8 @@ export default function Navbar({ pageName = '' }) {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/member/" legacyBehavior>
-                    <a className="nav-link">
-                      <img src="/pi-pic/member-icon.png" alt="" />
-                    </a>
+                  <Link className="nav-link" href="/member/">
+                    <img src="/pi-pic/member-icon.png" alt="" />
                   </Link>
                 </li>
                 {auth.b2c_id ? (
@@ -107,7 +105,7 @@ export default function Navbar({ pageName = '' }) {
           </Modal>
         )}
       </nav>
-
+      {/* 手機板 */}
       <nav
         className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 ${styles['bg-image']}`}
       >
@@ -195,6 +193,11 @@ export default function Navbar({ pageName = '' }) {
           </Modal>
         )}
       </nav>
+      <style jsx>{`
+        .nav-link {
+          cursor: pointer;
+        }
+      `}</style>
     </>
   )
 }
