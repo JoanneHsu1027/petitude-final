@@ -224,38 +224,23 @@ export default function ProjectList() {
                   href=""
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover}`}
-                  category="dog"
-                  onClick={() => handleCategoryClick('dog')}
                 >
-                  犬類食品
+                  主題分類
                 </Link>
 
                 <Link
                   href=""
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover}`}
-                  category="cat"
-                  onClick={() => handleCategoryClick('cat')}
                 >
-                  貓類食品
+                  最新文章
                 </Link>
                 <Link
                   href=""
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover}`}
-                  category="adult"
-                  onClick={() => handleCategoryClick('adult')}
                 >
-                  成貓成犬
-                </Link>
-                <Link
-                  href=""
-                  type="button"
-                  className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover}`}
-                  category="young"
-                  onClick={() => handleCategoryClick('young')}
-                >
-                  幼貓幼犬
+                  文章收藏
                 </Link>
               </div>
             </div>
