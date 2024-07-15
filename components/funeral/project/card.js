@@ -120,6 +120,7 @@ export default function Card() {
                   >
                     加入購物車
                   </button>
+                  {/* 這邊要用useEffect把資料hook帶進購物車裡做頁面渲染 */}
                 </div>
               </div>
             </div>
