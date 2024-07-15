@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import Layout from '../../../components/layout/layout'
 import ModalComponent from '@/components/funeral/funeral/booking-list/modal'
 import Styles from '@/components/funeral/funeral/booking-list/modal.module.css'
-
 export default function Confirm() {
   const router = useRouter()
   const [selectedOption, setSelectedOption] = useState(null)

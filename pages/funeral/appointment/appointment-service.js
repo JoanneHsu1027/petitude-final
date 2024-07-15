@@ -11,7 +11,7 @@ export default function AppointmentService() {
 
   return (
     <>
-      <div className="container-fluid p-4 mt-5">
+      <div className="container-fluid p-4 mt-5" style={{ overflow: 'hidden' }}>
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-8 position-relative p-0">
             {/* 上方文字+圖形區塊 */}

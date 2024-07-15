@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import LoginForm from './LoginForm'
+import SignupForm from './SignupForm'
 
-const Modal = ({ children, onClose }) => {
+const Modal = ({ onClose }) => {
+  const [isLogin, setIsLogin] = useState(true)
+
   useEffect(() => {
-    // 監聽鍵盤事件，以便按下 Esc 鍵時關閉 Modal
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
         onClose()
@@ -13,6 +16,9 @@ const Modal = ({ children, onClose }) => {
       document.removeEventListener('keydown', handleEscape)
     }
   }, [onClose])
+
+  const switchToSignup = () => setIsLogin(false)
+  const switchToLogin = () => setIsLogin(true)
 
   return (
     <div
@@ -26,7 +32,25 @@ const Modal = ({ children, onClose }) => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              登入
+              <button
+                type="button"
+                className={`btn btn-link ${isLogin ? 'active' : ''}`}
+                onClick={switchToLogin}
+                disabled={isLogin}
+                style={{ textDecoration: 'none' }}
+              >
+                Login
+              </button>
+
+              <button
+                type="button"
+                className={`btn btn-link ${!isLogin ? 'active' : ''}`}
+                onClick={switchToSignup}
+                disabled={!isLogin}
+                style={{ textDecoration: 'none' }}
+              >
+                Sign Up
+              </button>
             </h5>
             <button
               type="button"
@@ -35,7 +59,13 @@ const Modal = ({ children, onClose }) => {
               onClick={onClose}
             ></button>
           </div>
-          <div className="modal-body">{children}</div>
+          <div className="modal-body">
+            {isLogin ? (
+              <LoginForm onClose={onClose} />
+            ) : (
+              <SignupForm onClose={onClose} />
+            )}
+          </div>
           <div className="modal-footer">
             <button
               type="button"

@@ -188,7 +188,6 @@
       margin-top: -130px;
   }
 }
-
 /* 當畫面寬度小於 1200px 時應用此樣式 */
 @media (max-width: 1200px) {
   .img-container {
@@ -283,7 +282,8 @@
 /* 顧客回饋 start */
 .pentagon-container {
   position: relative;
-  width: auto;
+  width: 100%;
+  max-width: 100%; /* 不確定 */
   background-color: #FFF5CF;
   clip-path: polygon(0% 0%, 85% 0%, 100% 20%, 100% 100%, 0% 100%);
   display: inline-block;
@@ -293,10 +293,23 @@
 
 .pet-image {
   border-radius: 50%;
-  width: 9.375rem;
-  height: 9.375rem;
+  width: 100%;
+  max-width: 100%; /* 不確定 */
+  height: auto;
   object-fit: cover;
-  margin: 20px;
+  margin: 20px 0;
+}
+
+@media (max-width: 768px) {
+  .pentagon-container {
+    max-width: 100%; /* 確保在小螢幕上五邊形佔滿父容器 */
+    padding: 10px; /* 減少 padding 以適應小螢幕 */
+  }
+
+  .pet-image {
+    max-width: 100%; /* 不確定 */
+    margin: 10px 0;
+  }
 }
 
 .no-outline:focus, .no-outline:active {

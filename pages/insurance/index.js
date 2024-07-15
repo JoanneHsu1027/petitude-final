@@ -360,7 +360,7 @@ export default function PetInsurance() {
             style={{ padding: '0 3.75rem 0 3.75rem' }}
           >
             <div
-              className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
+              className={`col-md-3 d-flex ${styles['pentagon-container']} mb-5`}
             >
               <img
                 src="/pi-pic/customer-feedback01.jpg"
@@ -381,7 +381,7 @@ export default function PetInsurance() {
             </div>
             <div className={`col-1 ${styles.smHidden}`} />
             <div
-              className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
+              className={`col-md-3 d-flex ${styles['pentagon-container']} mb-5`}
             >
               <img
                 src="/pi-pic/customer-feedback02.jpg"
@@ -458,6 +458,7 @@ export default function PetInsurance() {
             </button>
           </div>
         </div>
+
         {/* section 5 end */}
         {/* section 6 常見問題 start */}
         <div className="col-12 ">
