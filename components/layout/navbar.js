@@ -56,7 +56,7 @@ export default function Navbar({ pageName = '' }) {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/funeral/" legacyBehavior>
+                  <Link className="nav-link" href="/funeral/">
                     <img src="/pi-pic/funeral-icon.png" alt="" />
                   </Link>
                 </li>
@@ -66,10 +66,8 @@ export default function Navbar({ pageName = '' }) {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/member/" legacyBehavior>
-                    <a className="nav-link">
-                      <img src="/pi-pic/member-icon.png" alt="" />
-                    </a>
+                  <Link href="/member/" className="nav-link">
+                    <img src="/pi-pic/member-icon.png" alt="" />
                   </Link>
                 </li>
                 {auth.b2c_id ? (
