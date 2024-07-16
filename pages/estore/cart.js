@@ -6,7 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../styles/estore/cart.module.css'
 import styles2 from '@/styles/estore/product.module.css'
 import { useCart } from '@/contexts/estore/CartContext'
-
+import swal from 'sweetalert2'
 export default function CartPage() {
   // 商城功能
   const { cartItems, updateCartItemQuantity, removeCartItem } = useCart()
@@ -22,6 +22,10 @@ export default function CartPage() {
 
   const decreaseItem = (id) => {
     updateCartItemQuantity(id, -1)
+    const item = cartItems.find((item) => item.pk_product_id === id)
+    if (item.qty - 1 === 0) {
+      swal.fire('刪除!', `${item.product_name} 已被刪除!`, 'success')
+    }
   }
   // 商城功能
   // 生命禮儀功能
@@ -137,9 +141,9 @@ export default function CartPage() {
                                   <div className="input-group-prepend">
                                     <button
                                       className={`btn ${styles.quantitySelector1}`}
-                                      onClick={() =>
+                                      onClick={() => {
                                         decreaseItem(r.pk_product_id)
-                                      }
+                                      }}
                                     >
                                       -
                                     </button>
@@ -163,7 +167,8 @@ export default function CartPage() {
                                 </div>
                               </div>
                               <div
-                                className={`col-12 col-md-3 ${styles.cash} ms-auto`}
+                                className={`col-12 col-md-2 ${styles.cash} ms-auto w-auto`}
+                                style={{ paddingLeft: 0 + 'px' }}
                               >
                                 <div className={styles.productPrice}>
                                   <p className="fs-4 text-end m-0">

@@ -55,6 +55,15 @@
   color: #ffffff;
 }
 
+.name3:hover{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0%;
+  font-weight: 900;
+  color: #6A513D;
+}
+
 .alldetail {
   /* background-color: plum; */
   padding-top: 1%;

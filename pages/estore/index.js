@@ -13,6 +13,7 @@ import { BsFillTriangleFill } from 'react-icons/bs'
 import { BsSearch } from 'react-icons/bs'
 import styles3 from '@/styles/platform/platform-style.module.css'
 import { useCart } from '@/contexts/estore/CartContext'
+import swal from 'sweetalert2'
 
 export default function ProjectList() {
   const router = useRouter()
@@ -111,6 +112,8 @@ export default function ProjectList() {
       router.push(`/estore/product/${productId}`)
     }
   }
+
+  function showMessage() {}
 
   return (
     <Layout title="商品列表" pageName="index">
@@ -306,6 +309,11 @@ export default function ProjectList() {
                                   className={styles.cart}
                                   onClick={(e) => {
                                     handleAddItem(e, r)
+                                    swal.fire(
+                                      '已加入!',
+                                      `${r.product_name} 已被加入購物車!`,
+                                      'success',
+                                    )
                                   }}
                                 >
                                   <i className="bi bi-bag-fill cartItem"></i>

@@ -7,8 +7,9 @@ import styles from '../../../styles/estore/product.module.css'
 import { useRouter } from 'next/router'
 import { product_GET_ITEM } from '@/configs/estore/api-path'
 import { useCart } from '@/contexts/estore/CartContext'
+import swal from 'sweetalert2'
 
-export default function Productid(addItem) {
+export default function Productid() {
   const router = useRouter()
   const [data, setData] = useState([])
 
@@ -203,7 +204,14 @@ export default function Productid(addItem) {
                       type="button"
                       className={`btn ${styles.productBtn}`}
                       onClick={() => {
-                        handleAddItem(data)
+                        for (let i = 0; i < quantity; i++) {
+                          handleAddItem()
+                        }
+                        swal.fire(
+                          '已加入!',
+                          `${data.product_name} 已被加入購物車!`,
+                          'success',
+                        )
                       }}
                     >
                       加入購物車
@@ -319,7 +327,14 @@ export default function Productid(addItem) {
                       type="button"
                       className={`btn ${styles.productBtn}`}
                       onClick={() => {
-                        handleAddItem(data)
+                        for (let i = 0; i < quantity; i++) {
+                          handleAddItem()
+                        }
+                        swal.fire(
+                          '已加入!',
+                          `${data.product_name} 已被加入購物車!`,
+                          'success',
+                        )
                       }}
                     >
                       <i className="bi bi-bag-fill cartItem"></i>
