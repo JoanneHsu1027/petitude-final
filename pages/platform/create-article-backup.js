@@ -2,21 +2,8 @@ import React from 'react'
 import styles from '../../styles/platform/platform-style.module.css'
 import { BsXLg } from 'react-icons/bs'
 import Navbar from '@/components/layout/navbar'
-import { useState } from 'react'
 
-export default function CreateArticle() {
-  const [myForm, setMyForm] = useState({
-    article_name: '',
-    article_content: '',
-  })
-
-  const onChange = (e) => {
-    console.log(e.target.name, e.target.value)
-    const newForm = { ...myForm, [e.target.name]: e.target.value }
-    console.log(newForm)
-    setMyForm(newForm)
-  }
-
+export default function CreateArticle({ title = '', pageName = '' }) {
   return (
     <>
       <section style={{ height: '100vh' }} className={`${styles.BgImg}`}>
@@ -59,9 +46,6 @@ export default function CreateArticle() {
                         type="text"
                         className="form-control rounded-pill"
                         id="article-title"
-                        name="article-title"
-                        value={myForm.article_name}
-                        onChange={onChange}
                       />
                     </div>
                     <label
@@ -74,10 +58,8 @@ export default function CreateArticle() {
                       <textarea
                         style={{ height: 250 }}
                         id="article-content"
-                        name="article-content"
-                        value={myForm.article_content}
-                        onChange={onChange}
                         className={`form-control ${styles.Rounded5}`}
+                        name=""
                         defaultValue={''}
                       />
                     </div>
