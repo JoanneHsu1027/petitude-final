@@ -321,7 +321,7 @@ export default function ClassSection() {
             <a
               className={`${styles.AReset}`}
               style={{ color: 'black' }}
-              href="../../platform/class-list"
+              href="../../platform/class"
             >
               <span style={{ color: '#f6d554' }}>
                 <BsPlusCircleFill />

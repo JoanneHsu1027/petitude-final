@@ -1,20 +1,48 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from '../../styles/platform/platform-style.module.css'
 import { BsXLg } from 'react-icons/bs'
 import Navbar from '@/components/layout/navbar'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { ARTICLE_ADD_POST } from '@/configs/platform/api-path'
 
 export default function CreateArticle() {
+  const router = useRouter()
+
   const [myForm, setMyForm] = useState({
     article_name: '',
     article_content: '',
+    article_topic: '', // 添加文章主題欄位
   })
 
   const onChange = (e) => {
-    console.log(e.target.name, e.target.value)
-    const newForm = { ...myForm, [e.target.name]: e.target.value }
-    console.log(newForm)
-    setMyForm(newForm)
+    setMyForm({
+      ...myForm,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const formData = new FormData()
+      formData.append('article_name', myForm.article_name)
+      formData.append('article_content', myForm.article_content)
+      formData.append('article_topic', myForm.article_topic) // 添加文章主題到FormData中
+
+      const r = await fetch(ARTICLE_ADD_POST, {
+        method: 'POST',
+        body: formData,
+      })
+      const result = await r.json()
+      console.log(result)
+      if (result.success) {
+        router.push('/platform/article') // 跳轉至指定路徑
+      } else {
+        // Handle error if needed
+      }
+    } catch (ex) {
+      console.log(ex)
+    }
   }
 
   return (
@@ -23,28 +51,30 @@ export default function CreateArticle() {
         <title>{'貓狗論壇 | Petitude'}</title>
 
         <Navbar />
-        <>
-          {/* section 這裡開始 */}
-          <div className="container-fluid col-xl-6 col-lg-12 mb-5">
-            <div
-              className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4`}
-            >
-              <div className="row">
-                <a
-                  href="./article-list"
-                  className={`${styles.AReset} d-flex flex-row-reverse`}
-                >
-                  <BsXLg className="display-1"></BsXLg>
-                </a>
+
+        <div className="container-fluid col-xl-6 col-lg-12 mb-5">
+          <div
+            className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4`}
+          >
+            <div className="row">
+              <a
+                href="./article"
+                className={`${styles.AReset} d-flex flex-row-reverse`}
+              >
+                <BsXLg className="display-1"></BsXLg>
+              </a>
+              <form onSubmit={onSubmit}>
                 <select
                   style={{ width: 150 }}
-                  className="form-select rounded-pill ms-2"
+                  className="form-select rounded-pill"
                   id="inputGroupSelect01"
+                  onChange={onChange}
+                  name="article_topic"
                 >
-                  <option selected="">選擇主題</option>
-                  <option value={1}>One</option>
-                  <option value={2}>Two</option>
-                  <option value={3}>Three</option>
+                  <option value="">選擇主題</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
                 </select>
                 <div className="d-flex justify-content-center w-100">
                   <div className="w-100">
@@ -59,7 +89,7 @@ export default function CreateArticle() {
                         type="text"
                         className="form-control rounded-pill"
                         id="article-title"
-                        name="article-title"
+                        name="article_name"
                         value={myForm.article_name}
                         onChange={onChange}
                       />
@@ -74,11 +104,10 @@ export default function CreateArticle() {
                       <textarea
                         style={{ height: 250 }}
                         id="article-content"
-                        name="article-content"
+                        name="article_content"
                         value={myForm.article_content}
                         onChange={onChange}
                         className={`form-control ${styles.Rounded5}`}
-                        defaultValue={''}
                       />
                     </div>
                   </div>
@@ -86,23 +115,22 @@ export default function CreateArticle() {
                 <input
                   style={{ width: 240 }}
                   type="file"
-                  className="form-control rounded-pill ms-2 mt-2"
+                  className="form-control rounded-pill mt-2"
                   aria-label="Upload"
                 />
-                <label className="d-flex flex-row-reverse">
+                <div className="d-flex flex-row-reverse">
                   <button
                     style={{ width: 150 }}
-                    type="button"
+                    type="submit"
                     className={`btn btn-secondary ${styles.CreateArticleBtn} btn-lg rounded-pill mt-5`}
                   >
                     建立文章
                   </button>
-                </label>
-              </div>
+                </div>
+              </form>
             </div>
           </div>
-          {/* section 這裡結束 */}
-        </>
+        </div>
       </section>
     </>
   )
