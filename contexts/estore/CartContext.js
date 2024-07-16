@@ -12,9 +12,9 @@ export function CartProvider({ children }) {
     }
   }, [])
 
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems))
-  }, [cartItems])
+  // useEffect(() => {
+  //   localStorage.setItem('cart', JSON.stringify(cartItems))
+  // }, [cartItems])
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
@@ -28,7 +28,12 @@ export function CartProvider({ children }) {
             : item,
         )
       }
-      return [...prevItems, { ...product, qty: 1 }]
+      const joannesshoppingcart = [...prevItems, { ...product, qty: 1 }]
+      localStorage.setItem(
+        'joannesshoppingcart',
+        JSON.stringify(joannesshoppingcart),
+      )
+      return joannesshoppingcart
     })
   }
 
