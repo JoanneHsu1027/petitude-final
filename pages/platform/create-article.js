@@ -6,7 +6,7 @@ import { BsXLg } from 'react-icons/bs'
 export default function CreateArticle({ title = '', pageName = '' }) {
   return (
     <>
-      <section className={`${styles.BgImg} pt-3 pb-1`}>
+      <section style={{ height: '100vh' }} className={`${styles.BgImg} pt-3`}>
         <Header>
           <title>{title ? title + ' | Petitude' : 'Petitude'}</title>
         </Header>
