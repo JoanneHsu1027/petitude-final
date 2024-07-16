@@ -37,7 +37,7 @@ export default function ArticleId() {
   return (
     <>
       <section className={`${styles.BgImg}`}>
-        <Layout title="貓狗論壇" pageName="pet-insurance">
+        <Layout title={articleData.article_name} pageName="pet-insurance">
           <div className="container mb-5">
             <div className="row">
               <SideBarPc></SideBarPc>
