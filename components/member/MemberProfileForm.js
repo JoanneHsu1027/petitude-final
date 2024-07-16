@@ -6,6 +6,7 @@ import { cities } from '@/components/common/city'
 
 const MemberProfileForm = ({ memberData }) => {
   const [formData, setFormData] = useState({
+    b2c_id: '',
     b2c_name: '',
     b2c_birth: '',
     b2c_mobile: '',
@@ -13,28 +14,51 @@ const MemberProfileForm = ({ memberData }) => {
     fk_city_id: '',
     b2c_address: '',
     b2c_IDcard: '',
-    b2c_avatar: '',
   })
 
   const [formErrors, setFormErrors] = useState({})
+  const [filteredCities, setFilteredCities] = useState([])
 
+  // 初始化表單數據
   useEffect(() => {
-    // 初始化表單數據
-    setFormData(memberData)
+    setFormData({
+      b2c_id: memberData.b2c_id || '',
+      b2c_name: memberData.b2c_name || '',
+      b2c_birth: memberData.b2c_birth || '',
+      b2c_mobile: memberData.b2c_mobile || '',
+      fk_county_id: memberData.fk_county_id || '',
+      fk_city_id: memberData.fk_city_id || '',
+      b2c_address: memberData.b2c_address || '',
+      b2c_IDcard: memberData.b2c_IDcard || '',
+    })
   }, [memberData])
 
+  // 根據縣市過濾城市
+  useEffect(() => {
+    const getFilteredCities = (countyId) => {
+      return cities.filter(
+        (city) => city.fk_county_id === parseInt(countyId, 10),
+      )
+    }
+
+    if (formData.fk_county_id) {
+      setFilteredCities(getFilteredCities(formData.fk_county_id))
+    } else {
+      setFilteredCities([])
+    }
+  }, [formData.fk_county_id])
+
+  // 處理表單數據變更
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData((prevData) => ({ ...prevData, [name]: value }))
+    setFormData((prevData) => ({ ...prevData, [name]: value || '' }))
   }
 
-  const getFilteredCities = (countyId) => {
-    return cities.filter((city) => city.fk_county_id === parseInt(countyId, 10))
-  }
-
+  // 處理表單提交
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    // 驗證表單資料
     const schemaForm = z.object({
       b2c_name: z.string().min(2, { message: '姓名至少兩個字' }),
       b2c_birth: z.string().optional(),
@@ -51,24 +75,39 @@ const MemberProfileForm = ({ memberData }) => {
 
     if (result.success) {
       try {
-        const response = await fetch(MEMBER_UPDATE_POST, {
-          method: 'POST',
-          body: JSON.stringify(formData),
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          `${MEMBER_UPDATE_POST}/${formData.b2c_id}`,
+          {
+            method: 'PUT',
+            body: JSON.stringify(formData),
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        })
+        )
+
         const resultData = await response.json()
         if (resultData.success) {
           alert('資料更新成功')
+
+          // 更新 LocalStorage 中的資料
+          const updatedUser = {
+            ...formData,
+            b2c_birth: formData.b2c_birth || '', // 確保日期格式一致
+          }
+          localStorage.setItem('user', JSON.stringify(updatedUser))
+
+          setFormErrors({})
         } else {
+          console.error('資料更新失敗:', resultData)
           alert('資料更新失敗')
         }
       } catch (ex) {
-        console.log(ex)
+        console.error('請求錯誤:', ex)
         alert('資料更新失敗')
       }
     } else {
+      console.error('驗證錯誤:', result.error)
       setFormErrors((prevErrors) => ({
         ...prevErrors,
         ...result.error.issues.reduce((acc, issue) => {
@@ -82,7 +121,6 @@ const MemberProfileForm = ({ memberData }) => {
   return (
     <div className="p-4">
       <h2 className="mb-4">會員資料</h2>
-      {formData.b2c_avatar && <img src={formData.b2c_avatar} alt="頭像" />}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="b2c_name" className="form-label">
@@ -97,7 +135,9 @@ const MemberProfileForm = ({ memberData }) => {
             onChange={handleChange}
             required
           />
-          <div className="form-text">{formErrors.b2c_name}</div>
+          {formErrors.b2c_name && (
+            <div className="form-text text-danger">{formErrors.b2c_name}</div>
+          )}
         </div>
 
         <div className="mb-3">
@@ -112,7 +152,9 @@ const MemberProfileForm = ({ memberData }) => {
             value={formData.b2c_birth}
             onChange={handleChange}
           />
-          <div className="form-text">{formErrors.b2c_birth}</div>
+          {formErrors.b2c_birth && (
+            <div className="form-text text-danger">{formErrors.b2c_birth}</div>
+          )}
         </div>
 
         <div className="mb-3">
@@ -128,56 +170,67 @@ const MemberProfileForm = ({ memberData }) => {
             onChange={handleChange}
             required
           />
-          <div className="form-text">{formErrors.b2c_mobile}</div>
+          {formErrors.b2c_mobile && (
+            <div className="form-text text-danger">{formErrors.b2c_mobile}</div>
+          )}
         </div>
 
         <div className="mb-3">
           <label htmlFor="fk_county_id" className="form-label">
-            縣:
+            請填寫居住地區:
           </label>
           <select
             id="fk_county_id"
-            className="form-control"
             name="fk_county_id"
+            className="form-control"
             value={formData.fk_county_id}
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e)
+              setFormData((prevData) => ({ ...prevData, fk_city_id: '' })) // 重置城市
+            }}
             required
           >
             <option value="">請選擇縣市</option>
             {counties.map((county) => (
-              <option key={county.county_id} value={county.county_id}>
-                {county.county_name}
+              <option key={county.value} value={county.value}>
+                {county.label}
               </option>
             ))}
           </select>
-          <div className="form-text">{formErrors.fk_county_id}</div>
+          {formErrors.fk_county_id && (
+            <div className="form-text text-danger">
+              {formErrors.fk_county_id}
+            </div>
+          )}
         </div>
 
         <div className="mb-3">
           <label htmlFor="fk_city_id" className="form-label">
-            市:
+            請選擇城市:
           </label>
           <select
             id="fk_city_id"
-            className="form-control"
             name="fk_city_id"
+            className="form-control"
             value={formData.fk_city_id}
             onChange={handleChange}
             required
           >
             <option value="">請選擇城市</option>
-            {getFilteredCities(formData.fk_county_id).map((city) => (
-              <option key={city.city_id} value={city.city_id}>
-                {city.city_name}
+            {filteredCities.map((city) => (
+              <option key={city.value} value={city.value}>
+                {city.label}
               </option>
             ))}
           </select>
-          <div className="form-text">{formErrors.fk_city_id}</div>
+          {formErrors.fk_city_id && (
+            <div className="form-text text-danger">{formErrors.fk_city_id}</div>
+          )}
         </div>
 
         <div className="mb-3">
           <label htmlFor="b2c_address" className="form-label">
-            地址:
+            請填寫詳細地址:
           </label>
           <input
             id="b2c_address"
@@ -186,9 +239,14 @@ const MemberProfileForm = ({ memberData }) => {
             name="b2c_address"
             value={formData.b2c_address}
             onChange={handleChange}
+            placeholder="請填寫詳細地址"
             required
           />
-          <div className="form-text">{formErrors.b2c_address}</div>
+          {formErrors.b2c_address && (
+            <div className="form-text text-danger">
+              {formErrors.b2c_address}
+            </div>
+          )}
         </div>
 
         <div className="mb-3">
@@ -203,7 +261,9 @@ const MemberProfileForm = ({ memberData }) => {
             value={formData.b2c_IDcard}
             onChange={handleChange}
           />
-          <div className="form-text">{formErrors.b2c_IDcard}</div>
+          {formErrors.b2c_IDcard && (
+            <div className="form-text text-danger">{formErrors.b2c_IDcard}</div>
+          )}
         </div>
 
         <button type="submit" className="btn btn-primary">
