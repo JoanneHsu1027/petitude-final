@@ -1,3 +1,5 @@
+// pages/articles/[article_id].js
+
 import React, { useEffect, useState } from 'react'
 import Layout from '@/components/layout/layout'
 import styles from '../../../styles/platform/platform-style.module.css'
@@ -10,11 +12,12 @@ import {
 } from 'react-icons/bs'
 import { useRouter } from 'next/router'
 import { ARTICLE_PAGE } from '@/configs/platform/api-path'
-import ReMessageBlock from '@/components/platform/re-message-block'
+import moment from 'moment-timezone'
 
 export default function ArticleId() {
   const router = useRouter()
-  const [data, setData] = useState({})
+  const [articleData, setArticleData] = useState({})
+  const [messages, setMessages] = useState([])
 
   useEffect(() => {
     if (!router.isReady) return
@@ -22,8 +25,12 @@ export default function ArticleId() {
     fetch(`${ARTICLE_PAGE}/${router.query.article_id}`)
       .then((r) => r.json())
       .then((myData) => {
-        console.log(myData.data)
-        setData(myData.data)
+        console.log(myData)
+        setArticleData(myData.article)
+        setMessages(myData.messages)
+      })
+      .catch((error) => {
+        console.error('Error fetching article:', error)
       })
   }, [router])
 
@@ -34,15 +41,13 @@ export default function ArticleId() {
           <div className="container mb-5">
             <div className="row">
               <SideBarPc></SideBarPc>
-              {/* section 這裡開始 */}
               <div className="col-xl-9 col-lg-12">
-                {/* article-page 這裡開始 */}
                 <div
                   className={`container card my-1 ${styles.Rounded5} border-0 h-100 px-3`}
                 >
                   <div className="row">
                     <div className="col-lg-12 col-md-12 d-flex flex-column justify-content-center mt-4">
-                      {/* mobile only go-back-page-btn */}
+                      {/* 返回按鈕 */}
                       <div
                         style={{
                           width: '30px',
@@ -60,21 +65,20 @@ export default function ArticleId() {
                         </a>
                       </div>
 
+                      {/* 文章內容 */}
                       <div>
-                        {/* article-content 這裡開始 */}
                         <section>
-                          {/* head */}
                           <div className="border-bottom border-secondary mt-3 mx-2">
-                            <h2 className="ms-2">{data.article_name}</h2>
+                            <h2 className="ms-2">{articleData.article_name}</h2>
                             <div className="d-flex me-3 ms-2">
                               <div className="m-2 d-flex flex-grow-1 word-wrap">
                                 <a className={`${styles.AReset}`} href="">
                                   <p className="border border-dark rounded-3 me-2 word-wrap">
-                                    {data.class_name}
+                                    {articleData.class_name}
                                   </p>
                                 </a>
                                 <p className="me-1 word-wrap">
-                                  {data.article_date}
+                                  {articleData.article_date}
                                 </p>
                               </div>
                               <a
@@ -88,12 +92,12 @@ export default function ArticleId() {
                             </div>
                           </div>
 
-                          {/* main */}
+                          {/* 主內容 */}
                           <div className="mx-4 my-4">
-                            <p>{data.article_content}</p>
+                            <p>{articleData.article_content}</p>
                           </div>
 
-                          {/* foot */}
+                          {/* 功能連結 */}
                           <div className="border-bottom border-secondary d-flex justify-content-around pb-4">
                             <a
                               className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover}`}
@@ -113,16 +117,46 @@ export default function ArticleId() {
                             </a>
                           </div>
                         </section>
-                        {/* article-content 這裡結束 */}
-                        {/* message-content 這裡開始 */}
+
+                        {/* 留言區塊 */}
                         <section>
-                          <ReMessageBlock></ReMessageBlock>
-                          <ReMessageBlock></ReMessageBlock>
-                          <ReMessageBlock></ReMessageBlock>
-                          <ReMessageBlock></ReMessageBlock>
+                          {messages.length > 0 ? (
+                            messages.map((message) => {
+                              const dateFormat = moment(
+                                message.message_date,
+                              ).format('YYYY-MM-DD HH:MM')
+                              return (
+                                <>
+                                  <div
+                                    key={message.message_id}
+                                    className="d-flex border-bottom mt-4 mb-2 mx-1 px-2"
+                                  >
+                                    <div className="mx-2">
+                                      <img src="/forum-pic/avatar.png" alt="" />
+                                    </div>
+                                    <div className="flex-grow-1 me-2">
+                                      <p>{message.b2c_name}</p>
+                                      <p>{message.message_content}</p>
+                                      <div className="d-flex ms-4">
+                                        <p className="me-4">{dateFormat}</p>
+                                        <a
+                                          className={`${styles.AReset} ${styles.LightGray}`}
+                                          href="#"
+                                        >
+                                          回覆
+                                        </a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </>
+                              )
+                            })
+                          ) : (
+                            <p>目前沒有留言。</p>
+                          )}
                         </section>
-                        {/* message-content 這裡結束 */}
-                        {/* re-message-block 這裡開始 */}
+
+                        {/* 回覆留言區塊 */}
                         <div className="position-sticky bottom-0 ">
                           <div className="p-3 d-flex justify-content-center">
                             <input
@@ -133,14 +167,11 @@ export default function ArticleId() {
                             />
                           </div>
                         </div>
-                        {/* re-message-block 這裡結束 */}
                       </div>
                     </div>
                   </div>
                 </div>
-                {/* article-page 這裡結束 */}
               </div>
-              {/* section 這裡結束 */}
             </div>
           </div>
         </Layout>
