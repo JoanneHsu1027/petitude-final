@@ -66,15 +66,6 @@ const Modal = ({ onClose }) => {
               <SignupForm onClose={onClose} />
             )}
           </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={onClose}
-            >
-              關閉
-            </button>
-          </div>
         </div>
       </div>
     </div>

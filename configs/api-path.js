@@ -11,7 +11,7 @@ export const MEMBER_ADD_POST = `${API_SERVER}/b2c_member/add`
 // export const AB_GET_ITEM = `${API_SERVER}/address-book/api`
 
 // // `${API_SERVER}/address-book/api/${sid}`, method: PUT, 修改單筆資料
-// export const AB_UPDATE_PUT = `${API_SERVER}/address-book/api`
+export const MEMBER_UPDATE_POST = `${API_SERVER}/b2c_member/api`
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
