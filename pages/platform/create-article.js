@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '@/components/funeral/layout/header'
 import styles from '../../styles/platform/platform-style.module.css'
 import { BsXLg } from 'react-icons/bs'
 import Navbar from '@/components/layout/navbar'
@@ -8,10 +7,9 @@ export default function CreateArticle({ title = '', pageName = '' }) {
   return (
     <>
       <section style={{ height: '100vh' }} className={`${styles.BgImg}`}>
-        <Header>
-          <title>{title ? title + ' | Petitude' : 'Petitude'}</title>
-        </Header>
-        <Navbar></Navbar>
+        <title>{'貓狗論壇 | Petitude'}</title>
+
+        <Navbar />
         <>
           {/* section 這裡開始 */}
           <div className="container-fluid col-xl-6 col-lg-12 mb-5">

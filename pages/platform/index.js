@@ -10,7 +10,7 @@ export default function platform() {
   return (
     <>
       <section className={`d-flex flex-column h-100 ${styles.BgImg}`}>
-        <Layout title="貓狗論壇" pageName="pet-insurance">
+        <Layout title="貓狗論壇" pageName="platform">
           <div className="container">
             <div className="row">
               <SideBarPc></SideBarPc>
