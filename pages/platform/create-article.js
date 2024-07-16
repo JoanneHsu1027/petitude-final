@@ -19,7 +19,7 @@ export default function CreateArticle() {
 
   return (
     <>
-      <section style={{ height: '100vh' }} className={`${styles.BgImg}`}>
+      <section style={{ height: '125vh' }} className={`${styles.BgImg}`}>
         <title>{'貓狗論壇 | Petitude'}</title>
 
         <Navbar />

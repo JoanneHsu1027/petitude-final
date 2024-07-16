@@ -11,7 +11,7 @@ import {
   BsFillShareFill,
 } from 'react-icons/bs'
 import { useRouter } from 'next/router'
-import { ARTICLE_PAGE } from '@/configs/platform/api-path'
+import { ARTICLE } from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
 
 export default function ArticleId() {
@@ -22,7 +22,7 @@ export default function ArticleId() {
   useEffect(() => {
     if (!router.isReady) return
 
-    fetch(`${ARTICLE_PAGE}/${router.query.article_id}`)
+    fetch(`${ARTICLE}/${router.query.article_id}`)
       .then((r) => r.json())
       .then((myData) => {
         console.log(myData)

@@ -10,10 +10,10 @@ export default function SideBarPc() {
   const [sidebarOffset, setSidebarOffset] = useState(140)
 
   useEffect(() => {
-    if (router.pathname.includes('class-list')) {
-      setActiveLink('class-list')
-    } else if (router.pathname.includes('article-list')) {
-      setActiveLink('article-list')
+    if (router.pathname.includes('class')) {
+      setActiveLink('class')
+    } else if (router.pathname.includes('article')) {
+      setActiveLink('article')
     } else if (router.pathname.includes('favorites')) {
       setActiveLink('favorites')
     } else if (router.pathname.includes('article-page')) {
@@ -63,16 +63,16 @@ export default function SideBarPc() {
             論壇首頁
           </Link>
           <Link
-            href="/platform/class-list"
+            href="/platform/class"
             type="button"
-            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'class-list' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
+            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'class' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
           >
             主題分類
           </Link>
           <Link
-            href="/platform/article-list"
+            href="/platform/article"
             type="button"
-            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'article-list' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
+            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'article' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
           >
             最新文章
           </Link>
