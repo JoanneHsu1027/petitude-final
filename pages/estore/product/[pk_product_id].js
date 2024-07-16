@@ -6,17 +6,22 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../../styles/estore/product.module.css'
 import { useRouter } from 'next/router'
 import { product_GET_ITEM } from '@/configs/estore/api-path'
-import { useCartContext } from '@/contexts/estore/CartContext'
+import { useCart } from '@/contexts/estore/CartContext'
 
 export default function Productid(addItem) {
   const router = useRouter()
   const [data, setData] = useState([])
 
-  const { addToCart } = useCartContext()
+  const { addToCart } = useCart()
 
-  const handleAddItem = (product) => {
-    addToCart(product)
-    console.log('Product added to cart:', product)
+  const handleAddItem = () => {
+    addToCart(data)
+  }
+
+  const [quantity, setQuantity] = useState(1)
+
+  const handleQuantityChange = (e) => {
+    setQuantity(parseInt(e.target.value))
   }
 
   useEffect(() => {
@@ -162,7 +167,11 @@ export default function Productid(addItem) {
                       { padding: 0 + 'px' + ' ' + 5 + 'px' })
                     }
                   >
-                    <select className={styles.customSelect}>
+                    <select
+                      className={styles.customSelect}
+                      value={quantity}
+                      onChange={handleQuantityChange}
+                    >
                       <option className={styles.count} selected disabled>
                         數量
                       </option>
@@ -277,7 +286,11 @@ export default function Productid(addItem) {
                   style={{ margin: 11 + 'px' + ' ' + 0 + 'px' }}
                 >
                   <div className="col-3 px-1" style={{ width: 'auto' }}>
-                    <select className={styles.customSelect}>
+                    <select
+                      className={styles.customSelect}
+                      value={quantity}
+                      onChange={handleQuantityChange}
+                    >
                       <option className={styles.count} selected disabled>
                         {/* <i className="bi bi-caret-down-fill"></i> */}
                       </option>
@@ -305,6 +318,9 @@ export default function Productid(addItem) {
                     <button
                       type="button"
                       className={`btn ${styles.productBtn}`}
+                      onClick={() => {
+                        handleAddItem(data)
+                      }}
                     >
                       <i className="bi bi-bag-fill cartItem"></i>
                     </button>

@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
 const CartContext = createContext()
-const cartkey = 'joannesshoppingcart'
+const storageKey = 'joannesshoppingcart'
 
-// 商城定義初始空狀態
-const estoreemptyCart = []
+// 定義初始空狀態
+const emptyCart = []
 
 export function CartProvider({ children }) {
-  const [cartItems, setCartItems] = useState(estoreemptyCart)
+  const [cartItems, setCartItems] = useState(emptyCart)
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
@@ -20,11 +20,11 @@ export function CartProvider({ children }) {
             ? { ...item, qty: item.qty + 1 }
             : item,
         )
-        localStorage.setItem(cartkey, JSON.stringify(updatedItems))
+        localStorage.setItem(storageKey, JSON.stringify(updatedItems))
         return updatedItems
       }
       const newItems = [...prevItems, { ...product, qty: 1 }]
-      localStorage.setItem(cartkey, JSON.stringify(newItems))
+      localStorage.setItem(storageKey, JSON.stringify(newItems))
       return newItems
     })
   }
@@ -38,7 +38,7 @@ export function CartProvider({ children }) {
             : item,
         )
         .filter((item) => item.qty > 0)
-      localStorage.setItem(cartkey, JSON.stringify(updatedItems))
+      localStorage.setItem(storageKey, JSON.stringify(updatedItems))
       return updatedItems
     })
   }
@@ -46,14 +46,14 @@ export function CartProvider({ children }) {
   const removeCartItem = (id) => {
     setCartItems((prevItems) => {
       const updatedItems = prevItems.filter((item) => item.pk_product_id !== id)
-      localStorage.setItem(cartkey, JSON.stringify(updatedItems))
+      localStorage.setItem(storageKey, JSON.stringify(updatedItems))
       return updatedItems
     })
   }
 
   // 當用戶重刷頁面時，從 localStorage 載入狀態
   useEffect(() => {
-    const str = localStorage.getItem(cartkey)
+    const str = localStorage.getItem(storageKey)
     if (str) {
       try {
         const data = JSON.parse(str)
@@ -65,6 +65,7 @@ export function CartProvider({ children }) {
       }
     }
   }, [])
+
   return (
     <CartContext.Provider
       value={{ cartItems, addToCart, updateCartItemQuantity, removeCartItem }}

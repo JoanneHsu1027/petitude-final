@@ -12,7 +12,7 @@ import styles2 from '@/styles/estore/side-bar-style.module.css'
 import { BsFillTriangleFill } from 'react-icons/bs'
 import { BsSearch } from 'react-icons/bs'
 import styles3 from '@/styles/platform/platform-style.module.css'
-import { useCartContext } from '@/contexts/estore/CartContext'
+import { useCart } from '@/contexts/estore/CartContext'
 
 export default function ProjectList() {
   const router = useRouter()
@@ -97,7 +97,7 @@ export default function ProjectList() {
     })
   }
 
-  const { addToCart } = useCartContext()
+  const { addToCart } = useCart()
 
   const handleAddItem = (event, product) => {
     event.preventDefault()
