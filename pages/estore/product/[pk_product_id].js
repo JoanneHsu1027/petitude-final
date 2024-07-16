@@ -6,10 +6,18 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../../styles/estore/product.module.css'
 import { useRouter } from 'next/router'
 import { product_GET_ITEM } from '@/configs/estore/api-path'
+import { useCartContext } from '@/contexts/estore/CartContext'
 
-export default function Productid() {
+export default function Productid(addItem) {
   const router = useRouter()
   const [data, setData] = useState([])
+
+  const { addToCart } = useCartContext()
+
+  const handleAddItem = (product) => {
+    addToCart(product)
+    console.log('Product added to cart:', product)
+  }
 
   useEffect(() => {
     if (!router.isReady) return
@@ -185,6 +193,9 @@ export default function Productid() {
                     <button
                       type="button"
                       className={`btn ${styles.productBtn}`}
+                      onClick={() => {
+                        handleAddItem(data)
+                      }}
                     >
                       加入購物車
                     </button>

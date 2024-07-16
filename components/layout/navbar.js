@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from '@/components/insurance/insurance.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import { useAuth } from '@/contexts/member/auth-context'
 import { useRouter } from 'next/router'
 import LoginForm from '@/components/member/LoginForm'
@@ -95,6 +96,11 @@ export default function Navbar({ pageName = '' }) {
                     </a>
                   </li>
                 )}
+                <li className="nav-item">
+                  <Link className="nav-link" href="/estore/cart">
+                    <i className="bi bi-bag-fill cartItem"></i>
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>

@@ -1,5 +1,6 @@
 .full {
-  background-color: #FFF5CF;
+  /* background-color: #FFF5CF; */
+  background-image: url('/pic/bg-img01.png');
   font-family: "Noto Serif TC", serif;
 }
 
@@ -109,4 +110,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+}
+
+@media (max-width: 768px) {
+.list {
+  /* background-color: plum; */
+  padding-top: 1%;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 1%;
+
+}
 }

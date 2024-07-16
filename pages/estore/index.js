@@ -4,8 +4,6 @@ import Layout from '../../components/layout/layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../styles/estore/productList.module.css'
-import SideBarPc from '@/components/estore/side-bar-pc'
-import SideBarMobile from '@/components/estore/side-bar-mobile'
 import Link from 'next/link'
 import { ProductList } from '@/configs/estore/api-path'
 import { useRouter } from 'next/router'
@@ -14,6 +12,7 @@ import styles2 from '@/styles/estore/side-bar-style.module.css'
 import { BsFillTriangleFill } from 'react-icons/bs'
 import { BsSearch } from 'react-icons/bs'
 import styles3 from '@/styles/platform/platform-style.module.css'
+import { useCartContext } from '@/contexts/estore/CartContext'
 
 export default function ProjectList() {
   const router = useRouter()
@@ -98,13 +97,25 @@ export default function ProjectList() {
     })
   }
 
+  const { addToCart } = useCartContext()
+
+  const handleAddItem = (event, product) => {
+    event.preventDefault()
+    event.stopPropagation()
+    addToCart(product)
+  }
+
+  const handleCardClick = (e, productId) => {
+    // 檢查點擊的元素是否是購物車按鈕或其子元素
+    if (!e.target.closest(`.${styles.cart}`)) {
+      router.push(`/estore/product/${productId}`)
+    }
+  }
+
   return (
     <Layout title="商品列表" pageName="index">
       <main className={`flex-shrink-0 pt-5 ${styles.full}`}>
-        <div
-          className="container-fluid list"
-          style={{ padding: 0 + 'px ' + ' ' + 60 + 'px' }}
-        >
+        <div className={`container-fluid ${styles.list}`}>
           <div className="row">
             {/* <!-- side-bar 这里开始 --> */}
             <div className="col-md-3 d-md-flex d-none my-4 justify-content-center">
@@ -130,13 +141,14 @@ export default function ProjectList() {
                       <BsSearch />
                     </button>
                   </form>
-                  <Link
-                    href="/estore"
+                  <button
                     type="button"
+                    category="all"
                     className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                    onClick={() => handleCategoryClick('all')}
                   >
                     全部產品
-                  </Link>
+                  </button>
                   <button
                     type="submit"
                     category="dog"
@@ -273,33 +285,35 @@ export default function ProjectList() {
                         className="col-6 col-lg-4 col-xl-3 my-2"
                         key={r.pk_product_id}
                       >
-                        <Link
-                          href={`/estore/product/${r.pk_product_id}`}
-                          style={{ textDecoration: 'none' }}
-                        >
-                          <div className="card">
+                        <div className="card">
+                          <a href={`estore/product/${r.pk_product_id}`}>
                             <img
                               src={`http://localhost:3001/estore/A${r.pk_product_id}.png`}
-                              className="card-img-top w-auto m-1"
+                              className="card-img-top w-100 p-2"
                               alt="..."
                             />
-                            <div className="card-body">
-                              <h4 className={`card-title ${styles.textStyle}`}>
-                                {r.product_name}
-                              </h4>
-                              <div className="row mt-5 mx-0">
-                                <div className="col-9 p-0 d-flex justify-content-start align-items-center fs-4">
-                                  $ {r.product_price}
-                                </div>
-                                <div className="col-3 p-0 d-flex justify-content-end">
-                                  <button className={styles.cart}>
-                                    <i className="bi bi-bag-fill cartItem"></i>
-                                  </button>
-                                </div>
+                          </a>
+                          <div className="card-body">
+                            <h4 className={`card-title ${styles.textStyle}`}>
+                              {r.product_name}
+                            </h4>
+                            <div className="row mt-5 mx-0">
+                              <div className="col-9 p-0 d-flex justify-content-start align-items-center fs-4">
+                                $ {r.product_price}
+                              </div>
+                              <div className="col-3 p-0 d-flex justify-content-end">
+                                <button
+                                  className={styles.cart}
+                                  onClick={(e) => {
+                                    handleAddItem(e, r)
+                                  }}
+                                >
+                                  <i className="bi bi-bag-fill cartItem"></i>
+                                </button>
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </div>
                       </div>
                     )
                   })
