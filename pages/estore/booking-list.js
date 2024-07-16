@@ -7,21 +7,34 @@ import Link from 'next/link'
 export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
 
+  const [buyerInfo, setBuyerInfo] = useState({
+    b2c_name: '',
+    b2c_mobile: '',
+    b2c_address: '',
+  })
+
+  useEffect(() => {
+    const fetchMemberInfo = async () => {
+      const response = await fetch('/api/booking')
+      const data = await response.json()
+      if (data) {
+        setBuyerInfo({
+          name: data.name,
+          mobile: data.mobile,
+          address: data.address,
+        })
+      }
+    }
+
+    fetchMemberInfo()
+  }, [])
+
   return (
     <Layout>
       {/* <!-- pagination --> */}
       <div className="container-fluid d-flex  justify-content-center align-items-center">
         <div className="row">
-          <div className="col-12">
-            {/* <ImageComponent
-              src="/pics/麵包屑1.png"
-              width={550}
-              height={80}
-              alt=""
-              style={{ maxWidth: '100%', display: 'inline-block' }}
-              className="img-fluid"
-            /> */}
-          </div>
+          <div className="col-12"></div>
         </div>
       </div>
       {/* <!-- pagination --> */}

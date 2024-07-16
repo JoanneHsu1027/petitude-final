@@ -301,25 +301,23 @@ export default function BookingList() {
                 {selectedOption ? (
                   <>
                     <div className="col d-flex justify-content-between align-items-center">
+                      {/* 引入後端public圖片 */}
                       <img
-                        src={selectedOption.imageSrc}
+                        className={selectedOption.cardImage}
+                        src={`http://localhost:3001//project/${selectedOption.project_id}.png`}
                         alt=""
-                        style={{ width: '10rem', height: '8rem' }}
+                        style={{
+                          width: '50%',
+                        }}
                       />
                       <h3 className="card-title text-center">
-                        {selectedOption.title}
+                        {selectedOption.project_name}
                       </h3>
                     </div>
                     <div className="col d-flex align-items-center">
                       <div className="text-start m-2">
                         <p className="card-text">贈送</p>
-                        {selectedOption.details
-                          .split('\n\n')
-                          .map((detail, index) => (
-                            <p key={index} className="card-text m-0">
-                              {detail}
-                            </p>
-                          ))}
+                        {selectedOption.project_text}
                       </div>
                       <div className="text-end ms-5 ms-auto">
                         <p className="card-text">{selectedOption.price}</p>
@@ -343,7 +341,9 @@ export default function BookingList() {
                         <p className="card-text mb-1">總金額</p>
                       </div>
                       <div className="text-end ms-5 ms-auto">
-                        <p className="card-text">{selectedOption.price}</p>
+                        <p className="card-text">
+                          {selectedOption.project_price}
+                        </p>
                       </div>
                     </div>
                     <div className="d-flex justify-content-center align-items-center">
