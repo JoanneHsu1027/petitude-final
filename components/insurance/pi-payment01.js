@@ -240,14 +240,9 @@ function PiPayment01() {
   ]
 
   const [data, setData] = useState(null)
-  const [dates, setDates] = useState({ startDate: null, endDate: null })
 
-  // 取得選擇的保險方案
-  const [planType, setPlanType] = useState('')
-  // 為了聲明勾選的狀況
-  const [agreementClicked, setAgreementClicked] = useState(new Set())
-  // 為了顯示選擇的聲明內容
-  const [selectedAgreement, setSelectedAgreement] = useState(agreements[0])
+  // 傳入保險開始日期
+  const [dates, setDates] = useState({ startDate: null, endDate: null })
 
   //處理時區問題
   const formatDate = (date) => {
@@ -260,6 +255,50 @@ function PiPayment01() {
         timeZone: 'Asia/Taipei', // 使用台北時區
       })
       .replace(/\//g, '-') // 將斜線替換為連字符，以保持 YYYY-MM-DD 格式
+  }
+
+  // 取得選擇的保險方案
+  const [planType, setPlanType] = useState('')
+  // 為了聲明勾選的狀況
+  const [agreementClicked, setAgreementClicked] = useState(new Set())
+  // 為了顯示選擇的聲明內容
+  const [selectedAgreement, setSelectedAgreement] = useState(agreements[0])
+
+  // 記錄選擇的圖檔(File物件)
+  const [selectedImg, setSelectedImg] = useState('/pi-pic/pet-upload.png')
+  // 預覽圖片的網址
+  const [previewURL, setPreviewURL] = useState('')
+  // 伺服器回傳訊息
+  const [message, setMessage] = useState('')
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]
+
+    if (file) {
+      setSelectedImg(file)
+      setPreviewURL(URL.createObjectURL(file))
+    } else {
+      setSelectedImg(null)
+      setPreviewURL('')
+    }
+  }
+
+  const handleImageUpload = async () => {
+    const fd = new FormData()
+
+    // 對照伺服器要接收的檔案欄位名稱
+    fd.append('pet_pic', selectedImg)
+
+    // 傳送到伺服器
+    // 不確定路徑對不對
+    const res = await fetch('http://localhost:3001/upload-imgs', {
+      method: 'POST',
+      body: fd,
+    })
+    // 獲得伺服器訊息
+    const data = await res.json()
+
+    setMessage(JSON.stringify(data))
   }
 
   const handleClick = (index) => {
@@ -388,11 +427,16 @@ function PiPayment01() {
                 style={{ padding: '0 20px 20px 20px' }}
               >
                 <img
-                  src="/pi-pic/pet-upload.png"
+                  src={selectedImg}
                   className="img-fluid rounded-circle mb-4"
                   style={{ backgroundColor: '#D9D9D9', width: '60%' }}
+                  // 想要圖案點了可以選擇上傳圖片
+                  onChange={handleImageChange}
                 />
-                <button className={`${styles['own-btn2']} border-0`}>
+                <button
+                  className={`${styles['own-btn2']} border-0`}
+                  onClick={handleImageUpload}
+                >
                   上傳寵物大頭照
                 </button>
               </div>

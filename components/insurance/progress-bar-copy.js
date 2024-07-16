@@ -15,7 +15,7 @@ const steps = [
     defaultImg: '/pi-pic/bread02-default.png',
   },
   {
-    title: '線上繳費',
+    title: '保單確認',
     activeImg: '/pi-pic/bread03-active.png',
     defaultImg: '/pi-pic/bread03-default.png',
   },
@@ -27,54 +27,49 @@ const steps = [
 ]
 
 export default function ProgressBarCopy() {
-  
-  const { currentStep, setCurrentStep } = useProgress();
-  const [localStep, setLocalStep] = useState(0);
-
-  
+  const { currentStep, setCurrentStep } = useProgress()
+  const [localStep, setLocalStep] = useState(0)
 
   useEffect(() => {
-   const title = document.title;
-   const stepIndex = steps.findIndex(step => title.includes(step.title));
-    
+    const title = document.title
+    const stepIndex = steps.findIndex((step) => title.includes(step.title))
+
     if (stepIndex !== -1) {
-      setCurrentStep(stepIndex);
-      setLocalStep(stepIndex);      
+      setCurrentStep(stepIndex)
+      setLocalStep(stepIndex)
     }
-  }, [setCurrentStep]);
+  }, [setCurrentStep])
 
   return (
     <>
-    <div className="col-8" style={{ padding: '0 50px' }}>
-      <div className="d-flex flex-row justify-content-center align-items-center">
-        {steps.map((step, index) => (
-          <React.Fragment key={index}>
-            <div
-              className="d-flex flex-column justify-content-center align-items-center text-center"
-              style={{ width: '400px' }}
-            >
-              <img
-                src={
-                  index <= currentStep ? step.activeImg : step.defaultImg}
-                className="img-fluid"
-                alt={step.title}
-              />
-              <h5>{step.title}</h5>
-            </div>
-            {index < steps.length - 1 && (
+      <div className="col-8" style={{ padding: '0 50px' }}>
+        <div className="d-flex flex-row justify-content-center align-items-center">
+          {steps.map((step, index) => (
+            <React.Fragment key={index}>
               <div
-                className={
-                  index < currentStep
-                    ? styles['bread-bar-active']
-                    : styles['bread-bar']
-                }
-              ></div>
-            )}
-          </React.Fragment>
-        ))}
+                className="d-flex flex-column justify-content-center align-items-center text-center"
+                style={{ width: '400px' }}
+              >
+                <img
+                  src={index <= currentStep ? step.activeImg : step.defaultImg}
+                  className="img-fluid"
+                  alt={step.title}
+                />
+                <h5>{step.title}</h5>
+              </div>
+              {index < steps.length - 1 && (
+                <div
+                  className={
+                    index < currentStep
+                      ? styles['bread-bar-active']
+                      : styles['bread-bar']
+                  }
+                ></div>
+              )}
+            </React.Fragment>
+          ))}
+        </div>
       </div>
-    </div>
-
     </>
   )
 }
