@@ -3,9 +3,12 @@ import Styles from '@/components/funeral/project/card.module.css'
 import { useRouter } from 'next/router'
 import { PJ_LIST } from '@/configs/funeral/api-path'
 import axios from 'axios'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 export default function Card() {
   const router = useRouter()
+  // 設定card.js文字過長的問題
+  const [isExpanded, setIsExpanded] = useState(false)
   const [data, setData] = useState({
     success: false,
     rows: [],
@@ -48,17 +51,56 @@ export default function Card() {
               />
               <div className={Styles.cardContent}>
                 <h5>{card.project_name}</h5>
-                <h6>{card.project_content}</h6>
+                <div className="mb-3">
+                  <h6
+                    style={{
+                      overflow: 'hidden',
+                      whiteSpace: isExpanded ? 'normal' : 'nowrap',
+                      textOverflow: 'ellipsis',
+                      margin: '0',
+                      justifyContent: 'end',
+                    }}
+                  >
+                    {card.project_content}
+                  </h6>
+                  {!isExpanded && (
+                    <span
+                      style={{ cursor: 'pointer', fontSize: '12px' }}
+                      onClick={() => setIsExpanded(true)}
+                    >
+                      ...閱讀更多
+                    </span>
+                  )}
+                  {isExpanded && (
+                    <span
+                      style={{ color: 'gray', cursor: 'pointer' }}
+                      onClick={() => setIsExpanded(false)}
+                    >
+                      <div>
+                        <i
+                          class="bi bi-triangle-fill"
+                          style={{ color: 'gray' }}
+                        ></i>
+                      </div>
+                    </span>
+                  )}
+                </div>
                 <div className="d-flex justify-content-between">
-                  <div className="text-start m-2">
+                  <div className="text-start me-4" style={{ flex: 1 }}>
                     <p className="card-text">
                       贈送
                       <br />
                       {card.project_text}
                     </p>
                   </div>
-                  <div style={{ marginTop: '30px', marginRight: '5px' }}>
-                    {card.project_price}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <h6>售價: {card.project_price} 元</h6>
                   </div>
                 </div>
 
