@@ -43,6 +43,44 @@ export default function TrialCalculation() {
     setDogDataReceived(false)
   }
 
+  const calculatePlan = (data, type) => {
+    // 計算邏輯
+    const basePrice = 1000
+    let breedFactor = data.breed
+    let genderFactor = data.gender
+
+    let birthdayFactor
+    const age = data.birthday
+    if (age <= 77) {
+      birthdayFactor = 1
+    } else if (age <= 113) {
+      birthdayFactor = 1.5
+    } else {
+      birthdayFactor = 2.25
+    }
+
+    let typeFactor
+    switch (type) {
+      case '基礎方案':
+        typeFactor = 1.5
+        break
+      case '進階方案':
+        typeFactor = 2
+        break
+      case '完整方案':
+        typeFactor = 2.2
+        break
+      default:
+        typeFactor = 1
+    }
+
+    //計算最終保費
+    const premium =
+      basePrice * breedFactor * genderFactor * birthdayFactor * typeFactor
+
+    return Math.round(premium).toLocaleString('en-US')
+  }
+
   // 計算不同方案的保費
   useEffect(() => {
     const catData = JSON.parse(localStorage.getItem('catInsuranceData'))
@@ -51,36 +89,22 @@ export default function TrialCalculation() {
     if (catData || dogData) {
       const data = catData || dogData
       // 這裡假設有一個計算函數，根據實際情況進行調整
-      setBasicPlan(calculatePlan(data, 'basic'))
-      setAdvancedPlan(calculatePlan(data, 'advanced'))
-      setFullPlan(calculatePlan(data, 'full'))
+      setBasicPlan(calculatePlan(data, '基礎方案'))
+      setAdvancedPlan(calculatePlan(data, '進階方案'))
+      setFullPlan(calculatePlan(data, '完整方案'))
     }
   }, [])
 
-  const calculatePlan = (data, type) => {
-    // 這裡需要根據實際的計算邏輯來實現
-    // 這只是一個示例
-    switch (type) {
-      case 'basic':
-        return 2840 // 基礎方案起始價格
-      case 'advanced':
-        return 4331 // 進階方案起始價格
-      case 'full':
-        return 4723 // 完整方案起始價格
-      default:
-        return 0
-    }
-  }
-
+  // 傳出選擇的方案和價格去localStorage
   const handlePlanSelection = (plan) => {
     localStorage.setItem(
       'selectedPlan',
       JSON.stringify({
         type: plan,
         price:
-          plan === 'basic'
+          plan === '基礎方案'
             ? basicPlan
-            : plan === 'advanced'
+            : plan === '進階方案'
               ? advancedPlan
               : fullPlan,
       }),
@@ -92,6 +116,7 @@ export default function TrialCalculation() {
     clearLocalStorage()
     handlePlanSelection(plan)
   }
+
   return (
     <>
       <div className="container-fluid">
@@ -494,8 +519,7 @@ export default function TrialCalculation() {
                       >
                         <button
                           className={styles['own-btn4']}
-                          // onClick={clearLocalStorage}
-                          onClick={() => handleButtonClick('basic')}
+                          onClick={() => handleButtonClick('基礎方案')}
                         >
                           立即投保
                         </button>
@@ -517,8 +541,7 @@ export default function TrialCalculation() {
                       >
                         <button
                           className={styles['own-btn4']}
-                          // onClick={clearLocalStorage}
-                          onClick={() => handleButtonClick('advanced')}
+                          onClick={() => handleButtonClick('進階方案')}
                         >
                           立即投保
                         </button>
@@ -540,8 +563,7 @@ export default function TrialCalculation() {
                       >
                         <button
                           className={styles['own-btn4']}
-                          // onClick={clearLocalStorage}
-                          onClick={() => handleButtonClick('full')}
+                          onClick={() => handleButtonClick('完整方案')}
                         >
                           立即投保
                         </button>

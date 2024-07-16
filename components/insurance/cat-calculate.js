@@ -204,7 +204,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-1"
                       autoComplete="off"
-                      value={2}
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-1">
@@ -216,7 +216,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-2"
                       autoComplete="off"
-                      value={2}
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-2">
@@ -228,7 +228,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-3"
                       autoComplete="off"
-                      value={1.5}
+                      value={1.2}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-3">
@@ -240,7 +240,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-4"
                       autoComplete="off"
-                      value={1.5}
+                      value={1.2}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-4">
@@ -252,7 +252,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-5"
                       autoComplete="off"
-                      value={2}
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-5">
@@ -288,7 +288,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-8"
                       autoComplete="off"
-                      value={2}
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-8">
@@ -317,7 +317,7 @@ export default function CatCalculate() {
                           type="radio"
                           name="cat-gender"
                           id="cat-gender-male"
-                          value={1.5}
+                          value={1.2}
                           required
                         />
                         <label
@@ -335,7 +335,7 @@ export default function CatCalculate() {
                           type="radio"
                           name="cat-gender"
                           id="cat-gender-female"
-                          value={1.5}
+                          value={1}
                           required
                         />
                         <label
@@ -401,17 +401,6 @@ export default function CatCalculate() {
                   </div>
                 </div>
               </div>
-              {/* <div
-                className={`modal-footer ${styles['bg-image']} d-flex justify-content-center border-0 no-outline`}
-              >
-                <button
-                  type="submit"
-                  className={styles['own-btn1']}
-                  data-bs-dismiss="modal"
-                >
-                  開始試算
-                </button>
-              </div> */}
             </form>
           </div>
         </div>

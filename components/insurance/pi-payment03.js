@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './insurance.module.css'
 import Link from 'next/link'
 import ProgressBarCopy from './progress-bar-copy'
@@ -6,6 +6,59 @@ import withProgressBar from './withProgressBar'
 import Head from 'next/head'
 
 function PiPayment03() {
+  const [data, setData] = useState(null)
+  const [dates, setDates] = useState({ startDate: null, endDate: null })
+
+  // 取得選擇的保險方案
+  const [planType, setPlanType] = useState('')
+  // 取得選擇的保險價格
+  const [planPrice, setPlanPrice] = useState('')
+
+  //處理時區問題
+  const formatDate = (date) => {
+    if (!date) return '' //如果日期無效,返回空字串
+    return date
+      .toLocaleDateString('zh-TW', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: 'Asia/Taipei', // 使用台北時區
+      })
+      .replace(/\//g, '-') // 將斜線替換為連字符，以保持 YYYY-MM-DD 格式
+  }
+
+  useEffect(() => {
+    // 這個代碼塊只會在客戶端執行
+    // 取得並解析 localStorage 中的資料
+    const catData = localStorage.getItem('catInsuranceData')
+    const dogData = localStorage.getItem('dogInsuranceData')
+    const parseData = JSON.parse(catData || dogData) // 整合貓跟狗的資料
+    setData(parseData)
+  }, [])
+
+  useEffect(() => {
+    if (data && data.insuranceStartDate) {
+      // 取得保險起始日期並計算結束日期
+      const startDate = new Date(data.insuranceStartDate)
+      const endDate = new Date(startDate) //保險結束日期
+      endDate.setFullYear(endDate.getFullYear() + 1)
+
+      setDates({ startDate, endDate })
+    }
+  }, [data])
+
+  useEffect(() => {
+    const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
+    if (selectedPlan) {
+      setPlanType(selectedPlan.type)
+      setPlanPrice(selectedPlan.price)
+    }
+  }, [])
+
+  if (!data || !dates.startDate) {
+    return <div>Loading...</div>
+  }
+
   return (
     <>
       <Head>
@@ -142,7 +195,8 @@ function PiPayment03() {
                     投保期間
                   </h5>
                   <h5 className={`col-8 ${styles['own-green']}`}>
-                    2024-07-15 零時起至 2025-07-15 零時止
+                    {formatDate(dates.startDate)} 零時起至{' '}
+                    {formatDate(dates.endDate)} 零時止
                   </h5>
                 </div>
                 <div className="d-flex ">
@@ -152,7 +206,7 @@ function PiPayment03() {
                   >
                     投保方案
                   </h5>
-                  <h5 className={`col-8 ${styles['own-green']}`}>基礎方案</h5>
+                  <h5 className={`col-8 ${styles['own-green']}`}>{planType}</h5>
                 </div>
               </div>
             </div>
@@ -276,7 +330,7 @@ function PiPayment03() {
               className={styles['own-orange']}
               style={{ marginBottom: '4px' }}
             >
-              NT$2,941
+              NT${planPrice}
             </h2>
           </div>
         </div>

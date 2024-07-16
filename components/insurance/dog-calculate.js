@@ -191,6 +191,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-1"
                       autoComplete="off"
+                      value={1.2}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-1">
@@ -202,6 +203,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-2"
                       autoComplete="off"
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-2">
@@ -213,6 +215,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-3"
                       autoComplete="off"
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-3">
@@ -224,6 +227,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-4"
                       autoComplete="off"
+                      value={1}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-4">
@@ -235,6 +239,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-5"
                       autoComplete="off"
+                      value={1}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-5">
@@ -246,6 +251,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-6"
                       autoComplete="off"
+                      value={1.2}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-6">
@@ -257,6 +263,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-7"
                       autoComplete="off"
+                      value={1}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-7">
@@ -268,6 +275,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-8"
                       autoComplete="off"
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-8">
@@ -296,6 +304,7 @@ export default function DogCalculate() {
                           type="radio"
                           name="dog-gender"
                           id="dog-gender-male"
+                          value={1.2}
                           required
                         />
                         <label
@@ -313,6 +322,7 @@ export default function DogCalculate() {
                           type="radio"
                           name="dog-gender"
                           id="dog-gender-female"
+                          value={1}
                           required
                         />
                         <label
