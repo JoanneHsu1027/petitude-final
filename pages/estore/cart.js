@@ -7,7 +7,10 @@ import styles from '../../styles/estore/cart.module.css'
 import styles2 from '@/styles/estore/product.module.css'
 import { useCart } from '@/contexts/estore/CartContext'
 import swal from 'sweetalert2'
+import { useRouter } from 'next/router'
+
 export default function CartPage() {
+  const router = useRouter()
   // 商城功能
   const { cartItems, updateCartItemQuantity, removeCartItem } = useCart()
 
@@ -251,6 +254,7 @@ export default function CartPage() {
                         <button
                           type="button"
                           className={`btn ${styles.checkBtn}`}
+                          onClick={() => router.push('/estore/booking-list')}
                         >
                           前往結帳
                         </button>

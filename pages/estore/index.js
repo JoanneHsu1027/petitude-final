@@ -234,6 +234,7 @@ export default function ProjectList() {
                   href=""
                   type="button"
                   className={`${styles3.AReset} p-3 text-black ${styles3.MobileBtnHover}`}
+                  onClick={() => handleCategoryClick('all')}
                 >
                   全部商品
                 </Link>

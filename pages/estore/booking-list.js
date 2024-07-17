@@ -1,54 +1,60 @@
-import { useEffect, useState } from 'react'
-// import ImageComponent from '../../component/common/image'
-import Layout from '../../components/layout/layout'
-import Confirm from './confirm'
-import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import Layout from '@/components/layout/layout'
+import { useRouter } from 'next/router'
+import styles from '@/styles/estore/bookingList.module.css'
+import { useCart } from '@/contexts/estore/CartContext'
 
 export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
-
-  const [buyerInfo, setBuyerInfo] = useState({
-    b2c_name: '',
-    b2c_mobile: '',
-    b2c_address: '',
-  })
+  const router = useRouter()
+  const [selectedBillMethod, setSelectedBillMethod] = useState(false)
+  const [cartItems, setCartItems] = useState([])
 
   useEffect(() => {
-    const fetchMemberInfo = async () => {
-      const response = await fetch('/api/booking')
-      const data = await response.json()
-      if (data) {
-        setBuyerInfo({
-          name: data.name,
-          mobile: data.mobile,
-          address: data.address,
-        })
-      }
+    // 從 localStorage 讀取購物車資料
+    const storedCart = localStorage.getItem('joannesshoppingcart')
+    if (storedCart) {
+      setCartItems(JSON.parse(storedCart))
     }
-
-    fetchMemberInfo()
   }, [])
+
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.product_price * item.qty,
+    0,
+  )
 
   return (
     <Layout>
-      {/* <!-- pagination --> */}
-      <div className="container-fluid d-flex  justify-content-center align-items-center">
-        <div className="row">
-          <div className="col-12"></div>
-        </div>
-      </div>
-      {/* <!-- pagination --> */}
-      <div className="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-stretch mb-5">
+      {/* <ProgressBar /> */}
+
+      <div
+        className={`container-fluid d-flex flex-column flex-md-row justify-content-between align-items-stretch mb-5 ${styles.full}`}
+      >
         <div className="row">
           {/* leftCard */}
-          <div className="col-md-8 justify-content-center align-items-center">
+          <div className="col-md-7 justify-content-center align-items-center">
             {/* <!-- 付款方式 --> */}
             <div
               className="card my-3"
-              style={{ maxWidth: '100%', height: 'auto' }}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                borderTopRightRadius: 30 + 'px',
+                borderTopLeftRadius: 30 + 'px',
+              }}
             >
-              <div className="card-header text-center bg-warning">付款方式</div>
-              <div className="card-body">
+              <div
+                className="card-header text-center"
+                style={{
+                  backgroundColor: '#4CB1C8',
+                  color: '#ffffff',
+                  borderTopRightRadius: 30 + 'px',
+                  borderTopLeftRadius: 30 + 'px',
+                }}
+              >
+                付款方式
+              </div>
+              <div className="card-body" style={{ border: 10 + 'px' }}>
                 <h5 className="card-title mb-4">付款方式</h5>
 
                 <div className="form-check" style={{ marginBottom: '1rem' }}>
@@ -69,7 +75,7 @@ export default function BookingList() {
                     <>
                       <input
                         type="text"
-                        className="form-control"
+                        className="form-control rounded-pill"
                         id="creditCardNumber"
                         placeholder="請輸入信用卡號"
                       />
@@ -80,7 +86,7 @@ export default function BookingList() {
                           </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control rounded-pill"
                             id="expiryDate"
                             placeholder="MM/YY"
                           />
@@ -91,7 +97,7 @@ export default function BookingList() {
                           </label>
                           <input
                             type="text"
-                            className="form-control"
+                            className="form-control rounded-pill"
                             id="cvv"
                             placeholder="CVV"
                           />
@@ -116,9 +122,7 @@ export default function BookingList() {
                     className="form-check-label mb-2"
                     htmlFor="otherMethods"
                   >
-                    其他方式付款
-                    <br />
-                    (ATM轉帳、7-11 ibon)
+                    Line Pay
                   </label>
                 </div>
               </div>
@@ -127,14 +131,28 @@ export default function BookingList() {
             {/* <!-- 購買人資訊 --> */}
             <div
               className="card my-3"
-              style={{ maxWidth: '100%', height: 'auto', marginTop: '0.3rem' }}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                marginTop: '0.3rem',
+                borderTopRightRadius: 30 + 'px',
+                borderTopLeftRadius: 30 + 'px',
+              }}
             >
-              <div className="card-header text-center bg-warning">
+              <div
+                className="card-header text-center"
+                style={{
+                  backgroundColor: '#4CB1C8',
+                  color: '#ffffff',
+                  borderTopRightRadius: 30 + 'px',
+                  borderTopLeftRadius: 30 + 'px',
+                }}
+              >
                 購買人資訊
               </div>
               <div className="card-body">
                 <h5 className="card-title mb-4">購買人資訊</h5>
-                <form className="row">
+                <form className="row" style={{ marginBottom: '1rem' }}>
                   {/* <!-- 姓名 --> */}
                   <div className="col-12">
                     <label htmlFor="buyerName" className="form-label">
@@ -142,7 +160,7 @@ export default function BookingList() {
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="form-control rounded-pill"
                       id="buyerName"
                       placeholder="姓名"
                     />
@@ -154,7 +172,7 @@ export default function BookingList() {
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="form-control rounded-pill"
                       id="mobile"
                       placeholder="手機"
                     />
@@ -166,7 +184,7 @@ export default function BookingList() {
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="form-control rounded-pill"
                       id="telephone"
                       placeholder="市話"
                     />
@@ -176,7 +194,7 @@ export default function BookingList() {
                     <label className="form-label" htmlFor="city">
                       發票地址
                     </label>
-                    <select className="form-select" id="city">
+                    <select className="form-select rounded-pill" id="city">
                       <option selected>請選擇縣市</option>
                       <option value="1">新北市</option>
                       <option value="2">台北市</option>
@@ -188,7 +206,7 @@ export default function BookingList() {
                     <label className="form-label" htmlFor="district">
                       鄉鎮市區
                     </label>
-                    <select className="form-select" id="district">
+                    <select className="form-select rounded-pill" id="district">
                       <option selected>請選擇鄉鎮市區</option>
                       <option value="1">新北市</option>
                       <option value="2">台北市</option>
@@ -202,7 +220,7 @@ export default function BookingList() {
                     </label>
                     <input
                       type="text"
-                      className="form-control"
+                      className="form-control rounded-pill"
                       id="address"
                       placeholder="詳細地址"
                     />
@@ -210,7 +228,7 @@ export default function BookingList() {
                   <div className="col-12">
                     <div
                       className="form-check"
-                      style={{ marginBottom: '1rem' }}
+                      style={{ marginTop: 0.5 + 'rem' }}
                     >
                       <input
                         className="form-check-input"
@@ -230,81 +248,158 @@ export default function BookingList() {
             {/* <!-- 發票資訊 --> */}
             <div
               className="card my-3"
-              style={{ maxWidth: '100%', height: 'auto', marginTop: '0.3rem' }}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                marginTop: '0.3rem',
+                borderTopRightRadius: 30 + 'px',
+                borderTopLeftRadius: 30 + 'px',
+              }}
             >
-              <div className="card-header text-center bg-warning">發票資訊</div>
+              <div
+                className="card-header text-center"
+                style={{
+                  backgroundColor: '#4CB1C8',
+                  color: '#ffffff',
+                  borderTopRightRadius: 30 + 'px',
+                  borderTopLeftRadius: 30 + 'px',
+                }}
+              >
+                發票資訊
+              </div>
               <div className="card-body">
                 <h5 className="card-title mb-4">發票資訊</h5>
-                {/* <!-- credit input --> */}
-                <form className="row">
-                  {/* <!-- 會員載具 --> */}
-                  <div className="col-12">
-                    <label htmlFor="cvv" className="form-label">
-                      會員載具
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="cvv"
-                      placeholder="請填寫會員載具"
-                    />
-                  </div>
-                  {/* <!-- 手機載具 --> */}
-                  <div className="col-12">
-                    <label htmlFor="cvv" className="form-label">
-                      手機載具
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="cvv"
-                      placeholder="請填寫共通載具"
-                    />
-                  </div>
-                  <div
-                    className="col-12 form-check"
-                    style={{ marginBottom: '1rem' }}
-                  >
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="syncInfo"
-                      style={{ marginTop: '0.3rem' }}
-                    />
-                    <label className="form-check-label" htmlFor="syncInfo">
-                      記住此資訊，讓下次結帳時可使用
-                    </label>
-                  </div>
-                  {/* <!-- 公司發票 --> */}
-                  <div className="col-12">
-                    <label htmlFor="cvv" className="form-label">
-                      公司發票
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="cvv"
-                      placeholder="請填寫統一編號"
-                    />
-                  </div>
-                  {/* <!-- 捐贈發票 --> */}
-                  <div className="col-12">
-                    <label className="form-label" htmlFor="district">
-                      捐贈發票
-                    </label>
-                    <select className="form-select" id="district">
-                      <option selected>請選擇捐贈單位</option>
-                      <option value="1">台灣狗腳印幸福聯盟</option>
-                      <option value="2">台灣之心愛護動物協會</option>
-                      <option value="3">社團法人台灣之心愛護動物協會</option>
-                      <option value="4">社團法人台灣幸褔狗流浪中途協會</option>
-                      <option value="5">社團法人台灣動物平權促進會</option>
-                      <option value="6">社團法人台灣防止虐待動物協會</option>
-                    </select>
-                  </div>
-                </form>
+                {/* <!-- 會員載具 --> */}
+                <div className="form-check" style={{ marginBottom: '1rem' }}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="billMethod"
+                    id="memberBill"
+                    value="memberBill"
+                    style={{ marginTop: '0.3rem' }}
+                    checked={selectedBillMethod === 'memberBill'}
+                    onChange={() => setSelectedBillMethod('memberBill')}
+                  />
+                  <label className="form-check-label mb-2" htmlFor="memberBill">
+                    會員載具
+                  </label>
+                  {selectedBillMethod === 'memberBill' && (
+                    <>
+                      <input
+                        type="text"
+                        className="form-control rounded-pill"
+                        id="memberBillnumber"
+                        placeholder="請填寫會員載具"
+                      />
+                    </>
+                  )}
+                </div>
+                {/* <!-- 手機載具 --> */}
+                <div className="form-check" style={{ marginBottom: '1rem' }}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="billMethod"
+                    id="phoneBill"
+                    value="phoneBill"
+                    style={{ marginTop: '0.3rem' }}
+                    checked={selectedBillMethod === 'phoneBill'}
+                    onChange={() => setSelectedBillMethod('phoneBill')}
+                  />
+
+                  <label htmlFor="phoneBill" className="form-label">
+                    手機載具
+                  </label>
+                  {selectedBillMethod === 'phoneBill' && (
+                    <>
+                      <input
+                        type="text"
+                        className="form-control rounded-pill"
+                        id="phoneBill"
+                        placeholder="請填寫共通載具"
+                      />
+                      <div
+                        className="col-12 form-check"
+                        style={{ marginTop: 0.5 + 'rem' }}
+                      >
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="syncInfo"
+                          style={{ marginTop: '0.3rem' }}
+                        />
+                        <label className="form-check-label" htmlFor="syncInfo">
+                          記住此資訊，讓下次結帳時可使用
+                        </label>
+                      </div>
+                    </>
+                  )}
+                </div>
+                {/* <!-- 公司發票 --> */}
+                <div className="form-check" style={{ marginBottom: '1rem' }}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="billMethod"
+                    id="compenyBill"
+                    value="compenyBill"
+                    style={{ marginTop: '0.3rem' }}
+                    checked={selectedBillMethod === 'compenyBill'}
+                    onChange={() => setSelectedBillMethod('compenyBill')}
+                  />
+                  <label htmlFor="compenyBill" className="form-label">
+                    公司發票
+                  </label>
+                  {selectedBillMethod === 'compenyBill' && (
+                    <>
+                      <input
+                        type="text"
+                        className="form-control rounded-pill"
+                        id="cvv"
+                        placeholder="請填寫統一編號"
+                      />
+                    </>
+                  )}
+                </div>
+                <div className="form-check" style={{ marginBottom: '1rem' }}>
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="billMethod"
+                    id="donateBill"
+                    value="donateBill"
+                    style={{ marginTop: '0.3rem' }}
+                    checked={selectedBillMethod === 'donateBill'}
+                    onChange={() => setSelectedBillMethod('donateBill')}
+                  />
+                  <label className="form-label" htmlFor="donateBill">
+                    捐贈發票
+                  </label>
+                  {selectedBillMethod === 'donateBill' && (
+                    <>
+                      <select
+                        className="form-select rounded-pill"
+                        id="district"
+                      >
+                        <option selected>請選擇捐贈單位</option>
+                        <option value="1">台灣狗腳印幸福聯盟</option>
+                        <option value="2">台灣之心愛護動物協會</option>
+                        <option value="3">社團法人台灣之心愛護動物協會</option>
+                        <option value="4">
+                          社團法人台灣幸褔狗流浪中途協會
+                        </option>
+                        <option value="5">社團法人台灣動物平權促進會</option>
+                        <option value="6">社團法人台灣防止虐待動物協會</option>
+                      </select>
+                    </>
+                  )}
+                </div>
               </div>
-              <div className="card-footer text-muted bg-warning">
+              <div
+                className="card-footer text-muted"
+                style={{ backgroundColor: '#FFF5CF' }}
+              >
                 ！依統一發票使用辦法規定：發票一經開立不得任意更改或改開發票。
               </div>
             </div>
@@ -312,102 +407,147 @@ export default function BookingList() {
           </div>
           {/* leftCard */}
           {/* rightCard */}
-          <div className="col-md-4 justify-content-center align-items-center">
+          <div className="col-md-5 justify-content-center align-items-center">
             <div
               className="card my-3"
-              style={{ maxWidth: '100%', height: 'auto', marginTop: '0.3rem' }}
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                marginTop: '0.3rem',
+                borderRadius: 30 + 'px',
+              }}
             >
-              <div className="card-header bg-warning text-center">結帳明細</div>
-              <div className="card-body" style={{ backgroundColor: '#FFF5CF' }}>
-                <div className="col d-flex justify-content-between align-items-center">
-                  {/* <ImageComponent
-                    src="/pics/Frame 685.png"
-                    width={150}
-                    height={150}
-                    alt=""
-                  /> */}
-                  <h5 className="card-title text-center">
-                    尊榮寵物 - 個別羽化
-                  </h5>
-                </div>
-                <div className="col d-flex align-items-center">
-                  <div className="text-start m-2">
-                    <p className="card-text mb-1">贈送</p>
-                    <p className="card-text m-0">免費結緣往生被/十字被</p>
-                    <p className="card-text m-0">免費靈體冰存14天</p>
-                    <p className="card-text m-0">免費懷念骨灰罐</p>
-                  </div>
-                  <div className="text-end ms-5 ms-auto">
-                    <p className="card-text">$ 9000元</p>
-                  </div>
-                </div>
+              <div
+                className="card-header text-center fs-2"
+                style={{
+                  backgroundColor: '#F6D554',
+                  color: '#6A513D',
+                  borderTopRightRadius: 30 + 'px',
+                  borderTopLeftRadius: 30 + 'px',
+                  borderBottom: 'none',
+                  fontWeight: 900,
+                }}
+              >
+                結帳明細
+              </div>
+              <div
+                className="card-body"
+                style={{
+                  backgroundColor: '#F6D554',
+                  color: '#6A513D',
+                  borderEndStartRadius: 30 + 'px',
+                  borderEndEndRadius: 30 + 'px',
+                  fontWeight: 900,
+                }}
+              >
+                {cartItems.length > 0 ? (
+                  <>
+                    {cartItems.map((r, i) => (
+                      <div
+                        key={i}
+                        className="row align-items-center justify-content-center mb-3"
+                      >
+                        <div
+                          className="col-3 w-auto"
+                          style={{ paddingRight: 2 + 'rem' }}
+                        >
+                          <img
+                            src={`http://localhost:3001/estore/A${r.pk_product_id}.png`}
+                            alt="..."
+                            className={styles.productImage}
+                          />
+                        </div>
+                        <div className="col-9">
+                          <div className="row">
+                            <div className="col-12">
+                              <div className={`fs-5 ${styles.productName}`}>
+                                {r.product_name}
+                              </div>
+                            </div>
+                            <div
+                              className={`col-12 ${styles.quantityPriceContainer} mt-2`}
+                            >
+                              <div
+                                className="justify-content-start fs-5"
+                                style={{
+                                  color: '#FFF5CF',
+                                  backgroundColor: '#6A513D',
+                                  borderRadius: 30 + 'px',
+                                  paddingLeft: 2 + 'rem',
+                                  paddingRight: 2 + 'rem',
+                                  paddingTop: 0.1 + 'rem',
+                                  paddingBottom: 0.1 + 'rem',
+                                }}
+                              >
+                                數量：{r.qty}
+                              </div>
+                              <div
+                                className={`justify-content-end fs-4 ${styles.productPrice}`}
+                              >
+                                $ {r.product_price * r.qty}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    {/* ... 總金額計算等 ... */}
+                  </>
+                ) : (
+                  <p>購物車是空的</p>
+                )}
                 <hr />
                 <div className="col d-flex align-items-center">
                   <div className="text-start m-2">
-                    <p className="card-text mb-1">付款方式</p>
+                    <p className="card-text mb-1 fs-5">付款方式</p>
                   </div>
                   <div className="text-end ms-5 ms-auto">
-                    <p className="card-text">信用卡</p>
+                    <p className="card-text fs-5">
+                      {selectedPaymentMethod === 'creditCard'
+                        ? '信用卡'
+                        : 'Line Pay'}
+                    </p>
                   </div>
                 </div>
                 <div className="col d-flex align-items-center">
                   <div className="text-start m-2">
-                    <p className="card-text mb-1">總金額</p>
+                    <p className="card-text mb-1 fs-5">發票開立方式</p>
                   </div>
                   <div className="text-end ms-5 ms-auto">
-                    <p className="card-text">$ 9000</p>
+                    <p className="card-text fs-5">手機載具</p>
+                  </div>
+                </div>
+                <div className="col d-flex align-items-center">
+                  <div className="text-start m-2">
+                    <p className="card-text mb-1 fs-5">總金額</p>
+                  </div>
+                  <div className="text-end ms-5 ms-auto">
+                    <p className="card-text fs-4">$ {totalPrice}</p>
                   </div>
                 </div>
                 <div className="d-flex justify-content-center align-items-center">
-                  {/* button跳轉頁面 */}
-                  <Link
-                    type="button"
-                    href="/estore/confirm"
+                  <button
+                    className="btn w-100  fs-4"
+                    onClick={() => {
+                      router.push('/funeral/funeral/confirm')
+                    }}
                     style={{
-                      width: '40%',
-                      backgroundColor: '#6a513d',
-                      color: '#fff5cf',
-                      borderRadius: '30px',
-                      textAlign: 'center',
-                      textDecoration: 'none',
+                      // width: '120px',
+                      marginTop: '20px',
+                      color: '#FFF5CF',
+                      backgroundColor: '#6A513D',
+                      borderRadius: 30 + 'px',
                     }}
                   >
                     確認結帳
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
           {/* rightCard */}
         </div>
-      </div>
-      {/* <!-- bottom --> */}
-      <div className="container-fluid">
-        <div className="row d-flex justify-content-between">
-          <div className="col-sm-3 d-flex flex-column align-items-start mt-auto">
-            <h6 className="m-0 fw-bolder">會員專區</h6>
-            <a href="#">會員權益</a>
-            <a href="#">隱私權政策</a>
-          </div>
-          <div className="col-sm-3 d-flex flex-column align-items-start mt-auto">
-            <h6 className="m-0 fw-bolder">購物須知</h6>
-            <a href="#">付款與配送方式</a>
-            <a href="#">退換貨說明</a>
-          </div>
-          <div className="col-sm-3 d-flex flex-column align-items-start mt-auto">
-            <h6 className="m-0 fw-bolder">關於我們</h6>
-            <a href="#">品牌故事</a>
-            <p className="m-0">統一編號: 12345678</p>
-          </div>
-          <div className="col-sm-3 d-flex flex-column align-items-start mt-auto">
-            <h6 className="m-0 fw-bolder">聯絡我們</h6>
-            <a href="#">Facebook粉絲團</a>
-            <a href="#">Line官方粉絲團</a>
-            <p className="m-0">客服專線: 02-12345678</p>
-            <p className="m-0">地址: 臺北市大安區信義路三段</p>
-          </div>
-        </div>
-        {/* <!-- bottom --> */}
+
         <style jsx>{`
           .card-header,
           .card-body,
@@ -434,14 +574,14 @@ export default function BookingList() {
 
           .card-header,
           .card-title {
-            font-size: 0.8rem;
+            font-size: 1.2rem;
           }
 
           .form-check-label,
           .form-label,
           .form-control,
           .form-select {
-            font-size: 0.6rem;
+            font-size: 1rem;
           }
         `}</style>
       </div>
