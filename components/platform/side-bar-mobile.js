@@ -9,10 +9,10 @@ export default function SideBarMobile() {
   const [activeLink, setActiveLink] = React.useState('')
 
   useEffect(() => {
-    if (router.pathname.includes('class-list')) {
-      setActiveLink('class-list')
-    } else if (router.pathname.includes('article-list')) {
-      setActiveLink('article-list')
+    if (router.pathname.includes('class')) {
+      setActiveLink('class')
+    } else if (router.pathname.includes('article')) {
+      setActiveLink('article')
     } else if (router.pathname.includes('hot-topics')) {
       setActiveLink('hot-topics')
     } else if (router.pathname.includes('favorites')) {
@@ -58,17 +58,17 @@ export default function SideBarMobile() {
             論壇首頁
           </Link>
           <Link
-            href="../../platform/class-list"
+            href="../../platform/class"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'class-list' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'class' ? styles.MobilePageSelect : ''}`}
           >
             主題分類
           </Link>
 
           <Link
-            href="../../platform/article-list"
+            href="../../platform/article"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'article-list' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'article' ? styles.MobilePageSelect : ''}`}
           >
             最新文章
           </Link>

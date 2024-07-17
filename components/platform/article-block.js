@@ -3,7 +3,8 @@ import styles from '../../styles/platform/platform-style.module.css'
 import { BsBookmarkFill } from 'react-icons/bs'
 import { BsChatText } from 'react-icons/bs'
 import { useEffect, useState } from 'react'
-import { ARTICLE_LIST } from '@/configs/platform/api-path'
+import { ARTICLE } from '@/configs/platform/api-path'
+import moment from 'moment-timezone'
 
 export default function ArticleBlock() {
   const [data, setData] = useState({
@@ -12,7 +13,7 @@ export default function ArticleBlock() {
   })
 
   useEffect(() => {
-    fetch(`${ARTICLE_LIST}`)
+    fetch(`${ARTICLE}`)
       .then((r) => r.json())
       .then((myData) => {
         console.log(data)
@@ -23,17 +24,20 @@ export default function ArticleBlock() {
   return (
     <>
       {data.rows.map((r) => {
+        const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
         return (
           <>
             <a
               key={r.article_id}
               className={`${styles.AReset}`}
-              href="../../platform/article-page"
+              href={`../../platform/article/${r.article_id}`}
             >
               <div className="m-2 border-bottom">
                 <div className="mx-2 d-flex">
-                  <p className="me-3 border border-dark rounded-3">主題名稱</p>
-                  <p className={`${styles.LightGray}`}>{r.article_date}</p>
+                  <p className="me-3 border border-dark rounded-3">
+                    {r.class_name}
+                  </p>
+                  <p className={`${styles.LightGray}`}>{dateFormat}</p>
                 </div>
                 <div className="mx-3">
                   <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>

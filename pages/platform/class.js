@@ -4,7 +4,7 @@ import styles from '../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
 import SideBarMobile from '@/components/platform/side-bar-mobile'
 import { useEffect, useState } from 'react'
-import { CLASS_LIST } from '@/configs/platform/api-path'
+import { CLASS } from '@/configs/platform/api-path'
 
 export default function ClassList() {
   const [data, setData] = useState({
@@ -13,7 +13,7 @@ export default function ClassList() {
   })
 
   useEffect(() => {
-    fetch(`${CLASS_LIST}`)
+    fetch(`${CLASS}`)
       .then((r) => r.json())
       .then((myData) => {
         console.log(data)

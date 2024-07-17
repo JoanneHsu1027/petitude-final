@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '@/components/layout/layout'
-import styles from '../../styles/platform/platform-style.module.css'
+import styles from '../../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
 import SideBarMobile from '@/components/platform/side-bar-mobile'
 import ArticleBlock from '@/components/platform/article-block'
@@ -31,11 +31,6 @@ export default function ArticleList() {
                           + 建立文章
                         </h5>
                       </a>
-                      <ArticleBlock></ArticleBlock>
-                      <ArticleBlock></ArticleBlock>
-                      <ArticleBlock></ArticleBlock>
-                      <ArticleBlock></ArticleBlock>
-                      <ArticleBlock></ArticleBlock>
                       <ArticleBlock></ArticleBlock>
                     </div>
                   </div>
