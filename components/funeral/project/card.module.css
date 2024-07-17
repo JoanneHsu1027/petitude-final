@@ -31,13 +31,13 @@
   text-align: start;
   line-height: 1.8;
   margin-bottom: 10px;
-  padding: 20px;
+  padding: 10px;
   /* white-space: pre-line; 確保保留換行符號的樣式 */
 }
 
 .card p {
   text-align: start;
-  line-height: 1;
+  line-height: 1.5;
   font-size: 0.8rem;
   font-weight: 700;
   padding-left: 10px;

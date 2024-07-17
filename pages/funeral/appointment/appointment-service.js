@@ -6,7 +6,7 @@ export default function AppointmentService() {
   const router = useRouter()
 
   const handleButtonClick = () => {
-    router.push('/funeral/appointment/reservation-form')
+    router.push('/funeral/appointment/reservation-add')
   }
 
   return (
