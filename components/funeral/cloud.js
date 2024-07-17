@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSpring, animated } from 'react-spring'
-import '@/components/funeral/memorial-page.module.css'
 
 const Cloud = ({ style }) => {
   const props = useSpring({
