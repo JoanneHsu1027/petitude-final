@@ -221,6 +221,7 @@ export default function RvEdit() {
                   value={myForm.fk_b2c_id}
                   onChange={onChange}
                 />
+
                 <div className="form-text"></div>
               </div>
 

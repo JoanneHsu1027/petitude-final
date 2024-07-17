@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Layout from '../../../components/layout/layout'
 import { useRouter } from 'next/router'
+import { BOOKING_LIST } from '@/configs/funeral/api-path'
 
 export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
