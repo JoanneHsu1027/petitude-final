@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './insurance.module.css'
 import Link from 'next/link'
 import ProgressBarCopy from './progress-bar-copy'
 import withProgressBar from './withProgressBar'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 function PiPayment01() {
   const agreements = [
@@ -238,6 +239,12 @@ function PiPayment01() {
 本契約如有未盡事宜，得經本保險公司及消費者協議補充或修正之。`,
     },
   ]
+  const [agreementsStatus, setAgreementsStatus] = useState({
+    agreementItem01: false,
+    agreementItem02: false,
+    agreementItem03: false,
+    agreementItem04: false,
+  })
 
   const [data, setData] = useState(null)
 
@@ -263,54 +270,161 @@ function PiPayment01() {
   const [agreementClicked, setAgreementClicked] = useState(new Set())
   // 為了顯示選擇的聲明內容
   const [selectedAgreement, setSelectedAgreement] = useState(agreements[0])
+  // 為了已詳閱並同意以上聲明事項
+  const [checkedRead, setCheckedRead] = useState(false)
 
+  // 預覽和上傳寵物大頭照
   // 記錄選擇的圖檔(File物件)
   const [selectedImg, setSelectedImg] = useState('/pi-pic/pet-upload.png')
   // 預覽圖片的網址
-  const [previewURL, setPreviewURL] = useState('')
+  const [previewURL, setPreviewURL] = useState('/pi-pic/pet-upload.png')
   // 伺服器回傳訊息
   const [message, setMessage] = useState('')
+  // 檔案輸入參考
+  const fileInputRef = React.createRef()
+  // localStorage大小限制(5MB)
+  const LOCALSTORAGE_LIMIT = 5 * 1024 * 1024
+  // 為了主動告知事項
+  const [disclosure1, setDisclosure1] = useState('否')
+  const [disclosure2, setDisclosure2] = useState('否')
+  const [disclosure3, setDisclosure3] = useState('否')
+  const [disclosure4, setDisclosure4] = useState('否')
+  const [disclosure5, setDisclosure5] = useState('否')
+
+  const router = useRouter()
+
+  const handleImgClick = () => {
+    fileInputRef.current.click()
+  }
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]
+    if (e.target && e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0]
 
-    if (file) {
+      if (!file) {
+        setMessage('沒有選擇檔案')
+        return
+      }
+
+      if (file.size > LOCALSTORAGE_LIMIT) {
+        setMessage('圖片大小超過 5MB 限制，請選擇較小的圖片')
+        return
+      }
+
       setSelectedImg(file)
-      setPreviewURL(URL.createObjectURL(file))
-    } else {
-      setSelectedImg(null)
-      setPreviewURL('')
+      const newPreviewUrl = URL.createObjectURL(file)
+      setPreviewURL(newPreviewUrl)
     }
   }
 
-  const handleImageUpload = async () => {
-    const fd = new FormData()
-
-    // 對照伺服器要接收的檔案欄位名稱
-    fd.append('pet_pic', selectedImg)
-
-    // 傳送到伺服器
-    // 不確定路徑對不對
-    const res = await fetch('http://localhost:3001/upload-imgs', {
-      method: 'POST',
-      body: fd,
-    })
-    // 獲得伺服器訊息
-    const data = await res.json()
-
-    setMessage(JSON.stringify(data))
-  }
-
-  const handleClick = (index) => {
-    setAgreementClicked((prevClicked) => {
-      const newClicked = new Set(prevClicked)
-      if (!newClicked.has(index)) {
-        newClicked.add(index) // 如果沒有點擊過，則添加
-        setSelectedAgreement(agreements[index]) //更新選中的聲明內容
+  const handleImageUpload = () => {
+    if (selectedImg instanceof File) {
+      // 將圖片轉換為 base64
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const base64String = reader.result
+        if (base64String.length > LOCALSTORAGE_LIMIT) {
+          setMessage('圖片大小超過 5MB 限制')
+          return
+        }
+        try {
+          // 保存到 localStorage
+          localStorage.setItem('petPhoto', base64String)
+          // setMessage('圖片已成功保存')
+        } catch (e) {
+          setMessage('保存圖片失敗, 可能是超出 5MB 限制')
+        }
       }
-      return newClicked
-    })
+      reader.readAsDataURL(selectedImg)
+    } else {
+      setMessage('請先選擇一張新圖片')
+    }
   }
+
+  // 處理點擊聲明書
+  const handleClick = (id) => {
+    setAgreementsStatus((prevStatus) => ({
+      ...prevStatus,
+      [id]: true,
+    }))
+
+    setSelectedAgreement(agreements.find((agreement) => agreement.id === id))
+  }
+
+  const formRef = useRef(null)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    // 檢查是否有任何告知事項選擇了"是"
+    if (
+      disclosure1 === '是' ||
+      disclosure2 === '是' ||
+      disclosure3 === '是' ||
+      disclosure4 === '是' ||
+      disclosure5 === '是'
+    ) {
+      alert('由於您在告知事項中選擇了"是"，無法進行投保。')
+      return
+    }
+
+    // 檢查是否所有同意項目都已勾選
+    if (!Object.values(agreementsStatus).every(Boolean)) {
+      alert('請同意所有聲明事項')
+      return
+    }
+
+    // 檢查"已詳閱並同意以上聲明事項"已勾選
+    if (!checkedRead) {
+      alert('請勾選已詳閱並同意以上聲明事項')
+      return
+    }
+
+    try {
+      // 收集所有表單數據
+      const formData = new FormData(formRef.current)
+
+      const holderID = formData.get('policyholder_IDcard')
+      const petName = formData.get('pet_name')
+      const petChip = formData.get('pet_chip')
+
+      // 檢查必要欄位是否填寫
+      const missingFields = []
+      if (!holderID) missingFields.push('身份證字號')
+      if (!petName) missingFields.push('寵物姓名')
+      if (!petChip) missingFields.push('晶片序號')
+
+      if (missingFields.length > 0) {
+        throw new Error(`請填寫以下必要欄位：${missingFields.join(', ')}`)
+      }
+
+      // 保存所有數據到 localStorage
+      localStorage.setItem(
+        'petBasicData',
+        JSON.stringify({
+          HolderID: holderID,
+          PetName: petName,
+          PetChip: petChip,
+        }),
+      )
+
+      // 成功提示
+      alert('資料已成功保存，請繼續下一步驟')
+      // 跳轉下一頁
+      router.push('/insurance/insurance-payment02')
+    } catch (error) {
+      console.error('保存失敗:', error)
+      alert(error.message || '保存失敗，請檢查所有欄位並重試。')
+    }
+  }
+  // 暫存寵物圖片
+  useEffect(() => {
+    const savedImg = localStorage.getItem('petPhoto')
+    if (savedImg) {
+      setPreviewURL(savedImg)
+      setSelectedImg(savedImg)
+    }
+  }, [])
 
   useEffect(() => {
     // 這個代碼塊只會在客戶端執行
@@ -354,13 +468,18 @@ function PiPayment01() {
           <ProgressBarCopy />
 
           {/* 投保寵物資料 */}
-          <div className="col-8" style={{ marginTop: '30px' }}>
-            <h4 className={styles['top-frame']}>投保寵物資料</h4>
-            <div
-              className={`d-flex justify-content-center ${styles['data-frame']}`}
-            >
-              <div className="col-6 justify-content-center align-items-center px-5">
-                <form>
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="col-8 d-flex flex-column justify-content-center align-items-center"
+          >
+            <div className="col-12" style={{ marginTop: '30px' }}>
+              <h4 className={styles['top-frame']}>投保寵物資料</h4>
+
+              <div
+                className={`d-flex justify-content-center ${styles['data-frame']}`}
+              >
+                <div className="col-6 justify-content-center align-items-center px-5">
                   <label htmlFor="policyholder_IDcard">
                     <h5
                       className={styles['text-color']}
@@ -374,6 +493,7 @@ function PiPayment01() {
                     type="text"
                     placeholder="請輸入身分證字號"
                     id="policyholder_IDcard"
+                    name="policyholder_IDcard"
                   />
                   <label htmlFor="pet_name">
                     <h5
@@ -388,6 +508,7 @@ function PiPayment01() {
                     type="text"
                     placeholder="請輸入寵物姓名"
                     id="pet_name"
+                    name="pet_name"
                   />
                   <label htmlFor="pet_chip">
                     <h5
@@ -402,6 +523,7 @@ function PiPayment01() {
                     type="text"
                     placeholder="請輸入寵物晶片號碼10-15碼"
                     id="pet_chip"
+                    name="pet_chip"
                   />
                   <h5
                     className={`${styles['text-color']} mt-4`}
@@ -420,37 +542,51 @@ function PiPayment01() {
                     保險方案
                   </h5>
                   <h5 className={styles['own-green']}>{planType}</h5>
-                </form>
-              </div>
-              <div
-                className="col-6 d-flex flex-column justify-content-start align-items-center"
-                style={{ padding: '0 20px 20px 20px' }}
-              >
-                <img
-                  src={selectedImg}
-                  className="img-fluid rounded-circle mb-4"
-                  style={{ backgroundColor: '#D9D9D9', width: '60%' }}
-                  // 想要圖案點了可以選擇上傳圖片
-                  onChange={handleImageChange}
-                />
-                <button
-                  className={`${styles['own-btn2']} border-0`}
-                  onClick={handleImageUpload}
+                  {/* </form> */}
+                </div>
+                <div
+                  className="col-6 d-flex flex-column justify-content-start align-items-center"
+                  style={{ padding: '0 20px 20px 20px' }}
                 >
-                  上傳寵物大頭照
-                </button>
+                  <img
+                    src={previewURL}
+                    className="img-fluid rounded-circle mb-4"
+                    style={{
+                      backgroundColor: '#D9D9D9',
+                      width: '60%',
+                      cursor: 'pointer',
+                    }}
+                    // 圖案點了可以選擇上傳圖片
+                    onClick={handleImgClick}
+                    alt="Pet"
+                  />
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleImageChange}
+                    style={{ display: 'none' }}
+                    accept="image/*"
+                  />
+                  <button
+                    className={`${styles['own-btn2']} border-0`}
+                    style={{ width: '50%' }}
+                    onClick={handleImageUpload}
+                  >
+                    上傳寵物大頭照
+                  </button>
+                  {message && <p style={{ color: 'red' }}> {message}</p>}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* 投保寵物主動告知事項 */}
-          <div className="col-8" style={{ marginTop: '30px' }}>
-            <h4 className={styles['top-frame']}>投保寵物主動告知事項</h4>
-            <div
-              className={`d-flex justify-content-center ${styles['data-frame']}`}
-            >
-              <div className="col-12 justify-content-center align-items-center px-5">
-                <form>
+            {/* 投保寵物主動告知事項 */}
+            <div className="col-12" style={{ marginTop: '30px' }}>
+              <h4 className={styles['top-frame']}>投保寵物主動告知事項</h4>
+              <div
+                className={`d-flex justify-content-center ${styles['data-frame']}`}
+              >
+                <div className="col-12 justify-content-center align-items-center px-5">
+                  {/* <form> */}
                   <div>
                     <h5
                       className={styles['text-color']}
@@ -473,14 +609,15 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={1}
-                            id
-                            defaultChecked
+                            name={disclosure1}
+                            id="disclosure1No"
+                            checked={disclosure1 === '否'}
+                            onChange={() => setDisclosure1('否')}
                             required
                           />
                           <label
                             className="form-check-label d-flex align-items-center me-2"
-                            htmlFor
+                            htmlFor="disclosure1No"
                           >
                             <h5 style={{ margin: 0 }}>否</h5>
                           </label>
@@ -490,14 +627,21 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={1}
-                            id
+                            name="disclosure1"
+                            id="disclosure1Yes"
+                            checked={disclosure1 === '是'}
+                            onChange={() => setDisclosure1('是')}
                           />
                           <label
                             className="form-check-label d-flex align-items-center"
-                            htmlFor
+                            htmlFor="disclosure1Yes"
                           >
-                            <h5 style={{ margin: 0 }}>是</h5>
+                            <h5 style={{ margin: 0 }}>是</h5>{' '}
+                            {disclosure1 === '是' && (
+                              <span style={{ color: 'red', marginLeft: '5px' }}>
+                                如選是則無法投保
+                              </span>
+                            )}
                           </label>
                         </div>
                       </div>
@@ -514,14 +658,15 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={2}
-                            id
-                            defaultChecked
+                            name="disclosure2"
+                            id="disclosure2No"
+                            checked={disclosure2 === '否'}
+                            onChange={() => setDisclosure2('否')}
                             required
                           />
                           <label
                             className="form-check-label d-flex align-items-center me-2"
-                            htmlFor
+                            htmlFor="disclosure2No"
                           >
                             <h5 style={{ margin: 0 }}>否</h5>
                           </label>
@@ -531,14 +676,21 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={2}
-                            id
+                            name="disclosure2"
+                            id="disclosure2Yes"
+                            checked={disclosure2 === '是'}
+                            onChange={() => setDisclosure2('是')}
                           />
                           <label
                             className="form-check-label d-flex align-items-center"
-                            htmlFor
+                            htmlFor="disclosure2Yes"
                           >
                             <h5 style={{ margin: 0 }}>是</h5>
+                            {disclosure2 === '是' && (
+                              <span style={{ color: 'red', marginLeft: '5px' }}>
+                                如選是則無法投保
+                              </span>
+                            )}
                           </label>
                         </div>
                       </div>
@@ -555,14 +707,15 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={3}
-                            id
-                            defaultChecked
+                            name="disclosure3"
+                            id="disclosure3No"
+                            checked={disclosure1 === '否'}
+                            onChange={() => setDisclosure3('否')}
                             required
                           />
                           <label
                             className="form-check-label d-flex align-items-center me-2"
-                            htmlFor
+                            htmlFor="disclosure3No"
                           >
                             <h5 style={{ margin: 0 }}>否</h5>
                           </label>
@@ -572,14 +725,21 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={3}
-                            id
+                            name="disclosure3"
+                            id="disclosure3Yes"
+                            checked={disclosure3 === '是'}
+                            onChange={() => setDisclosure3('是')}
                           />
                           <label
                             className="form-check-label d-flex align-items-center"
-                            htmlFor
+                            htmlFor="disclosure3Yes"
                           >
                             <h5 style={{ margin: 0 }}>是</h5>
+                            {disclosure3 === '是' && (
+                              <span style={{ color: 'red', marginLeft: '5px' }}>
+                                如選是則無法投保
+                              </span>
+                            )}
                           </label>
                         </div>
                       </div>
@@ -595,14 +755,15 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={4}
-                            id
-                            defaultChecked
+                            name="disclosure4"
+                            id="disclosure4No"
+                            checked={disclosure4 === '否'}
+                            onChange={() => setDisclosure4('否')}
                             required
                           />
                           <label
                             className="form-check-label d-flex align-items-center me-2"
-                            htmlFor
+                            htmlFor="disclosure4No"
                           >
                             <h5 style={{ margin: 0 }}>否</h5>
                           </label>
@@ -612,14 +773,21 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={4}
-                            id
+                            name="disclosure4"
+                            id="disclosure4Yes"
+                            checked={disclosure4 === '是'}
+                            onChange={() => setDisclosure4('是')}
                           />
                           <label
                             className="form-check-label d-flex align-items-center"
                             htmlFor
                           >
                             <h5 style={{ margin: 0 }}>是</h5>
+                            {disclosure4 === '是' && (
+                              <span style={{ color: 'red', marginLeft: '5px' }}>
+                                如選是則無法投保
+                              </span>
+                            )}
                           </label>
                         </div>
                       </div>
@@ -638,14 +806,15 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={5}
-                            id
-                            defaultChecked
+                            name="disclosure5"
+                            id="disclosure5No"
+                            checked={disclosure5 === '否'}
+                            onChange={() => setDisclosure5('否')}
                             required
                           />
                           <label
                             className="form-check-label d-flex align-items-center me-2"
-                            htmlFor
+                            htmlFor="disclosure5No"
                           >
                             <h5 style={{ margin: 0 }}>否</h5>
                           </label>
@@ -655,34 +824,41 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={5}
-                            id
+                            name="disclosure5"
+                            id="disclosure5Yes"
+                            checked={disclosure5 === '是'}
+                            onChange={() => setDisclosure5('是')}
                           />
                           <label
                             className="form-check-label d-flex align-items-center"
                             htmlFor
                           >
                             <h5 style={{ margin: 0 }}>是</h5>
+                            {disclosure5 === '是' && (
+                              <span style={{ color: 'red', marginLeft: '5px' }}>
+                                如選是則無法投保
+                              </span>
+                            )}
                           </label>
                         </div>
                       </div>
                     </div>
                   </div>
-                </form>
+                  {/* </form> */}
+                </div>
               </div>
             </div>
-          </div>
-          {/* 同意聲明告知 */}
-          <div className="col-8" style={{ marginTop: '30px' }}>
-            <h4 className={styles['top-frame']}>同意聲明告知</h4>
-            <div className={styles['data-frame']}>
-              <div className="col-12 justify-content-center">
-                <form>
+            {/* 同意聲明告知 */}
+            <div className="col-12" style={{ marginTop: '30px' }}>
+              <h4 className={styles['top-frame']}>同意聲明告知</h4>
+              <div className={styles['data-frame']}>
+                <div className="col-12 justify-content-center">
+                  {/* <form> */}
                   <div className="d-flex justify-content-around">
                     {agreements.map((agreement, index) => (
                       <div
                         key={index}
-                        className={`form-check ${styles['cfm-frame']} ${agreementClicked === index ? styles.read : ''}`}
+                        className={`form-check ${styles['cfm-frame']} ${agreementClicked.has(agreement.id) ? styles.read : ''}`}
                       >
                         <input
                           className="form-check-input"
@@ -691,8 +867,8 @@ function PiPayment01() {
                             margin: '0 5px 0 0',
                           }}
                           type="checkbox"
-                          onChange={() => handleClick(index)}
-                          checked={agreementClicked.has(index)}
+                          onChange={() => handleClick(agreement.id)}
+                          checked={agreementsStatus[agreement.id]}
                           id={agreement.id}
                           required
                         />
@@ -712,80 +888,85 @@ function PiPayment01() {
                     value={selectedAgreement.agreementContent}
                     readOnly
                   />
-                </form>
+                  {/* </form> */}
+                </div>
               </div>
             </div>
-          </div>
-          {/* 確認同意 */}
-          <div className="col-8">
-            <div
-              className="form-check align-items-center my-3"
-              style={{ padding: 0 }}
-            >
-              <input
-                className="form-check-input"
-                style={{
-                  border: '3px solid #B7B7B7',
-                  marginLeft: 0,
-                  padding: 0,
-                }}
-                type="checkbox"
-                defaultValue
-                id="flexCheckDefault4"
-                required
-              />
-              <label
-                className="form-check-label ms-2"
-                htmlFor="flexCheckDefault4"
+            {/* 確認同意 */}
+            <div className="col-12">
+              <div
+                className="form-check align-items-center my-3"
+                style={{ padding: 0 }}
               >
-                <h5 style={{ marginBottom: 0 }}>我已詳閱並同意以上聲明事項 </h5>
-              </label>
-            </div>
-            <div
-              className="form-check mb-3 d-flex align-items-start"
-              style={{ margin: 0, padding: 0 }}
-            >
-              <input
-                className="form-check-input"
-                style={{
-                  border: '3px solid #B7B7B7',
-                  marginLeft: 0,
-                  paddingTop: 10,
-                }}
-                type="checkbox"
-                defaultValue
-                id="flexCheckDefault5"
-              />
-              <label
-                className="form-check-label ms-2"
-                htmlFor="flexCheckDefault5"
-              >
-                <h5 style={{ marginBottom: 0 }}>
-                  本人同意所蒐集之聯絡資料(姓名、地址、email)作為寵度保險依金控法第43條第2項，進行共同行銷之特定目的使用。如未勾選不影響本次投保權益，可直接進行下一步
-                </h5>
-              </label>
-            </div>
-          </div>
-
-          {/* 下一步 */}
-          <div className="col-8">
-            <div>
-              <div className="d-flex justify-content-center align-items-center">
-                <Link href="/insurance" className="text-decoration-none">
-                  <button className={styles['own-btn4']}>返回</button>
-                </Link>
-                <Link
-                  href="/insurance/insurance-payment02"
-                  className="text-decoration-none"
+                <input
+                  className="form-check-input"
+                  style={{
+                    border: '3px solid #B7B7B7',
+                    marginLeft: 0,
+                    padding: 0,
+                  }}
+                  id="flexCheckDefault4"
+                  type="checkbox"
+                  checked={checkedRead}
+                  onChange={(e) => setCheckedRead(e.target.checked)}
+                />
+                <label
+                  className="form-check-label ms-2"
+                  htmlFor="flexCheckDefault4"
                 >
-                  <button className={styles['own-btn4']}>下一步</button>
-                </Link>
+                  <h5 style={{ marginBottom: 0 }}>
+                    我已詳閱並同意以上聲明事項{' '}
+                  </h5>
+                </label>
+              </div>
+              <div
+                className="form-check mb-3 d-flex align-items-start"
+                style={{ margin: 0, padding: 0 }}
+              >
+                <input
+                  className="form-check-input"
+                  style={{
+                    border: '3px solid #B7B7B7',
+                    marginLeft: 0,
+                    paddingTop: 10,
+                  }}
+                  type="checkbox"
+                  defaultValue
+                  id="flexCheckDefault5"
+                />
+                <label
+                  className="form-check-label ms-2"
+                  htmlFor="flexCheckDefault5"
+                >
+                  <h5 style={{ marginBottom: 0 }}>
+                    本人同意所蒐集之聯絡資料(姓名、地址、email)作為寵度保險依金控法第43條第2項，進行共同行銷之特定目的使用。如未勾選不影響本次投保權益，可直接進行下一步
+                  </h5>
+                </label>
               </div>
             </div>
-          </div>
+
+            {/* 下一步 */}
+            <div className="col-12">
+              <div>
+                <div className="d-flex justify-content-center align-items-center">
+                  <Link href="/insurance" className="text-decoration-none">
+                    <button className={styles['own-btn4']}>返回</button>
+                  </Link>
+                  <button
+                    className={styles['own-btn4']}
+                    type="submit"
+                    onClick={handleSubmit}
+                  >
+                    下一步
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </>
   )
 }
+
 export default withProgressBar(PiPayment01)
