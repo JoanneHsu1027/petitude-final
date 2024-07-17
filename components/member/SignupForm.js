@@ -51,7 +51,8 @@ const SignupForm = ({ onClose, switchToLogin }) => {
         if (resultData.success) {
           onClose()
         } else {
-          setError('註冊失敗')
+          // 根據伺服器返回的錯誤消息設置錯誤狀態
+          setError(resultData.error || '註冊失敗')
         }
       } catch (ex) {
         console.log(ex)
@@ -70,7 +71,7 @@ const SignupForm = ({ onClose, switchToLogin }) => {
 
   return (
     <div className="p-4">
-      <h2 className="mb-4">Sign Up</h2>
+      <h2 className="mb-4">註冊</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="b2c_email" className="form-label">

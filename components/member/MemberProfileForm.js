@@ -19,21 +19,19 @@ const MemberProfileForm = ({ memberData }) => {
   const [formErrors, setFormErrors] = useState({})
   const [filteredCities, setFilteredCities] = useState([])
 
-  // 初始化表單數據
   useEffect(() => {
     setFormData({
-      b2c_id: memberData.b2c_id || '',
+      b2c_id: memberData.b2c_id?.toString() || '',
       b2c_name: memberData.b2c_name || '',
-      b2c_birth: memberData.b2c_birth || '',
+      b2c_birth: memberData.b2c_birthday || '',
       b2c_mobile: memberData.b2c_mobile || '',
-      fk_county_id: memberData.fk_county_id || '',
-      fk_city_id: memberData.fk_city_id || '',
+      fk_county_id: memberData.fk_county_id?.toString() || '',
+      fk_city_id: memberData.fk_city_id?.toString() || '',
       b2c_address: memberData.b2c_address || '',
       b2c_IDcard: memberData.b2c_IDcard || '',
     })
   }, [memberData])
 
-  // 根據縣市過濾城市
   useEffect(() => {
     const getFilteredCities = (countyId) => {
       return cities.filter(
@@ -48,17 +46,14 @@ const MemberProfileForm = ({ memberData }) => {
     }
   }, [formData.fk_county_id])
 
-  // 處理表單數據變更
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((prevData) => ({ ...prevData, [name]: value || '' }))
   }
 
-  // 處理表單提交
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // 驗證表單資料
     const schemaForm = z.object({
       b2c_name: z.string().min(2, { message: '姓名至少兩個字' }),
       b2c_birth: z.string().optional(),
@@ -90,10 +85,9 @@ const MemberProfileForm = ({ memberData }) => {
         if (resultData.success) {
           alert('資料更新成功')
 
-          // 更新 LocalStorage 中的資料
           const updatedUser = {
             ...formData,
-            b2c_birth: formData.b2c_birth || '', // 確保日期格式一致
+            b2c_birth: formData.b2c_birth || '',
           }
           localStorage.setItem('user', JSON.stringify(updatedUser))
 
