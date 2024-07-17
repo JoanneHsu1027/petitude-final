@@ -2,13 +2,19 @@ import { useState, useEffect } from 'react'
 import Layout from '@/components/layout/layout'
 import { useRouter } from 'next/router'
 import styles from '@/styles/estore/bookingList.module.css'
-import { useCart } from '@/contexts/estore/CartContext'
+import axios from 'axios'
+import swal from 'sweetalert2'
+import { RequestList } from '@/configs/estore/api-path'
 
 export default function BookingList() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
   const router = useRouter()
   const [selectedBillMethod, setSelectedBillMethod] = useState(false)
   const [cartItems, setCartItems] = useState([])
+  const [counties, setCounties] = useState([])
+  const [cities, setCities] = useState([])
+  const [selectedCounty, setSelectedCounty] = useState('')
+  const [selectedCity, setSelectedCity] = useState('')
 
   useEffect(() => {
     // 從 localStorage 讀取購物車資料
@@ -22,6 +28,141 @@ export default function BookingList() {
     (total, item) => total + item.product_price * item.qty,
     0,
   )
+
+  useEffect(() => {
+    // 獲取所有縣市
+    const fetchCounties = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:3001/product/counties',
+        )
+        if (response.data.success) {
+          setCounties(response.data.data)
+        }
+      } catch (error) {
+        console.error('Error fetching counties:', error)
+      }
+    }
+
+    fetchCounties()
+  }, [])
+
+  useEffect(() => {
+    // 當選擇的縣市改變時，獲取對應的鄉鎮市區
+    const fetchCities = async () => {
+      if (selectedCounty) {
+        try {
+          const response = await axios.get(
+            `http://localhost:3001/product/cities/${selectedCounty}`,
+          )
+          if (response.data.success) {
+            setCities(response.data.data)
+          }
+        } catch (error) {
+          console.error('Error fetching cities:', error)
+        }
+      } else {
+        setCities([])
+      }
+    }
+
+    fetchCities()
+  }, [selectedCounty])
+
+  const handleCountyChange = (e) => {
+    const countyId = e.target.value
+    setSelectedCounty(countyId)
+    setSelectedCity('')
+    setFormData({
+      ...formData,
+      countyId: countyId,
+      cityId: '',
+    })
+  }
+
+  const handleCityChange = (e) => {
+    const cityId = e.target.value
+    setSelectedCity(cityId)
+    setFormData({
+      ...formData,
+      cityId: cityId,
+    })
+  }
+
+  // 讀取結帳資料
+  const [formData, setFormData] = useState({
+    paymentMethod: '',
+    creditCardNumber: '',
+    expiryDate: '',
+    cvv: '',
+    buyerName: '',
+    mobile: '',
+    telephone: '',
+    county: '',
+    city: '',
+    address: '',
+    billMethod: '',
+    billNumber: '',
+  })
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    })
+  }
+
+  const handleSubmit = async () => {
+    try {
+      const storedCart = JSON.parse(
+        localStorage.getItem('joannesshoppingcart') || '[]',
+      )
+
+      const dataToSend = {
+        ...formData,
+        countyId: formData.countyId,
+        cityId: formData.cityId,
+        cartItems: storedCart,
+      }
+
+      const response = await axios.post(
+        'http://localhost:3001/product/cartCheckout',
+        dataToSend,
+      )
+
+      if (response.data.success) {
+        localStorage.setItem('joannesshoppingcart', '')
+        swal
+          .fire({
+            icon: 'success',
+            html: `
+            訂單已成功建立
+          `,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText: `
+            回首頁
+          `,
+            cancelButtonText: `
+            回商品列表
+          `,
+          })
+          .then((result) => {
+            if (result.isConfirm) {
+              router.push('/')
+            } else {
+              router.push('/estore/')
+            }
+          })
+      } else {
+        console.error('Checkout failed:', response.data.error)
+        // 處理錯誤
+      }
+    } catch (error) {
+      console.error('Error during checkout:', error)
+      // 處理錯誤
+    }
+  }
 
   return (
     <Layout>
@@ -191,26 +332,41 @@ export default function BookingList() {
                   </div>
                   {/* <!-- 縣市 --> */}
                   <div className="col-md-6">
-                    <label className="form-label" htmlFor="city">
-                      發票地址
+                    <label className="form-label" htmlFor="county">
+                      寄送地址
                     </label>
-                    <select className="form-select rounded-pill" id="city">
-                      <option selected>請選擇縣市</option>
-                      <option value="1">新北市</option>
-                      <option value="2">台北市</option>
-                      <option value="3">桃園市</option>
+                    <select
+                      className="form-select rounded-pill"
+                      id="county"
+                      value={selectedCounty}
+                      onChange={handleCountyChange}
+                    >
+                      <option value="">請選擇縣市</option>
+                      {counties.map((county) => (
+                        <option key={county.county_id} value={county.county_id}>
+                          {county.county_name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   {/* <!-- 鄉鎮市區 --> */}
                   <div className="col-md-6">
-                    <label className="form-label" htmlFor="district">
+                    <label className="form-label" htmlFor="city">
                       鄉鎮市區
                     </label>
-                    <select className="form-select rounded-pill" id="district">
-                      <option selected>請選擇鄉鎮市區</option>
-                      <option value="1">新北市</option>
-                      <option value="2">台北市</option>
-                      <option value="3">桃園市</option>
+                    <select
+                      className="form-select rounded-pill"
+                      id="city"
+                      value={selectedCity}
+                      onChange={handleCityChange}
+                      disabled={!selectedCounty}
+                    >
+                      <option value="">請選擇鄉鎮市區</option>
+                      {cities.map((city) => (
+                        <option key={city.city_id} value={city.city_id}>
+                          {city.city_name}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   {/* <!-- 詳細地址 --> */}
@@ -528,9 +684,7 @@ export default function BookingList() {
                 <div className="d-flex justify-content-center align-items-center">
                   <button
                     className="btn w-100  fs-4"
-                    onClick={() => {
-                      router.push('/funeral/funeral/confirm')
-                    }}
+                    onClick={handleSubmit}
                     style={{
                       // width: '120px',
                       marginTop: '20px',
