@@ -318,7 +318,7 @@ export default function RvEdit() {
                     className="btn btn-warning"
                     data-bs-target="#exampleModalToggle"
                     data-bs-toggle="modal"
-                    onClick={() => setShowModal(true)}
+                    onClick={() => router.push('/funeral')}
                     style={{
                       width: '100%',
                       backgroundColor: 'orange',
@@ -344,7 +344,7 @@ export default function RvEdit() {
         src="/funeral/dog2.png"
         alt=""
         style={{
-          bottom: '-27px',
+          bottom: '-90px',
           width: '100px',
           right: '0px',
           overflow: 'hidden',
