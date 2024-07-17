@@ -11,7 +11,7 @@ export default function CreateArticle() {
   const [myForm, setMyForm] = useState({
     article_name: '',
     article_content: '',
-    article_topic: '', // 添加文章主題欄位
+    article_topic: '',
   })
 
   const onChange = (e) => {
@@ -27,7 +27,7 @@ export default function CreateArticle() {
       const formData = new FormData()
       formData.append('article_name', myForm.article_name)
       formData.append('article_content', myForm.article_content)
-      formData.append('article_topic', myForm.article_topic) // 添加文章主題到FormData中
+      formData.append('article_topic', myForm.article_topic)
 
       const r = await fetch(ARTICLE_ADD_POST, {
         method: 'POST',
@@ -36,7 +36,7 @@ export default function CreateArticle() {
       const result = await r.json()
       console.log(result)
       if (result.success) {
-        router.push('/platform/article') // 跳轉至指定路徑
+        router.push('/platform/article')
       } else {
         // Handle error if needed
       }
