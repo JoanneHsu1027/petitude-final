@@ -71,10 +71,16 @@ export default function CreateArticle() {
                   onChange={onChange}
                   name="article_topic"
                 >
-                  <option value="">選擇主題</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option disabled selected value="">
+                    --選擇主題--
+                  </option>
+                  <option value="1">寵物遺失</option>
+                  <option value="2">飼養心得</option>
+                  <option value="3">聊天討論</option>
+                  <option value="4">寵物健康醫療</option>
+                  <option value="5">寵物營養</option>
+                  <option value="6">寵物訓練</option>
+                  <option value="7">寵物相關新聞</option>
                 </select>
                 <div className="d-flex justify-content-center w-100">
                   <div className="w-100">
