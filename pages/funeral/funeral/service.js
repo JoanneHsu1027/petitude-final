@@ -12,8 +12,8 @@ export default function Service() {
 
   return (
     <>
-      <div className="container-fluid mt-5 mb-5">
-        <div className="row d-flex justify-content-center">
+      <div className="container-fluid mt-5 mb-5 ">
+        <div className="row d-flex justify-content-center ">
           <h2
             style={{
               textAlign: 'center',
