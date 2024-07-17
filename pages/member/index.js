@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/contexts/member/auth-context'
-import { API_SERVER } from '@/configs/api-path'
-import Layout1 from '@/components/layout/layout'
+import { API_SERVER, MEMBER_UPDATE_POST } from '@/configs/api-path'
+import Layout from '@/components/layout/layout'
+import MemberProfileForm from '@/components/member/MemberProfileForm'
 
 const Member = () => {
   const { auth, getAuthHeader } = useAuth()
@@ -40,21 +41,12 @@ const Member = () => {
   }
 
   return (
-    <Layout1>
+    <Layout>
       <div>
-        <h1>會員資料</h1>
-        <p>
-          <strong>會員名稱:</strong> {memberData.b2c_name}
-        </p>
-        <p>
-          <strong>會員信箱:</strong> {memberData.b2c_email}
-        </p>
-        <p>
-          <strong>會員手機:</strong> {memberData.b2c_mobile}
-        </p>
-        {/* 添加更多需要顯示的欄位 */}
+        {/* 加入會員資料表單 */}
+        <MemberProfileForm memberData={memberData} />
       </div>
-    </Layout1>
+    </Layout>
   )
 }
 
