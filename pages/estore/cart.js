@@ -31,13 +31,22 @@ export default function CartPage() {
   }
   // 商城功能
   // 生命禮儀功能
-
-  const { cartProjects, removeProject } = useCart1()
-
-  if (!cartProjects) {
-    return <div>Loading...</div>
+  // 購物車設定每個項目只能買一項, 買超過一項則無法列入計算價格跟刪除
+  const { cartProjects, removeCartProject } = useCart1([]) // 确保 useCart1 返回正确的值
+  // 顯示方案價格加總
+  const totalProjectPrice = cartProjects.reduce(
+    (total, project) => total + project.project_price,
+    0,
+  )
+  // 方案刪除
+  const handleRemoveProject = (idx) => {
+    const items = cartProjects.find((items) => items.project_id === idx)
+    if (items) {
+      swal.fire('刪除!', `${items.project_name} 已被刪除!`, 'success')
+      // 更新 cartProjects 的状态
+      removeCartProject(idx) // 调用 removeCartProject 来移除项目
+    }
   }
-
   // 生命禮儀功能
 
   return (
@@ -300,9 +309,9 @@ export default function CartPage() {
                             style={{ width: 'auto' }}
                           >
                             <img
-                              src={`http://localhost:3001/project/${project.project_id}.png`}
+                              src={`http://localhost:3001//project/${project.project_id}.png`}
                               alt="..."
-                              className={styles.productImage}
+                              className={styles.projectImage}
                             />
                           </div>
                           <div
@@ -322,10 +331,13 @@ export default function CartPage() {
                               </p>
                             </div>
                           </div>
-                          <div className="col-1">
+
+                          <div className={`col-2 ${styles.btnArea}`}>
                             <button
-                              className="btn btn-danger"
-                              onClick={() => removeProject(project.project_id)}
+                              className={`btn ${styles.btn}`}
+                              onClick={() =>
+                                handleRemoveProject(project.project_id)
+                              }
                             >
                               刪除
                             </button>
@@ -337,12 +349,12 @@ export default function CartPage() {
                         <div className="row align-items-center mb-3">
                           <div className="col-3">
                             <img
-                              src="/funeral/index_n5.png"
+                              src={`http://localhost:3001//project/${project.project_id}.png`}
                               alt="..."
-                              className={styles.productImage}
+                              className={styles.projectImage}
                             />
                           </div>
-                          <div className="col-9">
+                          <div className="col-6 ps-5">
                             <div className="row">
                               <div className="col-12">
                                 <div className={styles.productName}>
@@ -358,10 +370,12 @@ export default function CartPage() {
                               </div>
                             </div>
                           </div>
-                          <div className="col-12 mt-2">
+                          <div className={`col-3 ${styles.btnArea}`}>
                             <button
-                              className="btn btn-danger btn-sm"
-                              onClick={() => removeProject(project.project_id)}
+                              className={`btn btn-sm ${styles.btn}`}
+                              onClick={() =>
+                                handleRemoveProject(project.project_id)
+                              }
                             >
                               刪除
                             </button>
@@ -372,13 +386,13 @@ export default function CartPage() {
                   ))}
                   <hr className={styles.line} />
                   <div className="row">
-                    <div className={`col-12 ${styles.funeralTotal}`}>
+                    <div className={`col-12 ${styles.total}`}>
                       <p className="fs-4">總價</p>
                     </div>
-                    <div className={`col-12 ${styles.funeralTotal}`}>
-                      <p className="fs-4">${cartProjects.project_price}</p>
+                    <div className={`col-12 ${styles.total}`}>
+                      <p className="fs-4">${totalProjectPrice}</p>
                     </div>
-                    <div className={`col-12 ${styles.funeralTotal}`}>
+                    <div className={`col-12 ${styles.total}`}>
                       <button
                         type="button"
                         className={`btn ${styles.checkBtn}`}
