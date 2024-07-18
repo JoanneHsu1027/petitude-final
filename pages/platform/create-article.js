@@ -70,15 +70,15 @@ export default function CreateArticle() {
 
         <div className="container-fluid col-xl-6 col-lg-12 mb-5">
           <div
-            className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4`}
+            className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4 position-relative`}
           >
-            <div className="row">
-              <a
-                href="./article"
-                className={`${styles.AReset} d-flex flex-row-reverse`}
-              >
-                <BsXLg className="display-1"></BsXLg>
-              </a>
+            <a
+              href="./article"
+              className={`${styles.AReset} position-absolute top-0 end-0 me-4 mt-4`}
+            >
+              <BsXLg className="display-3"></BsXLg>
+            </a>
+            <div className="row mt-5">
               <form onSubmit={onSubmit} encType="multipart/form-data">
                 <select
                   style={{ width: 150 }}
