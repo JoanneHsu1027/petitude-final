@@ -11,14 +11,22 @@ export default function CreateArticle() {
   const [myForm, setMyForm] = useState({
     article_name: '',
     article_content: '',
-    article_topic: '',
+    fk_class_id: '',
+    article_img: null,
   })
 
+  const [imageFile, setImageFile] = useState(null) // 新增的狀態
+
   const onChange = (e) => {
-    setMyForm({
-      ...myForm,
-      [e.target.name]: e.target.value,
-    })
+    if (e.target.name === 'article_img') {
+      // 判斷是否為圖片檔案的輸入
+      setImageFile(e.target.files[0])
+    } else {
+      setMyForm({
+        ...myForm,
+        [e.target.name]: e.target.value,
+      })
+    }
   }
 
   const onSubmit = async (e) => {
@@ -27,21 +35,29 @@ export default function CreateArticle() {
       const formData = new FormData()
       formData.append('article_name', myForm.article_name)
       formData.append('article_content', myForm.article_content)
-      formData.append('article_topic', myForm.article_topic)
+      formData.append('fk_class_id', myForm.fk_class_id)
+      if (imageFile) {
+        formData.append('article_img', imageFile) // 將圖片檔案加入到FormData
+      }
+
+      console.log('Submitting form data:', formData)
 
       const r = await fetch(ARTICLE_ADD_POST, {
         method: 'POST',
         body: formData,
       })
+
+      console.log('Response:', r)
+
       const result = await r.json()
       console.log(result)
       if (result.success) {
         router.push('/platform/article')
       } else {
-        // Handle error if needed
+        console.log('Error:', result.error)
       }
     } catch (ex) {
-      console.log(ex)
+      console.log('Exception:', ex)
     }
   }
 
@@ -63,24 +79,38 @@ export default function CreateArticle() {
               >
                 <BsXLg className="display-1"></BsXLg>
               </a>
-              <form onSubmit={onSubmit}>
+              <form onSubmit={onSubmit} encType="multipart/form-data">
                 <select
                   style={{ width: 150 }}
                   className="form-select rounded-pill"
                   id="inputGroupSelect01"
                   onChange={onChange}
-                  name="article_topic"
+                  name="fk_class_id"
                 >
-                  <option disabled selected value="">
+                  <option value="" disabled>
                     --選擇主題--
                   </option>
-                  <option value="1">寵物遺失</option>
-                  <option value="2">飼養心得</option>
-                  <option value="3">聊天討論</option>
-                  <option value="4">寵物健康醫療</option>
-                  <option value="5">寵物營養</option>
-                  <option value="6">寵物訓練</option>
-                  <option value="7">寵物相關新聞</option>
+                  <option value="1" defaultValue={myForm.fk_class_id === '1'}>
+                    寵物遺失
+                  </option>
+                  <option value="2" defaultValue={myForm.fk_class_id === '2'}>
+                    飼養心得
+                  </option>
+                  <option value="3" defaultValue={myForm.fk_class_id === '3'}>
+                    聊天討論
+                  </option>
+                  <option value="4" defaultValue={myForm.fk_class_id === '4'}>
+                    寵物健康醫療
+                  </option>
+                  <option value="5" defaultValue={myForm.fk_class_id === '5'}>
+                    寵物營養
+                  </option>
+                  <option value="6" defaultValue={myForm.fk_class_id === '6'}>
+                    寵物訓練
+                  </option>
+                  <option value="7" defaultValue={myForm.fk_class_id === '7'}>
+                    寵物相關新聞
+                  </option>
                 </select>
                 <div className="d-flex justify-content-center w-100">
                   <div className="w-100">
@@ -123,6 +153,8 @@ export default function CreateArticle() {
                   type="file"
                   className="form-control rounded-pill mt-2"
                   aria-label="Upload"
+                  name="article_img" // 新增的name屬性
+                  onChange={onChange} // 捕捉圖片輸入變化
                 />
                 <div className="d-flex flex-row-reverse">
                   <button
