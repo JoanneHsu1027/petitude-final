@@ -8,12 +8,10 @@ const MemberProfileForm = ({ memberData }) => {
   const [formData, setFormData] = useState({
     b2c_id: '',
     b2c_name: '',
-    b2c_birth: '',
     b2c_mobile: '',
     fk_county_id: '',
     fk_city_id: '',
     b2c_address: '',
-    b2c_IDcard: '',
   })
 
   const [formErrors, setFormErrors] = useState({})
@@ -23,12 +21,10 @@ const MemberProfileForm = ({ memberData }) => {
     setFormData({
       b2c_id: memberData.b2c_id?.toString() || '',
       b2c_name: memberData.b2c_name || '',
-      b2c_birth: memberData.b2c_birthday || '',
       b2c_mobile: memberData.b2c_mobile || '',
       fk_county_id: memberData.fk_county_id?.toString() || '',
       fk_city_id: memberData.fk_city_id?.toString() || '',
       b2c_address: memberData.b2c_address || '',
-      b2c_IDcard: memberData.b2c_IDcard || '',
     })
   }, [memberData])
 
@@ -56,14 +52,12 @@ const MemberProfileForm = ({ memberData }) => {
 
     const schemaForm = z.object({
       b2c_name: z.string().min(2, { message: '姓名至少兩個字' }),
-      b2c_birth: z.string().optional(),
       b2c_mobile: z
         .string()
         .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
       fk_county_id: z.string().min(1, { message: '請選擇縣市' }),
       fk_city_id: z.string().min(1, { message: '請選擇城市' }),
       b2c_address: z.string().min(1, { message: '請填寫詳細地址' }),
-      b2c_IDcard: z.string().optional(),
     })
 
     const result = schemaForm.safeParse(formData)
@@ -131,23 +125,6 @@ const MemberProfileForm = ({ memberData }) => {
           />
           {formErrors.b2c_name && (
             <div className="form-text text-danger">{formErrors.b2c_name}</div>
-          )}
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="b2c_birth" className="form-label">
-            出生日期:
-          </label>
-          <input
-            id="b2c_birth"
-            type="date"
-            className="form-control"
-            name="b2c_birth"
-            value={formData.b2c_birth}
-            onChange={handleChange}
-          />
-          {formErrors.b2c_birth && (
-            <div className="form-text text-danger">{formErrors.b2c_birth}</div>
           )}
         </div>
 
@@ -240,23 +217,6 @@ const MemberProfileForm = ({ memberData }) => {
             <div className="form-text text-danger">
               {formErrors.b2c_address}
             </div>
-          )}
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="b2c_IDcard" className="form-label">
-            身份證號碼:
-          </label>
-          <input
-            id="b2c_IDcard"
-            type="text"
-            className="form-control"
-            name="b2c_IDcard"
-            value={formData.b2c_IDcard}
-            onChange={handleChange}
-          />
-          {formErrors.b2c_IDcard && (
-            <div className="form-text text-danger">{formErrors.b2c_IDcard}</div>
           )}
         </div>
 

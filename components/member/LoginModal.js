@@ -63,7 +63,7 @@ const Modal = ({ onClose }) => {
             {isLogin ? (
               <LoginForm onClose={onClose} />
             ) : (
-              <SignupForm onClose={onClose} />
+              <SignupForm onClose={onClose} switchToLogin={switchToLogin} />
             )}
           </div>
         </div>

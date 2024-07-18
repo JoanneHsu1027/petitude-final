@@ -49,7 +49,7 @@ const SignupForm = ({ onClose, switchToLogin }) => {
         })
         const resultData = await response.json()
         if (resultData.success) {
-          onClose()
+          switchToLogin() // 切換到登入表單
         } else {
           // 根據伺服器返回的錯誤消息設置錯誤狀態
           setError(resultData.error || '註冊失敗')
