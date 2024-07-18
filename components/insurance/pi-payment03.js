@@ -62,7 +62,7 @@ function PiPayment03() {
   return (
     <>
       <Head>
-        <title>線上繳費 | Petitude</title>
+        <title>保單確認 | Petitude</title>
       </Head>
       <div className="container-fluid mb-5">
         <div className="row justify-content-center">
