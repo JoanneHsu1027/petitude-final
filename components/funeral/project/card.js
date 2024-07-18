@@ -65,7 +65,7 @@ export default function Card() {
               {/* 引入後端public圖片 */}
               <img
                 className={Styles.cardImage}
-                src={`http://localhost:3001/project/${card.project_id}.png`}
+                src={`http://localhost:3001//project/${card.project_id}.png`}
                 alt=""
               />
               <div className={Styles.cardContent}>

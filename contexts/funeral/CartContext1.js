@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
 const CartContext1 = createContext()
+// localstorage紀錄的key
 const cartKeys = 'funeralShoppingCart'
 
 // 生前契約初始空狀態
@@ -9,17 +10,25 @@ const projectEmptyCart = []
 export function CartProvider2({ children }) {
   const [cartProjects, setCartProjects] = useState(projectEmptyCart)
 
-  // 加到購物車
+  // 添加項目至購物車
   const addToCarts = (project) => {
     setCartProjects((prevProjects) => {
       const existingProjectIndex = prevProjects.findIndex(
         (items) => items.project_id === project.project_id,
       )
-
-      // 如果项目不存在，添加到购物车
       const newProjects = [...prevProjects, { ...project, qty: 1 }]
       localStorage.setItem(cartKeys, JSON.stringify(newProjects))
       return newProjects
+    })
+  }
+// 刪除購物車中項目
+  const removeCartProject = (idx) => {
+    setCartProjects((prevProjects) => {
+      const updatedProjects = prevProjects.filter(
+        (items) => items.project_id !== idx,
+      )
+      localStorage.setItem(cartKeys, JSON.stringify(updatedProjects))
+      return updatedProjects
     })
   }
 
@@ -43,6 +52,7 @@ export function CartProvider2({ children }) {
       value={{
         cartProjects,
         addToCarts,
+        removeCartProject,
       }}
     >
       {children}

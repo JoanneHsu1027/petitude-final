@@ -106,8 +106,8 @@
   /* object-fit: cover; */
 }
 .projectImage {
-  width: 120px;
-  height: 100px;
+  width: 150px;
+  height: 130px;
   border-radius: 15px;
   /* 调整边角圆弧 */
   /* object-fit: cover; */
@@ -128,6 +128,7 @@
   align-items: center;
   margin: 0%;
   padding-right: 3%;
+
 }
 
 .productPrice {
@@ -232,9 +233,20 @@
   font-weight: 900;
   font-size: 24px;
 }
+  .btn{
+    background-color: #6A513D;
+    color: #ffffff;
+  }
+  .btn:hover{
+    background-color: #f6d554;
+    color: #6A513D;
+  }
+  .btnArea{
+    padding-left: 8%;
+  }
 
 
-@media (max-width: 768px) {
+@media (max-width: 864px) {
 
 
   .alldetail {
@@ -250,8 +262,8 @@
     height: 60px;
   }
   .projectImage {
-    width: 100px;
-    height: 90px;
+    width: 120px;
+    height: 100px;
   }
 
   .productName {
@@ -263,7 +275,9 @@
     margin: 0%;
     font-weight: 900;
   }
-
+  .total{
+    font-size: 18px;
+  }
   .total2 {
     display: flex;
     justify-content: center;
@@ -271,6 +285,31 @@
     margin: 0%;
     font-weight: 900;
     color: #6A513D;
+  }
+
+  .checkBtn{
+    background-color: #6A513D;
+    color: #FFF5CF;
+    border-radius: 100px;
+    display: flex;
+    width: 130px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    font-size: 18px;
+  }
+
+   .btn{
+    background-color: #6A513D;
+    color: #ffffff;
+  }
+  .btn:hover{
+    background-color: #f6d554;
+    color: #6A513D;
+  }
+  .btnArea{
+    padding-left: 4%;
   }
 
 }
