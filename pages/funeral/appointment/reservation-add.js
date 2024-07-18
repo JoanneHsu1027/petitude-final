@@ -84,7 +84,7 @@ export default function RvEdit() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    console.log('Submitting form to:', RV_ADD_POST) // 調試用
+    console.log('Submitting form to:', RV_ADD_POST)
     // 如果表單驗證有通過的話
     try {
       const r = await fetch(RV_ADD_POST, {
@@ -97,7 +97,7 @@ export default function RvEdit() {
       const result = await r.json()
       console.log(result)
       if (result.success) {
-        router.push(`/reservation-form`) // 跳頁
+        router.push(`/funeral/`) // 跳頁
       } else {
         console.log('Form submission failed:', result)
       }
@@ -230,7 +230,7 @@ export default function RvEdit() {
                   預約日期
                 </label>
                 <input
-                  type="date"
+                  type="datetime-local"
                   className="form-control"
                   id="date"
                   name="reservation_date"
@@ -317,7 +317,7 @@ export default function RvEdit() {
                 <div className="modal-footer d-flex justify-content-center ">
                   <button
                     className="btn btn-warning"
-                    data-bs-target="#exampleModalToggle"
+                    data-bs-target="#exampleModalToggle2"
                     data-bs-toggle="modal"
                     onClick={() => router.push('/funeral')}
                     style={{
