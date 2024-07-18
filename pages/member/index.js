@@ -1,12 +1,16 @@
+// pages/member/index.js
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/contexts/member/auth-context'
-import { API_SERVER, MEMBER_UPDATE_POST } from '@/configs/api-path'
+import { API_SERVER } from '@/configs/api-path'
 import Layout from '@/components/layout/layout'
 import MemberProfileForm from '@/components/member/MemberProfileForm'
+import MemberProfileView from '@/components/member/MemberProfileView'
+import styles from './css/MemberProfile.module.css' // 使用組件級別的 CSS Modules
 
 const Member = () => {
   const { auth, getAuthHeader } = useAuth()
   const [memberData, setMemberData] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -42,9 +46,20 @@ const Member = () => {
 
   return (
     <Layout>
-      <div>
-        {/* 加入會員資料表單 */}
-        <MemberProfileForm memberData={memberData} />
+      <div className={styles['container']}>
+        <div className={styles['form-body']}>
+          {isEditing ? (
+            <MemberProfileForm
+              memberData={memberData}
+              onCancel={() => setIsEditing(false)}
+            />
+          ) : (
+            <MemberProfileView
+              memberData={memberData}
+              onEdit={() => setIsEditing(true)}
+            />
+          )}
+        </div>
       </div>
     </Layout>
   )

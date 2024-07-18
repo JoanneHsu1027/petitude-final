@@ -3,10 +3,12 @@ import { z } from 'zod'
 import { MEMBER_UPDATE_POST } from '@/configs/api-path'
 import { counties } from '@/components/common/county'
 import { cities } from '@/components/common/city'
+import formStyles from './css/MemberProfileForm.module.css'
 
-const MemberProfileForm = ({ memberData }) => {
+const MemberProfileForm = ({ memberData, onCancel }) => {
   const [formData, setFormData] = useState({
     b2c_id: '',
+    b2c_email: '',
     b2c_name: '',
     b2c_mobile: '',
     fk_county_id: '',
@@ -20,6 +22,7 @@ const MemberProfileForm = ({ memberData }) => {
   useEffect(() => {
     setFormData({
       b2c_id: memberData.b2c_id?.toString() || '',
+      b2c_email: memberData.b2c_email?.toString() || '',
       b2c_name: memberData.b2c_name || '',
       b2c_mobile: memberData.b2c_mobile || '',
       fk_county_id: memberData.fk_county_id?.toString() || '',
@@ -117,7 +120,7 @@ const MemberProfileForm = ({ memberData }) => {
           <input
             id="b2c_name"
             type="text"
-            className="form-control"
+            className={`form-control ${formStyles['form-innerText']}`}
             name="b2c_name"
             value={formData.b2c_name}
             onChange={handleChange}
@@ -129,13 +132,31 @@ const MemberProfileForm = ({ memberData }) => {
         </div>
 
         <div className="mb-3">
+          <label htmlFor="b2c_email" className="form-label">
+            信箱:
+          </label>
+          <input
+            id="b2c_email"
+            type="text"
+            className={`form-control ${formStyles['form-innerText']}`}
+            name="b2c_email"
+            value={formData.b2c_email}
+            onChange={handleChange}
+            required
+          />
+          {formErrors.b2c_name && (
+            <div className="form-text text-danger">{formErrors.b2c_email}</div>
+          )}
+        </div>
+
+        <div className="mb-3">
           <label htmlFor="b2c_mobile" className="form-label">
             手機號碼:
           </label>
           <input
             id="b2c_mobile"
             type="text"
-            className="form-control"
+            className={`form-control ${formStyles['form-innerText']}`}
             name="b2c_mobile"
             value={formData.b2c_mobile}
             onChange={handleChange}
@@ -153,7 +174,7 @@ const MemberProfileForm = ({ memberData }) => {
           <select
             id="fk_county_id"
             name="fk_county_id"
-            className="form-control"
+            className={`form-control ${formStyles['form-innerText']}`}
             value={formData.fk_county_id}
             onChange={(e) => {
               handleChange(e)
@@ -182,7 +203,7 @@ const MemberProfileForm = ({ memberData }) => {
           <select
             id="fk_city_id"
             name="fk_city_id"
-            className="form-control"
+            className={`form-control ${formStyles['form-innerText']}`}
             value={formData.fk_city_id}
             onChange={handleChange}
             required
@@ -206,7 +227,7 @@ const MemberProfileForm = ({ memberData }) => {
           <input
             id="b2c_address"
             type="text"
-            className="form-control"
+            className={`form-control ${formStyles['form-innerText']}`}
             name="b2c_address"
             value={formData.b2c_address}
             onChange={handleChange}
@@ -222,6 +243,13 @@ const MemberProfileForm = ({ memberData }) => {
 
         <button type="submit" className="btn btn-primary">
           更新資料
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary ms-2"
+          onClick={onCancel}
+        >
+          取消
         </button>
       </form>
     </div>

@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  padding: 5% 15%; /* 上下各為寬度的5%，左右各為寬度的20% */
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  align-self: stretch;
+  background-color: #FFF9E4;
+}
+.form-body{
+    width: 100%;
+    background-color: #FFFFFF;
+}
