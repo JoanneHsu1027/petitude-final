@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './insurance.module.css'
 import Link from 'next/link'
 import ProgressBarCopy from './progress-bar-copy'
@@ -7,10 +7,15 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { counties } from '../common/county'
 import { cities } from '../common/city'
+import { z } from 'zod'
 
 function PiPayment02() {
   const router = useRouter()
   const formRef = useRef(null)
+  // 伺服器回傳訊息
+  // const [message, setMessage] = useState('')
+  // 要保人姓名
+  // const [fillName, setFillName] = useState('')
 
   // 台灣身分證字號驗證
   const [idError, setIdError] = useState('')
@@ -40,69 +45,144 @@ function PiPayment02() {
     return weightedSum % 10 === 0
   }
 
+  // 信箱
+  // const [correctEmail, setCorrectEmail] = useState('')
+  // 手機號碼
+  // const [correctMoblie, setCorrectMobile] = useState('')
+
+  // 為了縣市的選擇
+  const [selectedCounty, setSelectedCounty] = useState('')
+  // 為了區的選擇
+  const [filteredCities, setFilteredCities] = useState([])
   // 為了已審閱並了解貴公司所提供之上述須知及商品簡介
   const [checkedRead, setCheckedRead] = useState(false)
 
+  // 為每個欄位創建錯誤狀態
+  const [errors, setErrors] = useState({
+    policyholder_name: '',
+    policyholder_IDcard: '',
+    policyholder_birthday: '',
+    fk_policyholder_email: '',
+    fk_policyholder_mobile: '',
+    fk_county_id: '',
+    fk_city_id: '',
+    fk_policyholder_address: '',
+    checkedRead: '',
+  })
+
   //寄出表單
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
 
     const formData = new FormData(formRef.current)
-    const holderName = formData.get('policyholder_name')
-    const holderID = formData.get('policyholder_IDcard')
+    // const holderName = formData.get('policyholder_name')
+    // const holderID = formData.get('policyholder_IDcard')
+    // const holderBirthday = formData.get('policyholder_birthday')
+    // const holderEmail = formData.get('fk_policyholder_email')
+    // const holderMobile = formData.get('fk_policyholder_mobile')
+    // const holderCounty = formData.get('fk_county_id')
+    // const holderCity = formData.get('fk_city_id')
+    // const holderAddress = formData.get('fk_policyholder_address')
+
+    // 驗證表單資料
+    const schemaForm = z.object({
+      policyholder_name: z.string().min(2, { message: '姓名至少兩個字' }),
+      policyholder_IDcard: z
+        .string()
+        .refine(validatedID, { message: '請輸入正確的身份證字號' }),
+      policyholder_birthday: z.string().min(1, { message: '請填寫出生年月日' }),
+      fk_policyholder_email: z
+        .string()
+        .email({ message: '請填寫正確的電子郵件地址' }),
+      fk_policyholder_mobile: z
+        .string()
+        .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
+      fk_county_id: z.string().min(1, { message: '請選擇縣市' }),
+      fk_city_id: z.string().min(1, { message: '請選擇城市' }),
+      fk_policyholder_address: z.string().min(1, { message: '請填寫詳細地址' }),
+    })
+
+    const formDataObject = Object.fromEntries(formData.entries())
+    const result = schemaForm.safeParse(formDataObject)
 
     // 驗證身份證字號
-    if (!validatedID(holderID)) {
-      setIdError('請輸入正確的身份證字號')
+    // if (!validatedID(holderID)) {
+    //   setIdError('請輸入正確的身份證字號')
+    //   return
+    // } else {
+    //   setIdError('')
+    // }
+
+    if (!result.success) {
+      //顯示驗證錯誤
+      const newErrors = {}
+      result.error.issues.forEach((issue) => {
+        newErrors[issue.path[0]] = issue.message
+      })
+      setErrors(newErrors)
       return
-    } else {
-      setIdError('')
     }
 
     // 檢查"已審閱並了解貴公司所提供之上述須知及商品簡介"已勾選
     if (!checkedRead) {
-      alert('請勾選已審閱並了解貴公司所提供之上述須知及商品簡介')
+      setErrors((prev) => ({
+        ...prev,
+        checkedRead: '請勾選',
+      }))
       return
     }
 
+    setErrors({})
+
+    // if (result.success) {
     try {
-      // 收集所有表單數據
-      const petName = formData.get('pet_name')
-
       // 檢查必要欄位是否填寫
-      const missingFields = []
+      // const missingFields = []
 
-      if (!holderName) missingFields.push('要保人姓名')
-      if (!holderID) missingFields.push('身份證字號')
+      // if (!holderName) missingFields.push('要保人姓名')
+      // if (!holderID) missingFields.push('身份證字號')
+      // if (!holderBirthday) missingFields.push('出生年月日')
+      // if (!holderEmail) missingFields.push('Email')
+      // if (!holderMobile) missingFields.push('手機號碼')
+      // if (!holderCounty) missingFields.push('縣市')
+      // if (!holderCity) missingFields.push('區')
+      // if (!holderAddress) missingFields.push('地址')
 
-      if (missingFields.length > 0) {
-        throw new Error(`請填寫以下必要欄位：${missingFields.join(', ')}`)
-      }
+      // if (missingFields.length > 0) {
+      //   throw new Error(`請填寫以下必要欄位：${missingFields.join(', ')}`)
+      // }
 
       // 保存所有數據到 localStorage
-      // localStorage.setItem(
-      //   'holderBasicData',
-      //   JSON.stringify({
-      //     HolderName: ,
-      //     HolderID: holderID,
-      //     HolderBirthday: ,
-      //     HolderEmail: ,
-      //     HolderMobile: ,
-      //     HolderCounty: ,
-      //     HolderCity: ,
-      //     HodlerAddress: ,
-      //   }),
-      // )
+      localStorage.setItem('holderBasicData', JSON.stringify(formDataObject))
 
       // 成功提示
       alert('資料已成功保存，請繼續下一步驟')
       // 跳轉下一頁
-      router.push('/insurance/insurance-payment02')
+      router.push('/insurance/insurance-payment03')
     } catch (error) {
       console.error('保存失敗:', error)
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')
     }
   }
+
+  // 錯誤訊息組件
+  const ErrorMessage = ({ message }) =>
+    message ? (
+      <span style={{ color: 'red', marginLeft: '10px' }}>{message}</span>
+    ) : null
+
+  // 根據縣市過濾城市
+  useEffect(() => {
+    if (selectedCounty) {
+      const filtered = cities.filter(
+        (city) => city.fk_county_id === parseInt(selectedCounty),
+      )
+      setFilteredCities(filtered)
+    } else {
+      setFilteredCities([])
+    }
+  }, [selectedCounty])
+
   return (
     <>
       <Head>
@@ -113,6 +193,7 @@ function PiPayment02() {
           {/* 進度條 */}
           <ProgressBarCopy />
           <form
+            ref={formRef}
             onSubmit={handleSubmit}
             className="col-8 d-flex flex-column justify-content-center align-items-center"
           >
@@ -130,6 +211,7 @@ function PiPayment02() {
                         style={{ marginBottom: '11px' }}
                       >
                         要/被保險人姓名(寵物登記證記載之飼主)
+                        <ErrorMessage message={errors.policyholder_name} />
                       </h5>
                     </label>
                     <input
@@ -147,6 +229,7 @@ function PiPayment02() {
                         style={{ marginBottom: '11px' }}
                       >
                         身份證字號
+                        <ErrorMessage message={errors.policyholder_IDcard} />
                       </h5>
                     </label>
                     <input
@@ -165,12 +248,14 @@ function PiPayment02() {
                         style={{ marginBottom: '11px' }}
                       >
                         出生年月日
+                        <ErrorMessage message={errors.policyholder_birthday} />
                       </h5>
                     </label>
                     <input
                       className={styles['sheet-input']}
                       type="date"
-                      id="b2c_birth"
+                      id="policyholder_birthday"
+                      name="policyholder_birthday"
                       style={{ width: '50%' }}
                     />
                   </div>
@@ -181,12 +266,14 @@ function PiPayment02() {
                         style={{ marginBottom: '11px' }}
                       >
                         Email
+                        <ErrorMessage message={errors.fk_policyholder_email} />
                       </h5>
                     </label>
                     <input
                       className={styles['sheet-input']}
                       type="text"
-                      id="b2c_email"
+                      id="fk_policyholder_email"
+                      name="fk_policyholder_email"
                       style={{ width: '50%' }}
                     />
                   </div>
@@ -197,12 +284,14 @@ function PiPayment02() {
                         style={{ marginBottom: '11px' }}
                       >
                         手機號碼
+                        <ErrorMessage message={errors.fk_policyholder_mobile} />
                       </h5>
                     </label>
                     <input
                       className={styles['sheet-input']}
                       type="text"
-                      id="pb2c_mobile"
+                      id="fk_policyholder_mobile"
+                      name="fk_policyholder_mobile"
                       style={{ width: '50%' }}
                     />
                   </div>
@@ -213,6 +302,9 @@ function PiPayment02() {
                         style={{ marginBottom: '11px' }}
                       >
                         聯絡地址
+                        <ErrorMessage
+                          message={errors.fk_policyholder_address}
+                        />
                       </h5>
                     </label>
                   </div>
@@ -222,32 +314,37 @@ function PiPayment02() {
                       style={{ width: '49%' }}
                       id="fk_county_id"
                       name="fk_county_id"
-                      value={formData.fk_county_id}
-                      onChange={(e) => {
-                        handleChange(e)
-                        setFormData((prevData) => ({
-                          ...prevData,
-                          fk_city_id: '',
-                        })) // 重置城市
-                      }}
-                      required
+                      value={selectedCounty}
+                      onChange={(e) => setSelectedCounty(e.target.value)}
                     >
                       <option value="">請選擇縣市</option>
+                      {counties.map((county) => (
+                        <option key={county.value} value={county.value}>
+                          {county.label}
+                        </option>
+                      ))}
                     </select>
+
                     <select
                       className={styles['sheet-input']}
-                      type="text"
-                      id="fk_city_id"
                       style={{ width: '49%' }}
+                      id="fk_city_id"
+                      name="fk_city_id"
                     >
-                      <option value>2</option>
+                      <option value>請選擇行政區</option>
+                      {filteredCities.map((city) => (
+                        <option key={city.value} value={city.value}>
+                          {city.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <input
                     className={styles['sheet-input']}
                     style={{ marginTop: '.6875rem' }}
                     type="text"
-                    id="b2c_address"
+                    id="fk_policyholder_address"
+                    name="fk_policyholder_address"
                   />
                 </div>
               </div>
@@ -274,7 +371,8 @@ function PiPayment02() {
                   className="form-check-label ms-2"
                   htmlFor="flexCheckDefault6"
                 >
-                  <h5>本人已審閱並了解貴公司所提供須知及商品簡介 </h5>
+                  <h5>本人已審閱並了解貴公司所提供須知及商品簡介</h5>
+                  <ErrorMessage message={errors.checkedRead} />
                 </label>
               </div>
             </div>
@@ -288,12 +386,9 @@ function PiPayment02() {
                   >
                     <button className={styles['own-btn4']}>上一步</button>
                   </Link>
-                  <Link
-                    href="/insurance/insurance-payment03"
-                    className="text-decoration-none"
-                  >
-                    <button className={styles['own-btn4']}>下一步</button>
-                  </Link>
+                  <button className={styles['own-btn4']} type="submit">
+                    下一步
+                  </button>
                 </div>
               </div>
             </div>

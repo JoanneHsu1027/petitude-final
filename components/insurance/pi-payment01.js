@@ -106,9 +106,9 @@ function PiPayment01() {
         try {
           // 保存到 localStorage
           localStorage.setItem('petPhoto', base64String)
-          // setMessage('圖片已成功保存')
+          setMessage('照片已成功上傳')
         } catch (e) {
-          setMessage('保存圖片失敗, 可能是超出 5MB 限制')
+          setMessage('上傳照片失敗, 可能是超出 5MB 限制')
         }
       }
       reader.readAsDataURL(selectedImg)
@@ -130,8 +130,8 @@ function PiPayment01() {
   const formRef = useRef(null)
 
   //寄出表單
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
     const formData = new FormData(formRef.current)
     const petChip = formData.get('pet_chip')
 
@@ -352,6 +352,7 @@ function PiPayment01() {
                   <button
                     className={`${styles['own-btn2']} border-0`}
                     style={{ width: '50%' }}
+                    type="button"
                     onClick={handleImageUpload}
                   >
                     上傳寵物大頭照
