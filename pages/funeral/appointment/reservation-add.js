@@ -22,8 +22,13 @@ export default function RvEdit() {
   })
 
   const onChange = (e) => {
-    console.log(e.target.name, e.target.value)
-
+    const { name, value } = e.target
+    if (name === 'reservation_date') {
+      const formattedDate = new Date(value).toISOString()
+      setMyForm({ ...myForm, [name]: formattedDate })
+    } else {
+      setMyForm({ ...myForm, [name]: value })
+    }
     // 做表單的驗證
     /*
         const schemaEmail = z.string().email({ message: "請填寫正確的電郵格式" });
