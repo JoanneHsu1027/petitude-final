@@ -4,17 +4,40 @@ import { useRouter } from 'next/router'
 import styles from '@/styles/estore/bookingList.module.css'
 import axios from 'axios'
 import swal from 'sweetalert2'
+import { useCart } from '@/contexts/estore/CartContext'
+import { z } from 'zod'
 import { RequestList } from '@/configs/estore/api-path'
 
 export default function BookingList() {
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(false)
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
   const router = useRouter()
-  const [selectedBillMethod, setSelectedBillMethod] = useState(false)
+  const [selectedBillMethod, setSelectedBillMethod] = useState('')
   const [cartItems, setCartItems] = useState([])
   const [counties, setCounties] = useState([])
   const [cities, setCities] = useState([])
   const [selectedCounty, setSelectedCounty] = useState('')
   const [selectedCity, setSelectedCity] = useState('')
+
+  const [formData, setFormData] = useState({
+    paymentMethod: '',
+    creditCardNumber: '',
+    expiryDate: '',
+    cvv: '',
+    buyerName: '',
+    mobile: '',
+    telephone: '',
+    countyId: '',
+    cityId: '',
+    address: '',
+    billMethod: '',
+    billNumber: '',
+  })
+  const [formDataErrors, setFormDataErrors] = useState({
+    buyerName: '',
+    mobile: '',
+  })
+
+  const { clearCart } = useCart()
 
   useEffect(() => {
     // 從 localStorage 讀取購物車資料
@@ -89,30 +112,60 @@ export default function BookingList() {
     })
   }
 
-  // 讀取結帳資料
-  const [formData, setFormData] = useState({
-    paymentMethod: '',
-    creditCardNumber: '',
-    expiryDate: '',
-    cvv: '',
-    buyerName: '',
-    mobile: '',
-    telephone: '',
-    county: '',
-    city: '',
-    address: '',
-    billMethod: '',
-    billNumber: '',
+  const schemaForm = z.object({
+    buyerName: z.string().min(2, { message: '姓名至少兩個字' }),
+    mobile: z.string().regex(/^09\d{8}$/, { message: '請填寫正確的手機格式' }),
   })
 
   const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    })
+    const { id, value } = e.target
+    console.log(id, value)
+
+    const newForm = { ...formData, [id]: value }
+    setFormData(newForm)
+
+    // 重置 formDataErrors
+    const newFormErrors = {
+      buyerName: '',
+      mobile: '',
+    }
+
+    const result = schemaForm.safeParse(newForm)
+    console.log(JSON.stringify(result, null, 4))
+
+    if (!result.success && result?.error?.issues?.length) {
+      for (let issue of result.error.issues) {
+        newFormErrors[issue.path[0]] = issue.message
+      }
+    }
+    setFormDataErrors(newFormErrors)
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    // 進行全面驗證
+    const result = schemaForm.safeParse(formData)
+
+    if (!result.success) {
+      const newFormErrors = {
+        buyerName: '',
+        mobile: '',
+      }
+      for (let issue of result.error.issues) {
+        newFormErrors[issue.path[0]] = issue.message
+      }
+      setFormDataErrors(newFormErrors)
+
+      swal.fire({
+        icon: 'error',
+        title: '表單驗證失敗',
+        text: '請檢查並修正錯誤的欄位',
+      })
+      return // 阻止表單提交
+    }
+
+    // 如果驗證通過，繼續原有的提交邏輯
     try {
       const storedCart = JSON.parse(
         localStorage.getItem('joannesshoppingcart') || '[]',
@@ -120,46 +173,53 @@ export default function BookingList() {
 
       const dataToSend = {
         ...formData,
-        countyId: formData.countyId,
-        cityId: formData.cityId,
         cartItems: storedCart,
       }
 
-      const response = await axios.post(
-        'http://localhost:3001/product/cartCheckout',
-        dataToSend,
-      )
+      // 首先發送到 /ecpay 路由
 
-      if (response.data.success) {
-        localStorage.setItem('joannesshoppingcart', '')
-        swal
-          .fire({
-            icon: 'success',
-            html: `
-            訂單已成功建立
-          `,
-            showCancelButton: true,
-            focusConfirm: false,
-            confirmButtonText: `
-            回首頁
-          `,
-            cancelButtonText: `
-            回商品列表
-          `,
-          })
-          .then((result) => {
-            if (result.isConfirm) {
-              router.push('/')
-            } else {
-              router.push('/estore/')
-            }
-          })
+      const ecpayResponse = await axios.get(
+        `http://localhost:3001/ecpay?${new URLSearchParams({ ...dataToSend, amount: totalPrice })}`, // 移除 ?amount
+        // 在請求體中傳遞 amount
+      )
+      console.log(ecpayResponse)
+      if (ecpayResponse.data.htmlContent) {
+        const tempDiv = document.createElement('div')
+        tempDiv.innerHTML = ecpayResponse.data.htmlContent
+        const form = tempDiv.querySelector('form')
+        if (form) {
+          document.body.appendChild(form)
+          form.submit()
+          // 清空localStorage
+          localStorage.removeItem('joannesshoppingcart')
+          // 清空Context中的購物車
+          clearCart()
+        } else {
+          console.error('找不到支付表單')
+        }
       } else {
-        console.error('Checkout failed:', response.data.error)
-        // 處理錯誤
+        console.error('無效的回應格式')
       }
+
+      // 顯示成功消息並導航
+      // swal
+      //   .fire({
+      //     icon: 'success',
+      //     html: `訂單已成功建立`,
+      //     showCancelButton: true,
+      //     focusConfirm: false,
+      //     confirmButtonText: `回首頁`,
+      //     cancelButtonText: `回商品列表`,
+      //   })
+      //   .then((result) => {
+      //     if (result.isConfirm) {
+      //       router.push('/')
+      //     } else {
+      //       router.push('/estore/')
+      //     }
+      //   })
     } catch (error) {
-      console.error('Error during checkout:', error)
+      console.error('發生錯誤:', error)
       // 處理錯誤
     }
   }
@@ -301,10 +361,17 @@ export default function BookingList() {
                     </label>
                     <input
                       type="text"
-                      className="form-control rounded-pill"
+                      className={`form-control rounded-pill ${formDataErrors.buyerName ? 'is-invalid' : ''}`}
                       id="buyerName"
                       placeholder="姓名"
+                      value={formData.buyerName}
+                      onChange={handleInputChange}
                     />
+                    {formDataErrors.buyerName && (
+                      <div className="invalid-feedback">
+                        {formDataErrors.buyerName}
+                      </div>
+                    )}
                   </div>
                   {/* <!-- 手機 --> */}
                   <div className="col-md-6">
@@ -313,10 +380,17 @@ export default function BookingList() {
                     </label>
                     <input
                       type="text"
-                      className="form-control rounded-pill"
+                      className={`form-control rounded-pill ${formDataErrors.mobile ? 'is-invalid' : ''}`}
                       id="mobile"
                       placeholder="手機"
+                      value={formData.mobile}
+                      onChange={handleInputChange}
                     />
+                    {formDataErrors.mobile && (
+                      <div className="invalid-feedback">
+                        {formDataErrors.mobile}
+                      </div>
+                    )}
                   </div>
                   {/* <!-- 市話 --> */}
                   <div className="col-md-6">
