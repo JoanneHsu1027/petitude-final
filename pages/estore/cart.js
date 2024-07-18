@@ -1,12 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from 'react'
-import Layout from '../../components/layout/layout'
+import Layout from '@/components/layout/layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import styles from '../../styles/estore/cart.module.css'
+import styles from '@/styles/estore/cart.module.css'
 import styles2 from '@/styles/estore/product.module.css'
 import { useCart } from '@/contexts/estore/CartContext'
+import { useCart1 } from '@/contexts/funeral/CartContext1'
 import swal from 'sweetalert2'
+
 export default function CartPage() {
   // 商城功能
   const { cartItems, updateCartItemQuantity, removeCartItem } = useCart()
@@ -29,6 +31,12 @@ export default function CartPage() {
   }
   // 商城功能
   // 生命禮儀功能
+
+  const { cartProjects, removeProject } = useCart1()
+
+  if (!cartProjects) {
+    return <div>Loading...</div>
+  }
 
   // 生命禮儀功能
 
@@ -262,157 +270,130 @@ export default function CartPage() {
             </div>
             {/* 網路商城 end */}
 
-            {/* 原料 start */}
+            {/* 生前契約 start */}
             <div
-              className="tab-pane fade fs-5"
+              className="tab-pane fade show active fs-5"
               id="s2"
               role="tabpanel"
               aria-labelledby="profile-tab"
             >
-              <div>
-                <div
-                  className={`container-fluid d-flex justify-content-center ${styles.alldetail}`}
-                >
-                  <div className={`col-12 ${styles.cartdetail}`}>
-                    <div className={`row ${styles.cartName}`}>
-                      <div
-                        className="col-12 text-center"
-                        style={{ color: '#6A513D' }}
-                      >
-                        <p className="fs-2">購物車</p>
-                      </div>
+              <div
+                className={`container-fluid d-flex justify-content-center ${styles.alldetail}`}
+              >
+                <div className={`col-12 ${styles.cartdetail}`}>
+                  <div className={`row ${styles.cartName}`}>
+                    <div
+                      className="col-12 text-center"
+                      style={{ color: '#6A513D' }}
+                    >
+                      <p className="fs-2">生前契約購物車</p>
                     </div>
-                    {/* <!-- 商品區 --> */}
-                    {/* <!-- 細項 --> */}
-                    <div className="d-none d-md-block">
-                      {/* <!-- Desktop layout --> */}
-                      <div className="row align-items-center bd-highlight mb-3">
-                        <div
-                          className="col-3 col-md-3"
-                          style={{ width: 'auto' }}
-                        >
-                          <img
-                            src="/estore/狗.png"
-                            alt="..."
-                            className={styles.productImage}
-                          />
-                        </div>
-                        <div
-                          className="col-6 col-md-4"
-                          style={{ width: 'auto' }}
-                        >
-                          <div className={`${styles.productName} fs-4`}>
-                            希爾思寵物食品
-                          </div>
-                        </div>
-                        <div
-                          className="col-3 col-md-3"
-                          style={{ width: 'auto' }}
-                        >
-                          <div className="input-group justify-content-center">
-                            <div className="input-group-prepend">
-                              <button
-                                className={`btn ${styles.quantitySelector1}`}
-                              >
-                                -
-                              </button>
-                            </div>
-                            <input
-                              type="text"
-                              className={`form-control text-center ${styles.quantity}`}
-                              value="1"
-                              style={{ maxWidth: 40 + 'px' }}
+                  </div>
+                  {/* 方案區 */}
+                  {cartProjects.map((project, i) => (
+                    <div key={project.project_id}>
+                      <div className="d-none d-md-block">
+                        {/* Desktop layout */}
+                        <div className="row align-items-center bd-highlight mb-3">
+                          <div
+                            className="col-3 col-md-3"
+                            style={{ width: 'auto' }}
+                          >
+                            <img
+                              src={`http://localhost:3001/project/${project.project_id}.png`}
+                              alt="..."
+                              className={styles.productImage}
                             />
-                            <div className="input-group-append">
-                              <button
-                                className={`btn ${styles.quantitySelector2}`}
-                              >
-                                +
-                              </button>
+                          </div>
+                          <div
+                            className="col-6 col-md-4"
+                            style={{ width: 'auto' }}
+                          >
+                            <div className={`${styles.productName} fs-4`}>
+                              {project.project_name}
                             </div>
                           </div>
-                        </div>
-                        <div
-                          className={`col-12 col-md-3 ${styles.cash} ms-auto`}
-                        >
-                          <div className={styles.productPrice}>
-                            <p className="fs-4 text-end m-0">$ 1,680</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="d-md-none">
-                      {/* <!-- Mobile layout --> */}
-                      <div className="row align-items-center mb-3">
-                        <div className="col-3">
-                          <img
-                            src="/estore/狗.png"
-                            alt="..."
-                            className={styles.productImage}
-                          />
-                        </div>
-                        <div className="col-9">
-                          <div className="row">
-                            <div className="col-12">
-                              <div className={styles.productName}>
-                                希爾思寵物食品
-                              </div>
+                          <div
+                            className={`col-12 col-md-3 ${styles.cash} ms-auto`}
+                          >
+                            <div className={styles.productPrice}>
+                              <p className="fs-4 text-end m-0">
+                                $ {project.project_price}
+                              </p>
                             </div>
-                            <div
-                              className={`col-12 ${styles.quantityPriceContainer} mt-2`}
+                          </div>
+                          <div className="col-1">
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => removeProject(project.project_id)}
                             >
-                              <div className="input-group justify-content-start">
-                                <div className="input-group-prepend">
-                                  <button
-                                    className={`btn ${styles.quantitySelector1}`}
-                                  >
-                                    -
-                                  </button>
-                                </div>
-                                <input
-                                  type="text"
-                                  className={`form-control text-center ${styles.quantity}`}
-                                  value="1"
-                                  style={{ maxWidth: 40 + 'px' }}
-                                />
-                                <div className="input-group-append">
-                                  <button
-                                    className={`btn ${styles.quantitySelector2}`}
-                                  >
-                                    +
-                                  </button>
+                              刪除
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="d-md-none">
+                        {/* Mobile layout */}
+                        <div className="row align-items-center mb-3">
+                          <div className="col-3">
+                            <img
+                              src="/funeral/index_n5.png"
+                              alt="..."
+                              className={styles.productImage}
+                            />
+                          </div>
+                          <div className="col-9">
+                            <div className="row">
+                              <div className="col-12">
+                                <div className={styles.productName}>
+                                  {project.project_name}
                                 </div>
                               </div>
-                              <div className={styles.productPrice}>$1,680</div>
+                              <div
+                                className={`col-12 ${styles.quantityPriceContainer} mt-2`}
+                              >
+                                <div className={styles.productPrice}>
+                                  ${project.project_price}
+                                </div>
+                              </div>
                             </div>
+                          </div>
+                          <div className="col-12 mt-2">
+                            <button
+                              className="btn btn-danger btn-sm"
+                              onClick={() => removeProject(project.project_id)}
+                            >
+                              刪除
+                            </button>
                           </div>
                         </div>
                       </div>
                     </div>
-                    {/* <!-- 細項 --> */}
-                    {/* <!-- 商品區 --> */}
-                    <hr className={styles.line} />
-                    <div className="row">
-                      <div className={`col-12 ${styles.total}`}>
-                        <p className="fs-4">總價</p>
-                      </div>
-                      <div className={`col-12 ${styles.total}`}>
-                        <p className="fs-4">$6,400</p>
-                      </div>
-                      <div className={`col-12 ${styles.total2}`}>
-                        <button
-                          type="button"
-                          className={`btn ${styles.checkBtn}`}
-                        >
-                          前往結帳
-                        </button>
-                      </div>
+                  ))}
+                  <hr className={styles.line} />
+                  <div className="row">
+                    <div className={`col-12 ${styles.funeralTotal}`}>
+                      <p className="fs-4">總價</p>
+                    </div>
+                    <div className={`col-12 ${styles.funeralTotal}`}>
+                      <p className="fs-4">${cartProjects.project_price}</p>
+                    </div>
+                    <div className={`col-12 ${styles.funeralTotal}`}>
+                      <button
+                        type="button"
+                        className={`btn ${styles.checkBtn}`}
+                        onClick={() =>
+                          router.push('/funeral/funeral/booking-list')
+                        }
+                      >
+                        前往結帳
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            {/* 原料 end */}
+            {/* 生前契約 end */}
           </div>
         </div>
       </main>

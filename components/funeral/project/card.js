@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { PJ_LIST } from '@/configs/funeral/api-path'
 import axios from 'axios'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import { useCart } from '@/contexts/estore/CartContext'
+import { useCart1 } from '@/contexts/funeral//CartContext1'
 import swal from 'sweetalert2'
 
 export default function Card() {
@@ -47,13 +47,13 @@ export default function Card() {
       fetchData()
     }
   }, [])
+  // 這個addToCarts在CartContext裡面
+  const { addToCarts } = useCart1()
 
-  const { addToCart } = useCart()
-
-  const handleAddItem = (event, product) => {
+  const handleAddItem = (event, project) => {
     event.preventDefault()
     event.stopPropagation()
-    addToCart(product)
+    addToCarts(project)
   }
 
   return (
@@ -65,7 +65,7 @@ export default function Card() {
               {/* 引入後端public圖片 */}
               <img
                 className={Styles.cardImage}
-                src={`http://localhost:3001//project/${card.project_id}.png`}
+                src={`http://localhost:3001/project/${card.project_id}.png`}
                 alt=""
               />
               <div className={Styles.cardContent}>
@@ -138,7 +138,6 @@ export default function Card() {
                     選擇方案
                   </button>
                   <button
-                    type="button"
                     className={`btnPlan1 btn btn-warning ${Styles.btnPlan1}`}
                     onClick={(e) => {
                       handleAddItem(e, card)
@@ -149,7 +148,7 @@ export default function Card() {
                       )
                     }}
                   >
-                    加入購物車
+                    <i className="bi bi-bag-fill cartItem"></i>
                   </button>
                 </div>
               </div>
