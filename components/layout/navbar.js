@@ -190,6 +190,11 @@ export default function Navbar({ pageName = '' }) {
                   </a>
                 </li>
               )}
+              <li className="nav-item">
+                <Link className="nav-link" href="/estore/cart">
+                  <i className="bi bi-bag-fill cartItem"></i>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
