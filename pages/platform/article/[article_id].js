@@ -77,6 +77,7 @@ export default function ArticleId() {
                                 </p>
                               </div>
                               <a
+                                href={`../edit-article/${router.query.article_id}`}
                                 className={`${styles.AReset} ${styles.LightGray}`}
                               >
                                 <BsFillPencilFill

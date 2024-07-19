@@ -43,8 +43,8 @@ export default function EditArticle() {
 
       console.log('Submitting form data:', formData)
 
-      const r = await fetch(ARTICLE, {
-        method: 'POST',
+      const r = await fetch(`${ARTICLE}/${router.query.article_id}`, {
+        method: 'PUT',
         body: formData,
       })
 
@@ -71,7 +71,7 @@ export default function EditArticle() {
         if (result.success) {
           setMyForm(result.data)
         } else {
-          router.push('/article') // 跳回列表頁
+          router.push('../article') // 跳回列表頁
         }
       })
       .catch((ex) => {})
