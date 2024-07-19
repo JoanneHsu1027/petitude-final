@@ -191,7 +191,20 @@ export default function TrialCalculation() {
                       每次門診費用
                     </p>
                   </td>
-                  <td></td>
+                  <td>
+                    <div
+                      className="d-flex justify-content-center"
+                      style={{ marginTop: '1rem' }}
+                    >
+                      <p className={styles[`text-color`]}>一年最高</p>
+                      <h5 style={{ color: '#4CB1C8' }}>1</h5>
+                      <p>次</p>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                      <p>每次最高</p>
+                      <h5 style={{ color: 'red' }}>$1,000</h5>
+                    </div>
+                  </td>
                   <td>
                     <div
                       className="d-flex justify-content-center"

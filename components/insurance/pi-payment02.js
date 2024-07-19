@@ -58,7 +58,7 @@ function PiPayment02() {
     fk_county_id: '',
     fk_city_id: '',
     fk_policyholder_address: '',
-    checkedRead: '',
+    // checkedRead: '',
   })
 
   //寄出表單
@@ -99,15 +99,15 @@ function PiPayment02() {
     }
 
     // 檢查"已審閱並了解貴公司所提供之上述須知及商品簡介"已勾選
-    if (!checkedRead) {
-      setErrors((prev) => ({
-        ...prev,
-        checkedRead: '請勾選',
-      }))
-      return
-    }
+    // if (!checkedRead) {
+    //   setErrors((prev) => ({
+    //     ...prev,
+    //     checkedRead: '請勾選',
+    //   }))
+    //   return
+    // }
 
-    setErrors({})
+    // setErrors({})
 
     try {
       // 保存所有數據到 localStorage
@@ -308,7 +308,7 @@ function PiPayment02() {
               </div>
             </div>
             {/* 確認同意 */}
-            <div className="col-12">
+            {/* <div className="col-12">
               <div
                 className="form-check d-flex align-items-start my-3"
                 style={{ margin: 0, padding: 0 }}
@@ -333,9 +333,9 @@ function PiPayment02() {
                   <ErrorMessage message={errors.checkedRead} />
                 </label>
               </div>
-            </div>
+            </div> */}
             {/* 下一步 */}
-            <div className="col-12">
+            <div className="col-12 mt-4">
               <div>
                 <div className="d-flex justify-content-center align-items-center">
                   <Link
