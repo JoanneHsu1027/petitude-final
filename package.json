@@ -2,7 +2,6 @@
   "name": "petitude-project",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,8 +12,6 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "font-awesome": "^4.7.0",
-    "font-awesome-icons": "^1.6.0",
     "jquery": "^3.7.1",
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.45",
