@@ -47,9 +47,7 @@ function PiPayment03() {
 
   // 錯誤訊息組件
   const ErrorMessage = ({ message }) =>
-    message ? (
-      <span style={{ color: 'red', marginLeft: '10px' }}>{message}</span>
-    ) : null
+    message ? <span style={{ color: 'red' }}>{message}</span> : null
 
   //寄出表單
   const handleSubmit = (e) => {
@@ -61,7 +59,7 @@ function PiPayment03() {
     if (!checkedRead) {
       setErrors((prev) => ({
         ...prev,
-        checkedRead: '請勾選',
+        checkedRead: '請勾選後才能進行下一步',
       }))
       return
     }
@@ -120,7 +118,7 @@ function PiPayment03() {
     }
 
     const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
-    if (selectedPlan && selectedPlan.type) {
+    if (selectedPlan) {
       setPlanType(selectedPlan.type) // 保險品名
       setPlanPrice(selectedPlan.price) // 保險價格
     }
