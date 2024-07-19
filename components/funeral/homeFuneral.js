@@ -3,11 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useRouter } from 'next/router'
 import MemorialPage from '@/components/funeral/cloud'
 
-
 export default function HomePage() {
   const router = useRouter()
   const handleRouter = () => {
-    router.push('/funeral')
+    router.push('/funeral/funeral')
   }
 
   return (
