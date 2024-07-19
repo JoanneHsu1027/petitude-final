@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Layout from '@/components/layout/layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -10,6 +11,7 @@ import { useCart1 } from '@/contexts/funeral/CartContext1'
 import swal from 'sweetalert2'
 
 export default function CartPage() {
+  const router = useRouter()
   // 商城功能
   const { cartItems, updateCartItemQuantity, removeCartItem } = useCart()
 
@@ -43,8 +45,8 @@ export default function CartPage() {
     const items = cartProjects.find((items) => items.project_id === idx)
     if (items) {
       swal.fire('刪除!', `${items.project_name} 已被刪除!`, 'success')
-      // 更新 cartProjects 的状态
-      removeCartProject(idx) // 调用 removeCartProject 来移除项目
+      // 更新 cartProjects 的狀態
+      removeCartProject(idx) // 用 removeCartProject 来刪除項目
     }
   }
   // 生命禮儀功能
