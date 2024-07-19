@@ -42,14 +42,16 @@ export const JWT_LOGIN_POST = `${API_SERVER}/login-jwt`
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // Booking(訂購)
-// export const BOOKING_LIST = `${API_SERVER}/booking/api`
+export const BOOKING_LIST = `${API_SERVER}/booking/api`
 // export const BOOKING_ADD_POST = `${API_SERVER}/booking/add`
 
-// // `${API_SERVER}/booking/api/${booking_id}`, method: DELETE
+// `${API_SERVER}/booking/api/${booking_id}`, method: DELETE
 // export const BOOKING_ITEM_DELETE = `${API_SERVER}/booking/api`
 
-// // `${API_SERVER}/booking/api/${booking_id}`, method: GET, 取得單筆資料
+// `${API_SERVER}/booking/api/${booking_id}`, method: GET, 取得單筆資料
 // export const BOOKING_GET_ITEM = `${API_SERVER}/booking/api`
 
-// // `${API_SERVER}/booking/api/${booking_id}`, method: PUT, 修改單筆資料
+// `${API_SERVER}/booking/api/${booking_id}`, method: PUT, 修改單筆資料
 // export const BOOKING_UPDATE_PUT = `${API_SERVER}/booking/api`
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+export const RL = `${API_SERVER}/project/cartCheckout1`

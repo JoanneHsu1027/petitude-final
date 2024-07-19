@@ -111,7 +111,7 @@ export default function Environment() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
-                style={{ margin: '20px', width: '700px', height: '400px' }}
+                style={{ margin: '20px', width: '900px', height: '500px' }}
               ></iframe>
             </div>
           </div>
@@ -125,7 +125,6 @@ export default function Environment() {
                 style={{ marginRight: '10px', marginTop: '10px' }}
               >
                 {pic.alt}
-                <i className="bi bi-triangle-fill"></i>
               </button>
             ))}
           </p>

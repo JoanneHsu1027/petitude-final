@@ -4,6 +4,8 @@ import { useRouter } from 'next/router'
 import { PJ_LIST } from '@/configs/funeral/api-path'
 import axios from 'axios'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import { useCart1 } from '@/contexts/funeral//CartContext1'
+import swal from 'sweetalert2'
 
 export default function Card() {
   const router = useRouter()
@@ -15,9 +17,14 @@ export default function Card() {
   })
 
   const fetchData = async () => {
+    const page = router.query.page || 1
     try {
       setData((prevData) => ({ ...prevData, success: false }))
-      const res = await axios.get(PJ_LIST)
+      const res = await axios.get(PJ_LIST, {
+        params: {
+          page: page,
+        },
+      })
       const myData = res.data
       console.log('Received data:', myData)
       if (myData.success) {
@@ -27,6 +34,10 @@ export default function Card() {
       }
     } catch (error) {
       console.error('Failed to fetch data:', error)
+      if (error.response) {
+        console.error('Response data:', error.response.data)
+        console.error('Response status:', error.response.status)
+      }
       setData((prevData) => ({ ...prevData, success: false }))
     }
   }
@@ -35,12 +46,20 @@ export default function Card() {
     if (router.isReady) {
       fetchData()
     }
-  }, [router.isReady])
+  }, [])
+  // 這個addToCarts在CartContext裡面
+  const { addToCarts } = useCart1()
+
+  const handleAddItem = (event, project) => {
+    event.preventDefault()
+    event.stopPropagation()
+    addToCarts(project)
+  }
 
   return (
     <div title="生前契約" pageName="project-list">
       <div className="row">
-        {data.rows.map((card, i) => (
+        {data.rows.map((card) => (
           <div className="col-md-4 text-center p-2" key={card.project_id}>
             <div className={Styles.card}>
               {/* 引入後端public圖片 */}
@@ -119,11 +138,17 @@ export default function Card() {
                     選擇方案
                   </button>
                   <button
-                    type="button"
                     className={`btnPlan1 btn btn-warning ${Styles.btnPlan1}`}
-                    onClick={() => router.push('/funeral/funeral/cart')}
+                    onClick={(e) => {
+                      handleAddItem(e, card)
+                      swal.fire(
+                        '已加入!',
+                        `${card.project_name} 已被加入購物車!`,
+                        'success',
+                      )
+                    }}
                   >
-                    加入購物車
+                    <i className="bi bi-bag-fill cartItem"></i>
                   </button>
                 </div>
               </div>

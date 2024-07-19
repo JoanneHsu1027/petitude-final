@@ -22,8 +22,13 @@ export default function RvEdit() {
   })
 
   const onChange = (e) => {
-    console.log(e.target.name, e.target.value)
-
+    const { name, value } = e.target
+    if (name === 'reservation_date') {
+      const formattedDate = new Date(value).toISOString()
+      setMyForm({ ...myForm, [name]: formattedDate })
+    } else {
+      setMyForm({ ...myForm, [name]: value })
+    }
     // 做表單的驗證
     /*
         const schemaEmail = z.string().email({ message: "請填寫正確的電郵格式" });
@@ -84,7 +89,7 @@ export default function RvEdit() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    console.log('Submitting form to:', RV_ADD_POST) // 調試用
+    console.log('Submitting form to:', RV_ADD_POST)
     // 如果表單驗證有通過的話
     try {
       const r = await fetch(RV_ADD_POST, {
@@ -97,7 +102,7 @@ export default function RvEdit() {
       const result = await r.json()
       console.log(result)
       if (result.success) {
-        router.push(`/reservation-form`) // 跳頁
+        router.push(`/funeral/`) // 跳頁
       } else {
         console.log('Form submission failed:', result)
       }
@@ -221,6 +226,7 @@ export default function RvEdit() {
                   value={myForm.fk_b2c_id}
                   onChange={onChange}
                 />
+
                 <div className="form-text"></div>
               </div>
 
@@ -229,7 +235,7 @@ export default function RvEdit() {
                   預約日期
                 </label>
                 <input
-                  type="date"
+                  type="datetime-local"
                   className="form-control"
                   id="date"
                   name="reservation_date"
@@ -316,9 +322,9 @@ export default function RvEdit() {
                 <div className="modal-footer d-flex justify-content-center ">
                   <button
                     className="btn btn-warning"
-                    data-bs-target="#exampleModalToggle"
+                    data-bs-target="#exampleModalToggle2"
                     data-bs-toggle="modal"
-                    onClick={() => setShowModal(true)}
+                    onClick={() => router.push('/funeral')}
                     style={{
                       width: '100%',
                       backgroundColor: 'orange',
@@ -344,7 +350,7 @@ export default function RvEdit() {
         src="/funeral/dog2.png"
         alt=""
         style={{
-          bottom: '-27px',
+          bottom: '-90px',
           width: '100px',
           right: '0px',
           overflow: 'hidden',
