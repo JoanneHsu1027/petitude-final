@@ -1,9 +1,12 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/contexts/member/auth-context'
+import swal from 'sweetalert2'
 
 export default function AppointmentService() {
   const router = useRouter()
+  const { auth } = useAuth()
 
   const handleButtonClick = () => {
     router.push('/funeral/appointment/reservation-add')
@@ -118,7 +121,16 @@ export default function AppointmentService() {
               </div>
               <button
                 className="btn btn-warning"
-                onClick={handleButtonClick}
+                onClick={() => {
+                  if (!auth.b2c_id) {
+                    swal.fire({
+                      text: '請先登入會員！',
+                      icon: 'error',
+                    })
+                  } else {
+                    router.push('/funeral')
+                  }
+                }}
                 style={{
                   backgroundColor: '#6a513d',
                   color: '#fff5cf',
