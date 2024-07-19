@@ -51,6 +51,14 @@ export function CartProvider({ children }) {
     })
   }
 
+  const clearCart = () => {
+    // 清空localStorage
+    localStorage.removeItem(cartkey)
+
+    // 重置Context中的cartItems狀態
+    setCartItems([])
+  }
+
   // 當用戶重刷頁面時，從 localStorage 載入狀態
   useEffect(() => {
     const str = localStorage.getItem(cartkey)
@@ -67,7 +75,13 @@ export function CartProvider({ children }) {
   }, [])
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, updateCartItemQuantity, removeCartItem }}
+      value={{
+        cartItems,
+        addToCart,
+        updateCartItemQuantity,
+        removeCartItem,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>
