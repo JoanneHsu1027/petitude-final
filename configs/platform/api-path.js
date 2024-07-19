@@ -1,8 +1,9 @@
 export const API_SERVER = 'http://localhost:3001'
 
-//class
+//class list
 export const CLASS = `${API_SERVER}/class/api`
-//article
+
+//article list
 export const ARTICLE = `${API_SERVER}/article/api`
 
 //article page
