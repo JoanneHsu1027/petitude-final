@@ -53,3 +53,5 @@ export const BOOKING_LIST = `${API_SERVER}/booking/api`
 
 // `${API_SERVER}/booking/api/${booking_id}`, method: PUT, 修改單筆資料
 // export const BOOKING_UPDATE_PUT = `${API_SERVER}/booking/api`
+// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+export const RL = `${API_SERVER}/project/cartCheckout1`
