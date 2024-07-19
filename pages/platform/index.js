@@ -2,8 +2,8 @@ import React from 'react'
 import Layout from '@/components/layout/layout'
 import styles from '../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
-import NewsSection from '../../components/platform/index-page/news-section'
-import LostSection from '../../components/platform/index-page/lost-section'
+// import NewsSection from '../../components/platform/index-page/news-section'
+// import LostSection from '../../components/platform/index-page/lost-section'
 import ClassSection from '../../components/platform/index-page/class-section'
 
 export default function platform() {
@@ -16,8 +16,8 @@ export default function platform() {
               <SideBarPc></SideBarPc>
               {/* section 這裡開始 */}
               <div className="col-xl-9 col-lg-12">
-                <NewsSection></NewsSection>
-                <LostSection></LostSection>
+                {/* <NewsSection></NewsSection>
+                <LostSection></LostSection> */}
                 <ClassSection></ClassSection>
               </div>
               {/* section 這裡結束 */}

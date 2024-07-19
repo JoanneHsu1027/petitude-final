@@ -32,7 +32,7 @@ export default function SimpleSlider() {
   return (
     <>
       <div className="container-fluid">
-        <div className="row">
+        {/* <div className="row">
           <div className="col-lg-12 p-0">
             <Slider {...settings}>
               <div>
@@ -61,9 +61,8 @@ export default function SimpleSlider() {
               </div>
             </Slider>
           </div>
-        </div>
+        </div> */}
       </div>
-      <style jsx>{``}</style>
     </>
   )
 }
