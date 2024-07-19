@@ -6,11 +6,15 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../styles/estore/cart.module.css'
 import styles2 from '@/styles/estore/product.module.css'
 import { useCart } from '@/contexts/estore/CartContext'
+import { useAuth } from '@/contexts/member/auth-context'
 import swal from 'sweetalert2'
 import { useRouter } from 'next/router'
+import LoginModel from '@/components/member/LoginModal'
 
 export default function CartPage() {
   const router = useRouter()
+  const { auth } = useAuth()
+
   // 商城功能
   const { cartItems, updateCartItemQuantity, removeCartItem } = useCart()
 
@@ -254,7 +258,16 @@ export default function CartPage() {
                         <button
                           type="button"
                           className={`btn ${styles.checkBtn}`}
-                          onClick={() => router.push('/estore/booking-list')}
+                          onClick={() => {
+                            if (!auth.b2c_id) {
+                              swal.fire({
+                                text: '請先登入會員！',
+                                icon: 'error',
+                              })
+                            } else {
+                              router.push('/estore/booking-list')
+                            }
+                          }}
                         >
                           前往結帳
                         </button>
