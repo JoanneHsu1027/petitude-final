@@ -1,18 +1,24 @@
-// components/member/LoginModal.js
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import LoginForm from './LoginForm'
+import SignupForm from './SignupForm'
 
-const LoginModal = ({ onClose, onLogin }) => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' })
+const Modal = ({ onClose, onLoginSuccess }) => {
+  const [isLogin, setIsLogin] = useState(true)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setCredentials((prev) => ({ ...prev, [name]: value }))
-  }
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+    document.addEventListener('keydown', handleEscape)
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [onClose])
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    await onLogin(credentials)
-  }
+  const switchToSignup = () => setIsLogin(false)
+  const switchToLogin = () => setIsLogin(true)
 
   return (
     <div
@@ -26,7 +32,25 @@ const LoginModal = ({ onClose, onLogin }) => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              登入
+              <button
+                type="button"
+                className={`btn btn-link ${isLogin ? 'active' : ''}`}
+                onClick={switchToLogin}
+                disabled={isLogin}
+                style={{ textDecoration: 'none' }}
+              >
+                登入
+              </button>
+
+              <button
+                type="button"
+                className={`btn btn-link ${!isLogin ? 'active' : ''}`}
+                onClick={switchToSignup}
+                disabled={!isLogin}
+                style={{ textDecoration: 'none' }}
+              >
+                註冊
+              </button>
             </h5>
             <button
               type="button"
@@ -36,39 +60,11 @@ const LoginModal = ({ onClose, onLogin }) => {
             ></button>
           </div>
           <div className="modal-body">
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  name="email"
-                  value={credentials.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  name="password"
-                  value={credentials.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <button type="submit" className="btn btn-primary">
-                登入
-              </button>
-            </form>
+            {isLogin ? (
+              <LoginForm onClose={onClose} onLoginSuccess={onLoginSuccess} />
+            ) : (
+              <SignupForm onClose={onClose} switchToLogin={switchToLogin} />
+            )}
           </div>
         </div>
       </div>
@@ -76,4 +72,4 @@ const LoginModal = ({ onClose, onLogin }) => {
   )
 }
 
-export default LoginModal
+export default Modal
