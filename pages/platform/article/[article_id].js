@@ -1,5 +1,3 @@
-// pages/articles/[article_id].js
-
 import React, { useEffect, useState } from 'react'
 import Layout from '@/components/layout/layout'
 import styles from '../../../styles/platform/platform-style.module.css'
@@ -11,7 +9,7 @@ import {
   BsFillShareFill,
 } from 'react-icons/bs'
 import { useRouter } from 'next/router'
-import { ARTICLE } from '@/configs/platform/api-path'
+import { ARTICLE_PAGE } from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
 
 export default function ArticleId() {
@@ -22,7 +20,7 @@ export default function ArticleId() {
   useEffect(() => {
     if (!router.isReady) return
 
-    fetch(`${ARTICLE}/${router.query.article_id}`)
+    fetch(`${ARTICLE_PAGE}/${router.query.article_id}`)
       .then((r) => r.json())
       .then((myData) => {
         console.log(myData)
@@ -37,7 +35,7 @@ export default function ArticleId() {
   return (
     <>
       <section className={`${styles.BgImg}`}>
-        <Layout title={articleData.article_name} pageName="pet-insurance">
+        <Layout title={articleData.article_name} pageName="platform">
           <div className="container mb-5">
             <div className="row">
               <SideBarPc></SideBarPc>
