@@ -1,16 +1,24 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/contexts/member/auth-context'
-import { API_SERVER, MEMBER_UPDATE_POST } from '@/configs/api-path'
+import { API_SERVER } from '@/configs/api-path'
 import Layout from '@/components/layout/layout'
 import MemberProfileForm from '@/components/member/MemberProfileForm'
+import MemberProfileView from '@/components/member/MemberProfileView'
+import Modal from '@/components/member/LoginModal' // 引入 Modal 組件
+import styles from './css/MemberProfile.module.css' // 使用組件級別的 CSS Modules
 
 const Member = () => {
   const { auth, getAuthHeader } = useAuth()
   const [memberData, setMemberData] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     const fetchMemberData = async () => {
-      if (!auth.b2c_id) return // 確保有 b2c_id 才發送請求
+      if (!auth.b2c_id) {
+        setShowModal(true) // 如果未登入，顯示 Modal
+        return
+      }
       try {
         const response = await fetch(
           `${API_SERVER}/b2c_member/api/${auth.b2c_id}`,
@@ -32,8 +40,12 @@ const Member = () => {
     fetchMemberData()
   }, [auth.b2c_id, getAuthHeader])
 
-  if (!auth.b2c_id) {
-    return <p>請先進行登入</p>
+  const handleModalClose = () => {
+    setShowModal(false)
+  }
+
+  if (showModal) {
+    return <Modal onClose={handleModalClose} />
   }
 
   if (!memberData) {
@@ -42,9 +54,21 @@ const Member = () => {
 
   return (
     <Layout>
-      <div>
-        {/* 加入會員資料表單 */}
-        <MemberProfileForm memberData={memberData} />
+      <div className={styles['container']}>
+        <div className="member-avatar"></div>
+        <div className={styles['form-body']}>
+          {isEditing ? (
+            <MemberProfileForm
+              memberData={memberData}
+              onCancel={() => setIsEditing(false)}
+            />
+          ) : (
+            <MemberProfileView
+              memberData={memberData}
+              onEdit={() => setIsEditing(true)}
+            />
+          )}
+        </div>
       </div>
     </Layout>
   )

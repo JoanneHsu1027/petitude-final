@@ -1,26 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useAuth } from '@/contexts/member/auth-context'
+import { useRouter } from 'next/router'
+import Modal from '@/components/member/LoginModal'
+import LoginForm from '@/components/member/LoginForm'
+import Link from 'next/link'
 import styles from '@/components/insurance/insurance.module.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import { useAuth } from '@/contexts/member/auth-context'
-import { useRouter } from 'next/router'
-import LoginForm from '@/components/member/LoginForm'
-import Modal from '@/components/member/LoginModal'
-import Link from 'next/link'
 
 export default function Navbar({ pageName = '' }) {
   const { auth, logout } = useAuth()
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
 
-  useEffect(() => {
-    // Log auth to check if it updates
-    console.log('Current auth state:', auth)
-  }, [auth])
-
   const handleLogout = async () => {
     await logout()
-    router.push('/') // Redirect to the login page or homepage
+    router.push('/') // Redirect to the homepage
+  }
+
+  const handleLinkClick = (e, path) => {
+    if (!auth.b2c_id) {
+      e.preventDefault()
+      setShowModal(true)
+    } else {
+      router.push(path)
+    }
   }
 
   const isActive = (page) =>
@@ -67,9 +71,13 @@ export default function Navbar({ pageName = '' }) {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/member/">
+                  <a
+                    className="nav-link"
+                    href="#"
+                    onClick={(e) => handleLinkClick(e, '/member/')}
+                  >
                     <img src="/pi-pic/member-icon.png" alt="" />
-                  </Link>
+                  </a>
                 </li>
                 {auth.b2c_id ? (
                   <>
@@ -161,9 +169,13 @@ export default function Navbar({ pageName = '' }) {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="/member/">
+                <a
+                  className="nav-link"
+                  href="#"
+                  onClick={(e) => handleLinkClick(e, '/member/')}
+                >
                   會員中心
-                </Link>
+                </a>
               </li>
               {auth.b2c_id ? (
                 <>
