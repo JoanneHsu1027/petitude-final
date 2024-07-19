@@ -4,8 +4,19 @@ import Link from 'next/link'
 import ProgressBarCopy from './progress-bar-copy'
 import withProgressBar from './withProgressBar'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 function PiPayment03() {
+  const router = useRouter()
+  const [holderName, setHolderName] = useState('')
+  const [holderID, setHolderID] = useState('')
+  const [holderBirthday, setHolderBirthday] = useState('')
+  const [holderEmail, setHolderEmail] = useState('')
+  const [holderMobile, setHolderMobile] = useState('')
+  const [holderCounty, setHolderCounty] = useState('')
+  const [holderCity, setHolderCity] = useState('')
+  const [holderAddress, setHolderAddress] = useState('')
+  
   const [data, setData] = useState(null)
   const [dates, setDates] = useState({ startDate: null, endDate: null })
 
@@ -27,6 +38,35 @@ function PiPayment03() {
       .replace(/\//g, '-') // 將斜線替換為連字符，以保持 YYYY-MM-DD 格式
   }
 
+  //寄出表單
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    const formData = new FormData(formRef.current)
+
+    // 驗證表單資料
+    const schemaForm = z.object({
+      policyholder_name: z.string().min(2, { message: '姓名至少兩個字' }),
+      policyholder_IDcard: z
+        .string()
+        .refine(validatedID, { message: '請輸入正確的身份證字號' }),
+      policyholder_birthday: z.string().min(1, { message: '請填寫出生年月日' }),
+      fk_policyholder_email: z
+        .string()
+        .email({ message: '請填寫正確的電子郵件地址' }),
+      fk_policyholder_mobile: z
+        .string()
+        .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
+      fk_county_id: z.string().min(1, { message: '請選擇縣市' }),
+      fk_city_id: z.string().min(1, { message: '請選擇城市' }),
+      fk_policyholder_address: z.string().min(1, { message: '請填寫詳細地址' }),
+    })
+
+    const formDataObject = Object.fromEntries(formData.entries())
+    const result = schemaForm.safeParse(formDataObject)
+
+
+
   useEffect(() => {
     // 這個代碼塊只會在客戶端執行
     // 取得並解析 localStorage 中的資料
@@ -36,16 +76,16 @@ function PiPayment03() {
     setData(parseData)
   }, [])
 
-  useEffect(() => {
-    if (data && data.insuranceStartDate) {
-      // 取得保險起始日期並計算結束日期
-      const startDate = new Date(data.insuranceStartDate)
-      const endDate = new Date(startDate) //保險結束日期
-      endDate.setFullYear(endDate.getFullYear() + 1)
+  // useEffect(() => {
+  //   if (data && data.insuranceStartDate) {
+  //     // 取得保險起始日期並計算結束日期
+  //     const startDate = new Date(data.insuranceStartDate)
+  //     const endDate = new Date(startDate) //保險結束日期
+  //     endDate.setFullYear(endDate.getFullYear() + 1)
 
-      setDates({ startDate, endDate })
-    }
-  }, [data])
+  //     setDates({ startDate, endDate })
+  //   }
+  // }, [data])
 
   useEffect(() => {
     const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
@@ -55,9 +95,9 @@ function PiPayment03() {
     }
   }, [])
 
-  if (!data || !dates.startDate) {
-    return <div>Loading...</div>
-  }
+  // if (!data || !dates.startDate) {
+  //   return <div>Loading...</div>
+  // }
 
   return (
     <>

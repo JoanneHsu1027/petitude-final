@@ -179,12 +179,17 @@ function PiPayment01() {
         throw new Error(`請填寫以下必要欄位：${missingFields.join(', ')}`)
       }
 
+      // 格式化保險結束日期
+      const formatedEndDate = dates.endDate
+        ? `${dates.endDate.getFullYear()}-${String(dates.endDate.getMonth() + 1).padStart(2, '0')}-${String(dates.endDate.getDate()).padStart(2, '0')}`
+        : ''
       // 保存所有數據到 localStorage
       localStorage.setItem(
         'petBasicData',
         JSON.stringify({
           PetName: petName,
           PetChip: petChip,
+          insuranceEndDate: formatedEndDate,
         }),
       )
 
@@ -260,22 +265,6 @@ function PiPayment01() {
                 className={`d-flex justify-content-center ${styles['data-frame']}`}
               >
                 <div className="col-6 justify-content-center align-items-center px-5">
-                  {/* <label htmlFor="policyholder_IDcard">
-                    <h5
-                      className={styles['text-color']}
-                      style={{ marginBottom: '11px' }}
-                    >
-                      要保人身份證字號(寵物登記紀錄之飼主)
-                    </h5>
-                  </label>
-                  <input
-                    className={styles['sheet-input']}
-                    type="text"
-                    placeholder="請輸入身分證字號"
-                    id="policyholder_IDcard"
-                    name="policyholder_IDcard"
-                  />
-                  {idError && <p style={{ color: 'red' }}>{idError}</p>} */}
                   <label htmlFor="pet_name">
                     <h5
                       className={`${styles['text-color']} mt-4`}

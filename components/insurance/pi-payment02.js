@@ -12,10 +12,6 @@ import { z } from 'zod'
 function PiPayment02() {
   const router = useRouter()
   const formRef = useRef(null)
-  // 伺服器回傳訊息
-  // const [message, setMessage] = useState('')
-  // 要保人姓名
-  // const [fillName, setFillName] = useState('')
 
   // 台灣身分證字號驗證
   const [idError, setIdError] = useState('')
@@ -45,11 +41,6 @@ function PiPayment02() {
     return weightedSum % 10 === 0
   }
 
-  // 信箱
-  // const [correctEmail, setCorrectEmail] = useState('')
-  // 手機號碼
-  // const [correctMoblie, setCorrectMobile] = useState('')
-
   // 為了縣市的選擇
   const [selectedCounty, setSelectedCounty] = useState('')
   // 為了區的選擇
@@ -75,14 +66,6 @@ function PiPayment02() {
     e.preventDefault()
 
     const formData = new FormData(formRef.current)
-    // const holderName = formData.get('policyholder_name')
-    // const holderID = formData.get('policyholder_IDcard')
-    // const holderBirthday = formData.get('policyholder_birthday')
-    // const holderEmail = formData.get('fk_policyholder_email')
-    // const holderMobile = formData.get('fk_policyholder_mobile')
-    // const holderCounty = formData.get('fk_county_id')
-    // const holderCity = formData.get('fk_city_id')
-    // const holderAddress = formData.get('fk_policyholder_address')
 
     // 驗證表單資料
     const schemaForm = z.object({
@@ -105,14 +88,6 @@ function PiPayment02() {
     const formDataObject = Object.fromEntries(formData.entries())
     const result = schemaForm.safeParse(formDataObject)
 
-    // 驗證身份證字號
-    // if (!validatedID(holderID)) {
-    //   setIdError('請輸入正確的身份證字號')
-    //   return
-    // } else {
-    //   setIdError('')
-    // }
-
     if (!result.success) {
       //顯示驗證錯誤
       const newErrors = {}
@@ -134,24 +109,7 @@ function PiPayment02() {
 
     setErrors({})
 
-    // if (result.success) {
     try {
-      // 檢查必要欄位是否填寫
-      // const missingFields = []
-
-      // if (!holderName) missingFields.push('要保人姓名')
-      // if (!holderID) missingFields.push('身份證字號')
-      // if (!holderBirthday) missingFields.push('出生年月日')
-      // if (!holderEmail) missingFields.push('Email')
-      // if (!holderMobile) missingFields.push('手機號碼')
-      // if (!holderCounty) missingFields.push('縣市')
-      // if (!holderCity) missingFields.push('區')
-      // if (!holderAddress) missingFields.push('地址')
-
-      // if (missingFields.length > 0) {
-      //   throw new Error(`請填寫以下必要欄位：${missingFields.join(', ')}`)
-      // }
-
       // 保存所有數據到 localStorage
       localStorage.setItem('holderBasicData', JSON.stringify(formDataObject))
 
