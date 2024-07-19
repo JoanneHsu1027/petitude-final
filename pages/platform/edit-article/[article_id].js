@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
-import styles from '../../styles/platform/platform-style.module.css'
+import React, { useState, useEffect } from 'react'
+import styles from '../../../styles/platform/platform-style.module.css'
 import { BsXLg } from 'react-icons/bs'
 import Navbar from '@/components/layout/navbar'
 import { useRouter } from 'next/router'
-import { ARTICLE_ADD_POST } from '@/configs/platform/api-path'
+import { ARTICLE } from '@/configs/platform/api-path'
 
-export default function CreateArticle() {
+export default function EditArticle() {
   const router = useRouter()
 
   const [myForm, setMyForm] = useState({
+    article_id: 0,
     article_name: '',
     article_content: '',
     fk_class_id: '',
@@ -42,8 +43,8 @@ export default function CreateArticle() {
 
       console.log('Submitting form data:', formData)
 
-      const r = await fetch(ARTICLE_ADD_POST, {
-        method: 'POST',
+      const r = await fetch(`${ARTICLE}/${router.query.article_id}`, {
+        method: 'PUT',
         body: formData,
       })
 
@@ -61,6 +62,21 @@ export default function CreateArticle() {
     }
   }
 
+  useEffect(() => {
+    if (!router.isReady) return
+
+    fetch(`${ARTICLE}/${router.query.article_id}`)
+      .then((r) => r.json())
+      .then((result) => {
+        if (result.success) {
+          setMyForm(result.data)
+        } else {
+          router.push('../article') // 跳回列表頁
+        }
+      })
+      .catch((ex) => {})
+  }, [router])
+
   return (
     <>
       <section style={{ height: '125vh' }} className={`${styles.BgImg}`}>
@@ -73,7 +89,7 @@ export default function CreateArticle() {
             className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4 position-relative`}
           >
             <a
-              href="./article"
+              href="../article"
               className={`${styles.AReset} position-absolute top-0 end-0 me-4 mt-4`}
             >
               <BsXLg className="display-3"></BsXLg>
@@ -87,7 +103,7 @@ export default function CreateArticle() {
                   onChange={onChange}
                   name="fk_class_id"
                 >
-                  <option value="" disabled selected>
+                  <option value={myForm.class_name} disabled>
                     --選擇主題--
                   </option>
                   <option value="1" defaultValue={myForm.fk_class_id === '1'}>
@@ -162,7 +178,7 @@ export default function CreateArticle() {
                     type="submit"
                     className={`btn btn-secondary ${styles.CreateArticleBtn} btn-lg rounded-pill mt-5`}
                   >
-                    建立文章
+                    修改
                   </button>
                 </div>
               </form>
