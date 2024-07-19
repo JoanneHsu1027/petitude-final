@@ -79,7 +79,17 @@ function PiPayment02() {
         .email({ message: '請填寫正確的電子郵件地址' }),
       fk_policyholder_mobile: z
         .string()
-        .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
+        .regex(/^09\d{2}(-?\d{3}){2}$/, { message: '請填寫正確的手機格式' }),
+      // .transform((val) => {
+      //   // 移除所有非數字字符
+      //   console.log('Original value:', val)
+      //   const cleanedMobile = val.replace(/\D/g, '')
+      //   console.log('Cleaned value:', cleanedMobile)
+      //   const formattedMobile =
+      //     cleanedMobile.slice(0, 4) + '-' + cleanedMobile.slice(4)
+      //   console.log('Formatted value:', formattedMobile)
+      //   return formattedMobile
+      // })
       fk_county_id: z.string().min(1, { message: '請選擇縣市' }),
       fk_city_id: z.string().min(1, { message: '請選擇城市' }),
       fk_policyholder_address: z.string().min(1, { message: '請填寫詳細地址' }),
@@ -98,17 +108,6 @@ function PiPayment02() {
       return
     }
 
-    // 檢查"已審閱並了解貴公司所提供之上述須知及商品簡介"已勾選
-    // if (!checkedRead) {
-    //   setErrors((prev) => ({
-    //     ...prev,
-    //     checkedRead: '請勾選',
-    //   }))
-    //   return
-    // }
-
-    // setErrors({})
-
     try {
       // 保存所有數據到 localStorage
       localStorage.setItem('holderBasicData', JSON.stringify(formDataObject))
@@ -117,6 +116,10 @@ function PiPayment02() {
       alert('資料已成功保存，請繼續下一步驟')
       // 跳轉下一頁
       router.push('/insurance/insurance-payment03')
+      console.log(
+        'Submitted mobile number:',
+        formDataObject.fk_policyholder_mobile,
+      )
     } catch (error) {
       console.error('保存失敗:', error)
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')

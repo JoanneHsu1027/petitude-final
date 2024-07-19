@@ -100,7 +100,7 @@ function PiPayment03() {
       // 成功提示
       alert('資料已成功保存，請繼續下一步驟')
       // 跳轉下一頁
-      router.push('/insurance/insurance-payment04')
+      router.push('/insurance/insurance-payment04') // 改串綠界
     } catch (error) {
       console.error('保存失敗:', error)
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')
@@ -136,10 +136,10 @@ function PiPayment03() {
     }
 
     const holderBasicData = JSON.parse(localStorage.getItem('holderBasicData'))
-    const formatMobile =
-      holderBasicData.fk_policyholder_mobile.slice(0, 4) +
-      '-' +
-      holderBasicData.fk_policyholder_mobile.slice(4)
+    // const formatMobile =
+    //   holderBasicData.fk_policyholder_mobile.slice(0, 4) +
+    //   '-' +
+    //   holderBasicData.fk_policyholder_mobile.slice(4)
     if (holderBasicData) {
       const countyData = counties.find(
         (county) => county.value === holderBasicData.fk_county_id,
@@ -151,7 +151,7 @@ function PiPayment03() {
       setHolderID(holderBasicData.policyholder_IDcard) // 要保人身份證字號
       setHolderBirthday(holderBasicData.policyholder_birthday) // 要保人生日
       setHolderEmail(holderBasicData.fk_policyholder_email) // 要保人信箱
-      setHolderMobile(formatMobile) // 要保人手機
+      setHolderMobile(holderBasicData.fk_policyholder_mobile) // 要保人手機
       setHolderCounty(countyData ? countyData.label : '') // 要保人居住縣市
       setHolderCity(cityData ? cityData.label : '') // 要保人居住區
       setHolderAddress(holderBasicData.fk_policyholder_address) // 要保人地址
@@ -341,56 +341,6 @@ function PiPayment03() {
                   >
                     【寵物醫療費用保險】
                   </h5>
-                  {/* <ul style={{ padding: 0, paddingLeft: 100 }}>
-                    <li className={`d-flex ${styles['item-dot']}`}>
-                      <i className="bi bi-check-square me-1" />
-                      <h5
-                        className={styles['text-color']}
-                        style={{ marginBottom: '.6875rem' }}
-                      >
-                        {' '}
-                        每次門診(最高)費用
-                      </h5>
-                      <h5 className={styles['own-green']}>
-                        NT 1,000元,一年最高3次
-                      </h5>
-                    </li>
-                    <li className={`d-flex ${styles['item-dot']}`}>
-                      <i className="bi bi-check-square me-1" />
-                      <h5
-                        className={styles['text-color']}
-                        style={{ marginBottom: '.6875rem' }}
-                      >
-                        每次住院(最高)費用
-                      </h5>
-                      <h5 className={styles['own-green']}>
-                        NT 5,000元,一年最高1次
-                      </h5>
-                    </li>
-                    <li className={`d-flex ${styles['item-dot']}`}>
-                      <i className="bi bi-check-square me-1" />
-                      <h5
-                        className={styles['text-color']}
-                        style={{ marginBottom: '.6875rem' }}
-                      >
-                        {' '}
-                        每次手術(最高)費用
-                      </h5>
-                      <h5 className={styles['own-green']}>
-                        NT 20,000元,一年最高1次
-                      </h5>
-                    </li>
-                    <li className={`d-flex ${styles['item-dot']}`}>
-                      <i className="bi bi-check-square me-1" />
-                      <h5
-                        className={styles['text-color']}
-                        style={{ marginBottom: '.6875rem' }}
-                      >
-                        保險期間內累積最高賠償限額
-                      </h5>
-                      <h5 className={styles['own-green']}>NT 25,000元</h5>
-                    </li>
-                  </ul> */}
 
                   <ul style={{ padding: 0, paddingLeft: 100 }}>
                     {[
@@ -526,8 +476,11 @@ function PiPayment03() {
               >
                 <button className={styles['own-btn4']}>上一步</button>
               </Link>
-              <button className={styles['own-btn4']} type="submit">
+              {/* <button className={styles['own-btn4']} type="submit">
                 下一步
+              </button> */}
+              <button className={styles['own-btn4']} type="submit">
+                前往付費
               </button>
             </div>
           </div>

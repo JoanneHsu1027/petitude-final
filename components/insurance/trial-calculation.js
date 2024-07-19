@@ -2,8 +2,14 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '@/components/insurance/insurance.module.css'
 import Link from 'next/link'
+import swal from 'sweetalert2'
+import { useAuth } from '@/contexts/member/auth-context'
+import { useRouter } from 'next/router'
 
 export default function TrialCalculation() {
+  // 確認是否有登入
+  const { auth } = useAuth()
+  const router = useRouter()
   // 確認是否有收到試算的表單資料
   const [catDataReceived, setCatDataReceived] = useState(true)
   const [dogDataReceived, setDogDataReceived] = useState(true)
@@ -112,9 +118,17 @@ export default function TrialCalculation() {
   }
 
   // 讓按鈕同時具有清除 '確認送出表單'標記和 '送出選擇的方案' 兩個功能
-  const handleButtonClick = (plan) => {
+  const handleButtonClick = async (plan) => {
+    if (!auth.b2c_id) {
+      await swal.fire({
+        text: '請先登入會員!',
+        icon: 'error',
+      })
+      return
+    }
     clearLocalStorage()
     handlePlanSelection(plan)
+    router.push('./insurance/insurance-payment01')
   }
 
   return (
@@ -526,17 +540,12 @@ export default function TrialCalculation() {
                       <h5>起/年</h5>
                     </div>
                     <div className="d-flex justify-content-center">
-                      <Link
-                        href="./insurance/insurance-payment01"
-                        className="text-decoration-none"
+                      <button
+                        className={styles['own-btn4']}
+                        onClick={() => handleButtonClick('基礎方案')}
                       >
-                        <button
-                          className={styles['own-btn4']}
-                          onClick={() => handleButtonClick('基礎方案')}
-                        >
-                          立即投保
-                        </button>
-                      </Link>
+                        立即投保
+                      </button>
                     </div>
                   </td>
                   <td>
@@ -548,17 +557,12 @@ export default function TrialCalculation() {
                       <h5>起/年</h5>
                     </div>
                     <div className="d-flex justify-content-center">
-                      <Link
-                        href="./insurance/insurance-payment01"
-                        className="text-decoration-none"
+                      <button
+                        className={styles['own-btn4']}
+                        onClick={() => handleButtonClick('進階方案')}
                       >
-                        <button
-                          className={styles['own-btn4']}
-                          onClick={() => handleButtonClick('進階方案')}
-                        >
-                          立即投保
-                        </button>
-                      </Link>
+                        立即投保
+                      </button>
                     </div>
                   </td>
                   <td>
@@ -570,17 +574,12 @@ export default function TrialCalculation() {
                       <h5>起/年</h5>
                     </div>
                     <div className="d-flex justify-content-center">
-                      <Link
-                        href="./insurance/insurance-payment01"
-                        className="text-decoration-none"
+                      <button
+                        className={styles['own-btn4']}
+                        onClick={() => handleButtonClick('完整方案')}
                       >
-                        <button
-                          className={styles['own-btn4']}
-                          onClick={() => handleButtonClick('完整方案')}
-                        >
-                          立即投保
-                        </button>
-                      </Link>
+                        立即投保
+                      </button>
                     </div>
                   </td>
                 </tr>
