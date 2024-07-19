@@ -254,7 +254,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$20,000</h5>
+                      <h5 style={{ color: 'red' }}>$5,000</h5>
                     </div>
                   </td>
                   <td>
@@ -268,7 +268,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$20,000</h5>
+                      <h5 style={{ color: 'red' }}>$5,000</h5>
                     </div>
                   </td>
                   <td>
@@ -282,7 +282,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$20,000</h5>
+                      <h5 style={{ color: 'red' }}>$5,000</h5>
                     </div>
                   </td>
                 </tr>
@@ -306,7 +306,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$5,000</h5>
+                      <h5 style={{ color: 'red' }}>$20,000</h5>
                     </div>
                   </td>
                   <td>
@@ -320,7 +320,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$5,000</h5>
+                      <h5 style={{ color: 'red' }}>$20,000</h5>
                     </div>
                   </td>
                   <td>
@@ -334,7 +334,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$5,000</h5>
+                      <h5 style={{ color: 'red' }}>$20,000</h5>
                     </div>
                   </td>
                 </tr>
