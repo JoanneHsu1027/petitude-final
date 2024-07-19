@@ -412,9 +412,16 @@ export default function CartPage() {
                       <button
                         type="button"
                         className={`btn ${styles.checkBtn}`}
-                        onClick={() =>
-                          router.push('/funeral/funeral/booking-list')
-                        }
+                        onClick={() => {
+                          if (!auth.b2c_id) {
+                            swal.fire({
+                              text: '請先登入會員！',
+                              icon: 'error',
+                            })
+                          } else {
+                            router.push('/funeral/funeral/booking-list')
+                          }
+                        }}
                       >
                         前往結帳
                       </button>
