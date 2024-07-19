@@ -9,7 +9,6 @@ import { z } from 'zod'
 import { RequestList } from '@/configs/estore/api-path'
 
 export default function BookingList() {
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
   const router = useRouter()
   const [selectedBillMethod, setSelectedBillMethod] = useState('')
   const [cartItems, setCartItems] = useState([])
@@ -19,10 +18,6 @@ export default function BookingList() {
   const [selectedCity, setSelectedCity] = useState('')
 
   const [formData, setFormData] = useState({
-    paymentMethod: '',
-    creditCardNumber: '',
-    expiryDate: '',
-    cvv: '',
     buyerName: '',
     mobile: '',
     telephone: '',
@@ -167,38 +162,49 @@ export default function BookingList() {
 
     // 如果驗證通過，繼續原有的提交邏輯
     try {
-      const storedCart = JSON.parse(
-        localStorage.getItem('joannesshoppingcart') || '[]',
-      )
-
       const dataToSend = {
         ...formData,
-        cartItems: storedCart,
+        county: counties.find(
+          (c) => c.county_id === parseInt(formData.countyId),
+        )?.county_name,
+        city: cities.find((c) => c.city_id === parseInt(formData.cityId))
+          ?.city_name,
+        cartItems: JSON.parse(
+          localStorage.getItem('joannesshoppingcart') || '[]',
+        ),
       }
 
-      // 首先發送到 /ecpay 路由
-
-      const ecpayResponse = await axios.get(
-        `http://localhost:3001/ecpay?${new URLSearchParams({ ...dataToSend, amount: totalPrice })}`, // 移除 ?amount
-        // 在請求體中傳遞 amount
+      // 首先發送到資料庫新增路由
+      const paymentResponse = await axios.post(
+        `http://localhost:3001/product/cartCheckout`,
+        dataToSend,
       )
-      console.log(ecpayResponse)
-      if (ecpayResponse.data.htmlContent) {
-        const tempDiv = document.createElement('div')
-        tempDiv.innerHTML = ecpayResponse.data.htmlContent
-        const form = tempDiv.querySelector('form')
-        if (form) {
-          document.body.appendChild(form)
-          form.submit()
-          // 清空localStorage
-          localStorage.removeItem('joannesshoppingcart')
-          // 清空Context中的購物車
-          clearCart()
+
+      if (paymentResponse.data.success) {
+        // 資料庫新增成功就處理綠界
+        const ecpayResponse = await axios.get(
+          `http://localhost:3001/ecpay?${new URLSearchParams({ ...dataToSend, amount: totalPrice })}`,
+        )
+        console.log(ecpayResponse)
+        if (ecpayResponse.data.htmlContent) {
+          const tempDiv = document.createElement('div')
+          tempDiv.innerHTML = ecpayResponse.data.htmlContent
+          const form = tempDiv.querySelector('form')
+          if (form) {
+            document.body.appendChild(form)
+            form.submit()
+            // 清空localStorage
+            localStorage.removeItem('joannesshoppingcart')
+            // 清空Context中的購物車
+            clearCart()
+          } else {
+            console.error('找不到支付表單')
+          }
         } else {
-          console.error('找不到支付表單')
+          console.error('無效的回應格式')
         }
       } else {
-        console.error('無效的回應格式')
+        console.error('新增資料庫失敗')
       }
 
       // 顯示成功消息並導航
@@ -234,101 +240,6 @@ export default function BookingList() {
         <div className="row">
           {/* leftCard */}
           <div className="col-md-7 justify-content-center align-items-center">
-            {/* <!-- 付款方式 --> */}
-            <div
-              className="card my-3"
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
-                borderTopRightRadius: 30 + 'px',
-                borderTopLeftRadius: 30 + 'px',
-              }}
-            >
-              <div
-                className="card-header text-center"
-                style={{
-                  backgroundColor: '#4CB1C8',
-                  color: '#ffffff',
-                  borderTopRightRadius: 30 + 'px',
-                  borderTopLeftRadius: 30 + 'px',
-                }}
-              >
-                付款方式
-              </div>
-              <div className="card-body" style={{ border: 10 + 'px' }}>
-                <h5 className="card-title mb-4">付款方式</h5>
-
-                <div className="form-check" style={{ marginBottom: '1rem' }}>
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="paymentMethod"
-                    id="creditCard"
-                    value="creditCard"
-                    style={{ marginTop: '0.3rem' }}
-                    checked={selectedPaymentMethod === 'creditCard'}
-                    onChange={() => setSelectedPaymentMethod('creditCard')}
-                  />
-                  <label className="form-check-label mb-2" htmlFor="creditCard">
-                    信用卡一次付清
-                  </label>
-                  {selectedPaymentMethod === 'creditCard' && (
-                    <>
-                      <input
-                        type="text"
-                        className="form-control rounded-pill"
-                        id="creditCardNumber"
-                        placeholder="請輸入信用卡號"
-                      />
-                      <form className="row">
-                        <div className="col-md-6">
-                          <label htmlFor="expiryDate" className="form-label">
-                            有效日期
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control rounded-pill"
-                            id="expiryDate"
-                            placeholder="MM/YY"
-                          />
-                        </div>
-                        <div className="col-md-6">
-                          <label htmlFor="cvv" className="form-label">
-                            檢核碼
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control rounded-pill"
-                            id="cvv"
-                            placeholder="CVV"
-                          />
-                        </div>
-                      </form>
-                    </>
-                  )}
-                </div>
-
-                <div className="form-check" style={{ marginBottom: '1rem' }}>
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="paymentMethod"
-                    id="otherMethods"
-                    value="otherMethods"
-                    style={{ marginTop: '0.3rem' }}
-                    checked={selectedPaymentMethod === 'otherMethods'}
-                    onChange={() => setSelectedPaymentMethod('otherMethods')}
-                  />
-                  <label
-                    className="form-check-label mb-2"
-                    htmlFor="otherMethods"
-                  >
-                    Line Pay
-                  </label>
-                </div>
-              </div>
-            </div>
-            {/* <!-- 付款方式 --> */}
             {/* <!-- 購買人資訊 --> */}
             <div
               className="card my-3"
@@ -402,6 +313,7 @@ export default function BookingList() {
                       className="form-control rounded-pill"
                       id="telephone"
                       placeholder="市話"
+                      onChange={handleInputChange}
                     />
                   </div>
                   {/* <!-- 縣市 --> */}
@@ -453,6 +365,7 @@ export default function BookingList() {
                       className="form-control rounded-pill"
                       id="address"
                       placeholder="詳細地址"
+                      onChange={handleInputChange}
                     />
                   </div>
                   <div className="col-12">
@@ -727,18 +640,6 @@ export default function BookingList() {
                   <p>購物車是空的</p>
                 )}
                 <hr />
-                <div className="col d-flex align-items-center">
-                  <div className="text-start m-2">
-                    <p className="card-text mb-1 fs-5">付款方式</p>
-                  </div>
-                  <div className="text-end ms-5 ms-auto">
-                    <p className="card-text fs-5">
-                      {selectedPaymentMethod === 'creditCard'
-                        ? '信用卡'
-                        : 'Line Pay'}
-                    </p>
-                  </div>
-                </div>
                 <div className="col d-flex align-items-center">
                   <div className="text-start m-2">
                     <p className="card-text mb-1 fs-5">發票開立方式</p>
