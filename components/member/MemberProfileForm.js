@@ -171,59 +171,53 @@ const MemberProfileForm = ({ memberData, onCancel }) => {
           <label htmlFor="fk_county_id" className="form-label">
             請填寫居住地區:
           </label>
-          <select
-            id="fk_county_id"
-            name="fk_county_id"
-            className={`form-control ${formStyles['form-innerText']}`}
-            value={formData.fk_county_id}
-            onChange={(e) => {
-              handleChange(e)
-              setFormData((prevData) => ({ ...prevData, fk_city_id: '' })) // 重置城市
-            }}
-            required
-          >
-            <option value="">請選擇縣市</option>
-            {counties.map((county) => (
-              <option key={county.value} value={county.value}>
-                {county.label}
-              </option>
-            ))}
-          </select>
-          {formErrors.fk_county_id && (
-            <div className="form-text text-danger">
-              {formErrors.fk_county_id}
-            </div>
-          )}
-        </div>
+          <div className={formStyles['form-span']}>
+            {' '}
+            <select
+              id="fk_county_id"
+              name="fk_county_id"
+              className={`form-control ${formStyles['form-innerText']}`}
+              value={formData.fk_county_id}
+              onChange={(e) => {
+                handleChange(e)
+                setFormData((prevData) => ({ ...prevData, fk_city_id: '' })) // 重置城市
+              }}
+              required
+            >
+              <option value="">請選擇縣市</option>
+              {counties.map((county) => (
+                <option key={county.value} value={county.value}>
+                  {county.label}
+                </option>
+              ))}
+            </select>
+            {formErrors.fk_county_id && (
+              <div className="form-text text-danger">
+                {formErrors.fk_county_id}
+              </div>
+            )}
+            <select
+              id="fk_city_id"
+              name="fk_city_id"
+              className={`form-control ${formStyles['form-innerText']}`}
+              value={formData.fk_city_id}
+              onChange={handleChange}
+              required
+            >
+              <option value="">請選擇城市</option>
+              {filteredCities.map((city) => (
+                <option key={city.value} value={city.value}>
+                  {city.label}
+                </option>
+              ))}
+            </select>
+            {formErrors.fk_city_id && (
+              <div className="form-text text-danger">
+                {formErrors.fk_city_id}
+              </div>
+            )}
+          </div>
 
-        <div className="mb-3">
-          <label htmlFor="fk_city_id" className="form-label">
-            請選擇城市:
-          </label>
-          <select
-            id="fk_city_id"
-            name="fk_city_id"
-            className={`form-control ${formStyles['form-innerText']}`}
-            value={formData.fk_city_id}
-            onChange={handleChange}
-            required
-          >
-            <option value="">請選擇城市</option>
-            {filteredCities.map((city) => (
-              <option key={city.value} value={city.value}>
-                {city.label}
-              </option>
-            ))}
-          </select>
-          {formErrors.fk_city_id && (
-            <div className="form-text text-danger">{formErrors.fk_city_id}</div>
-          )}
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="b2c_address" className="form-label">
-            請填寫詳細地址:
-          </label>
           <input
             id="b2c_address"
             type="text"

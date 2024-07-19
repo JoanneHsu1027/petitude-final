@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-
-const ForgotPassword = ({ onClose }) => {
+import { MEMBER_FORGETPASSWORD_POST } from '@/configs/api-path'
+const ForgotPasswordForm = ({ onClose }) => {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     try {
-      // 呼叫 API 來處理忘記密碼請求
-      const response = await fetch('/api/forgot-password', {
+      const response = await fetch(MEMBER_FORGETPASSWORD_POST, {
         method: 'POST',
         body: JSON.stringify({ email }),
         headers: {
@@ -18,14 +18,15 @@ const ForgotPassword = ({ onClose }) => {
       })
       const result = await response.json()
       if (result.success) {
-        setMessage('請檢查您的電子郵件以重設密碼。')
+        setMessage('OTP 已發送到您的信箱')
         setError('')
       } else {
-        setError('無法處理請求，請確認您的電子郵件地址。')
+        setError(result.error || '請求失敗')
+        setMessage('')
       }
-    } catch (ex) {
-      console.log(ex)
-      setError('伺服器錯誤，請稍後再試。')
+    } catch (error) {
+      setError('請求失敗')
+      setMessage('')
     }
   }
 
@@ -35,7 +36,7 @@ const ForgotPassword = ({ onClose }) => {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
-            會員信箱:
+            電子郵件:
           </label>
           <input
             id="email"
@@ -49,11 +50,11 @@ const ForgotPassword = ({ onClose }) => {
         {message && <div className="alert alert-success">{message}</div>}
         {error && <div className="alert alert-danger">{error}</div>}
         <button type="submit" className="btn btn-primary">
-          送出重設連結
+          發送 OTP
         </button>
       </form>
     </div>
   )
 }
 
-export default ForgotPassword
+export default ForgotPasswordForm
