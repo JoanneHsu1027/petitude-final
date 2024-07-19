@@ -21,7 +21,7 @@ export function CartProvider2({ children }) {
       return newProjects
     })
   }
-// 刪除購物車中項目
+  // 刪除購物車中項目
   const removeCartProject = (idx) => {
     setCartProjects((prevProjects) => {
       const updatedProjects = prevProjects.filter(
@@ -30,6 +30,14 @@ export function CartProvider2({ children }) {
       localStorage.setItem(cartKeys, JSON.stringify(updatedProjects))
       return updatedProjects
     })
+  }
+
+  const clearCart1 = () => {
+    // 清空localStorage
+    localStorage.removeItem(cartKeys)
+
+    // 重置Context中的cartItems狀態
+    setCartProjects([])
   }
 
   // 當用戶重刷頁面時，從 localStorage 載入狀態
@@ -59,6 +67,6 @@ export function CartProvider2({ children }) {
     </CartContext1.Provider>
   )
 }
-// 這個CartContext 參數要放進addToCarts裡面
+// 這個CartContext1 參數要放進addToCarts裡面
 export const useCart1 = () => useContext(CartContext1)
 export default CartContext1
