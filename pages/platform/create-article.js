@@ -8,6 +8,8 @@ import Swal from 'sweetalert2'
 
 export default function CreateArticle() {
   const router = useRouter()
+  const [selectedImg, setSelectedImg] = useState(null)
+  const [previewURL, setPreviewURL] = useState('')
 
   const [myForm, setMyForm] = useState({
     article_name: '',
@@ -27,9 +29,17 @@ export default function CreateArticle() {
 
   const onChange = (e) => {
     const { name, value, files } = e.target
+
     if (name === 'article_img') {
-      // 判斷是否為圖片檔案的輸入
-      setImageFile(files[0])
+      // 判斷是否為圖片檔案的輸入並檢查文件
+      if (files && files[0]) {
+        setImageFile(files[0])
+        // 產生預覽網址
+        setPreviewURL(URL.createObjectURL(files[0]))
+      } else {
+        setImageFile(null)
+        setPreviewURL('')
+      }
     } else {
       setMyForm({
         ...myForm,
@@ -101,7 +111,7 @@ export default function CreateArticle() {
 
   return (
     <>
-      <section style={{ height: '125vh' }} className={`${styles.BgImg}`}>
+      <section style={{ height: '100%' }} className={`${styles.BgImg}`}>
         <title>{'貓狗論壇 | Petitude'}</title>
 
         <Navbar />
@@ -189,7 +199,12 @@ export default function CreateArticle() {
                   aria-label="Upload"
                   name="article_img" // 新增的name屬性
                   onChange={onChange} // 捕捉圖片輸入變化
-                />
+                />{' '}
+                {previewURL && (
+                  <div className="d-flex justify-content-center mt-3">
+                    <img className="w-75 " src={previewURL} alt="預覽圖片" />
+                  </div>
+                )}
                 <div className="d-flex flex-row-reverse">
                   <button
                     style={{ width: 150 }}
@@ -203,6 +218,7 @@ export default function CreateArticle() {
             </div>
           </div>
         </div>
+        <div style={{ height: 5 }} className={`${styles.BgImg}`}></div>
       </section>
     </>
   )
