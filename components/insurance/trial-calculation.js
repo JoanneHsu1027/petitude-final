@@ -5,6 +5,7 @@ import Link from 'next/link'
 import swal from 'sweetalert2'
 import { useAuth } from '@/contexts/member/auth-context'
 import { useRouter } from 'next/router'
+import LoginModal from '@/components/member/LoginModal'
 
 export default function TrialCalculation() {
   // 確認是否有登入
@@ -18,6 +19,9 @@ export default function TrialCalculation() {
   const [basicPlan, setBasicPlan] = useState(0)
   const [advancedPlan, setAdvancedPlan] = useState(0)
   const [fullPlan, setFullPlan] = useState(0)
+
+  // 要求要有登入過
+  const [showModal, setShowModal] = useState(false)
 
   // 設定進入付款流程時, 主畫面隱藏式算結果
   useEffect(() => {
@@ -117,19 +121,22 @@ export default function TrialCalculation() {
     )
   }
 
-  // 讓按鈕同時具有清除 '確認送出表單'標記和 '送出選擇的方案' 兩個功能
+  // 讓按鈕同時具有確認登入 清除 '確認送出表單'標記和 '送出選擇的方案' 三個功能
   const handleButtonClick = async (plan) => {
     if (!auth.b2c_id) {
       await swal.fire({
         text: '請先登入會員!',
         icon: 'error',
       })
+      setShowModal(true) //在警告框關閉後顯示登入視窗
       return
     }
     clearLocalStorage()
     handlePlanSelection(plan)
     router.push('./insurance/insurance-payment01')
   }
+
+  useEffect(() => {}, [showModal])
 
   return (
     <>
@@ -546,6 +553,9 @@ export default function TrialCalculation() {
                       >
                         立即投保
                       </button>
+                      {showModal && (
+                        <LoginModal onClose={() => setShowModal(false)} />
+                      )}
                     </div>
                   </td>
                   <td>
@@ -563,6 +573,9 @@ export default function TrialCalculation() {
                       >
                         立即投保
                       </button>
+                      {showModal && (
+                        <LoginModal onClose={() => setShowModal(false)} />
+                      )}
                     </div>
                   </td>
                   <td>
@@ -580,6 +593,9 @@ export default function TrialCalculation() {
                       >
                         立即投保
                       </button>
+                      {showModal && (
+                        <LoginModal onClose={() => setShowModal(false)} />
+                      )}
                     </div>
                   </td>
                 </tr>
