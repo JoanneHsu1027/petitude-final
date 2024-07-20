@@ -101,8 +101,17 @@ export default function ArticleId() {
 
                           {/* 主內容 */}
                           <div className="mx-4 my-4">
-                            <p>{articleData.article_content}</p>
-                            <div className="d-flex justify-content-center mt-3">
+                            <div className="d-flex justify-content-center">
+                              <div
+                                className="d-flex justify-content-center align-items-center"
+                                style={{ width: '100%' }}
+                              >
+                                <p className="col-lg-10  text-center lh-lg">
+                                  {articleData.article_content}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="d-flex justify-content-center mt-3 ">
                               {imageLoaded ? (
                                 <img
                                   className={`w-75`}
@@ -114,7 +123,7 @@ export default function ArticleId() {
                           </div>
 
                           {/* 功能連結 */}
-                          <div className="border-bottom border-secondary d-flex justify-content-around pb-4">
+                          <div className="border-bottom border-secondary d-flex justify-content-around pb-4 mt-5">
                             <a
                               className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover}`}
                             >
