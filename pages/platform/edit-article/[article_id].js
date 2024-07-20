@@ -101,11 +101,26 @@ export default function EditArticle() {
         setIsSubmitted(true) // 表單提交成功後，更新狀態
         Swal.fire({
           icon: 'success',
-          title: '修改成功',
+          title: '編輯成功',
           showConfirmButton: false,
           timer: 1500,
         })
         router.push('/platform/article')
+      } else {
+        Swal.fire({
+          title: '內容未編輯',
+          text: '不編輯了嗎?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          cancelButtonText: '繼續編輯',
+          confirmButtonText: '返回文章',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.push(`/platform/article/${myForm.article_id}`)
+          }
+        })
       }
     } catch (ex) {
       console.log('Exception:', ex)
@@ -229,7 +244,7 @@ export default function EditArticle() {
                     type="submit"
                     className={`btn btn-secondary ${styles.CreateArticleBtn} btn-lg rounded-pill mt-5`}
                   >
-                    修改
+                    編輯完成
                   </button>
                 </div>
               </form>
