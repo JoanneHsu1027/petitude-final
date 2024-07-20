@@ -36,7 +36,7 @@ export default function CreateArticle() {
         [name]: value,
       })
 
-      // 如果用户填写了某个字段，则清除相应的错误消息
+      // 如果用戶填寫了某個欄位，則清除相應的錯誤提示
       if (value.trim() !== '') {
         setMyFormErrors({
           ...myFormErrors,
