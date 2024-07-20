@@ -8,7 +8,6 @@ import Swal from 'sweetalert2'
 
 export default function CreateArticle() {
   const router = useRouter()
-  const [selectedImg, setSelectedImg] = useState(null)
   const [previewURL, setPreviewURL] = useState('')
 
   const [myForm, setMyForm] = useState({
