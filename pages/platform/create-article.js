@@ -4,6 +4,7 @@ import { BsXLg } from 'react-icons/bs'
 import Navbar from '@/components/layout/navbar'
 import { useRouter } from 'next/router'
 import { ARTICLE_ADD_POST } from '@/configs/platform/api-path'
+import Swal from 'sweetalert2'
 
 export default function CreateArticle() {
   const router = useRouter()
@@ -16,6 +17,7 @@ export default function CreateArticle() {
   })
 
   const [imageFile, setImageFile] = useState(null) // 新增的狀態
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const onChange = (e) => {
     if (e.target.name === 'article_img') {
@@ -31,33 +33,35 @@ export default function CreateArticle() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    try {
-      const formData = new FormData()
-      formData.append('article_name', myForm.article_name)
-      formData.append('article_content', myForm.article_content)
-      formData.append('fk_class_id', myForm.fk_class_id)
-      if (imageFile) {
-        formData.append('article_img', imageFile) // 將圖片檔案加入到FormData
-      }
 
-      console.log('Submitting form data:', formData)
+    const formData = new FormData()
+    formData.append('article_name', myForm.article_name)
+    formData.append('article_content', myForm.article_content)
+    formData.append('fk_class_id', myForm.fk_class_id)
+    if (imageFile) {
+      formData.append('article_img', imageFile) // 將圖片檔案加入到FormData
+    }
 
-      const r = await fetch(ARTICLE_ADD_POST, {
-        method: 'POST',
-        body: formData,
+    console.log('Submitting form data:', formData)
+
+    const r = await fetch(ARTICLE_ADD_POST, {
+      method: 'POST',
+      body: formData,
+    })
+
+    console.log('Response:', r)
+
+    const result = await r.json()
+    console.log(result)
+    if (result.success) {
+      setIsSubmitted(true) // 表單提交成功後，更新狀態
+      Swal.fire({
+        icon: 'success',
+        title: '建立成功',
+        showConfirmButton: false,
+        timer: 1500,
       })
-
-      console.log('Response:', r)
-
-      const result = await r.json()
-      console.log(result)
-      if (result.success) {
-        router.push('/platform/article')
-      } else {
-        console.log('Error:', result.error)
-      }
-    } catch (ex) {
-      console.log('Exception:', ex)
+      router.push('/platform/article')
     }
   }
 
