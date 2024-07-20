@@ -40,6 +40,24 @@ export default function BookingList() {
     if (storedCart) {
       setCartItems(JSON.parse(storedCart))
     }
+
+    // 從 localStorage 讀取用戶資料
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
+      const userData = JSON.parse(storedUser)
+      setFormData((prevData) => ({
+        ...prevData,
+        buyerName: userData.b2c_name || '',
+        mobile: userData.b2c_mobile || '',
+        countyId: userData.fk_county_id || '',
+        cityId: userData.fk_city_id || '',
+        address: userData.b2c_address || '',
+      }))
+
+      // 更新選中的縣市和城市
+      setSelectedCounty(userData.countyId || '')
+      setSelectedCity(userData.cityId || '')
+    }
   }, [])
 
   const totalPrice = cartItems.reduce(
@@ -56,6 +74,21 @@ export default function BookingList() {
         )
         if (response.data.success) {
           setCounties(response.data.data)
+
+          // 在縣市資料加載完成後，設置用戶的縣市選擇
+          const storedUser = localStorage.getItem('user')
+          if (storedUser) {
+            const userData = JSON.parse(storedUser)
+            if (userData.fk_county_id) {
+              setSelectedCounty(userData.fk_county_id)
+              setFormData((prevData) => ({
+                ...prevData,
+                countyId: userData.fk_county_id,
+              }))
+              // 獲取對應的城市資料
+              fetchCities(userData.fk_county_id)
+            }
+          }
         }
       } catch (error) {
         console.error('Error fetching counties:', error)
@@ -65,46 +98,57 @@ export default function BookingList() {
     fetchCounties()
   }, [])
 
-  useEffect(() => {
-    // 當選擇的縣市改變時，獲取對應的鄉鎮市區
-    const fetchCities = async () => {
-      if (selectedCounty) {
-        try {
-          const response = await axios.get(
-            `http://localhost:3001/product/cities/${selectedCounty}`,
-          )
-          if (response.data.success) {
-            setCities(response.data.data)
+  // 將 fetchCities 函數移到組件內部
+  const fetchCities = async (countyId) => {
+    if (countyId) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/product/cities/${countyId}`,
+        )
+        if (response.data.success) {
+          setCities(response.data.data)
+
+          // 在城市資料加載完成後，設置用戶的城市選擇
+          const storedUser = localStorage.getItem('user')
+          if (storedUser) {
+            const userData = JSON.parse(storedUser)
+            if (userData.fk_city_id) {
+              setSelectedCity(userData.fk_city_id)
+              setFormData((prevData) => ({
+                ...prevData,
+                cityId: userData.fk_city_id,
+              }))
+            }
           }
-        } catch (error) {
-          console.error('Error fetching cities:', error)
         }
-      } else {
-        setCities([])
+      } catch (error) {
+        console.error('Error fetching cities:', error)
       }
+    } else {
+      setCities([])
     }
+  }
 
-    fetchCities()
-  }, [selectedCounty])
-
+  // 修改 handleCountyChange 函數
   const handleCountyChange = (e) => {
     const countyId = e.target.value
     setSelectedCounty(countyId)
     setSelectedCity('')
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       countyId: countyId,
       cityId: '',
-    })
+    }))
+    fetchCities(countyId)
   }
 
   const handleCityChange = (e) => {
     const cityId = e.target.value
     setSelectedCity(cityId)
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       cityId: cityId,
-    })
+    }))
   }
 
   const schemaForm = z.object({
@@ -365,6 +409,7 @@ export default function BookingList() {
                       className="form-control rounded-pill"
                       id="address"
                       placeholder="詳細地址"
+                      value={formData.address}
                       onChange={handleInputChange}
                     />
                   </div>
