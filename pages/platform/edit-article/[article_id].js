@@ -139,7 +139,7 @@ export default function EditArticle() {
             className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4 position-relative`}
           >
             <a
-              href="./article"
+              href={`/platform/article/${myForm.article_id}`}
               className={`${styles.AReset} position-absolute top-0 end-0 me-4 mt-4`}
             >
               <BsXLg className="display-3"></BsXLg>

@@ -16,6 +16,7 @@ export default function ArticleId() {
   const router = useRouter()
   const [articleData, setArticleData] = useState({})
   const [messages, setMessages] = useState([])
+  const [imageLoaded, setImageLoaded] = useState(true) // 用來追蹤圖片是否成功加載
 
   useEffect(() => {
     if (!router.isReady) return
@@ -91,6 +92,15 @@ export default function ArticleId() {
                           {/* 主內容 */}
                           <div className="mx-4 my-4">
                             <p>{articleData.article_content}</p>
+                            <div className="d-flex justify-content-center mt-3">
+                              {imageLoaded ? (
+                                <img
+                                  className={`w-75`}
+                                  src={`http://localhost:3001/uploads/${articleData.article_img}`}
+                                  onError={() => setImageLoaded(false)}
+                                />
+                              ) : null}
+                            </div>
                           </div>
 
                           {/* 功能連結 */}
