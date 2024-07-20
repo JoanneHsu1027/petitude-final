@@ -198,7 +198,7 @@ export default function CreateArticle() {
                   aria-label="Upload"
                   name="article_img" // 新增的name屬性
                   onChange={onChange} // 捕捉圖片輸入變化
-                />{' '}
+                />
                 {previewURL && (
                   <div className="d-flex justify-content-center mt-3">
                     <img className="w-75 " src={previewURL} alt="預覽圖片" />
