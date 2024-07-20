@@ -27,11 +27,21 @@ export default function ArticleId() {
         console.log(myData)
         setArticleData(myData.article)
         setMessages(myData.messages)
+        setImageLoaded(true) // 确保每次加载时都重置 imageLoaded 状态
       })
       .catch((error) => {
         console.error('Error fetching article:', error)
       })
-  }, [router])
+  }, [router.query.article_id, router.isReady]) // 依赖 router.query.article_id
+
+  useEffect(() => {
+    if (articleData.article_img) {
+      const img = new Image()
+      img.src = `http://localhost:3001/uploads/${articleData.article_img}`
+      img.onload = () => setImageLoaded(true)
+      img.onerror = () => setImageLoaded(false)
+    }
+  }, [articleData.article_img])
 
   return (
     <>
