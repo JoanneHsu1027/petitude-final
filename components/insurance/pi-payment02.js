@@ -165,96 +165,114 @@ function PiPayment02() {
                 className={`d-flex justify-content-center ${styles['data-frame']}`}
               >
                 <div className="col-12 justify-content-center align-items-center px-5">
-                  <div className="d-flex flex-column">
-                    <label htmlFor="policyholder_name">
-                      <h5
-                        className={styles['text-color']}
-                        style={{ marginBottom: '11px' }}
-                      >
-                        要/被保險人姓名(寵物登記證記載之飼主)
-                        <ErrorMessage message={errors.policyholder_name} />
-                      </h5>
-                    </label>
-                    <input
-                      className={styles['sheet-input']}
-                      type="text"
-                      id="policyholder_name"
-                      name="policyholder_name"
-                      style={{ width: '50%' }}
-                    />
-                  </div>
-                  <div className="d-flex flex-column">
-                    <label htmlFor="b2c_IDcard">
-                      <h5
-                        className={`${styles['text-color']} mt-4`}
-                        style={{ marginBottom: '11px' }}
-                      >
-                        身份證字號
-                        <ErrorMessage message={errors.policyholder_IDcard} />
-                      </h5>
-                    </label>
-                    <input
-                      className={styles['sheet-input']}
-                      type="text"
-                      id="policyholder_IDcard"
-                      name="policyholder_IDcard"
-                      style={{ width: '50%' }}
-                    />
-                    {idError && <p style={{ color: 'red' }}>{idError}</p>}
-                  </div>
-                  <div className="d-flex flex-column">
-                    <label htmlFor="b2c_birth">
-                      <h5
-                        className={`${styles['text-color']} mt-4`}
-                        style={{ marginBottom: '11px' }}
-                      >
-                        出生年月日
-                        <ErrorMessage message={errors.policyholder_birthday} />
-                      </h5>
-                    </label>
-                    <input
-                      className={styles['sheet-input']}
-                      type="date"
-                      id="policyholder_birthday"
-                      name="policyholder_birthday"
-                      style={{ width: '50%' }}
-                    />
-                  </div>
-                  <div className="d-flex flex-column">
-                    <label htmlFor="b2c_email">
-                      <h5
-                        className={`${styles['text-color']} mt-4`}
-                        style={{ marginBottom: '11px' }}
-                      >
-                        Email
-                        <ErrorMessage message={errors.fk_policyholder_email} />
-                      </h5>
-                    </label>
-                    <input
-                      className={styles['sheet-input']}
-                      type="text"
-                      id="fk_policyholder_email"
-                      name="fk_policyholder_email"
-                      style={{ width: '50%' }}
-                    />
-                  </div>
-                  <div className="d-flex flex-column">
-                    <label htmlFor="b2c_mobile">
-                      <h5
-                        className={`${styles['text-color']} mt-4`}
-                        style={{ marginBottom: '11px' }}
-                      >
-                        手機號碼
-                        <ErrorMessage message={errors.fk_policyholder_mobile} />
-                      </h5>
-                    </label>
-                    <input
-                      className={styles['sheet-input']}
-                      type="text"
-                      id="fk_policyholder_mobile"
-                      name="fk_policyholder_mobile"
-                      style={{ width: '50%' }}
-                    />
+                  <div className="col-12 d-flex flex-row">
+                    <div className="col-6">
+                      <div className="d-flex flex-column">
+                        <label htmlFor="policyholder_name">
+                          <h5
+                            className={styles['text-color']}
+                            style={{ marginBottom: '11px' }}
+                          >
+                            要/被保險人姓名(寵物登記證記載之飼主)
+                            <ErrorMessage message={errors.policyholder_name} />
+                          </h5>
+                        </label>
+                        <input
+                          className={styles['sheet-input']}
+                          type="text"
+                          id="policyholder_name"
+                          name="policyholder_name"
+                          style={{ width: '100%' }}
+                        />
+                      </div>
+                      <div className="d-flex flex-column">
+                        <label htmlFor="b2c_IDcard">
+                          <h5
+                            className={`${styles['text-color']} mt-4`}
+                            style={{ marginBottom: '11px' }}
+                          >
+                            身份證字號
+                            <ErrorMessage
+                              message={errors.policyholder_IDcard}
+                            />
+                          </h5>
+                        </label>
+                        <input
+                          className={styles['sheet-input']}
+                          type="text"
+                          id="policyholder_IDcard"
+                          name="policyholder_IDcard"
+                          style={{ width: '100%' }}
+                        />
+                        {idError && <p style={{ color: 'red' }}>{idError}</p>}
+                      </div>
+                      <div className="d-flex flex-column">
+                        <label htmlFor="b2c_birth">
+                          <h5
+                            className={`${styles['text-color']} mt-4`}
+                            style={{ marginBottom: '11px' }}
+                          >
+                            出生年月日
+                            <ErrorMessage
+                              message={errors.policyholder_birthday}
+                            />
+                          </h5>
+                        </label>
+                        <input
+                          className={styles['sheet-input']}
+                          type="date"
+                          id="policyholder_birthday"
+                          name="policyholder_birthday"
+                          style={{ width: '100%' }}
+                        />
+                      </div>
+                      <div className="d-flex flex-column">
+                        <label htmlFor="b2c_email">
+                          <h5
+                            className={`${styles['text-color']} mt-4`}
+                            style={{ marginBottom: '11px' }}
+                          >
+                            Email
+                            <ErrorMessage
+                              message={errors.fk_policyholder_email}
+                            />
+                          </h5>
+                        </label>
+                        <input
+                          className={styles['sheet-input']}
+                          type="text"
+                          id="fk_policyholder_email"
+                          name="fk_policyholder_email"
+                          style={{ width: '100%' }}
+                        />
+                      </div>
+                      <div className="d-flex flex-column">
+                        <label htmlFor="b2c_mobile">
+                          <h5
+                            className={`${styles['text-color']} mt-4`}
+                            style={{ marginBottom: '11px' }}
+                          >
+                            手機號碼
+                            <ErrorMessage
+                              message={errors.fk_policyholder_mobile}
+                            />
+                          </h5>
+                        </label>
+                        <input
+                          className={styles['sheet-input']}
+                          type="text"
+                          id="fk_policyholder_mobile"
+                          name="fk_policyholder_mobile"
+                          style={{ width: '100%' }}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-6 d-flex justify-content-end align-items-end">
+                      <img
+                        src="/pi-pic/footprints.png"
+                        style={{ width: '50%', height: '50%' }}
+                      />
+                    </div>
                   </div>
                   <div>
                     <label htmlFor="address">
@@ -310,33 +328,7 @@ function PiPayment02() {
                 </div>
               </div>
             </div>
-            {/* 確認同意 */}
-            {/* <div className="col-12">
-              <div
-                className="form-check d-flex align-items-start my-3"
-                style={{ margin: 0, padding: 0 }}
-              >
-                <input
-                  className="form-check-input"
-                  style={{
-                    border: '3px solid #B7B7B7',
-                    marginLeft: 0,
-                    paddingTop: 10,
-                  }}
-                  type="checkbox"
-                  id="flexCheckDefault6"
-                  checked={checkedRead}
-                  onChange={(e) => setCheckedRead(e.target.checked)}
-                />
-                <label
-                  className="form-check-label ms-2"
-                  htmlFor="flexCheckDefault6"
-                >
-                  <h5>本人已審閱並了解貴公司所提供須知及商品簡介</h5>
-                  <ErrorMessage message={errors.checkedRead} />
-                </label>
-              </div>
-            </div> */}
+
             {/* 下一步 */}
             <div className="col-12 mt-4">
               <div>

@@ -6,13 +6,53 @@ import withProgressBar from './withProgressBar'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { agreements } from './agreements'
+import { z } from 'zod'
+import Swal from 'sweetalert2'
 
 function PiPayment01() {
+  // 驗證寵物姓名用
+  const [NameError, setNameError] = useState('')
+  const validateName = (name) => {
+    return name && name.trim().length >= 1
+  }
+
   // 驗證寵物晶片序號的函數
   const [chipError, setChipError] = useState('')
   const validateChip = (chip) => {
     return /^\d{10,15}$/.test(chip)
   }
+
+  // 驗證聲明書用
+  const [agreementsError, setAgreementsError] = useState('')
+  // 驗證已讀用
+  const [checkedReadError, setCheckedReadError] = useState('')
+
+  // 驗證
+  const formSchema = z.object({
+    pet_name: z.string().min(1, { message: '請輸入寵物名字' }),
+    pet_chip: z
+      .string()
+      .refine(validateChip, { message: '請輸入正確的晶片序號' }),
+    disclosure1: z.enum(['是', '否']),
+    disclosure2: z.enum(['是', '否']),
+    disclosure3: z.enum(['是', '否']),
+    disclosure4: z.enum(['是', '否']),
+    disclosure5: z.enum(['是', '否']),
+    agreementsStatus: z
+      .object({
+        agreementItem01: z.boolean(),
+        agreementItem02: z.boolean(),
+        agreementItem03: z.boolean(),
+        agreementItem04: z.boolean(),
+      })
+      .refine((obj) => Object.values(obj).every(Boolean), {
+        message: '請同意所有聲明事項',
+        path: ['agreementsStatus'],
+      }),
+    checkedRead: z.boolean().refine((val) => val === true, {
+      message: '請勾選',
+    }),
+  })
 
   // 聲明書勾選確認
   const [agreementsStatus, setAgreementsStatus] = useState({
@@ -51,9 +91,11 @@ function PiPayment01() {
 
   // 預覽和上傳寵物大頭照
   // 記錄選擇的圖檔(File物件)
-  const [selectedImg, setSelectedImg] = useState('/pi-pic/pet-upload.png')
+  const [selectedImg, setSelectedImg] = useState(
+    '/pi-pic/pet-upload-default.png',
+  )
   // 預覽圖片的網址
-  const [previewURL, setPreviewURL] = useState('/pi-pic/pet-upload.png')
+  const [previewURL, setPreviewURL] = useState('/pi-pic/pet-upload-default.png')
   // 伺服器回傳訊息
   const [message, setMessage] = useState('')
   // 檔案輸入參考
@@ -119,11 +161,20 @@ function PiPayment01() {
 
   // 處理點擊聲明書
   const handleClick = (id) => {
-    setAgreementsStatus((prevStatus) => ({
-      ...prevStatus,
-      [id]: true,
-    }))
+    setAgreementsStatus((prevStatus) => {
+      // 如果已經是true，就不能取消
+      if (prevStatus[id]) return prevStatus
 
+      return {
+        ...prevStatus,
+        [id]: true,
+      }
+    })
+
+    setSelectedAgreement(agreements.find((agreement) => agreement.id === id))
+  }
+  // 以點擊過的聲明書仍可對應顯示
+  const handleAgreementClick = (id) => {
     setSelectedAgreement(agreements.find((agreement) => agreement.id === id))
   }
 
@@ -132,76 +183,102 @@ function PiPayment01() {
   //寄出表單
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    //重置所有錯誤訊息
+    setNameError('')
+    setChipError('')
+    setAgreementsError('')
+    setCheckedReadError('')
+
     const formData = new FormData(formRef.current)
-    const petChip = formData.get('pet_chip')
+    // const petChip = formData.get('pet_chip')
+    const formDataObject = Object.fromEntries(formData.entries())
 
-    // 驗證寵物晶片序號
-    if (!validateChip(petChip)) {
-      setChipError('請輸入正確的晶片序號')
-      return
-    } else {
-      setChipError('')
+    formDataObject.agreementsStatus = {
+      agreementItem01: agreementsStatus.agreementItem01,
+      agreementItem02: agreementsStatus.agreementItem02,
+      agreementItem03: agreementsStatus.agreementItem03,
+      agreementItem04: agreementsStatus.agreementItem04,
     }
-    // 檢查是否有任何告知事項選擇了"是"
-    if (
-      disclosure1 === '是' ||
-      disclosure2 === '是' ||
-      disclosure3 === '是' ||
-      disclosure4 === '是' ||
-      disclosure5 === '是'
-    ) {
-      alert('由於您在告知事項中選擇了"是"，無法進行投保。')
-      return
-    }
-
-    // 檢查是否所有同意項目都已勾選
-    if (!Object.values(agreementsStatus).every(Boolean)) {
-      alert('請同意所有聲明事項')
-      return
-    }
-
-    // 檢查"已詳閱並同意以上聲明事項"已勾選
-    if (!checkedRead) {
-      alert('請勾選已詳閱並同意以上聲明事項')
-      return
-    }
+    formDataObject.checkedRead = checkedRead
 
     try {
-      // 收集所有表單數據
-      const petName = formData.get('pet_name')
-
-      // 檢查必要欄位是否填寫
-      const missingFields = []
-      if (!petName) missingFields.push('寵物姓名')
-      if (!petChip) missingFields.push('晶片序號')
-
-      if (missingFields.length > 0) {
-        throw new Error(`請填寫以下必要欄位：${missingFields.join(', ')}`)
+      // 驗證表單數據
+      const validatedData = formSchema.parse(formDataObject)
+      // 檢查是否有任何告知事項選擇了"是"
+      if (
+        [
+          'disclosure1',
+          'disclosure2',
+          'disclosure3',
+          'disclosure4',
+          'disclosure5',
+        ].some((key) => validatedData[key] === '是')
+      ) {
+        throw new Error('由於您在告知事項中選擇了"是"，無法進行投保。')
       }
 
       // 格式化保險結束日期
       const formatedEndDate = dates.endDate
         ? `${dates.endDate.getFullYear()}-${String(dates.endDate.getMonth() + 1).padStart(2, '0')}-${String(dates.endDate.getDate()).padStart(2, '0')}`
         : ''
+
       // 保存所有數據到 localStorage
       localStorage.setItem(
         'petBasicData',
         JSON.stringify({
-          PetName: petName,
-          PetChip: petChip,
+          PetName: validatedData.pet_name,
+          PetChip: validatedData.pet_chip,
           insuranceEndDate: formatedEndDate,
         }),
       )
 
       // 成功提示
-      alert('資料已成功保存，請繼續下一步驟')
-      // 跳轉下一頁
-      router.push('/insurance/insurance-payment02')
+      Swal.fire({
+        icon: 'success',
+        title: '資料已成功保存',
+        text: '請繼續下一步',
+      }).then(() => {
+        // 跳轉下一頁
+        router.push('/insurance/insurance-payment02')
+      })
     } catch (error) {
-      console.error('保存失敗:', error)
-      alert(error.message || '保存失敗，請檢查所有欄位並重試。')
+      if (error.errors) {
+        error.errors.forEach((err) => {
+          switch (err.path[0]) {
+            case 'pet_name':
+              setNameError(err.message)
+              break
+            case 'pet_chip':
+              setChipError(err.message)
+              break
+            case 'agreementsStatus':
+              setAgreementsError(err.message)
+              break
+            case 'checkedRead':
+              setCheckedReadError(err.message)
+              break
+          }
+        })
+
+        // 顯示錯誤訊息
+        Swal.fire({
+          icon: 'error',
+          title: '保存失敗',
+          text: '請檢查所有欄位',
+        })
+      } else {
+        // 處理其他錯誤
+
+        Swal.fire({
+          icon: 'error',
+          title: '保存失敗',
+          text: error.message || '保存失敗, 請檢查所有欄位',
+        })
+      }
     }
   }
+
   // 暫存寵物圖片
   useEffect(() => {
     const savedImg = localStorage.getItem('petPhoto')
@@ -218,6 +295,12 @@ function PiPayment01() {
     const dogData = localStorage.getItem('dogInsuranceData')
     const parseData = JSON.parse(catData || dogData) // 整合貓跟狗的資料
     setData(parseData)
+
+    // 取得保險方案
+    const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
+    if (selectedPlan) {
+      setPlanType(selectedPlan.type)
+    }
   }, [])
 
   useEffect(() => {
@@ -230,13 +313,6 @@ function PiPayment01() {
       setDates({ startDate, endDate })
     }
   }, [data])
-
-  useEffect(() => {
-    const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
-    if (selectedPlan) {
-      setPlanType(selectedPlan.type)
-    }
-  }, [])
 
   if (!data || !dates.startDate) {
     return <div>Loading...</div>
@@ -280,6 +356,7 @@ function PiPayment01() {
                     id="pet_name"
                     name="pet_name"
                   />
+                  {NameError && <p style={{ color: 'red' }}>{NameError}</p>}
                   <label htmlFor="pet_chip">
                     <h5
                       className={`${styles['text-color']} mt-4`}
@@ -344,7 +421,7 @@ function PiPayment01() {
                     type="button"
                     onClick={handleImageUpload}
                   >
-                    上傳寵物大頭照
+                    點擊上傳照片
                   </button>
                   {message && <p style={{ color: 'red' }}> {message}</p>}
                 </div>
@@ -381,11 +458,11 @@ function PiPayment01() {
                             className="form-check-input me-2"
                             style={{ margin: 0 }}
                             type="radio"
-                            name={disclosure1}
+                            name="disclosure1"
                             id="disclosure1No"
+                            value="否"
                             checked={disclosure1 === '否'}
                             onChange={() => setDisclosure1('否')}
-                            required
                           />
                           <label
                             className="form-check-label d-flex align-items-center me-2"
@@ -401,6 +478,7 @@ function PiPayment01() {
                             type="radio"
                             name="disclosure1"
                             id="disclosure1Yes"
+                            value="是"
                             checked={disclosure1 === '是'}
                             onChange={() => setDisclosure1('是')}
                           />
@@ -432,9 +510,9 @@ function PiPayment01() {
                             type="radio"
                             name="disclosure2"
                             id="disclosure2No"
+                            value="否"
                             checked={disclosure2 === '否'}
                             onChange={() => setDisclosure2('否')}
-                            required
                           />
                           <label
                             className="form-check-label d-flex align-items-center me-2"
@@ -450,6 +528,7 @@ function PiPayment01() {
                             type="radio"
                             name="disclosure2"
                             id="disclosure2Yes"
+                            value="是"
                             checked={disclosure2 === '是'}
                             onChange={() => setDisclosure2('是')}
                           />
@@ -481,9 +560,9 @@ function PiPayment01() {
                             type="radio"
                             name="disclosure3"
                             id="disclosure3No"
+                            value="否"
                             checked={disclosure3 === '否'}
                             onChange={() => setDisclosure3('否')}
-                            required
                           />
                           <label
                             className="form-check-label d-flex align-items-center me-2"
@@ -499,6 +578,7 @@ function PiPayment01() {
                             type="radio"
                             name="disclosure3"
                             id="disclosure3Yes"
+                            value="是"
                             checked={disclosure3 === '是'}
                             onChange={() => setDisclosure3('是')}
                           />
@@ -529,9 +609,9 @@ function PiPayment01() {
                             type="radio"
                             name="disclosure4"
                             id="disclosure4No"
+                            value="否"
                             checked={disclosure4 === '否'}
                             onChange={() => setDisclosure4('否')}
-                            required
                           />
                           <label
                             className="form-check-label d-flex align-items-center me-2"
@@ -547,6 +627,7 @@ function PiPayment01() {
                             type="radio"
                             name="disclosure4"
                             id="disclosure4Yes"
+                            value="是"
                             checked={disclosure4 === '是'}
                             onChange={() => setDisclosure4('是')}
                           />
@@ -580,9 +661,9 @@ function PiPayment01() {
                             type="radio"
                             name="disclosure5"
                             id="disclosure5No"
+                            value="否"
                             checked={disclosure5 === '否'}
                             onChange={() => setDisclosure5('否')}
-                            required
                           />
                           <label
                             className="form-check-label d-flex align-items-center me-2"
@@ -598,6 +679,7 @@ function PiPayment01() {
                             type="radio"
                             name="disclosure5"
                             id="disclosure5Yes"
+                            value="是"
                             checked={disclosure5 === '是'}
                             onChange={() => setDisclosure5('是')}
                           />
@@ -622,7 +704,9 @@ function PiPayment01() {
             </div>
             {/* 同意聲明告知 */}
             <div className="col-12" style={{ marginTop: '30px' }}>
-              <h4 className={styles['top-frame']}>同意聲明告知</h4>
+              <div className={styles['top-frame']}>
+                <h4>同意聲明告知</h4>
+              </div>
               <div className={styles['data-frame']}>
                 <div className="col-12 justify-content-center">
                   {/* <form> */}
@@ -631,6 +715,7 @@ function PiPayment01() {
                       <div
                         key={index}
                         className={`form-check ${styles['cfm-frame']} ${agreementClicked.has(agreement.id) ? styles.read : ''}`}
+                        onClick={() => handleAgreementClick(agreement.id)}
                       >
                         <input
                           className="form-check-input"
@@ -642,7 +727,6 @@ function PiPayment01() {
                           onChange={() => handleClick(agreement.id)}
                           checked={agreementsStatus[agreement.id]}
                           id={agreement.id}
-                          required
                         />
                         <label
                           className="form-check-label"
@@ -653,7 +737,11 @@ function PiPayment01() {
                       </div>
                     ))}
                   </div>
-
+                  <div className="d-flex justify-content-center pt-2">
+                    {agreementsError && (
+                      <p style={{ color: 'red' }}>{agreementsError}</p>
+                    )}
+                  </div>
                   <textarea
                     rows={10}
                     className={`mt-3 ${styles.InfoDetail} border-0 no-outline`}
@@ -683,12 +771,15 @@ function PiPayment01() {
                   onChange={(e) => setCheckedRead(e.target.checked)}
                 />
                 <label
-                  className="form-check-label ms-2"
+                  className="form-check-label d-flex ms-2"
                   htmlFor="flexCheckDefault4"
                 >
-                  <h5 style={{ marginBottom: 0 }}>
+                  <h5 className="ms-2 me-3" style={{ marginBottom: 0 }}>
                     我已詳閱並同意以上聲明事項{' '}
                   </h5>
+                  {checkedReadError && (
+                    <p style={{ color: 'red' }}>{checkedReadError}</p>
+                  )}
                 </label>
               </div>
               <div
