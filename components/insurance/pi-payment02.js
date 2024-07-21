@@ -112,13 +112,13 @@ function PiPayment02() {
       localStorage.setItem('holderBasicData', JSON.stringify(formDataObject))
 
       // 更新會員資料
-      await axios.put('http://localhost:3001/petcompany/b2c_members', {
-        fk_policyholder_email: formDataObject.fk_policyholder_email,
-        fk_policyholder_mobile: formDataObject.fk_policyholder_mobile,
-        fk_county_id: formDataObject.fk_county_id,
-        fk_city_id: formDataObject.fk_city_id,
-        fk_policyholder_address: formDataObject.fk_policyholder_address,
-      })
+      // await axios.put('http://localhost:3001/petcompany/b2c_members', {
+      //   fk_policyholder_email: formDataObject.fk_policyholder_email,
+      //   fk_policyholder_mobile: formDataObject.fk_policyholder_mobile,
+      //   fk_county_id: formDataObject.fk_county_id,
+      //   fk_city_id: formDataObject.fk_city_id,
+      //   fk_policyholder_address: formDataObject.fk_policyholder_address,
+      // })
 
       // 成功提示
       alert('資料已成功保存，請繼續下一步驟')

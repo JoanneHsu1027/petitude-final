@@ -12,7 +12,10 @@ import { products } from './insurance_product'
 
 function PiPayment03() {
   const router = useRouter()
+  // 抓取會員id
+  const [memberID, setMemberID] = useState('')
   // 要保人資料
+
   const [holderName, setHolderName] = useState('')
   const [holderID, setHolderID] = useState('')
   const [holderBirthday, setHolderBirthday] = useState('')
@@ -50,7 +53,7 @@ function PiPayment03() {
     message ? <span style={{ color: 'red' }}>{message}</span> : null
 
   //寄出表單
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     // const formData = new FormData(formRef.current)
@@ -72,30 +75,45 @@ function PiPayment03() {
       )
       const cityData = cities.find((city) => city.label === holderCity)
 
+      const insuranceData = {
+        fk_b2c_id: memberID,
+        // 要保人資料
+        b2c_name: holderName,
+        policyholder_IDcard: holderID,
+        policyholder_birthday: holderBirthday,
+        fk_policyholder_email: holderEmail,
+        fk_policyholder_mobile: holderMobile,
+        fk_county_id: countyData ? countyData.value : '',
+        fk_city_id: cityData ? cityData.value : '',
+        fk_policyholder_address: holderAddress,
+        // 寵物資料
+        pet_name: petName,
+        pet_chip: petChip,
+        insurance_start_date: insuranceStartDate,
+        insurance_end_date: insuranceEndDate,
+        insurance_product: planType,
+        insurance_premium: planPrice,
+        // 紀錄的圖片(File物件)
+        pet_pic: selectedImg,
+      }
       // 保存所有數據到 localStorage
-      localStorage.setItem(
-        'InsuranceOrder',
-        JSON.stringify({
-          // 要保人資料
-          b2c_name: holderName,
-          policyholder_IDcard: holderID,
-          policyholder_birthday: holderBirthday,
-          fk_policyholder_email: holderEmail,
-          fk_policyholder_mobile: holderMobile,
-          fk_county_id: countyData ? countyData.value : '',
-          fk_city_id: cityData ? cityData.value : '',
-          fk_policyholder_address: holderAddress,
-          // 寵物資料
-          pet_name: petName,
-          pet_chip: petChip,
-          insurance_start_date: insuranceStartDate,
-          insurance_end_date: insuranceEndDate,
-          insurance_product: planType,
-          insurance_premium: planPrice,
-          // 紀錄的圖片(File物件)
-          pet_pic: selectedImg,
-        }),
+      localStorage.setItem('InsuranceOrder', JSON.stringify(insuranceData))
+
+      // 資料發送到後端
+      const response = await fetch(
+        'http://localhost:3001/insurance/save-insurance-order',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(insuranceData),
+        },
       )
+
+      if (!response.ok) {
+        throw new Error('Failed to save data to server')
+      }
 
       // 成功提示
       alert('資料已成功保存，請繼續下一步驟')
@@ -135,11 +153,13 @@ function PiPayment03() {
       setSelectedImg(petPic)
     }
 
+    const petMemberAuth = localStorage.getItem('petmember-auth') // 會員id
+    if (petMemberAuth) {
+      const authData = JSON.parse(petMemberAuth)
+      setMemberID(authData.b2c_id)
+    }
+
     const holderBasicData = JSON.parse(localStorage.getItem('holderBasicData'))
-    // const formatMobile =
-    //   holderBasicData.fk_policyholder_mobile.slice(0, 4) +
-    //   '-' +
-    //   holderBasicData.fk_policyholder_mobile.slice(4)
     if (holderBasicData) {
       const countyData = counties.find(
         (county) => county.value === holderBasicData.fk_county_id,
