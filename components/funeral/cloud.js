@@ -6,25 +6,23 @@ const Cloud = ({ style }) => {
     loop: true,
     to: async (next) => {
       while (true) {
-        await next({ x: 650, y: 0 })
-        await next({ x: 700, y: 30 })
-        await next({ x: 750, y: 0 })
-        await next({ x: 800, y: 30 })
-        await next({ x: 850, y: 0 })
-        await next({ x: 900, y: 0 })
-        await next({ x: 950, y: 30 })
-        await next({ x: 1000, y: 30 })
-        await next({ x: 1050, y: 0 })
-        await next({ x: 1100, y: 30 })
-        await next({ x: 1050, y: 0 })
-        await next({ x: 1000, y: 30 })
-        await next({ x: 950, y: 0 })
-        await next({ x: 900, y: 30 })
-        await next({ x: 850, y: 0 })
-        await next({ x: 800, y: 30 })
-        await next({ x: 750, y: 0 })
-        await next({ x: 700, y: 30 })
-        await next({ x: 650, y: 0 })
+        await next({ x: 700, y: -10 })
+        await next({ x: 750, y: 10 })
+        await next({ x: 800, y: -10 })
+        await next({ x: 850, y: 10 })
+        await next({ x: 900, y: -10 })
+        await next({ x: 950, y: 10 })
+        await next({ x: 1000, y: -10 })
+        await next({ x: 1050, y: 10 })
+        await next({ x: 1100, y: -10 })
+        await next({ x: 1050, y: 10 })
+        await next({ x: 1000, y: -10 })
+        await next({ x: 950, y: 10 })
+        await next({ x: 900, y: -10 })
+        await next({ x: 850, y: 10 })
+        await next({ x: 800, y: -10 })
+        await next({ x: 750, y: 10 })
+        await next({ x: 700, y: -10 })
       }
     },
     from: { x: 650, y: 0 },
@@ -45,8 +43,8 @@ const MemorialPage = () => {
       style={{
         position: 'absolute',
         width: '100%',
-        height: '100vh',
-        baclgroundColor: 'transparent',
+        height: '50%',
+        backgroundColor: 'transparent',
         overflow: 'hidden',
         zIndex: '1',
       }}
