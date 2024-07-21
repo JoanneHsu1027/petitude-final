@@ -98,7 +98,7 @@ export default function Card() {
                       <div>
                         <i
                           class="bi bi-triangle-fill"
-                          style={{ color: 'gray' }}
+                          style={{ color: 'gray', fontSize: '0.9rem' }}
                         ></i>
                       </div>
                     </span>

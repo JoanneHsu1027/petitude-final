@@ -37,11 +37,9 @@
 
 .card p {
   text-align: start;
-  line-height: 1.5;
   font-size: 0.8rem;
   font-weight: 700;
   padding-left: 10px;
-  margin-bottom: 10px;
   color: #a0722a;
 }
 
@@ -51,6 +49,19 @@
   font-size: 0.9rem;
   margin-right: 5px;
   white-space: nowrap; /* 防止文字超出按鈕 */
+  font-weight: 600;
+  color: #6A513D;
+
+}
+.btnPlan:hover,
+.btnPlan1:hover {
+  height: 34px;
+  font-size: 0.9rem;
+  margin-right: 5px;
+  white-space: nowrap; /* 防止文字超出按鈕 */
+  background-color: #6A513D;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 

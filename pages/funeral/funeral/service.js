@@ -12,19 +12,20 @@ export default function Service() {
 
   return (
     <>
-      <div className="container-fluid mt-5 mb-5 ">
-        <div className="row d-flex justify-content-center ">
+      <div className="container-fluid mt-5 mb-5">
+        <div className="row d-flex justify-content-center">
           <h2
+            className="text-center mb-4"
             style={{
-              textAlign: 'center',
+              fontSize: '2rem',
               marginBottom: '4%',
             }}
           >
             寵物火化服務項目一覽
           </h2>
           <div
-            className="col-md-6  d-flex justify-content-center mt-3"
-            style={{ width: '40%' }}
+            className="col-md-6 col-12 d-flex justify-content-center mt-3"
+            style={{ maxWidth: '500px' }} // 控制最大宽度
           >
             <div
               className={`card text-dark mb-1 border-0 text-center ${Styles.card}`}
@@ -58,8 +59,8 @@ export default function Service() {
             </div>
           </div>
           <div
-            className="col-md-6 d-flex justify-content-center mt-3"
-            style={{ width: '40%' }}
+            className="col-md-6 col-12 d-flex justify-content-center mt-3"
+            style={{ maxWidth: '500px' }} // 控制最大宽度
           >
             <div
               className={`card text-dark mb-1 border-0 text-center ${Styles.card}`}
@@ -107,6 +108,29 @@ export default function Service() {
           border: none; /* 移除每個項目的邊框 */
           padding: 0.5rem 1rem; /* 自定義內邊距 */
           background-color: transparent; /* 設定背景顏色為透明 */
+        }
+        @media (max-width: 768px) {
+          h2 {
+            font-size: 1.5rem; /* 調整標題字體大小 */
+            margin-bottom: 2%;
+          }
+
+          .btn-warning {
+            width: 100px; /* 調整按鈕寬度 */
+            font-size: 0.8rem; /* 調整按鈕字體大小 */
+          }
+        }
+
+        @media (max-width: 576px) {
+          h2 {
+            font-size: 1.2rem; /* 調整標題字體大小 */
+            margin-bottom: 1%;
+          }
+
+          .btn-warning {
+            width: 80px; /* 調整按鈕寬度 */
+            font-size: 0.7rem; /* 調整按鈕字體大小 */
+          }
         }
       `}</style>
     </>
