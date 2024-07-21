@@ -8,10 +8,19 @@ import { useRouter } from 'next/router'
 import { counties } from '../common/county'
 import { cities } from '../common/city'
 import { z } from 'zod'
+import axios from 'axios'
 
 function PiPayment02() {
   const router = useRouter()
   const formRef = useRef(null)
+  // 儲存會員資料
+  const [memberData, setMemberData] = useState({
+    fk_policyholder_email: '',
+    fk_policyholder_mobile: '',
+    fk_county_id: '',
+    fk_city_id: '',
+    fk_policyholder_address: '',
+  })
 
   // 台灣身分證字號驗證
   const [idError, setIdError] = useState('')
@@ -62,7 +71,7 @@ function PiPayment02() {
   })
 
   //寄出表單
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     const formData = new FormData(formRef.current)
@@ -80,16 +89,6 @@ function PiPayment02() {
       fk_policyholder_mobile: z
         .string()
         .regex(/^09\d{2}(-?\d{3}){2}$/, { message: '請填寫正確的手機格式' }),
-      // .transform((val) => {
-      //   // 移除所有非數字字符
-      //   console.log('Original value:', val)
-      //   const cleanedMobile = val.replace(/\D/g, '')
-      //   console.log('Cleaned value:', cleanedMobile)
-      //   const formattedMobile =
-      //     cleanedMobile.slice(0, 4) + '-' + cleanedMobile.slice(4)
-      //   console.log('Formatted value:', formattedMobile)
-      //   return formattedMobile
-      // })
       fk_county_id: z.string().min(1, { message: '請選擇縣市' }),
       fk_city_id: z.string().min(1, { message: '請選擇城市' }),
       fk_policyholder_address: z.string().min(1, { message: '請填寫詳細地址' }),
@@ -111,6 +110,15 @@ function PiPayment02() {
     try {
       // 保存所有數據到 localStorage
       localStorage.setItem('holderBasicData', JSON.stringify(formDataObject))
+
+      // 更新會員資料
+      await axios.put('http://localhost:3001/petcompany/b2c_members', {
+        fk_policyholder_email: formDataObject.fk_policyholder_email,
+        fk_policyholder_mobile: formDataObject.fk_policyholder_mobile,
+        fk_county_id: formDataObject.fk_county_id,
+        fk_city_id: formDataObject.fk_city_id,
+        fk_policyholder_address: formDataObject.fk_policyholder_address,
+      })
 
       // 成功提示
       alert('資料已成功保存，請繼續下一步驟')
@@ -143,6 +151,23 @@ function PiPayment02() {
       setFilteredCities([])
     }
   }, [selectedCounty])
+
+  // 獲取會員資料
+  useEffect(() => {
+    const fetchMemberData = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:3001/petcompany/b2c_members',
+        )
+        setMemberData(response.data)
+        setSelectedCounty(response.data.fk_county_id) // 設置初始縣市
+      } catch (error) {
+        console.error('Error fetching member data:', error)
+      }
+    }
+
+    fetchMemberData()
+  }, [])
 
   return (
     <>
@@ -239,11 +264,18 @@ function PiPayment02() {
                           </h5>
                         </label>
                         <input
+                          style={{ width: '100%' }}
                           className={styles['sheet-input']}
                           type="text"
                           id="fk_policyholder_email"
                           name="fk_policyholder_email"
-                          style={{ width: '100%' }}
+                          value={memberData.fk_policyholder_email}
+                          onChange={(e) =>
+                            setMemberData({
+                              ...memberData,
+                              fk_policyholder_email: e.target.value,
+                            })
+                          }
                         />
                       </div>
                       <div className="d-flex flex-column">
@@ -264,6 +296,13 @@ function PiPayment02() {
                           id="fk_policyholder_mobile"
                           name="fk_policyholder_mobile"
                           style={{ width: '100%' }}
+                          value={memberData.fk_policyholder_mobile}
+                          onChange={(e) =>
+                            setMemberData({
+                              ...memberData,
+                              fk_policyholder_mobile: e.target.value,
+                            })
+                          }
                         />
                       </div>
                     </div>
@@ -293,8 +332,16 @@ function PiPayment02() {
                       style={{ width: '49%' }}
                       id="fk_county_id"
                       name="fk_county_id"
-                      value={selectedCounty}
-                      onChange={(e) => setSelectedCounty(e.target.value)}
+                      // value={selectedCounty}
+                      value={memberData.fk_county_id}
+                      onChange={(e) => {
+                        setSelectedCounty(e.target.value)
+                        setMemberData({
+                          ...memberData,
+                          fk_county_id: e.target.value,
+                          fk_city_id: '',
+                        })
+                      }}
                     >
                       <option value="">請選擇縣市</option>
                       {counties.map((county) => (
@@ -309,6 +356,13 @@ function PiPayment02() {
                       style={{ width: '49%' }}
                       id="fk_city_id"
                       name="fk_city_id"
+                      value={memberData.fk_city_id}
+                      onChange={(e) =>
+                        setMemberData({
+                          ...memberData,
+                          fk_city_id: e.target.value,
+                        })
+                      }
                     >
                       <option value>請選擇行政區</option>
                       {filteredCities.map((city) => (
@@ -324,6 +378,13 @@ function PiPayment02() {
                     type="text"
                     id="fk_policyholder_address"
                     name="fk_policyholder_address"
+                    value={memberData.fk_policyholder_address}
+                    onChange={(e) =>
+                      setMemberData({
+                        ...memberData,
+                        fk_policyholder_address: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </div>
