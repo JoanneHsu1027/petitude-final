@@ -109,12 +109,36 @@
   font-weight: 900;
 }
 
-.page:hover{
-  background-color: white;
+.page:hover {
+  border-radius: 20px 20px 0 0;
+  background-color: #CFE7B1;
+  margin-top: 20px;
+  margin-left: 16px;
+  margin-right: 8px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: #6A513D;
+  border: none;
+  font-size: 24px;
+  font-weight: 900;
 }
 
 .page:active {
-  background-color: white;
+  border-radius: 20px 20px 0 0;
+  background-color: #ffffff;
+  margin-top: 20px;
+  margin-left: 16px;
+  margin-right: 8px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: #6A513D;
+  border: none;
+  font-size: 24px;
+  font-weight: 900;
 }
 
 

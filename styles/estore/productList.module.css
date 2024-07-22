@@ -61,7 +61,8 @@
 .btnPage,
 .dots {
   color: #6A513D;
-  background-color: #FFF5CF;
+  /* background-color: #FFF5CF; */
+  /* background-image: url('/pic/bg-img01.png'); */
   font-weight: 900;
 }
 
@@ -71,6 +72,7 @@
   padding: 8px;
   border-radius: 50%;
   border: 1.5px solid #FFF5CF;
+  /* background-image: url('/pic/bg-img01.png'); */
   color: #6A513D;
 }
 
@@ -80,6 +82,7 @@
   background-color: #F6D554;
   color: #6A513D;
 }
+
 
 .btnPage {
   border: none;

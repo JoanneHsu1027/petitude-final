@@ -36,6 +36,13 @@ export default function BookingList() {
 
   const { clearCart } = useCart()
 
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
+  }
+
   useEffect(() => {
     // 從 localStorage 讀取購物車資料
     const storedCart = localStorage.getItem('joannesshoppingcart')
@@ -387,22 +394,6 @@ export default function BookingList() {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div className="col-12">
-                    <div
-                      className="form-check"
-                      style={{ marginTop: 0.5 + 'rem' }}
-                    >
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="syncInfo"
-                        style={{ marginTop: '0.3rem' }}
-                      />
-                      <label className="form-check-label" htmlFor="syncInfo">
-                        購買人資訊同步會員基本資料
-                      </label>
-                    </div>
-                  </div>
                 </form>
               </div>
             </div>
@@ -481,20 +472,6 @@ export default function BookingList() {
                         id="phoneBill"
                         placeholder="請填寫共通載具"
                       />
-                      <div
-                        className="col-12 form-check"
-                        style={{ marginTop: 0.5 + 'rem' }}
-                      >
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          id="syncInfo"
-                          style={{ marginTop: '0.3rem' }}
-                        />
-                        <label className="form-check-label" htmlFor="syncInfo">
-                          記住此資訊，讓下次結帳時可使用
-                        </label>
-                      </div>
                     </>
                   )}
                 </div>
@@ -646,7 +623,7 @@ export default function BookingList() {
                               <div
                                 className={`justify-content-end fs-4 ${styles.productPrice}`}
                               >
-                                $ {r.product_price * r.qty}
+                                $ {formatCurrency(r.product_price * r.qty)}
                               </div>
                             </div>
                           </div>
@@ -672,7 +649,9 @@ export default function BookingList() {
                     <p className="card-text mb-1 fs-5">總金額</p>
                   </div>
                   <div className="text-end ms-5 ms-auto">
-                    <p className="card-text fs-4">$ {totalPrice}</p>
+                    <p className="card-text fs-4">
+                      $ {formatCurrency(totalPrice)}
+                    </p>
                   </div>
                 </div>
                 <div className="d-flex justify-content-center align-items-center">

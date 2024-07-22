@@ -1,6 +1,7 @@
 .full {
   font-family: "Noto Serif TC", serif;
-  background-color: #FFF5CF;
+  /* background-color: #FFF5CF; */
+  background-image: url('/pic/bg-img01.png');
   /* background-image: url(./img/background.jpg); */
 }
 
