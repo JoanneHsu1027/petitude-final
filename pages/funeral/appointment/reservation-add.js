@@ -8,54 +8,22 @@ import { RV_ADD_POST } from '@/configs/funeral/api-path'
 
 export default function RvEdit() {
   const router = useRouter()
+
   const [showModal, setShowModal] = useState(false)
 
   const [myForm, setMyForm] = useState({
-    fk_b2c_id: '',
+    b2c_name: '',
     reservation_date: '',
     note: '',
   })
   const [myFormErrors, setMyFormErrors] = useState({
-    fk_b2c_id: '',
+    b2c_name: '',
     reservation_date: '',
     note: '',
   })
 
   const onChange = (e) => {
-    const { name, value } = e.target
-    if (name === 'reservation_date') {
-      const formattedDate = new Date(value).toISOString()
-      setMyForm({ ...myForm, [name]: formattedDate })
-    } else {
-      setMyForm({ ...myForm, [name]: value })
-    }
-    // 做表單的驗證
-    /*
-        const schemaEmail = z.string().email({ message: "請填寫正確的電郵格式" });
-        if (e.target.name === "email") {
-        const result = schemaEmail.safeParse(e.target.value);
-        console.log(JSON.stringify(result, null, 4));
-        }
-        */
-
-    /*
-        {
-        "success": false,
-        "error": {
-            "issues": [
-                {
-                    "validation": "regex",
-                    "code": "invalid_string",
-                    "message": "請填寫正確的手機格式",
-                    "path": [
-                        "mobile"
-                    ]
-                }
-            ],
-            "name": "ZodError"
-        }
-        }
-        */
+    console.log(e.target.name, e.target.value)
 
     const schemaForm = z.object({
       name: z.string().min(2, { message: '姓名至少兩個字' }),
@@ -72,7 +40,7 @@ export default function RvEdit() {
 
     // 重置 myFormErrors
     const newFormErrors = {
-      fk_b2c_id: '',
+      b2c_name: '',
       reservation_date: '',
       note: '',
     }
@@ -89,6 +57,7 @@ export default function RvEdit() {
 
   const onSubmit = async (e) => {
     e.preventDefault()
+
     console.log('Submitting form to:', RV_ADD_POST)
     // 如果表單驗證有通過的話
     try {
@@ -99,6 +68,9 @@ export default function RvEdit() {
           'Content-Type': 'application/json',
         },
       })
+      if (!r.ok) {
+        throw new Error('Network response was not ok')
+      }
       const result = await r.json()
       console.log(result)
       if (result.success) {
@@ -222,12 +194,25 @@ export default function RvEdit() {
                   type="text"
                   className="form-control"
                   id="name"
-                  name="fk_b2c_id"
-                  value={myForm.fk_b2c_id}
+                  name="b2c_name"
+                  value={myForm.b2c_name}
                   onChange={onChange}
                 />
-
-                <div className="form-text"></div>
+                <div className="form-text">{myFormErrors.b2c_name}</div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="mobile" className="form-label">
+                  手機
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="mobile"
+                  name="b2c_mobile"
+                  value={myForm.b2c_mobile}
+                  onChange={onChange}
+                />
+                <div className="form-text">{myFormErrors.b2c_mobile}</div>
               </div>
 
               <div className="mb-3">
