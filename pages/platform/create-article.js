@@ -115,7 +115,7 @@ export default function CreateArticle() {
 
         <Navbar />
 
-        <div className="container-fluid col-xl-6 col-lg-12 mb-5">
+        <div className="container-fluid col-xl-6 col-lg-12 mb-5  pt-4">
           <div
             className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4 position-relative`}
           >
@@ -217,7 +217,7 @@ export default function CreateArticle() {
             </div>
           </div>
         </div>
-        <div style={{ height: 5 }} className={`${styles.BgImg}`}></div>
+        <div className={`${styles.BgImg} pb-5`}></div>
       </section>
     </>
   )
