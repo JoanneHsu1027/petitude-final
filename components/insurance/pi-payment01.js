@@ -234,14 +234,16 @@ function PiPayment01() {
       )
 
       // 成功提示
-      Swal.fire({
-        icon: 'success',
-        title: '資料已成功保存',
-        text: '請繼續下一步',
-      }).then(() => {
-        // 跳轉下一頁
-        router.push('/insurance/insurance-payment02')
-      })
+      // Swal.fire({
+      //   icon: 'success',
+      //   title: '資料已成功保存',
+      //   text: '請繼續下一步',
+      // }).then(() => {
+      //   // 跳轉下一頁
+      //   router.push('/insurance/insurance-payment02')
+      // })
+      // 跳轉下一頁
+      router.push('/insurance/insurance-payment02')
     } catch (error) {
       if (error.errors) {
         error.errors.forEach((err) => {
