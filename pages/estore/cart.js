@@ -9,8 +9,8 @@ import styles2 from '@/styles/estore/product.module.css'
 import { useCart } from '@/contexts/estore/CartContext'
 import { useAuth } from '@/contexts/member/auth-context'
 import swal from 'sweetalert2'
-import LoginModel from '@/components/member/LoginModal'
 import { useCart1 } from '@/contexts/funeral/CartContext1'
+import LoginModal from '@/components/member/LoginModal'
 
 export default function CartPage() {
   const router = useRouter()
@@ -39,6 +39,7 @@ export default function CartPage() {
   // 生命禮儀功能
   // 購物車設定每個項目只能買一項, 買超過一項則無法列入計算價格跟刪除
   const { cartProjects, removeCartProject } = useCart1([]) // 确保 useCart1 返回正确的值
+  const [showModal, setShowModal] = useState(false)
   // 顯示方案價格加總
   const totalProjectPrice = cartProjects.reduce(
     (total, project) => total + project.project_price,
@@ -412,9 +413,20 @@ export default function CartPage() {
                       <button
                         type="button"
                         className={`btn ${styles.checkBtn}`}
-                        onClick={() =>
-                          router.push('/funeral/funeral/booking-list')
-                        }
+                        onClick={() => {
+                          if (!auth.b2c_id) {
+                            swal
+                              .fire({
+                                text: '請先登入會員！',
+                                icon: 'error',
+                              })
+                              .then(() => {
+                                setShowModal(true) // 在警告框關閉後顯示登入視窗
+                              })
+                          } else {
+                            router.push('/funeral/funeral/booking-list')
+                          }
+                        }}
                       >
                         前往結帳
                       </button>
@@ -427,6 +439,7 @@ export default function CartPage() {
           </div>
         </div>
       </main>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </Layout>
   )
 }

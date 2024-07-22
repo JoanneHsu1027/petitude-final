@@ -1,9 +1,13 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/contexts/member/auth-context'
+import swal from 'sweetalert2'
+import StarTwinkle from '@/components/funeral/star'
 
 export default function AppointmentService() {
   const router = useRouter()
+  const { auth } = useAuth()
 
   const handleButtonClick = () => {
     router.push('/funeral/appointment/reservation-add')
@@ -11,7 +15,8 @@ export default function AppointmentService() {
 
   return (
     <>
-      <div className="container-fluid p-4 mt-5" style={{ overflow: 'hidden' }}>
+      {/* <StarTwinkle /> */}
+      <div className="container-fluid p-4" style={{ overflow: 'hidden' }}>
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-8 position-relative p-0">
             {/* 上方文字+圖形區塊 */}
@@ -117,13 +122,16 @@ export default function AppointmentService() {
                 </p>
               </div>
               <button
-                className="btn btn-warning"
-                onClick={handleButtonClick}
-                style={{
-                  backgroundColor: '#6a513d',
-                  color: '#fff5cf',
-                  borderColor: '#6a513d',
-                  marginBottom: '20px',
+                className="btn"
+                onClick={() => {
+                  if (!auth.b2c_id) {
+                    swal.fire({
+                      text: '請先登入會員！',
+                      icon: 'error',
+                    })
+                  } else {
+                    router.push('/funeral/appointment/reservation-add')
+                  }
                 }}
               >
                 線上預約
@@ -166,12 +174,25 @@ export default function AppointmentService() {
       </div>
 
       <style jsx>{`
+        .btn {
+          background-color: #6a513d;
+          color: #fff5cf;
+          margin-bottom: 20px;
+          font-weight: 700;
+        }
+        .btn:hover {
+          background-color: #f6d554;
+          color: #6a513d;
+          font-weight: 700;
+        }
+
         @media (max-width: 768px) {
           .container-fluid {
             padding: 15px;
           }
           .row {
             margin: 10px;
+            z-index: 3;
           }
           .title {
             width: 80%;
