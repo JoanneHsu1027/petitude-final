@@ -121,7 +121,7 @@ function PiPayment02() {
       // })
 
       // 成功提示
-      alert('資料已成功保存，請繼續下一步驟')
+
       // 跳轉下一頁
       router.push('/insurance/insurance-payment03')
       console.log(

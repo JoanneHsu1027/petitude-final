@@ -42,7 +42,7 @@ export default function BookingList() {
     }
 
     // 從 localStorage 讀取用戶資料
-    const storedUser = localStorage.getItem('user')
+    const storedUser = localStorage.getItem('petmember-auth')
     if (storedUser) {
       const userData = JSON.parse(storedUser)
       setFormData((prevData) => ({

@@ -80,7 +80,7 @@ export default function DogCalculate() {
       window.dispatchEvent(new Event('localStorageChange'))
 
       // 成功提示
-      alert('資料已成功保存，請繼續下一步驟')
+      // alert('資料已成功保存，請繼續下一步驟')
 
       const closeModalAndNavigate = () => {
         return new Promise((resolve) => {

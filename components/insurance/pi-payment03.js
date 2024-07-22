@@ -57,8 +57,6 @@ function PiPayment03() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // const formData = new FormData(formRef.current)
-
     // 檢查"已審閱並了解貴公司所提供之上述須知及商品簡介"已勾選
     if (!checkedRead) {
       setErrors((prev) => ({
@@ -98,7 +96,7 @@ function PiPayment03() {
         pet_pic: selectedImg,
       }
       // 保存所有數據到 localStorage
-      localStorage.setItem('InsuranceOrder', JSON.stringify(insuranceData))
+      // localStorage.setItem('InsuranceOrder', JSON.stringify(insuranceData))
 
       // 資料發送到後端
       const response = await fetch(INSURANCE_ADD_POST, {
@@ -114,7 +112,7 @@ function PiPayment03() {
       }
 
       // 成功提示
-      alert('資料已成功保存，請繼續下一步驟')
+
       // 跳轉下一頁
       router.push('/insurance/insurance-payment04') // 改串綠界
     } catch (error) {
