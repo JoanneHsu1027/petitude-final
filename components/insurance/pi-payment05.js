@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 
 function PiPayment05() {
   const router = useRouter()
+
   // 清除 localStorage 內確認有送出表單的函數
   const clearLocalStorage = () => {
     localStorage.removeItem('catInsuranceData')
@@ -17,6 +18,7 @@ function PiPayment05() {
     localStorage.removeItem('petPhoto')
     localStorage.removeItem('petBasicData')
     localStorage.removeItem('holderBasicData')
+    localStorage.removeItem('order_id')
   }
 
   const toHomeButton = () => {

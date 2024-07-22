@@ -6,8 +6,8 @@ export default function PiPayment04() {
   // 選擇付費方式
   // const [selectedPayment, setSelectedPayment] = useState('')
 
-  // 抓取會員id
-  const [memberID, setMemberID] = useState('')
+  // 抓取新訂單id
+  const [orderID, setOrderID] = useState('')
   // 抓取保費
   const [planPrice, setPlanPrice] = useState('')
 
@@ -18,10 +18,9 @@ export default function PiPayment04() {
   useEffect(() => {
     // 這個代碼塊只會在客戶端執行
 
-    const petMemberAuth = localStorage.getItem('petmember-auth') // 會員id
-    if (petMemberAuth) {
-      const authData = JSON.parse(petMemberAuth)
-      setMemberID(authData.b2c_id)
+    const orderID = localStorage.getItem('order_id') // 訂單id
+    if (orderID) {
+      setOrderID(orderID)
     }
 
     const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
@@ -50,8 +49,11 @@ export default function PiPayment04() {
                   >
                     訂單號碼
                   </h5>
-                  <h5 className={`col-8 ${styles['own-green']}`}>
-                    A123145646546578
+                  <h5
+                    className={`col-8 ${styles['own-green']}`}
+                    style={{ color: 'green' }}
+                  >
+                    PIO{orderID}
                   </h5>
                 </div>
               </div>

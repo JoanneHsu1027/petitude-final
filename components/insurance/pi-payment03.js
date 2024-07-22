@@ -111,10 +111,19 @@ function PiPayment03() {
         throw new Error('Failed to save data to server')
       }
 
-      // 成功提示
+      const result = await response.json()
+      console.log('Server response:', result)
+
+      if (result.success) {
+        if (result.latestOrderId !== undefined) {
+          localStorage.setItem('order_id', result.latestOrderId.toString())
+        } else {
+          console.error('Latest order ID is undefinded')
+        }
+      }
 
       // 跳轉下一頁
-      router.push('/insurance/insurance-payment04') // 改串綠界
+      router.push('/insurance/insurance-payment04')
     } catch (error) {
       console.error('保存失敗:', error)
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')
@@ -292,13 +301,29 @@ function PiPayment03() {
               >
                 <div
                   className="col-5 d-flex flex-column justify-content-start align-items-center"
-                  style={{ padding: '0 20px' }}
+                  style={{
+                    padding: '0 20px',
+                  }}
                 >
-                  <img
-                    src={selectedImg}
+                  <div
                     className="img-fluid rounded-circle"
-                    style={{ backgroundColor: '#D9D9D9', width: '60%' }}
-                  />
+                    style={{
+                      width: '250px',
+                      height: '250px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <img
+                      src={selectedImg}
+                      className="img-fluid rounded-circle"
+                      style={{
+                        backgroundColor: '#D9D9D9',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
                 </div>
                 <div className="col-7 d-flex flex-column justify-content-center ">
                   <div className="d-flex  mb-3">

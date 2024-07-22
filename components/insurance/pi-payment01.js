@@ -148,7 +148,7 @@ function PiPayment01() {
         try {
           // 保存到 localStorage
           localStorage.setItem('petPhoto', base64String)
-          setMessage('照片已成功上傳')
+          setMessage('照片已成功上傳!')
         } catch (e) {
           setMessage('上傳照片失敗, 可能是超出 5MB 限制')
         }
@@ -396,20 +396,34 @@ function PiPayment01() {
                 </div>
                 <div
                   className="col-6 d-flex flex-column justify-content-start align-items-center"
-                  style={{ padding: '0 20px 20px 20px' }}
+                  style={{
+                    padding: '0 20px 20px 20px',
+                  }}
                 >
-                  <img
-                    src={previewURL}
-                    className="img-fluid rounded-circle mb-4"
-                    style={{
-                      backgroundColor: '#D9D9D9',
-                      width: '60%',
-                      cursor: 'pointer',
-                    }}
-                    // 圖案點了可以選擇上傳圖片
+                  <div
+                    className=" img-fluid rounded-circle mb-3"
                     onClick={handleImgClick}
-                    alt="Pet"
-                  />
+                    style={{
+                      width: '250px',
+                      height: '250px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <img
+                      src={previewURL}
+                      className=" mb-4"
+                      style={{
+                        backgroundColor: '#D9D9D9',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        cursor: 'pointer',
+                      }}
+                      // 圖案點了可以選擇上傳圖片
+                      alt="Pet"
+                    />
+                  </div>
+
                   <input
                     type="file"
                     ref={fileInputRef}
@@ -425,7 +439,7 @@ function PiPayment01() {
                   >
                     點擊上傳照片
                   </button>
-                  {message && <p style={{ color: 'red' }}> {message}</p>}
+                  {message && <p style={{ color: 'green' }}> {message}</p>}
                 </div>
               </div>
             </div>
