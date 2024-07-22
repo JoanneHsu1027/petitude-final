@@ -44,7 +44,7 @@ export default function ClassSection() {
               onClick={handleTabClick}
               data-target="tab1"
             >
-              寵物遺失
+              寵物營養
             </a>
             <a
               className={`py-3 px-3 ${styles.AReset} nav-change nav-link ${activeTab === 'tab2' ? styles.MyActive : ''} text-black`}
@@ -83,65 +83,65 @@ export default function ClassSection() {
                   <div className={`hover-change border-bottom ${styles.W80}`}>
                     <a
                       className={`${styles.AReset} ms-1`}
-                      href="#"
+                      href="http://localhost:3000/platform/article/24"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p01')}
                     >
                       <p
                         className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
                       >
-                        我的狗狗不見了，有人見過嗎？
+                        如何為你的寵物制定健康的飲食計劃
                       </p>
                     </a>
                   </div>
                   <div className={`hover-change border-bottom ${styles.W80}`}>
                     <a
                       className={`${styles.AReset} ms-1`}
-                      href="#"
+                      href="http://localhost:3000/platform/article/25"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p02')}
                     >
                       <p
                         className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
                       >
-                        貓咪走失，懇請大家幫忙找尋
+                        寵物需要的必需營養素
                       </p>
                     </a>
                   </div>
                   <div className={`hover-change border-bottom ${styles.W80}`}>
                     <a
                       className={`${styles.AReset} ms-1`}
-                      href="#"
+                      href="http://localhost:3000/platform/article/28"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p03')}
                     >
                       <p
                         className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
                       >
-                        小兔子不見了，急尋！
+                        手工自製寵物食品的注意事項
                       </p>
                     </a>
                   </div>
                   <div className={`hover-change border-bottom ${styles.W80}`}>
                     <a
                       className={`${styles.AReset} ms-1`}
-                      href="#"
+                      href="http://localhost:3000/platform/article/26"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p04')}
                     >
                       <p
                         className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
                       >
-                        小鳥飛走了，懇請幫忙找尋
+                        如何選擇適合你寵物的食物品牌
                       </p>
                     </a>
                   </div>
                   <div className={`hover-change border-bottom ${styles.W80}`}>
                     <a
                       className={`${styles.AReset} ms-1`}
-                      href="#"
+                      href="http://localhost:3000/platform/article/27"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p05')}
                     >
                       <p
                         className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
                       >
-                        三花虎斑貓走失
+                        如何應對寵物的飲食過敏
                       </p>
                     </a>
                   </div>

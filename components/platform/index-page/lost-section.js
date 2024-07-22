@@ -55,7 +55,10 @@ function LostSection() {
         <div className="col p-0">
           <Slider {...settings} className="p-0">
             <div>
-              <a className={`${styles.AReset}`} href="#">
+              <a
+                className={`${styles.AReset}`}
+                href="http://localhost:3000/platform/article/2"
+              >
                 <img className="img-fluid" src="/forum-pic/lost-img1.png" />
               </a>
             </div>
@@ -65,7 +68,10 @@ function LostSection() {
               </a>
             </div>
             <div>
-              <a className={`${styles.AReset}`} href="#">
+              <a
+                className={`${styles.AReset}`}
+                href="http://localhost:3000/platform/article/4"
+              >
                 <img className="img-fluid" src="/forum-pic/lost-img3.png" />
               </a>
             </div>
