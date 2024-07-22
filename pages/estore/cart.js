@@ -15,6 +15,7 @@ import LoginModal from '@/components/member/LoginModal'
 export default function CartPage() {
   const router = useRouter()
   const { auth } = useAuth()
+  const [showModal, setShowModal] = useState(false)
 
   // 商城功能
   const { cartItems, updateCartItemQuantity, removeCartItem } = useCart()
@@ -35,6 +36,7 @@ export default function CartPage() {
       swal.fire('刪除!', `${item.product_name} 已被刪除!`, 'success')
     }
   }
+
   // 商城功能
   // 生命禮儀功能
   // 購物車設定每個項目只能買一項, 買超過一項則無法列入計算價格跟刪除
@@ -277,10 +279,14 @@ export default function CartPage() {
                           className={`btn ${styles.checkBtn}`}
                           onClick={() => {
                             if (!auth.b2c_id) {
-                              swal.fire({
-                                text: '請先登入會員！',
-                                icon: 'error',
-                              })
+                              swal
+                                .fire({
+                                  text: '請先登入會員！',
+                                  icon: 'error',
+                                })
+                                .then(() => {
+                                  setShowModal(true) // 在警告框關閉後顯示登入視窗
+                                })
                             } else {
                               router.push('/estore/booking-list')
                             }
