@@ -8,9 +8,12 @@ const DatePicker = dynamic(() => import('./date-picker'), { ssr: false })
 export default function DogCalculate() {
   const handleBirthdayChange = (date) => {
     if (date.year && date.month && date.day) {
-      const formattedDate = `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`
+      const formattedDate = new Date(date.year, date.month - 1, date.day)
+      const dogAge = new Date() - formattedDate //年紀, 以毫秒為單位
+      let dogAgeInMonths = dogAge / (1000 * 60 * 60 * 24 * 30.4375) //將毫秒換成月份, 30.4375 是每月的平均天數
+      let dogAgeMonth = Math.floor(dogAgeInMonths)
       if (dogBirthdayRef.current) {
-        dogBirthdayRef.current.value = formattedDate
+        dogBirthdayRef.current.value = dogAgeMonth
       }
     } else if (dogBirthdayRef.current) {
       dogBirthdayRef.current.value = ''
@@ -188,6 +191,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-1"
                       autoComplete="off"
+                      value={1.2}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-1">
@@ -199,6 +203,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-2"
                       autoComplete="off"
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-2">
@@ -210,6 +215,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-3"
                       autoComplete="off"
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-3">
@@ -221,6 +227,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-4"
                       autoComplete="off"
+                      value={1}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-4">
@@ -232,6 +239,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-5"
                       autoComplete="off"
+                      value={1}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-5">
@@ -243,6 +251,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-6"
                       autoComplete="off"
+                      value={1.2}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-6">
@@ -254,6 +263,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-7"
                       autoComplete="off"
+                      value={1}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-7">
@@ -265,6 +275,7 @@ export default function DogCalculate() {
                       name="dog-breed"
                       id="dog-breed-8"
                       autoComplete="off"
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="dog-breed-8">
@@ -293,6 +304,7 @@ export default function DogCalculate() {
                           type="radio"
                           name="dog-gender"
                           id="dog-gender-male"
+                          value={1.2}
                           required
                         />
                         <label
@@ -310,6 +322,7 @@ export default function DogCalculate() {
                           type="radio"
                           name="dog-gender"
                           id="dog-gender-female"
+                          value={1}
                           required
                         />
                         <label

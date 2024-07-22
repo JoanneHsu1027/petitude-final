@@ -4,16 +4,16 @@ import styles from '../../styles/platform/platform-style.module.css'
 import { BsFillTriangleFill, BsSearch } from 'react-icons/bs'
 import Link from 'next/link'
 
-export default function SideBarPc() {
+export default function SideBarPc({ onSearch }) {
   const router = useRouter()
   const [activeLink, setActiveLink] = useState('')
   const [sidebarOffset, setSidebarOffset] = useState(140)
 
   useEffect(() => {
-    if (router.pathname.includes('class-list')) {
-      setActiveLink('class-list')
-    } else if (router.pathname.includes('article-list')) {
-      setActiveLink('article-list')
+    if (router.pathname.includes('class')) {
+      setActiveLink('class')
+    } else if (router.pathname.includes('article')) {
+      setActiveLink('article')
     } else if (router.pathname.includes('favorites')) {
       setActiveLink('favorites')
     } else if (router.pathname.includes('article-page')) {
@@ -34,6 +34,12 @@ export default function SideBarPc() {
     }
   }, [])
 
+  const handleSearch = (event) => {
+    event.preventDefault()
+    const keyword = event.target.search.value
+    onSearch(keyword)
+  }
+
   return (
     <div className="col-xl-3 d-none d-xl-block mb-0">
       <div
@@ -41,10 +47,11 @@ export default function SideBarPc() {
         style={{ top: `${sidebarOffset}px`, transition: 'top 0.3s ease' }}
       >
         <div className="d-flex flex-column">
-          <form className="d-flex mb-5">
+          <form className="d-flex mb-5" onSubmit={handleSearch}>
             <input
               className={`${styles.BorderEndDel} form-control border-success border-end-0`}
               type="search"
+              name="search"
               placeholder="Search"
               aria-label="Search"
             />
@@ -63,16 +70,16 @@ export default function SideBarPc() {
             論壇首頁
           </Link>
           <Link
-            href="/platform/class-list"
+            href="/platform/class"
             type="button"
-            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'class-list' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
+            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'class' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
           >
             主題分類
           </Link>
           <Link
-            href="/platform/article-list"
+            href="/platform/article"
             type="button"
-            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'article-list' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
+            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'article' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
           >
             最新文章
           </Link>

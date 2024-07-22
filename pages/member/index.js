@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/contexts/member/auth-context'
 import { API_SERVER } from '@/configs/api-path'
-import Layout1 from '@/components/layout/layout'
+import Layout from '@/components/layout/layout'
+import MemberProfileForm from '@/components/member/MemberProfileForm'
+import MemberProfileView from '@/components/member/MemberProfileView'
+import styles from './css/MemberProfile.module.css' // 使用組件級別的 CSS Modules
 
 const Member = () => {
   const { auth, getAuthHeader } = useAuth()
   const [memberData, setMemberData] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
 
   useEffect(() => {
     const fetchMemberData = async () => {
-      if (!auth.b2c_id) return // 確保有 b2c_id 才發送請求
+      if (!auth.b2c_id) {
+        return
+      }
       try {
         const response = await fetch(
           `${API_SERVER}/b2c_member/api/${auth.b2c_id}`,
@@ -32,7 +38,7 @@ const Member = () => {
   }, [auth.b2c_id, getAuthHeader])
 
   if (!auth.b2c_id) {
-    return <p>請先進行登入</p>
+    return <p>請先登入</p>
   }
 
   if (!memberData) {
@@ -40,21 +46,24 @@ const Member = () => {
   }
 
   return (
-    <Layout1>
-      <div>
-        <h1>會員資料</h1>
-        <p>
-          <strong>會員名稱:</strong> {memberData.b2c_name}
-        </p>
-        <p>
-          <strong>會員信箱:</strong> {memberData.b2c_email}
-        </p>
-        <p>
-          <strong>會員手機:</strong> {memberData.b2c_mobile}
-        </p>
-        {/* 添加更多需要顯示的欄位 */}
+    <Layout>
+      <div className={styles['container']}>
+        <div className="member-avatar"></div>
+        <div className={styles['form-body']}>
+          {isEditing ? (
+            <MemberProfileForm
+              memberData={memberData}
+              onCancel={() => setIsEditing(false)}
+            />
+          ) : (
+            <MemberProfileView
+              memberData={memberData}
+              onEdit={() => setIsEditing(true)}
+            />
+          )}
+        </div>
       </div>
-    </Layout1>
+    </Layout>
   )
 }
 

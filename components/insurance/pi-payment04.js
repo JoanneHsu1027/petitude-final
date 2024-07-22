@@ -1,20 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './insurance.module.css'
 import Link from 'next/link'
-import ProgressBarCopy from './progress-bar-copy'
 
 export default function PiPayment04() {
   const [selectedPayment, setSelectedPayment] = useState('')
+
+  const [planPrice, setPlanPrice] = useState('')
 
   const handlePaymentChange = (e) => {
     setSelectedPayment(e.target.id)
   }
 
+  useEffect(() => {
+    // 這個代碼塊只會在客戶端執行
+
+    const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
+    if (selectedPlan && selectedPlan.type) {
+      setPlanPrice(selectedPlan.price) // 保險價格
+    }
+  }, [])
   return (
     <>
       <div className="container-fluid mb-5">
         <div className="row justify-content-center">
-
           {/* 請款資訊 */}
           <div className="col-8" style={{ marginTop: '30px' }}>
             <h4 className={styles['top-frame']}>請款資訊</h4>
@@ -45,7 +53,9 @@ export default function PiPayment04() {
                   >
                     保單金額
                   </h5>
-                  <h5 className={`col-8 ${styles['own-orange']}`}>NT$2,941</h5>
+                  <h5 className={`col-8 ${styles['own-orange']}`}>
+                    NT${planPrice}
+                  </h5>
                 </div>
               </div>
             </div>
@@ -136,24 +146,6 @@ export default function PiPayment04() {
                     </div>
 
                     {selectedPayment === 'linePay' ? <div>123</div> : null}
-                    <div className="form-check d-flex align-items-center mb-5">
-                      <input
-                        className="form-check-input me-2"
-                        style={{ margin: 0 }}
-                        type="radio"
-                        name="paymentType"
-                        id="greenPay"
-                        required
-                        onChange={handlePaymentChange}
-                      />
-                      <label
-                        className="form-check-label d-flex align-items-center me-5"
-                        htmlFor="greenPay"
-                      >
-                        <h5 style={{ margin: 0 }}>線上付款(綠界)</h5>
-                      </label>
-                    </div>
-                    {selectedPayment === 'greenPay' ? <div>456</div> : null}
                   </div>
                 </form>
               </div>

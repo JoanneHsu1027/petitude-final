@@ -1,5 +1,5 @@
 import React from 'react'
-import Slider from './appointment/slider'
+import Carousel from '@/components/funeral/funeral/carousel'
 import AppointmentService from './appointment/appointment-service'
 import Service from './funeral/service'
 import Project from './funeral/project'
@@ -10,7 +10,7 @@ import Layout from '@/components/layout/layout'
 export default function FuneralPage() {
   return (
     <Layout>
-      <Slider />
+      <Carousel />
       <AppointmentService />
       <Service />
       <Project />

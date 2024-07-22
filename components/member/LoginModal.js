@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
 
-const Modal = ({ onClose }) => {
+const Modal = ({ onClose, onLoginSuccess }) => {
   const [isLogin, setIsLogin] = useState(true)
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Modal = ({ onClose }) => {
                 disabled={isLogin}
                 style={{ textDecoration: 'none' }}
               >
-                Login
+                登入
               </button>
 
               <button
@@ -49,7 +49,7 @@ const Modal = ({ onClose }) => {
                 disabled={!isLogin}
                 style={{ textDecoration: 'none' }}
               >
-                Sign Up
+                註冊
               </button>
             </h5>
             <button
@@ -61,19 +61,10 @@ const Modal = ({ onClose }) => {
           </div>
           <div className="modal-body">
             {isLogin ? (
-              <LoginForm onClose={onClose} />
+              <LoginForm onClose={onClose} onLoginSuccess={onLoginSuccess} />
             ) : (
-              <SignupForm onClose={onClose} />
+              <SignupForm onClose={onClose} switchToLogin={switchToLogin} />
             )}
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={onClose}
-            >
-              關閉
-            </button>
           </div>
         </div>
       </div>

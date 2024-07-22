@@ -4,3 +4,5 @@ export const ProductList = `${API_SERVER}/product`
 
 // `${API_SERVER}/address-book/api/${sid}`, method: GET, 取得單筆資料
 export const product_GET_ITEM = `${API_SERVER}/product/api`
+
+export const RequestList = `${API_SERVER}/product/cartCheckout`

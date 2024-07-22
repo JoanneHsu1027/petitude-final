@@ -1,61 +1,46 @@
 import React, { useState } from 'react'
 import { z } from 'zod'
-import { counties } from '@/components/common/county'
-import { cities } from '@/components/common/city'
+import { MEMBER_ADD_POST } from '@/configs/api-path'
 
 const SignupForm = ({ onClose, switchToLogin }) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    mobile: '',
-    password: '',
-    county: '',
-    city: '',
+    b2c_email: '',
+    b2c_password: '',
+    b2c_mobile: '',
   })
 
   const [formErrors, setFormErrors] = useState({
-    name: '',
-    email: '',
-    mobile: '',
-    password: '',
-    county: '',
-    city: '',
+    b2c_email: '',
+    b2c_password: '',
+    b2c_mobile: '',
   })
 
   const [error, setError] = useState('')
 
-  // 用于获取与所选县市相关的城市
-  const getFilteredCities = (countyId) => {
-    return cities.filter((city) => city.fk_county_id === parseInt(countyId, 10))
-  }
-
-  // 处理输入变化
+  // 處理欄位輸入變化
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData((prevData) => ({ ...prevData, [name]: value }))
   }
 
-  // 表单提交处理
+  // 表單提交
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // 验证模式
+    // 驗證
     const schemaForm = z.object({
-      name: z.string().min(2, { message: '姓名至少兩個字' }),
-      email: z.string().email({ message: '請填寫正確的電郵格式' }),
-      mobile: z
+      b2c_email: z.string().email({ message: '請填寫正確的電郵格式' }),
+      b2c_password: z.string().min(6, { message: '密碼至少6個字' }),
+      b2c_mobile: z
         .string()
         .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
-      password: z.string().min(6, { message: '密碼至少6個字' }),
-      county: z.string().min(1, { message: '請選擇縣市' }),
-      city: z.string().min(1, { message: '請選擇城市' }),
     })
 
     const result = schemaForm.safeParse(formData)
 
     if (result.success) {
       try {
-        const response = await fetch('/api/signup', {
+        const response = await fetch(MEMBER_ADD_POST, {
           method: 'POST',
           body: JSON.stringify(formData),
           headers: {
@@ -64,9 +49,10 @@ const SignupForm = ({ onClose, switchToLogin }) => {
         })
         const resultData = await response.json()
         if (resultData.success) {
-          onClose()
+          switchToLogin() // 切換到登入表單
         } else {
-          setError('註冊失敗')
+          // 根據伺服器返回的錯誤消息設置錯誤狀態
+          setError(resultData.error || '註冊失敗')
         }
       } catch (ex) {
         console.log(ex)
@@ -85,127 +71,54 @@ const SignupForm = ({ onClose, switchToLogin }) => {
 
   return (
     <div className="p-4">
-      <h2 className="mb-4">Sign Up</h2>
+      <h2 className="mb-4">註冊</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">
+          <label htmlFor="b2c_email" className="form-label">
             請填寫信箱:
           </label>
           <input
-            id="email"
+            id="b2c_email"
             type="email"
             className="form-control"
-            name="email"
-            value={formData.email}
+            name="b2c_email"
+            value={formData.b2c_email}
             onChange={handleChange}
             required
           />
-          <div className="form-text">{formErrors.email}</div>
+          <div className="form-text">{formErrors.b2c_email}</div>
         </div>
 
         <div className="mb-3">
-          <label htmlFor="password" className="form-label">
+          <label htmlFor="b2c_password" className="form-label">
             請填寫密碼:
           </label>
           <input
-            id="password"
+            id="b2c_password"
             type="password"
             className="form-control"
-            name="password"
-            value={formData.password}
+            name="b2c_password"
+            value={formData.b2c_password}
             onChange={handleChange}
             required
           />
-          <div className="form-text">{formErrors.password}</div>
+          <div className="form-text">{formErrors.b2c_password}</div>
         </div>
 
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">
-            請填寫稱呼:
-          </label>
-          <input
-            id="name"
-            type="text"
-            className="form-control"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-          <div className="form-text">{formErrors.name}</div>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="county" className="form-label">
-            請填寫居住地區:
-          </label>
-          {/* 縣市 */}
-          <select
-            id="county"
-            name="county"
-            className="form-control"
-            value={formData.county}
-            onChange={(e) => {
-              handleChange(e)
-              setFormData((prevData) => ({ ...prevData, city: '' })) // 重置城市
-            }}
-            required
-          >
-            <option value="">請選擇縣市</option>
-            {counties.map((county) => (
-              <option key={county.value} value={county.value}>
-                {county.label}
-              </option>
-            ))}
-          </select>
-          <div className="form-text">{formErrors.county}</div>
-
-          {/* 城市 */}
-          <select
-            id="city"
-            name="city"
-            className="form-control"
-            value={formData.city}
-            onChange={handleChange}
-            required
-          >
-            <option value="">請選擇城市</option>
-            {getFilteredCities(formData.county).map((city) => (
-              <option key={city.value} value={city.value}>
-                {city.label}
-              </option>
-            ))}
-          </select>
-          <div className="form-text">{formErrors.city}</div>
-
-          {/* 詳細地址 */}
-          <input
-            id="b2c_address"
-            type="text"
-            className="form-control"
-            name="b2c_address"
-            value={formData.b2c_address}
-            onChange={handleChange}
-            placeholder="請填寫詳細地址"
-            required
-          />
-          <div className="form-text">{formErrors.b2c_address}</div>
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="mobile" className="form-label">
+          <label htmlFor="b2c_mobile" className="form-label">
             請填寫手機:
           </label>
           <input
-            id="mobile"
+            id="b2c_mobile"
             type="text"
             className="form-control"
-            name="mobile"
-            value={formData.mobile}
+            name="b2c_mobile"
+            value={formData.b2c_mobile}
             onChange={handleChange}
             required
           />
-          <div className="form-text">{formErrors.mobile}</div>
+          <div className="form-text">{formErrors.b2c_mobile}</div>
         </div>
 
         {error && <div className="alert alert-danger">{error}</div>}

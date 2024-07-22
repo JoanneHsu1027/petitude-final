@@ -6,10 +6,24 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from '../../../styles/estore/product.module.css'
 import { useRouter } from 'next/router'
 import { product_GET_ITEM } from '@/configs/estore/api-path'
+import { useCart } from '@/contexts/estore/CartContext'
+import swal from 'sweetalert2'
 
 export default function Productid() {
   const router = useRouter()
   const [data, setData] = useState([])
+
+  const { addToCart } = useCart()
+
+  const handleAddItem = () => {
+    addToCart(data)
+  }
+
+  const [quantity, setQuantity] = useState(1)
+
+  const handleQuantityChange = (e) => {
+    setQuantity(parseInt(e.target.value))
+  }
 
   useEffect(() => {
     if (!router.isReady) return
@@ -47,7 +61,8 @@ export default function Productid() {
                 <div className="col-12">
                   <img
                     id={styles.mainImage}
-                    src="/estore/圖1.jpg"
+                    // src="/estore/圖1.jpg"
+                    src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
                     alt="MainImage"
                     className="img-fluid"
                   />
@@ -57,17 +72,17 @@ export default function Productid() {
                 <div className="d-none d-md-block col-md-3 mt-2 mb-3 py-1">
                   <img
                     className={styles.thumbnail}
-                    src="/estore/圖1.jpg"
+                    src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
                     alt="Thumbnail 1"
-                    data-main-image="/estore/圖1.jpg"
+                    data-main-image={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
                   />
                 </div>
                 <div className="d-none d-md-block col-md-3 mt-2 mb-3 py-1">
                   <img
                     className={styles.thumbnail}
-                    src="/estore/圖2.jpg"
+                    src={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
                     alt="Thumbnail 2"
-                    data-main-image="/estore/圖2.jpg"
+                    data-main-image={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
                   />
                 </div>
               </div>
@@ -87,14 +102,14 @@ export default function Productid() {
                       data-bs-interval="4000"
                     >
                       <img
-                        src="/estore/圖1.jpg"
+                        src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
                         className="d-block w-100"
                         alt="..."
                       />
                     </div>
                     <div className="carousel-item" data-bs-interval="4000">
                       <img
-                        src="/estore/圖1.jpg"
+                        src={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
                         className="d-block w-100"
                         alt="..."
                       />
@@ -153,7 +168,11 @@ export default function Productid() {
                       { padding: 0 + 'px' + ' ' + 5 + 'px' })
                     }
                   >
-                    <select className={styles.customSelect}>
+                    <select
+                      className={styles.customSelect}
+                      value={quantity}
+                      onChange={handleQuantityChange}
+                    >
                       <option className={styles.count} selected disabled>
                         數量
                       </option>
@@ -184,6 +203,16 @@ export default function Productid() {
                     <button
                       type="button"
                       className={`btn ${styles.productBtn}`}
+                      onClick={() => {
+                        for (let i = 0; i < quantity; i++) {
+                          handleAddItem()
+                        }
+                        swal.fire(
+                          '已加入!',
+                          `${data.product_name} 已被加入購物車!`,
+                          'success',
+                        )
+                      }}
                     >
                       加入購物車
                     </button>
@@ -264,8 +293,12 @@ export default function Productid() {
                   className="row p-0 d-flax justify-content-center"
                   style={{ margin: 11 + 'px' + ' ' + 0 + 'px' }}
                 >
-                  <div className="col-3" style={{ width: 'auto' }}>
-                    <select className={styles.customSelect}>
+                  <div className="col-3 px-1" style={{ width: 'auto' }}>
+                    <select
+                      className={styles.customSelect}
+                      value={quantity}
+                      onChange={handleQuantityChange}
+                    >
                       <option className={styles.count} selected disabled>
                         {/* <i className="bi bi-caret-down-fill"></i> */}
                       </option>
@@ -287,18 +320,28 @@ export default function Productid() {
                     </select>
                   </div>
                   <div
-                    className="col-3 d-flex justify-content-center"
+                    className="col-3 d-flex justify-content-center px-1"
                     style={{ width: 'auto' }}
                   >
                     <button
                       type="button"
                       className={`btn ${styles.productBtn}`}
+                      onClick={() => {
+                        for (let i = 0; i < quantity; i++) {
+                          handleAddItem()
+                        }
+                        swal.fire(
+                          '已加入!',
+                          `${data.product_name} 已被加入購物車!`,
+                          'success',
+                        )
+                      }}
                     >
                       <i className="bi bi-bag-fill cartItem"></i>
                     </button>
                   </div>
                   <div
-                    className="col-3 d-flex justify-content-center"
+                    className="col-3 d-flex justify-content-center px-1"
                     style={{ width: 'auto' }}
                   >
                     <button

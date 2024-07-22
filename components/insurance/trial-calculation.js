@@ -2,11 +2,26 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import styles from '@/components/insurance/insurance.module.css'
 import Link from 'next/link'
+import swal from 'sweetalert2'
+import { useAuth } from '@/contexts/member/auth-context'
+import { useRouter } from 'next/router'
+import LoginModal from '@/components/member/LoginModal'
 
 export default function TrialCalculation() {
+  // 確認是否有登入
+  const { auth } = useAuth()
+  const router = useRouter()
   // 確認是否有收到試算的表單資料
   const [catDataReceived, setCatDataReceived] = useState(true)
   const [dogDataReceived, setDogDataReceived] = useState(true)
+
+  // 計算保險費用
+  const [basicPlan, setBasicPlan] = useState(0)
+  const [advancedPlan, setAdvancedPlan] = useState(0)
+  const [fullPlan, setFullPlan] = useState(0)
+
+  // 要求要有登入過
+  const [showModal, setShowModal] = useState(false)
 
   // 設定進入付款流程時, 主畫面隱藏式算結果
   useEffect(() => {
@@ -30,15 +45,98 @@ export default function TrialCalculation() {
     }
   }, [])
 
-  // 清除 localStorage 的函數
+  // 清除 localStorage 內確認有送出表單的函數
   const clearLocalStorage = () => {
     localStorage.removeItem('catDataReceived')
     localStorage.removeItem('dogDataReceived')
     setCatDataReceived(false)
     setDogDataReceived(false)
-    localStorage.removeItem('catInsuranceData')
-    localStorage.removeItem('dogInsuranceData')
   }
+
+  const calculatePlan = (data, type) => {
+    // 計算邏輯
+    const basePrice = 1000
+    let breedFactor = data.breed
+    let genderFactor = data.gender
+
+    let birthdayFactor
+    const age = data.birthday
+    if (age <= 77) {
+      birthdayFactor = 1
+    } else if (age <= 113) {
+      birthdayFactor = 1.5
+    } else {
+      birthdayFactor = 2.25
+    }
+
+    let typeFactor
+    switch (type) {
+      case '基礎方案':
+        typeFactor = 1.5
+        break
+      case '進階方案':
+        typeFactor = 2
+        break
+      case '完整方案':
+        typeFactor = 2.2
+        break
+      default:
+        typeFactor = 1
+    }
+
+    //計算最終保費
+    const premium =
+      basePrice * breedFactor * genderFactor * birthdayFactor * typeFactor
+
+    return Math.round(premium).toLocaleString('en-US')
+  }
+
+  // 計算不同方案的保費
+  useEffect(() => {
+    const catData = JSON.parse(localStorage.getItem('catInsuranceData'))
+    const dogData = JSON.parse(localStorage.getItem('dogInsuranceData'))
+
+    if (catData || dogData) {
+      const data = catData || dogData
+      // 這裡假設有一個計算函數，根據實際情況進行調整
+      setBasicPlan(calculatePlan(data, '基礎方案'))
+      setAdvancedPlan(calculatePlan(data, '進階方案'))
+      setFullPlan(calculatePlan(data, '完整方案'))
+    }
+  }, [])
+
+  // 傳出選擇的方案和價格去localStorage
+  const handlePlanSelection = (plan) => {
+    localStorage.setItem(
+      'selectedPlan',
+      JSON.stringify({
+        type: plan,
+        price:
+          plan === '基礎方案'
+            ? basicPlan
+            : plan === '進階方案'
+              ? advancedPlan
+              : fullPlan,
+      }),
+    )
+  }
+
+  // 讓按鈕同時具有確認登入 清除 '確認送出表單'標記和 '送出選擇的方案' 三個功能
+  const handleButtonClick = async (plan) => {
+    if (!auth.b2c_id) {
+      await swal.fire({
+        text: '請先登入會員!',
+        icon: 'error',
+      })
+      setShowModal(true) //在警告框關閉後顯示登入視窗
+      return
+    }
+    clearLocalStorage()
+    handlePlanSelection(plan)
+    router.push('./insurance/insurance-payment01')
+  }
+
+  useEffect(() => {}, [showModal])
 
   return (
     <>
@@ -114,7 +212,20 @@ export default function TrialCalculation() {
                       每次門診費用
                     </p>
                   </td>
-                  <td></td>
+                  <td>
+                    <div
+                      className="d-flex justify-content-center"
+                      style={{ marginTop: '1rem' }}
+                    >
+                      <p className={styles[`text-color`]}>一年最高</p>
+                      <h5 style={{ color: '#4CB1C8' }}>1</h5>
+                      <p>次</p>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                      <p>每次最高</p>
+                      <h5 style={{ color: 'red' }}>$1,000</h5>
+                    </div>
+                  </td>
                   <td>
                     <div
                       className="d-flex justify-content-center"
@@ -164,7 +275,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$20,000</h5>
+                      <h5 style={{ color: 'red' }}>$5,000</h5>
                     </div>
                   </td>
                   <td>
@@ -178,7 +289,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$20,000</h5>
+                      <h5 style={{ color: 'red' }}>$5,000</h5>
                     </div>
                   </td>
                   <td>
@@ -192,7 +303,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$20,000</h5>
+                      <h5 style={{ color: 'red' }}>$5,000</h5>
                     </div>
                   </td>
                 </tr>
@@ -216,7 +327,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$5,000</h5>
+                      <h5 style={{ color: 'red' }}>$20,000</h5>
                     </div>
                   </td>
                   <td>
@@ -230,7 +341,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$5,000</h5>
+                      <h5 style={{ color: 'red' }}>$20,000</h5>
                     </div>
                   </td>
                   <td>
@@ -244,7 +355,7 @@ export default function TrialCalculation() {
                     </div>
                     <div className="d-flex justify-content-center">
                       <p>每次最高</p>
-                      <h5 style={{ color: 'red' }}>$5,000</h5>
+                      <h5 style={{ color: 'red' }}>$20,000</h5>
                     </div>
                   </td>
                 </tr>
@@ -432,21 +543,19 @@ export default function TrialCalculation() {
                       className="d-flex justify-content-center align-items-center"
                       style={{ marginTop: '1rem' }}
                     >
-                      <h3 style={{ color: 'red' }}>$2,840</h3>
+                      <h3 style={{ color: 'red' }}>${basicPlan}</h3>
                       <h5>起/年</h5>
                     </div>
                     <div className="d-flex justify-content-center">
-                      <Link
-                        href="./insurance/insurance-payment01"
-                        className="text-decoration-none"
+                      <button
+                        className={styles['own-btn4']}
+                        onClick={() => handleButtonClick('基礎方案')}
                       >
-                        <button
-                          className={styles['own-btn4']}
-                          onClick={clearLocalStorage}
-                        >
-                          立即投保
-                        </button>
-                      </Link>
+                        立即投保
+                      </button>
+                      {/* {showModal && (
+                        <LoginModal onClose={() => setShowModal(false)} />
+                      )} */}
                     </div>
                   </td>
                   <td>
@@ -454,21 +563,19 @@ export default function TrialCalculation() {
                       className="d-flex justify-content-center align-items-center"
                       style={{ marginTop: '1rem' }}
                     >
-                      <h3 style={{ color: 'red' }}>$4,331</h3>
+                      <h3 style={{ color: 'red' }}>${advancedPlan}</h3>
                       <h5>起/年</h5>
                     </div>
                     <div className="d-flex justify-content-center">
-                      <Link
-                        href="./insurance/insurance-payment01"
-                        className="text-decoration-none"
+                      <button
+                        className={styles['own-btn4']}
+                        onClick={() => handleButtonClick('進階方案')}
                       >
-                        <button
-                          className={styles['own-btn4']}
-                          onClick={clearLocalStorage}
-                        >
-                          立即投保
-                        </button>
-                      </Link>
+                        立即投保
+                      </button>
+                      {/* {showModal && (
+                        <LoginModal onClose={() => setShowModal(false)} />
+                      )} */}
                     </div>
                   </td>
                   <td>
@@ -476,21 +583,19 @@ export default function TrialCalculation() {
                       className="d-flex justify-content-center align-items-center"
                       style={{ marginTop: '1rem' }}
                     >
-                      <h3 style={{ color: 'red' }}>$4,723</h3>
+                      <h3 style={{ color: 'red' }}>${fullPlan}</h3>
                       <h5>起/年</h5>
                     </div>
                     <div className="d-flex justify-content-center">
-                      <Link
-                        href="./insurance/insurance-payment01"
-                        className="text-decoration-none"
+                      <button
+                        className={styles['own-btn4']}
+                        onClick={() => handleButtonClick('完整方案')}
                       >
-                        <button
-                          className={styles['own-btn4']}
-                          onClick={clearLocalStorage}
-                        >
-                          立即投保
-                        </button>
-                      </Link>
+                        立即投保
+                      </button>
+                      {/* {showModal && (
+                        <LoginModal onClose={() => setShowModal(false)} />
+                      )} */}
                     </div>
                   </td>
                 </tr>
@@ -521,6 +626,7 @@ export default function TrialCalculation() {
           </div>
         </div>
       </div>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
 }

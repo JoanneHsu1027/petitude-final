@@ -2,15 +2,19 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from '@/components/insurance/insurance.module.css'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { date } from 'zod'
 // 使用動態導入避免衝突
 const DatePicker = dynamic(() => import('./date-picker'), { ssr: false })
 
 export default function CatCalculate() {
   const handleBirthdayChange = (date) => {
     if (date.year && date.month && date.day) {
-      const formattedDate = `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`
+      const formattedDate = new Date(date.year, date.month - 1, date.day)
+      const catAge = new Date() - formattedDate //年紀, 以毫秒為單位
+      let catAgeInMonths = catAge / (1000 * 60 * 60 * 24 * 30.4375) //將毫秒換成月份, 30.4375 是每月的平均天數
+      let catAgeMonth = Math.floor(catAgeInMonths)
       if (catBirthdayRef.current) {
-        catBirthdayRef.current.value = formattedDate
+        catBirthdayRef.current.value = catAgeMonth
       }
     } else if (catBirthdayRef.current) {
       catBirthdayRef.current.value = ''
@@ -200,6 +204,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-1"
                       autoComplete="off"
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-1">
@@ -211,6 +216,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-2"
                       autoComplete="off"
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-2">
@@ -222,6 +228,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-3"
                       autoComplete="off"
+                      value={1.2}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-3">
@@ -233,6 +240,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-4"
                       autoComplete="off"
+                      value={1.2}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-4">
@@ -244,6 +252,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-5"
                       autoComplete="off"
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-5">
@@ -255,6 +264,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-6"
                       autoComplete="off"
+                      value={1}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-6">
@@ -266,6 +276,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-7"
                       autoComplete="off"
+                      value={1}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-7">
@@ -277,6 +288,7 @@ export default function CatCalculate() {
                       name="cat-breed"
                       id="cat-breed-8"
                       autoComplete="off"
+                      value={1.5}
                       required
                     />
                     <label className={styles[`own-btn3`]} htmlFor="cat-breed-8">
@@ -305,6 +317,7 @@ export default function CatCalculate() {
                           type="radio"
                           name="cat-gender"
                           id="cat-gender-male"
+                          value={1.2}
                           required
                         />
                         <label
@@ -322,6 +335,7 @@ export default function CatCalculate() {
                           type="radio"
                           name="cat-gender"
                           id="cat-gender-female"
+                          value={1}
                           required
                         />
                         <label
@@ -387,17 +401,6 @@ export default function CatCalculate() {
                   </div>
                 </div>
               </div>
-              {/* <div
-                className={`modal-footer ${styles['bg-image']} d-flex justify-content-center border-0 no-outline`}
-              >
-                <button
-                  type="submit"
-                  className={styles['own-btn1']}
-                  data-bs-dismiss="modal"
-                >
-                  開始試算
-                </button>
-              </div> */}
             </form>
           </div>
         </div>

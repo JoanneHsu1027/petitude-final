@@ -210,9 +210,9 @@ export default function ProjectList() {
             </div>
             <div
               style={{ height: 60 }}
-              className="border-bottom border-dark bg-white position-sticky top-0 d-xl-none d-xxl-block d-xxl-none mb-3 p-0"
+              className="d-flex border-bottom border-dark bg-white position-sticky top-0 d-md-none mb-3 p-0"
             >
-              <div className={`d-flex text-nowrap overflow-scroll`}>
+              <div className={`d-flex d-md-none text-nowrap overflow-scroll`}>
                 <Link
                   href=""
                   type="button"

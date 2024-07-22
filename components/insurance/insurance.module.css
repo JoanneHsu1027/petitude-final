@@ -191,7 +191,7 @@
   width: 50%;
 }
 .circleColorChange{
-  padding: 1.25rem;
+  padding: .5rem;
   background-color: #FFF5CF;
   cursor:pointer
 }
@@ -205,7 +205,7 @@
   }
   
   .circleColorChange{
-    padding: 8px;
+    padding: 4px;
     background-color: #FFF5CF;
     cursor:pointer
   }
@@ -257,6 +257,7 @@
   font-weight: 500;
   color: #6F6F6F;
   padding-left: .625rem;
+  padding-right: .625rem;
 }
 
 
@@ -282,7 +283,7 @@
   
   /* 試算內容 */
   .downScroll {
-    max-height: 500px;
+    max-height: 700px;
     overflow-y: auto
   }
 
@@ -392,5 +393,4 @@
   /* 保險內容項目 */
   .item-dot {
     list-style-type: disc; 
-    padding-left: 20px;
   }
