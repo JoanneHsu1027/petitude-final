@@ -4,9 +4,11 @@ import { BsXLg } from 'react-icons/bs'
 import Navbar from '@/components/layout/navbar'
 import { useRouter } from 'next/router'
 import { ARTICLE } from '@/configs/platform/api-path'
+import Swal from 'sweetalert2'
 
 export default function EditArticle() {
   const router = useRouter()
+  const [previewURL, setPreviewURL] = useState('')
 
   const [myForm, setMyForm] = useState({
     article_id: 0,
@@ -16,22 +18,65 @@ export default function EditArticle() {
     article_img: null,
   })
 
+  const [myFormErrors, setMyFormErrors] = useState({
+    article_name: '',
+    article_content: '',
+    fk_class_id: '',
+  })
+
   const [imageFile, setImageFile] = useState(null) // 新增的狀態
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const onChange = (e) => {
-    if (e.target.name === 'article_img') {
-      // 判斷是否為圖片檔案的輸入
-      setImageFile(e.target.files[0])
+    const { name, value, files } = e.target
+
+    if (name === 'article_img') {
+      // 判斷是否為圖片檔案的輸入並檢查文件
+      if (files && files[0]) {
+        setImageFile(files[0])
+        // 產生預覽網址
+        setPreviewURL(URL.createObjectURL(files[0]))
+      } else {
+        setImageFile(null)
+        setPreviewURL('')
+      }
     } else {
       setMyForm({
         ...myForm,
-        [e.target.name]: e.target.value,
+        [name]: value,
       })
+
+      // 如果用戶填寫了某個欄位，則清除相應的錯誤提示
+      if (value.trim() !== '') {
+        setMyFormErrors({
+          ...myFormErrors,
+          [name]: '',
+        })
+      }
     }
+  }
+
+  const validateForm = () => {
+    const errors = {}
+    if (!myForm.fk_class_id) {
+      errors.fk_class_id = '請選擇主題'
+    }
+    if (!myForm.article_name) {
+      errors.article_name = '標題不能空白'
+    }
+    if (!myForm.article_content) {
+      errors.article_content = '內容不能空白'
+    }
+    setMyFormErrors(errors)
+    return Object.keys(errors).length === 0
   }
 
   const onSubmit = async (e) => {
     e.preventDefault()
+    if (!validateForm()) {
+      return
+    }
+
     try {
       const formData = new FormData()
       formData.append('article_name', myForm.article_name)
@@ -53,9 +98,29 @@ export default function EditArticle() {
       const result = await r.json()
       console.log(result)
       if (result.success) {
+        setIsSubmitted(true) // 表單提交成功後，更新狀態
+        Swal.fire({
+          icon: 'success',
+          title: '編輯成功',
+          showConfirmButton: false,
+          timer: 1500,
+        })
         router.push('/platform/article')
       } else {
-        console.log('Error:', result.error)
+        Swal.fire({
+          title: '內容未編輯',
+          text: '不編輯了嗎?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          cancelButtonText: '繼續編輯',
+          confirmButtonText: '返回文章',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            router.push(`/platform/article/${myForm.article_id}`)
+          }
+        })
       }
     } catch (ex) {
       console.log('Exception:', ex)
@@ -79,7 +144,7 @@ export default function EditArticle() {
 
   return (
     <>
-      <section style={{ height: '125vh' }} className={`${styles.BgImg}`}>
+      <section style={{ height: '100%' }} className={`${styles.BgImg}`}>
         <title>{'貓狗論壇 | Petitude'}</title>
 
         <Navbar />
@@ -89,7 +154,7 @@ export default function EditArticle() {
             className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4 position-relative`}
           >
             <a
-              href="../article"
+              href={`/platform/article/${myForm.article_id}`}
               className={`${styles.AReset} position-absolute top-0 end-0 me-4 mt-4`}
             >
               <BsXLg className="display-3"></BsXLg>
@@ -102,32 +167,22 @@ export default function EditArticle() {
                   id="inputGroupSelect01"
                   onChange={onChange}
                   name="fk_class_id"
+                  value={myForm.fk_class_id} // 確保選擇器的值與狀態一致
                 >
-                  <option value={myForm.class_name} disabled>
+                  <option value="" disabled>
                     --選擇主題--
                   </option>
-                  <option value="1" defaultValue={myForm.fk_class_id === '1'}>
-                    寵物遺失
-                  </option>
-                  <option value="2" defaultValue={myForm.fk_class_id === '2'}>
-                    飼養心得
-                  </option>
-                  <option value="3" defaultValue={myForm.fk_class_id === '3'}>
-                    聊天討論
-                  </option>
-                  <option value="4" defaultValue={myForm.fk_class_id === '4'}>
-                    寵物健康醫療
-                  </option>
-                  <option value="5" defaultValue={myForm.fk_class_id === '5'}>
-                    寵物營養
-                  </option>
-                  <option value="6" defaultValue={myForm.fk_class_id === '6'}>
-                    寵物訓練
-                  </option>
-                  <option value="7" defaultValue={myForm.fk_class_id === '7'}>
-                    寵物相關新聞
-                  </option>
+                  <option value="1">寵物遺失</option>
+                  <option value="2">飼養心得</option>
+                  <option value="3">聊天討論</option>
+                  <option value="4">寵物健康醫療</option>
+                  <option value="5">寵物營養</option>
+                  <option value="6">寵物訓練</option>
+                  <option value="7">寵物相關新聞</option>
                 </select>
+                <div className="form-text text-danger ms-2">
+                  {myFormErrors.fk_class_id}
+                </div>
                 <div className="d-flex justify-content-center w-100">
                   <div className="w-100">
                     <label
@@ -136,7 +191,7 @@ export default function EditArticle() {
                     >
                       文章標題
                     </label>
-                    <div className="input-group mb-3">
+                    <div className="input-group">
                       <input
                         type="text"
                         className="form-control rounded-pill"
@@ -146,13 +201,16 @@ export default function EditArticle() {
                         onChange={onChange}
                       />
                     </div>
+                    <div className="form-text text-danger mb-3 ms-2">
+                      {myFormErrors.article_name}
+                    </div>
                     <label
                       htmlFor="article-content"
                       className="form-label ms-1 mt-1 mb-0"
                     >
                       文章內容
                     </label>
-                    <div className="input-group mb-3">
+                    <div className="input-group">
                       <textarea
                         style={{ height: 250 }}
                         id="article-content"
@@ -161,6 +219,9 @@ export default function EditArticle() {
                         onChange={onChange}
                         className={`form-control ${styles.Rounded5}`}
                       />
+                    </div>
+                    <div className="form-text text-danger mb-3 ms-2">
+                      {myFormErrors.article_content}
                     </div>
                   </div>
                 </div>
@@ -171,20 +232,26 @@ export default function EditArticle() {
                   aria-label="Upload"
                   name="article_img" // 新增的name屬性
                   onChange={onChange} // 捕捉圖片輸入變化
-                />
+                />{' '}
+                {previewURL && (
+                  <div className="d-flex justify-content-center mt-3">
+                    <img className="w-75 " src={previewURL} alt="預覽圖片" />
+                  </div>
+                )}
                 <div className="d-flex flex-row-reverse">
                   <button
                     style={{ width: 150 }}
                     type="submit"
                     className={`btn btn-secondary ${styles.CreateArticleBtn} btn-lg rounded-pill mt-5`}
                   >
-                    修改
+                    編輯完成
                   </button>
                 </div>
               </form>
             </div>
           </div>
         </div>
+        <div style={{ height: 5 }} className={`${styles.BgImg}`}></div>
       </section>
     </>
   )

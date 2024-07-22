@@ -4,7 +4,7 @@ import styles from '../../styles/platform/platform-style.module.css'
 import { BsFillTriangleFill, BsSearch } from 'react-icons/bs'
 import Link from 'next/link'
 
-export default function SideBarPc() {
+export default function SideBarPc({ onSearch }) {
   const router = useRouter()
   const [activeLink, setActiveLink] = useState('')
   const [sidebarOffset, setSidebarOffset] = useState(140)
@@ -34,6 +34,12 @@ export default function SideBarPc() {
     }
   }, [])
 
+  const handleSearch = (event) => {
+    event.preventDefault()
+    const keyword = event.target.search.value
+    onSearch(keyword)
+  }
+
   return (
     <div className="col-xl-3 d-none d-xl-block mb-0">
       <div
@@ -41,10 +47,11 @@ export default function SideBarPc() {
         style={{ top: `${sidebarOffset}px`, transition: 'top 0.3s ease' }}
       >
         <div className="d-flex flex-column">
-          <form className="d-flex mb-5">
+          <form className="d-flex mb-5" onSubmit={handleSearch}>
             <input
               className={`${styles.BorderEndDel} form-control border-success border-end-0`}
               type="search"
+              name="search"
               placeholder="Search"
               aria-label="Search"
             />

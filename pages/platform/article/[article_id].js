@@ -16,6 +16,7 @@ export default function ArticleId() {
   const router = useRouter()
   const [articleData, setArticleData] = useState({})
   const [messages, setMessages] = useState([])
+  const [imageLoaded, setImageLoaded] = useState(true) // 用來追蹤圖片是否成功加載
 
   useEffect(() => {
     if (!router.isReady) return
@@ -26,11 +27,21 @@ export default function ArticleId() {
         console.log(myData)
         setArticleData(myData.article)
         setMessages(myData.messages)
+        setImageLoaded(true) // 确保每次加载时都重置 imageLoaded 状态
       })
       .catch((error) => {
         console.error('Error fetching article:', error)
       })
-  }, [router])
+  }, [router.query.article_id, router.isReady]) // 依赖 router.query.article_id
+
+  useEffect(() => {
+    if (articleData.article_img) {
+      const img = new Image()
+      img.src = `http://localhost:3001/uploads/${articleData.article_img}`
+      img.onload = () => setImageLoaded(true)
+      img.onerror = () => setImageLoaded(false)
+    }
+  }, [articleData.article_img])
 
   return (
     <>
@@ -90,11 +101,29 @@ export default function ArticleId() {
 
                           {/* 主內容 */}
                           <div className="mx-4 my-4">
-                            <p>{articleData.article_content}</p>
+                            <div className="d-flex justify-content-center">
+                              <div
+                                className="d-flex justify-content-center align-items-center"
+                                style={{ width: '100%' }}
+                              >
+                                <p className="col-lg-10  text-center lh-lg">
+                                  {articleData.article_content}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="d-flex justify-content-center mt-3 ">
+                              {imageLoaded ? (
+                                <img
+                                  className={`w-75`}
+                                  src={`http://localhost:3001/uploads/${articleData.article_img}`}
+                                  onError={() => setImageLoaded(false)}
+                                />
+                              ) : null}
+                            </div>
                           </div>
 
                           {/* 功能連結 */}
-                          <div className="border-bottom border-secondary d-flex justify-content-around pb-4">
+                          <div className="border-bottom border-secondary d-flex justify-content-around pb-4 mt-5">
                             <a
                               className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover}`}
                             >
