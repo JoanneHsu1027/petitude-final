@@ -5,10 +5,12 @@ import styles from '@/styles/estore/bookingList.module.css'
 import axios from 'axios'
 import swal from 'sweetalert2'
 import { useCart } from '@/contexts/estore/CartContext'
+import { useAuth } from '@/contexts/member/auth-context'
 import { z } from 'zod'
 import { RequestList } from '@/configs/estore/api-path'
 
 export default function BookingList() {
+  const { auth } = useAuth()
   const router = useRouter()
   const [selectedBillMethod, setSelectedBillMethod] = useState('')
   const [cartItems, setCartItems] = useState([])
@@ -41,24 +43,41 @@ export default function BookingList() {
       setCartItems(JSON.parse(storedCart))
     }
 
-    // 從 localStorage 讀取用戶資料
-    const storedUser = localStorage.getItem('user')
-    if (storedUser) {
-      const userData = JSON.parse(storedUser)
-      setFormData((prevData) => ({
-        ...prevData,
-        buyerName: userData.b2c_name || '',
-        mobile: userData.b2c_mobile || '',
-        countyId: userData.fk_county_id || '',
-        cityId: userData.fk_city_id || '',
-        address: userData.b2c_address || '',
-      }))
-
-      // 更新選中的縣市和城市
-      setSelectedCounty(userData.countyId || '')
-      setSelectedCity(userData.cityId || '')
+    // 從 auth 獲取 b2c_id 並獲取用戶資料
+    if (auth?.b2c_id) {
+      fetchUserData(auth.b2c_id)
     }
-  }, [])
+  }, [auth])
+
+  const fetchUserData = async (b2c_id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/product/user/${b2c_id}`,
+      )
+      if (response.data.success) {
+        const userData = response.data.data
+        setFormData((prevData) => ({
+          ...prevData,
+          buyerName: userData.b2c_name || '',
+          mobile: userData.b2c_mobile || '',
+          countyId: userData.fk_county_id || '',
+          cityId: userData.fk_city_id || '',
+          address: userData.b2c_address || '',
+        }))
+
+        // 更新選中的縣市和城市
+        setSelectedCounty(userData.fk_county_id || '')
+        setSelectedCity(userData.fk_city_id || '')
+
+        // 如果有縣市 ID,獲取對應的城市數據
+        if (userData.fk_county_id) {
+          fetchCities(userData.fk_county_id)
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error)
+    }
+  }
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.product_price * item.qty,
@@ -74,21 +93,6 @@ export default function BookingList() {
         )
         if (response.data.success) {
           setCounties(response.data.data)
-
-          // 在縣市資料加載完成後，設置用戶的縣市選擇
-          const storedUser = localStorage.getItem('user')
-          if (storedUser) {
-            const userData = JSON.parse(storedUser)
-            if (userData.fk_county_id) {
-              setSelectedCounty(userData.fk_county_id)
-              setFormData((prevData) => ({
-                ...prevData,
-                countyId: userData.fk_county_id,
-              }))
-              // 獲取對應的城市資料
-              fetchCities(userData.fk_county_id)
-            }
-          }
         }
       } catch (error) {
         console.error('Error fetching counties:', error)
@@ -107,19 +111,6 @@ export default function BookingList() {
         )
         if (response.data.success) {
           setCities(response.data.data)
-
-          // 在城市資料加載完成後，設置用戶的城市選擇
-          const storedUser = localStorage.getItem('user')
-          if (storedUser) {
-            const userData = JSON.parse(storedUser)
-            if (userData.fk_city_id) {
-              setSelectedCity(userData.fk_city_id)
-              setFormData((prevData) => ({
-                ...prevData,
-                cityId: userData.fk_city_id,
-              }))
-            }
-          }
         }
       } catch (error) {
         console.error('Error fetching cities:', error)
@@ -208,6 +199,7 @@ export default function BookingList() {
     try {
       const dataToSend = {
         ...formData,
+        b2c_id: auth.b2c_id, // 添加 b2c_id
         county: counties.find(
           (c) => c.county_id === parseInt(formData.countyId),
         )?.county_name,
@@ -250,24 +242,6 @@ export default function BookingList() {
       } else {
         console.error('新增資料庫失敗')
       }
-
-      // 顯示成功消息並導航
-      // swal
-      //   .fire({
-      //     icon: 'success',
-      //     html: `訂單已成功建立`,
-      //     showCancelButton: true,
-      //     focusConfirm: false,
-      //     confirmButtonText: `回首頁`,
-      //     cancelButtonText: `回商品列表`,
-      //   })
-      //   .then((result) => {
-      //     if (result.isConfirm) {
-      //       router.push('/')
-      //     } else {
-      //       router.push('/estore/')
-      //     }
-      //   })
     } catch (error) {
       console.error('發生錯誤:', error)
       // 處理錯誤
