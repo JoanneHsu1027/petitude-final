@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { z } from 'zod'
 import { MEMBER_UPDATE_POST } from '@/configs/api-path'
 import { counties } from '@/components/common/county'
 import { cities } from '@/components/common/city'
 import formStyles from './css/MemberProfileForm.module.css'
+import AuthContext from '@/contexts/member/auth-context'
 
 const MemberProfileForm = ({ memberData, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -18,6 +19,7 @@ const MemberProfileForm = ({ memberData, onCancel }) => {
 
   const [formErrors, setFormErrors] = useState({})
   const [filteredCities, setFilteredCities] = useState([])
+  const { updateUser } = useContext(AuthContext)
 
   useEffect(() => {
     setFormData({
@@ -86,7 +88,7 @@ const MemberProfileForm = ({ memberData, onCancel }) => {
             ...formData,
             b2c_birth: formData.b2c_birth || '',
           }
-          localStorage.setItem('user', JSON.stringify(updatedUser))
+          updateUser(updatedUser)
 
           setFormErrors({})
         } else {
@@ -172,7 +174,6 @@ const MemberProfileForm = ({ memberData, onCancel }) => {
             請填寫居住地區:
           </label>
           <div className={formStyles['form-span']}>
-            {' '}
             <select
               id="fk_county_id"
               name="fk_county_id"

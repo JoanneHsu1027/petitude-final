@@ -4,19 +4,16 @@ import { API_SERVER } from '@/configs/api-path'
 import Layout from '@/components/layout/layout'
 import MemberProfileForm from '@/components/member/MemberProfileForm'
 import MemberProfileView from '@/components/member/MemberProfileView'
-import Modal from '@/components/member/LoginModal' // 引入 Modal 組件
 import styles from './css/MemberProfile.module.css' // 使用組件級別的 CSS Modules
 
 const Member = () => {
   const { auth, getAuthHeader } = useAuth()
   const [memberData, setMemberData] = useState(null)
   const [isEditing, setIsEditing] = useState(false)
-  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     const fetchMemberData = async () => {
       if (!auth.b2c_id) {
-        setShowModal(true) // 如果未登入，顯示 Modal
         return
       }
       try {
@@ -40,12 +37,8 @@ const Member = () => {
     fetchMemberData()
   }, [auth.b2c_id, getAuthHeader])
 
-  const handleModalClose = () => {
-    setShowModal(false)
-  }
-
-  if (showModal) {
-    return <Modal onClose={handleModalClose} />
+  if (!auth.b2c_id) {
+    return <p>請先登入</p>
   }
 
   if (!memberData) {

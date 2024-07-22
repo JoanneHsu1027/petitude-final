@@ -8,6 +8,10 @@ export const MEMBER_ADD_POST = `${API_SERVER}/b2c_member/add`
 export const MEMBER_UPDATE_POST = `${API_SERVER}/b2c_member/api`
 
 export const MEMBER_FORGETPASSWORD_POST = `${API_SERVER}/b2c_member/request-password-reset`
+
+export const VERIFY_RESET_CODE_POST = `${API_SERVER}/b2c_member/verify-reset-code`
+
+export const RESET_PASSWORD_POST = `${API_SERVER}/b2c_member/reset-password`
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // Booking(訂購)
