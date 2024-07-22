@@ -11,6 +11,7 @@ export default function CreateArticle() {
   const [previewURL, setPreviewURL] = useState('')
 
   const [myForm, setMyForm] = useState({
+    fk_b2c_id: '1', // 確保這裡設置了適當的 fk_b2c_id，根據當前登錄用戶進行更新
     article_name: '',
     article_content: '',
     fk_class_id: '',
@@ -18,22 +19,21 @@ export default function CreateArticle() {
   })
 
   const [myFormErrors, setMyFormErrors] = useState({
+    fk_b2c_id: '',
     article_name: '',
     article_content: '',
     fk_class_id: '',
   })
 
-  const [imageFile, setImageFile] = useState(null) // 新增的狀態
+  const [imageFile, setImageFile] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const onChange = (e) => {
     const { name, value, files } = e.target
 
     if (name === 'article_img') {
-      // 判斷是否為圖片檔案的輸入並檢查文件
       if (files && files[0]) {
         setImageFile(files[0])
-        // 產生預覽網址
         setPreviewURL(URL.createObjectURL(files[0]))
       } else {
         setImageFile(null)
@@ -45,7 +45,6 @@ export default function CreateArticle() {
         [name]: value,
       })
 
-      // 如果用戶填寫了某個欄位，則清除相應的錯誤提示
       if (value.trim() !== '') {
         setMyFormErrors({
           ...myFormErrors,
@@ -81,8 +80,9 @@ export default function CreateArticle() {
     formData.append('article_name', myForm.article_name)
     formData.append('article_content', myForm.article_content)
     formData.append('fk_class_id', myForm.fk_class_id)
+    formData.append('fk_b2c_id', myForm.fk_b2c_id) // 加入 fk_b2c_id
     if (imageFile) {
-      formData.append('article_img', imageFile) // 將圖片檔案加入到FormData
+      formData.append('article_img', imageFile)
     }
 
     console.log('Submitting form data:', formData)
@@ -97,7 +97,7 @@ export default function CreateArticle() {
     const result = await r.json()
     console.log(result)
     if (result.success) {
-      setIsSubmitted(true) // 表單提交成功後，更新狀態
+      setIsSubmitted(true)
       Swal.fire({
         icon: 'success',
         title: '建立成功',
@@ -133,7 +133,7 @@ export default function CreateArticle() {
                   id="inputGroupSelect01"
                   onChange={onChange}
                   name="fk_class_id"
-                  value={myForm.fk_class_id} // 確保選擇器的值與狀態一致
+                  value={myForm.fk_class_id}
                 >
                   <option value="" disabled>
                     --選擇主題--
@@ -196,8 +196,8 @@ export default function CreateArticle() {
                   type="file"
                   className="form-control rounded-pill mt-2"
                   aria-label="Upload"
-                  name="article_img" // 新增的name屬性
-                  onChange={onChange} // 捕捉圖片輸入變化
+                  name="article_img"
+                  onChange={onChange}
                 />
                 {previewURL && (
                   <div className="d-flex justify-content-center mt-3">
@@ -217,7 +217,6 @@ export default function CreateArticle() {
             </div>
           </div>
         </div>
-        <div className={`${styles.BgImg} pb-5`}></div>
       </section>
     </>
   )
