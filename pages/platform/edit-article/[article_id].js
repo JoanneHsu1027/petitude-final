@@ -15,7 +15,7 @@ export default function EditArticle() {
     article_name: '',
     article_content: '',
     fk_class_id: '',
-    article_img: null,
+    article_img: '',
   })
 
   const [myFormErrors, setMyFormErrors] = useState({
@@ -83,17 +83,20 @@ export default function EditArticle() {
         formData.append('article_img', imageFile)
       }
 
-      console.log('Submitting form data:', formData)
+      console.log('Submitting form data:', myForm) // 调试日志
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`) // 调试日志
+      }
 
       const r = await fetch(`${ARTICLE}/${router.query.article_id}`, {
         method: 'PUT',
         body: formData,
       })
 
-      console.log('Response:', r)
+      console.log('Response:', r) // 调试日志
 
       const result = await r.json()
-      console.log(result)
+      console.log(result) // 调试日志
       if (result.success) {
         setIsSubmitted(true)
         Swal.fire({
@@ -102,7 +105,7 @@ export default function EditArticle() {
           showConfirmButton: false,
           timer: 1500,
         })
-        router.push('/platform/article')
+        router.push(`/platform/article/${myForm.article_id}`)
       } else {
         Swal.fire({
           title: '內容未編輯',
@@ -120,7 +123,7 @@ export default function EditArticle() {
         })
       }
     } catch (ex) {
-      console.log('Exception:', ex)
+      console.log('Exception:', ex) // 调试日志
     }
   }
 
@@ -132,15 +135,18 @@ export default function EditArticle() {
       .then((result) => {
         if (result.success) {
           setMyForm(result.data)
-          setImageLoaded(true)
-          setPreviewURL(
-            `http://localhost:3001/uploads/${result.data.article_img}`,
-          ) // 设置预览URL为原始图片URL
+          if (result.data.article_img) {
+            setPreviewURL(
+              `http://localhost:3001/uploads/${result.data.article_img}`,
+            )
+          }
         } else {
           router.push('../article')
         }
       })
-      .catch((ex) => {})
+      .catch((ex) => {
+        console.log('Fetch exception:', ex) // 调试日志
+      })
   }, [router])
 
   return (
@@ -236,13 +242,11 @@ export default function EditArticle() {
                 />
                 {previewURL && (
                   <div className="d-flex justify-content-center mt-3">
-                    {imageLoaded ? (
-                      <img
-                        className="w-75"
-                        src={previewURL}
-                        onError={() => setImageLoaded(false)}
-                      />
-                    ) : null}
+                    <img
+                      className="w-75"
+                      src={previewURL}
+                      onError={() => setImageLoaded(false)}
+                    />
                   </div>
                 )}
                 <div className="d-flex flex-row-reverse">
@@ -258,7 +262,7 @@ export default function EditArticle() {
             </div>
           </div>
         </div>
-        <div className={`${styles.BgImg}  pb-5`}></div>
+        <div className={`${styles.BgImg} pb-5`}></div>
       </section>
     </>
   )
