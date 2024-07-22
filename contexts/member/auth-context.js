@@ -53,6 +53,12 @@ export function AuthContextProvider({ children }) {
     return {}
   }
 
+  const updateUser = (updatedUser) => {
+    const updatedAuth = { ...auth, ...updatedUser }
+    setAuth(updatedAuth)
+    localStorage.setItem(storageKey, JSON.stringify(updatedAuth))
+  }
+
   // 當用戶重刷頁面時，從 localStorage 載入狀態
   useEffect(() => {
     const str = localStorage.getItem(storageKey)
@@ -69,7 +75,9 @@ export function AuthContextProvider({ children }) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ login, logout, auth, getAuthHeader }}>
+    <AuthContext.Provider
+      value={{ login, logout, auth, getAuthHeader, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   )
