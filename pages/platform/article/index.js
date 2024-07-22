@@ -4,8 +4,15 @@ import styles from '../../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
 import SideBarMobile from '@/components/platform/side-bar-mobile'
 import ArticleBlock from '@/components/platform/article-block'
+import LoginModal from '@/components/member/LoginModal'
+import { useAuth } from '@/contexts/member/auth-context'
+import { useRouter } from 'next/router'
+import swal from 'sweetalert2'
 
 export default function ArticleList() {
+  const router = useRouter()
+  const [showModal, setShowModal] = useState(false)
+  const { auth } = useAuth()
   const [searchKeyword, setSearchKeyword] = useState('')
 
   const handleSearch = (keyword) => {
@@ -26,14 +33,27 @@ export default function ArticleList() {
                   <div className="row">
                     <div className="col-lg-12 col-md-12 d-flex flex-column m-1">
                       <SideBarMobile onSearch={handleSearch} />
-                      <a
-                        href="./create-article"
-                        className={`${styles.AReset} d-flex  flex-row-reverse me-2`}
+                      <button
+                        onClick={() => {
+                          if (!auth.b2c_id) {
+                            swal
+                              .fire({
+                                text: '請先登入會員！',
+                                icon: 'error',
+                              })
+                              .then(() => {
+                                setShowModal(true) // 在警告框關閉後顯示登入視窗
+                              })
+                          } else {
+                            router.push('./create-article')
+                          }
+                        }}
+                        className={`${styles.AReset} ${styles.BtnReset} d-flex  flex-row-reverse me-2`}
                       >
                         <h5 className={`${styles.CreatArticle} me-3 fw-bold`}>
                           + 建立文章
                         </h5>
-                      </a>
+                      </button>
                       <ArticleBlock keyword={searchKeyword} />
                     </div>
                   </div>
@@ -43,6 +63,7 @@ export default function ArticleList() {
           </div>
         </Layout>
       </section>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
 }
