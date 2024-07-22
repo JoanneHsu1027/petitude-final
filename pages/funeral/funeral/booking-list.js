@@ -209,6 +209,7 @@ export default function BookingList() {
         `http://localhost:3001/project/cartCheckout1`,
         dataToSend,
       )
+      console.log('Data to send:', dataToSend)
 
       if (paymentResponse.data.success) {
         // 資料庫新增成功就處理綠界
@@ -302,6 +303,7 @@ export default function BookingList() {
                       type="text"
                       className={`form-control rounded-pill ${formDataErrors.buyerName ? 'is-invalid' : ''}`}
                       id="buyerName"
+                      name="buyerName"
                       placeholder="姓名"
                       value={formData.buyerName}
                       onChange={handleInputChange}
