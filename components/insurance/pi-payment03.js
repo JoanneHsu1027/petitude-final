@@ -9,6 +9,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import { counties } from '../common/county'
 import { cities } from '../common/city'
 import { products } from './insurance_product'
+import { INSURANCE_ADD_POST } from '@/configs/insurance/api-path'
 
 function PiPayment03() {
   const router = useRouter()
@@ -100,16 +101,13 @@ function PiPayment03() {
       localStorage.setItem('InsuranceOrder', JSON.stringify(insuranceData))
 
       // 資料發送到後端
-      const response = await fetch(
-        'http://localhost:3001/insurance/save-insurance-order',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(insuranceData),
+      const response = await fetch(INSURANCE_ADD_POST, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify(insuranceData),
+      })
 
       if (!response.ok) {
         throw new Error('Failed to save data to server')
