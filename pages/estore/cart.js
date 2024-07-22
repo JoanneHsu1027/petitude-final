@@ -41,7 +41,7 @@ export default function CartPage() {
   // 生命禮儀功能
   // 購物車設定每個項目只能買一項, 買超過一項則無法列入計算價格跟刪除
   const { cartProjects, removeCartProject } = useCart1([]) // 确保 useCart1 返回正确的值
-  const [showModal, setShowModal] = useState(false)
+
   // 顯示方案價格加總
   const totalProjectPrice = cartProjects.reduce(
     (total, project) => total + project.project_price,

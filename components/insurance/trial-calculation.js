@@ -553,9 +553,9 @@ export default function TrialCalculation() {
                       >
                         立即投保
                       </button>
-                      {showModal && (
+                      {/* {showModal && (
                         <LoginModal onClose={() => setShowModal(false)} />
-                      )}
+                      )} */}
                     </div>
                   </td>
                   <td>
@@ -573,9 +573,9 @@ export default function TrialCalculation() {
                       >
                         立即投保
                       </button>
-                      {showModal && (
+                      {/* {showModal && (
                         <LoginModal onClose={() => setShowModal(false)} />
-                      )}
+                      )} */}
                     </div>
                   </td>
                   <td>
@@ -593,9 +593,9 @@ export default function TrialCalculation() {
                       >
                         立即投保
                       </button>
-                      {showModal && (
+                      {/* {showModal && (
                         <LoginModal onClose={() => setShowModal(false)} />
-                      )}
+                      )} */}
                     </div>
                   </td>
                 </tr>
@@ -626,6 +626,7 @@ export default function TrialCalculation() {
           </div>
         </div>
       </div>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
 }
