@@ -3,19 +3,29 @@ import styles from './insurance.module.css'
 import Link from 'next/link'
 
 export default function PiPayment04() {
-  const [selectedPayment, setSelectedPayment] = useState('')
+  // 選擇付費方式
+  // const [selectedPayment, setSelectedPayment] = useState('')
 
+  // 抓取會員id
+  const [memberID, setMemberID] = useState('')
+  // 抓取保費
   const [planPrice, setPlanPrice] = useState('')
 
-  const handlePaymentChange = (e) => {
-    setSelectedPayment(e.target.id)
-  }
+  // const handlePaymentChange = (e) => {
+  //   setSelectedPayment(e.target.id)
+  // }
 
   useEffect(() => {
     // 這個代碼塊只會在客戶端執行
 
+    const petMemberAuth = localStorage.getItem('petmember-auth') // 會員id
+    if (petMemberAuth) {
+      const authData = JSON.parse(petMemberAuth)
+      setMemberID(authData.b2c_id)
+    }
+
     const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
-    if (selectedPlan && selectedPlan.type) {
+    if (selectedPlan) {
       setPlanPrice(selectedPlan.price) // 保險價格
     }
   }, [])
@@ -60,8 +70,20 @@ export default function PiPayment04() {
               </div>
             </div>
           </div>
-          {/* 付費方式 */}
+
+          {/* 付費 */}
           <div className="col-8 mb-5" style={{ marginTop: '30px' }}>
+            <h4 className={styles['top-frame']}>前往付款</h4>
+            <div className={styles['data-frame']}>
+              <div className="col-12 px-5">
+                <form className="d-flex justify-content-center">
+                  <h1>串接綠界</h1>
+                </form>
+              </div>
+            </div>
+          </div>
+          {/* 付費方式 */}
+          {/* <div className="col-8 mb-5" style={{ marginTop: '30px' }}>
             <h4 className={styles['top-frame']}>付費方式</h4>
             <div className={styles['data-frame']}>
               <div className="col-12 px-5">
@@ -150,7 +172,7 @@ export default function PiPayment04() {
                 </form>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         {/* 下一步 */}
         <div className="row">
