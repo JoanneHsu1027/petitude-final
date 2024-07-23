@@ -153,12 +153,12 @@
     color: #f6d554;
 }
 
-.BorderEndDel {
+input.BorderEndDel {
     border-end-end-radius: unset;
     border-top-right-radius: unset;
 }
 
-.BorderStartDel {
+button.BorderStartDel {
     border-start-start-radius: unset;
     border-bottom-left-radius: unset;
 }
