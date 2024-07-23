@@ -58,7 +58,7 @@ export default function ClassList() {
                                 <p
                                   className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
                                 >
-                                  6篇文章
+                                  {r.article_count}篇文章
                                 </p>
                               </a>
                             </div>
