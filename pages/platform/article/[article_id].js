@@ -29,15 +29,15 @@ export default function ArticleId() {
     fetch(`${ARTICLE_PAGE}/${router.query.article_id}`)
       .then((r) => r.json())
       .then((myData) => {
-        console.log(myData)
+        console.log('Article data:', myData)
         setArticleData(myData.article)
         setMessages(myData.messages)
-        setImageLoaded(true) // 确保每次加载时都重置 imageLoaded 状态
+        setImageLoaded(true) // 確保每次加載時都重置 imageLoaded 狀態
       })
       .catch((error) => {
         console.error('Error fetching article:', error)
       })
-  }, [router.query.article_id, router.isReady]) // 依赖 router.query.article_id
+  }, [router.query.article_id, router.isReady]) // 依賴 router.query.article_id
 
   useEffect(() => {
     if (articleData.article_img) {
@@ -48,13 +48,33 @@ export default function ArticleId() {
     }
   }, [articleData.article_img])
 
+  const handleEditClick = () => {
+    console.log('Auth b2c_id:', auth.b2c_id)
+    console.log('Article fk_b2c_id:', articleData.fk_b2c_id)
+
+    if (!auth.b2c_id) {
+      swal
+        .fire({
+          text: '請先登入會員！',
+          icon: 'error',
+        })
+        .then(() => {
+          setShowModal(true) // 在警告框關閉後顯示登入視窗
+        })
+    } else if (auth.b2c_id !== articleData.fk_b2c_id) {
+      swal.fire({
+        text: '您沒有權限編輯此文章！',
+        icon: 'error',
+      })
+    } else {
+      router.push(`../edit-article/${router.query.article_id}`)
+    }
+  }
+
   return (
     <>
       <section className={`${styles.BgImg}`}>
-        <Layout
-          title={articleData.article_name || 'Loading...'}
-          pageName="platform"
-        >
+        <Layout title={articleData.article_name} pageName="platform">
           <div className="container mb-5">
             <div className="row">
               <SideBarPc></SideBarPc>
@@ -95,30 +115,17 @@ export default function ArticleId() {
                                   {articleData.article_date}
                                 </p>
                               </div>
-                              <button
-                                onClick={() => {
-                                  if (!auth.b2c_id) {
-                                    swal
-                                      .fire({
-                                        text: '請先登入會員！',
-                                        icon: 'error',
-                                      })
-                                      .then(() => {
-                                        setShowModal(true) // 在警告框關閉後顯示登入視窗
-                                      })
-                                  } else {
-                                    router.push(
-                                      `../edit-article/${router.query.article_id}`,
-                                    )
-                                  }
-                                }}
-                                className={`${styles.BtnReset} ${styles.LightGray}`}
-                              >
-                                <BsFillPencilFill
-                                  className={`mb-1`}
-                                ></BsFillPencilFill>
-                                編輯
-                              </button>
+                              {auth.b2c_id === articleData.fk_b2c_id && (
+                                <button
+                                  onClick={handleEditClick}
+                                  className={`${styles.BtnReset} ${styles.LightGray}`}
+                                >
+                                  <BsFillPencilFill
+                                    className={`mb-1`}
+                                  ></BsFillPencilFill>
+                                  編輯
+                                </button>
+                              )}
                             </div>
                           </div>
 
@@ -129,7 +136,7 @@ export default function ArticleId() {
                                 className="d-flex justify-content-center align-items-center"
                                 style={{ width: '100%' }}
                               >
-                                <p className="col-lg-10  text-center lh-lg">
+                                <p className="col-lg-10 text-center lh-lg">
                                   {articleData.article_content}
                                 </p>
                               </div>
