@@ -186,20 +186,20 @@ export default function ArticleId() {
                                     key={message.message_id}
                                     className="d-flex border-bottom mt-4 mb-2 mx-1 px-2"
                                   >
-                                    <div className="mx-2">
+                                    <div className="me-2">
                                       <img src="/forum-pic/avatar.png" alt="" />
                                     </div>
                                     <div className="flex-grow-1 me-2">
                                       <p>{message.b2c_name}</p>
                                       <p>{message.message_content}</p>
-                                      <div className="d-flex ms-4">
+                                      <div className="d-flex ">
                                         <p className="me-4">{dateFormat}</p>
-                                        <a
-                                          className={`${styles.AReset} ${styles.LightGray}`}
+                                        <button
+                                          className={`${styles.BtnReset} ${styles.LightGray} mb-4`}
                                           href="#"
                                         >
                                           回覆
-                                        </a>
+                                        </button>
                                       </div>
                                     </div>
                                   </div>
