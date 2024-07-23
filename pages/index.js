@@ -14,6 +14,8 @@ export default function home() {
       `}</style>
       <Layout>
         <Funeral />
+
+        {/* 論壇區塊 start */}
         <div className="container my-5">
           <div className="row d-flex justify-content-center">
             <div className="col-xl-10 col-lg-12 position-relative">
@@ -28,6 +30,7 @@ export default function home() {
             </div>
           </div>
         </div>
+        {/* 論壇區塊 end */}
       </Layout>
     </>
   )
