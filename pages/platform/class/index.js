@@ -5,8 +5,16 @@ import SideBarPc from '@/components/platform/side-bar-pc'
 import SideBarMobile from '@/components/platform/side-bar-mobile'
 import { useEffect, useState } from 'react'
 import { CLASS } from '@/configs/platform/api-path'
+import { useRouter } from 'next/router'
 
 export default function ClassList() {
+  const router = useRouter()
+
+  const handleSearch = (keyword) => {
+    // 跳转到 ArticleList 页面并带上搜索关键字
+    router.push(`/platform/article?keyword=${encodeURIComponent(keyword)}`)
+  }
+
   const [data, setData] = useState({
     success: false,
     rows: [],
@@ -27,14 +35,14 @@ export default function ClassList() {
         <Layout title="貓狗論壇" pageName="pet-insurance">
           <div className="container mb-5">
             <div className="row">
-              <SideBarPc></SideBarPc>
+              <SideBarPc onSearch={handleSearch} />
               {/* section 這裡開始 */}
               <div className="col-xl-9 col-lg-12">
                 {/* class-block 這裡開始 */}
                 <div
                   className={`container card my-3 ${styles.Rounded5} border-0 h-100`}
                 >
-                  <SideBarMobile></SideBarMobile>
+                  <SideBarMobile onSearch={handleSearch} />
 
                   <div className="row">
                     <div className="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center mt-3 mb-5">

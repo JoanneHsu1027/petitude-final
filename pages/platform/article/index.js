@@ -11,25 +11,46 @@ import swal from 'sweetalert2'
 
 export default function ArticleList() {
   const router = useRouter()
-  const [showModal, setShowModal] = useState(false)
   const { auth } = useAuth()
-  const [searchKeyword, setSearchKeyword] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const [searchKeyword, setSearchKeyword] = useState(router.query.keyword || '')
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword)
+    router.push(`/platform/article?keyword=${encodeURIComponent(keyword)}`)
   }
 
   useEffect(() => {
-    setSearchKeyword('') // 确保组件加载时搜索关键字为空
-  }, [])
+    // 从 URL 查询参数中获取搜索关键字
+    if (router.query.keyword) {
+      setSearchKeyword(router.query.keyword)
+    }
+  }, [router.query.keyword])
+
+  const handleCreateArticle = () => {
+    if (!auth.b2c_id) {
+      swal
+        .fire({
+          text: '請先登入會員！',
+          icon: 'error',
+        })
+        .then(() => {
+          setShowModal(true) // 在警告框关闭后显示登录窗口
+        })
+    } else {
+      router.push('/platform/create-article') // 确保路径正确
+    }
+  }
 
   return (
     <>
       <section className={`${styles.BgImg}`}>
-        <Layout title="貓狗論壇" pageName="pet-insurance">
+        <Layout title="貓狗論壇" pageName="article-list">
           <div className="container mb-5">
             <div className="row">
-              <SideBarPc onSearch={handleSearch} />
+              <div className="col-xl-3 col-lg-12">
+                <SideBarPc onSearch={handleSearch} />
+              </div>
               <div className="col-xl-9 col-lg-12">
                 <div
                   className={`container card my-3 ${styles.Rounded5} border-0 h-100`}
@@ -38,21 +59,8 @@ export default function ArticleList() {
                     <div className="col-lg-12 col-md-12 d-flex flex-column m-1">
                       <SideBarMobile onSearch={handleSearch} />
                       <button
-                        onClick={() => {
-                          if (!auth.b2c_id) {
-                            swal
-                              .fire({
-                                text: '請先登入會員！',
-                                icon: 'error',
-                              })
-                              .then(() => {
-                                setShowModal(true) // 在警告框關閉後顯示登入視窗
-                              })
-                          } else {
-                            router.push('./create-article')
-                          }
-                        }}
-                        className={`${styles.BtnReset} d-flex  flex-row-reverse me-2`}
+                        onClick={handleCreateArticle}
+                        className={`${styles.BtnReset} d-flex flex-row-reverse me-2`}
                       >
                         <h5 className={`${styles.CreatArticle} me-3 fw-bold`}>
                           + 建立文章
