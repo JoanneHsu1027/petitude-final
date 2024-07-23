@@ -517,11 +517,8 @@ function PiPayment03() {
               >
                 <button className={styles['own-btn4']}>上一步</button>
               </Link>
-              {/* <button className={styles['own-btn4']} type="submit">
-                下一步
-              </button> */}
               <button className={styles['own-btn4']} type="submit">
-                前往付費
+                下一步
               </button>
             </div>
           </div>

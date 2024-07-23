@@ -10,10 +10,93 @@ export default function PiPayment04() {
   const [orderID, setOrderID] = useState('')
   // 抓取保費
   const [planPrice, setPlanPrice] = useState('')
+  // 保費轉成數字
+  const price = parseFloat(planPrice.replace(/,/g, ''))
+  // 付費狀態
+  const [isPay, setIsPay] = useState('false')
 
   // const handlePaymentChange = (e) => {
   //   setSelectedPayment(e.target.id)
   // }
+
+  // 綠界付款
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    // 進行全面驗證
+    // const result = schemaForm.safeParse(formData)
+
+    // if (!result.success) {
+    //   const newFormErrors = {
+    //     buyerName: '',
+    //     mobile: '',
+    //   }
+    //   for (let issue of result.error.issues) {
+    //     newFormErrors[issue.path[0]] = issue.message
+    //   }
+    //   setFormDataErrors(newFormErrors)
+
+    //   swal.fire({
+    //     icon: 'error',
+    //     title: '表單驗證失敗',
+    //     text: '請檢查並修正錯誤的欄位',
+    //   })
+    //   return // 阻止表單提交
+    // }
+
+    // 如果驗證通過，繼續原有的提交邏輯
+    try {
+      // const dataToSend = {
+      //   ...formData,
+      //   county: counties.find(
+      //     (c) => c.county_id === parseInt(formData.countyId),
+      //   )?.county_name,
+      //   city: cities.find((c) => c.city_id === parseInt(formData.cityId))
+      //     ?.city_name,
+      //   cartItems: JSON.parse(
+      //     localStorage.getItem('joannesshoppingcart') || '[]',
+      //   ),
+      // }
+
+      // 首先發送到資料庫新增路由
+      // const paymentResponse = await axios.post(
+      //   `http://localhost:3001/product/cartCheckout`,
+      //   dataToSend,
+      // )
+
+      // if (paymentResponse.data.success) {
+      // 資料庫新增成功就處理綠界
+
+      // 確認localstorage有收到新成立的訂單編號 (綠界必須用get)
+      if (localStorage.order_id) {
+        const response = await fetch(
+          `http://localhost:3001/ecpayJ?${new URLSearchParams({ amount: price })}`,
+        )
+
+        const ecpayResponse = await response.json()
+
+        if (ecpayResponse.htmlContent) {
+          const tempDiv = document.createElement('div')
+          tempDiv.innerHTML = ecpayResponse.htmlContent
+
+          const form = tempDiv.querySelector('form')
+          if (form) {
+            document.body.appendChild(form)
+            form.submit()
+          } else {
+            console.error('找不到支付表單')
+          }
+        } else {
+          console.error('無效的回應格式')
+        }
+      } else {
+        console.error('新增資料庫失敗')
+      }
+    } catch (error) {
+      console.error('發生錯誤:', error)
+      // 處理錯誤
+    }
+  }
 
   useEffect(() => {
     // 這個代碼塊只會在客戶端執行
@@ -79,7 +162,9 @@ export default function PiPayment04() {
             <div className={styles['data-frame']}>
               <div className="col-12 px-5">
                 <form className="d-flex justify-content-center">
-                  <h1>串接綠界</h1>
+                  <button type="submit" onClick={handleSubmit}>
+                    <h1>串接綠界</h1>
+                  </button>
                 </form>
               </div>
             </div>
