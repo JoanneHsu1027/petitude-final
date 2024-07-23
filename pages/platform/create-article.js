@@ -227,6 +227,7 @@ export default function CreateArticle() {
             </div>
           </div>
         </div>
+        <div className={`${styles.BgImg} pb-5`}></div>
       </section>
     </>
   )
