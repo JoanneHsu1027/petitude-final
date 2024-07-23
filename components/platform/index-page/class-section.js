@@ -36,7 +36,7 @@ export default function ClassSection() {
       <div
         className={`card my-5 border-5 ${styles.Rounded5} ${styles.BorderCoffee}`}
       >
-        <div className="mx-5 mt-4">
+        <div className="mx-5 mt-4 pt-2">
           <nav className={`border-bottom d-flex text-nowrap overflow-scroll`}>
             <a
               className={`py-3 px-3 ${styles.AReset} nav-change nav-link ${activeTab === 'tab1' ? styles.MyActive : ''} text-black`}
