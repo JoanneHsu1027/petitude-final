@@ -1,6 +1,5 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap/dist/js/bootstrap.bundle'
 
 export default function Carousel() {
   return (
@@ -13,6 +12,7 @@ export default function Carousel() {
               id="carouselExampleSlidesOnly"
               className="carousel slide"
               data-bs-ride="carousel"
+              data-bs-interval="1000" // 設置輪播速度為 1000 毫秒（1 秒）
             >
               <div className="carousel-inner">
                 <div className="carousel-item active">
