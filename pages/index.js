@@ -17,11 +17,13 @@ export default function home() {
         <div className="container my-5">
           <div className="row d-flex justify-content-center">
             <div className="col-xl-10 col-lg-12 position-relative">
-              <img
-                className="TopCenter start-50 translate-middle"
-                src="../forum-pic/forum-title.png"
-                alt=""
-              />
+              <a href="./platform">
+                <img
+                  className="TopCenter start-50 translate-middle"
+                  src="../forum-pic/forum-title.png"
+                  alt=""
+                />
+              </a>
               <ClassSection />
             </div>
           </div>
