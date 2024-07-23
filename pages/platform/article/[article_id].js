@@ -11,9 +11,14 @@ import {
 import { useRouter } from 'next/router'
 import { ARTICLE_PAGE } from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
+import LoginModal from '@/components/member/LoginModal'
+import { useAuth } from '@/contexts/member/auth-context'
+import swal from 'sweetalert2'
 
 export default function ArticleId() {
   const router = useRouter()
+  const [showModal, setShowModal] = useState(false)
+  const { auth } = useAuth()
   const [articleData, setArticleData] = useState({})
   const [messages, setMessages] = useState([])
   const [imageLoaded, setImageLoaded] = useState(true) // 用來追蹤圖片是否成功加載
@@ -46,7 +51,10 @@ export default function ArticleId() {
   return (
     <>
       <section className={`${styles.BgImg}`}>
-        <Layout title={articleData.article_name} pageName="platform">
+        <Layout
+          title={articleData.article_name || 'Loading...'}
+          pageName="platform"
+        >
           <div className="container mb-5">
             <div className="row">
               <SideBarPc></SideBarPc>
@@ -87,15 +95,30 @@ export default function ArticleId() {
                                   {articleData.article_date}
                                 </p>
                               </div>
-                              <a
-                                href={`../edit-article/${router.query.article_id}`}
-                                className={`${styles.AReset} ${styles.LightGray}`}
+                              <button
+                                onClick={() => {
+                                  if (!auth.b2c_id) {
+                                    swal
+                                      .fire({
+                                        text: '請先登入會員！',
+                                        icon: 'error',
+                                      })
+                                      .then(() => {
+                                        setShowModal(true) // 在警告框關閉後顯示登入視窗
+                                      })
+                                  } else {
+                                    router.push(
+                                      `../edit-article/${router.query.article_id}`,
+                                    )
+                                  }
+                                }}
+                                className={`${styles.BtnReset} ${styles.LightGray}`}
                               >
                                 <BsFillPencilFill
                                   className={`mb-1`}
                                 ></BsFillPencilFill>
                                 編輯
-                              </a>
+                              </button>
                             </div>
                           </div>
 
@@ -201,6 +224,7 @@ export default function ArticleId() {
           </div>
         </Layout>
       </section>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
 }
