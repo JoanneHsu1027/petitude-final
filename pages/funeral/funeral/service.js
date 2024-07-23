@@ -85,7 +85,7 @@ export default function Service() {
               </div>
             </div>
           </div>
-          <div className="d-flex justify-content-center align-items-center">
+          {/* <div className="d-flex justify-content-center align-items-center">
             <button
               className="btn btn-warning mt-5"
               onClick={handleShowModal1}
@@ -93,9 +93,9 @@ export default function Service() {
             >
               客製化服務
             </button>
-          </div>
+          </div> */}
         </div>
-        <Modal1 show={showModal1} handleClose={() => setShowModal1(false)} />
+        {/* <Modal1 show={showModal1} handleClose={() => setShowModal1(false)} /> */}
       </div>
       <style jsx>{`
         .list-group {
