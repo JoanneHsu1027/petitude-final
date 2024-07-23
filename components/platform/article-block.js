@@ -24,22 +24,30 @@ export default function ArticleBlock({ keyword }) {
   )
 
   useEffect(() => {
-    fetch(`${ARTICLE}?keyword=${encodeURIComponent(keyword)}&page=${page}`)
-      .then((r) => r.json())
-      .then((myData) => {
-        if (myData.rows.length === 0) {
-          setHasMore(false)
-        } else {
-          setData((prevData) => {
-            const newData = [...prevData, ...myData.rows]
-            return [...new Set(newData.map((item) => item.article_id))].map(
-              (id) => newData.find((item) => item.article_id === id),
-            )
-          })
-        }
-      })
-      .catch((error) => console.error('Error loading articles:', error))
-  }, [keyword, page])
+    setPage(1)
+    setData([])
+    setHasMore(true)
+  }, [keyword])
+
+  useEffect(() => {
+    if (hasMore) {
+      fetch(`${ARTICLE}?keyword=${encodeURIComponent(keyword)}&page=${page}`)
+        .then((r) => r.json())
+        .then((myData) => {
+          if (myData.rows.length === 0) {
+            setHasMore(false)
+          } else {
+            setData((prevData) => {
+              const newData = [...prevData, ...myData.rows]
+              return [...new Set(newData.map((item) => item.article_id))].map(
+                (id) => newData.find((item) => item.article_id === id),
+              )
+            })
+          }
+        })
+        .catch((error) => console.error('Error loading articles:', error))
+    }
+  }, [keyword, page, hasMore])
 
   return (
     <>

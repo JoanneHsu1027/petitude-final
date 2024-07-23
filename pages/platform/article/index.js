@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '@/components/layout/layout'
 import styles from '../../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
@@ -18,6 +18,10 @@ export default function ArticleList() {
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword)
   }
+
+  useEffect(() => {
+    setSearchKeyword('') // 确保组件加载时搜索关键字为空
+  }, [])
 
   return (
     <>

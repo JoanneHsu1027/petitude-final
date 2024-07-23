@@ -63,29 +63,35 @@ export default function SideBarMobile({ onSearch }) {
           <Link
             href="../../platform"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === '' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === '' ? styles.MobilePageSelect : ''} `}
           >
             論壇首頁
           </Link>
           <Link
             href="../../platform/class"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'class' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'class' ? styles.MobilePageSelect : ''} `}
           >
             主題分類
           </Link>
-
           <Link
             href="../../platform/article"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'article' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'article' ? styles.MobilePageSelect : ''} `}
           >
             最新文章
           </Link>
           <Link
+            href="../../platform/hot-topics"
+            type="button"
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'hot-topics' ? styles.MobilePageSelect : ''} `}
+          >
+            熱門話題
+          </Link>
+          <Link
             href="../../platform/favorites"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'favorites' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'favorites' ? styles.MobilePageSelect : ''} `}
           >
             文章收藏
           </Link>
