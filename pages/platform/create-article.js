@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../../styles/platform/platform-style.module.css'
 import { BsXLg } from 'react-icons/bs'
 import Navbar from '@/components/layout/navbar'
@@ -9,9 +9,8 @@ import Swal from 'sweetalert2'
 export default function CreateArticle() {
   const router = useRouter()
   const [previewURL, setPreviewURL] = useState('')
-
   const [myForm, setMyForm] = useState({
-    fk_b2c_id: '1', // 確保這裡設置了適當的 fk_b2c_id，根據當前登錄用戶進行更新
+    fk_b2c_id: '', // 初始化為空字串
     article_name: '',
     article_content: '',
     fk_class_id: '',
@@ -27,6 +26,17 @@ export default function CreateArticle() {
 
   const [imageFile, setImageFile] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  useEffect(() => {
+    // 假設資料存在於 localStorage
+    const userData = JSON.parse(localStorage.getItem('petmember-auth'))
+    if (userData && userData.b2c_id) {
+      setMyForm((prevForm) => ({
+        ...prevForm,
+        fk_b2c_id: userData.b2c_id,
+      }))
+    }
+  }, [])
 
   const onChange = (e) => {
     const { name, value, files } = e.target
@@ -115,7 +125,7 @@ export default function CreateArticle() {
 
         <Navbar />
 
-        <div className="container-fluid col-xl-6 col-lg-12 mb-5  pt-4">
+        <div className="container-fluid col-xl-6 col-lg-12 mb-5 pt-4">
           <div
             className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4 position-relative`}
           >
