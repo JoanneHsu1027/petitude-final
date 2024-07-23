@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '@/components/layout/layout'
-import styles from '../../styles/platform/platform-style.module.css'
+import styles from '../../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
 import SideBarMobile from '@/components/platform/side-bar-mobile'
 import { useEffect, useState } from 'react'
@@ -46,7 +46,7 @@ export default function ClassList() {
                               className="border-bottom w-75"
                             >
                               <a
-                                href="./article-list.html"
+                                href={`/platform/class/${r.class_id}`}
                                 className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
                                 data-img="p01"
                               >
