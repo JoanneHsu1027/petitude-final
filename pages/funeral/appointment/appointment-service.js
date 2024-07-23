@@ -1,13 +1,16 @@
 import React from 'react'
+import { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/contexts/member/auth-context'
 import swal from 'sweetalert2'
 import StarTwinkle from '@/components/funeral/star'
+import LoginModal from '@/components/member/LoginModal'
 
 export default function AppointmentService() {
   const router = useRouter()
   const { auth } = useAuth()
+  const [showModal, setShowModal] = useState(false)
 
   const handleButtonClick = () => {
     router.push('/funeral/appointment/reservation-add')
@@ -125,10 +128,14 @@ export default function AppointmentService() {
                 className="btn"
                 onClick={() => {
                   if (!auth.b2c_id) {
-                    swal.fire({
-                      text: '請先登入會員！',
-                      icon: 'error',
-                    })
+                    swal
+                      .fire({
+                        text: '請先登入會員！',
+                        icon: 'error',
+                      })
+                      .then(() => {
+                        setShowModal(true) // 在警告框關閉後顯示登入視窗
+                      })
                   } else {
                     router.push('/funeral/appointment/reservation-add')
                   }
@@ -247,6 +254,7 @@ export default function AppointmentService() {
           width: 80%;
         }
       `}</style>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
 }
