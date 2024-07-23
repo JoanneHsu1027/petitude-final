@@ -85,8 +85,8 @@ const MemberProfileForm = ({ memberData, onCancel }) => {
           alert('資料更新成功')
 
           const updatedUser = {
-            ...formData,
-            b2c_birth: formData.b2c_birth || '',
+            b2c_name: formData.b2c_name,
+            b2c_email: formData.b2c_email,
           }
           updateUser(updatedUser)
 

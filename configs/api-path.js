@@ -12,6 +12,10 @@ export const MEMBER_FORGETPASSWORD_POST = `${API_SERVER}/b2c_member/request-pass
 export const VERIFY_RESET_CODE_POST = `${API_SERVER}/b2c_member/verify-reset-code`
 
 export const RESET_PASSWORD_POST = `${API_SERVER}/b2c_member/reset-password`
+
+export const getUploadAvatarUrl = (b2c_id) =>
+  `${API_SERVER}/b2c_member/${b2c_id}/avatar`
+
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // Booking(訂購)
