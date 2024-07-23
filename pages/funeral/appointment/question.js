@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // import Button from 'react-bootstrap/Button'
 // import Modal from 'react-bootstrap/Modal'
 // import Image from 'next/image'
+import ScrollToTopButton from '@/components/funeral/scrollToTop'
 
 export default function Question() {
   return (
@@ -192,6 +193,7 @@ export default function Question() {
           </div>
         </div>
       </div>
+      <ScrollToTopButton />
       <style jsx>{`
         .accordion-item .accordion-button {
           background-color: #ffe4c4;
