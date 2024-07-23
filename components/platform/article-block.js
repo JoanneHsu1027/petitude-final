@@ -71,7 +71,7 @@ export default function ArticleBlock({ keyword }) {
                 <div className="d-flex mx-5">
                   <p className={`me-5 ${styles.OrangeYellow}`}>
                     <BsChatText className={`mb-1`} />
-                    {r.views_count}
+                    {r.message_count}
                   </p>
                   <button
                     className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} mb-3`}
@@ -108,7 +108,7 @@ export default function ArticleBlock({ keyword }) {
                 <div className="d-flex mx-5">
                   <p className={`me-5 ${styles.OrangeYellow}`}>
                     <BsChatText className={`mb-1`} />
-                    {r.views_count}
+                    {r.message_count}
                   </p>
                   <button
                     className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} mb-3`}
