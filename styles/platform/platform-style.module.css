@@ -96,7 +96,7 @@
     border-color: #4CB1C8;
 }
 
-.BtnHover:hover {
+a.BtnHover:hover {
     background-color:white;
     color: #f6d554;
     border: 1px solid #f6d554;
@@ -126,7 +126,7 @@
     border-top-left-radius: 5px;
 }
 
-.PageSelect {
+a.PageSelect {
     background-color: #f6d554;
     color: white;
     border: 1px solid #f6d554;
