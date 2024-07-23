@@ -48,7 +48,7 @@ export default function ArticleList() {
                             router.push('./create-article')
                           }
                         }}
-                        className={`${styles.AReset} ${styles.BtnReset} d-flex  flex-row-reverse me-2`}
+                        className={`${styles.BtnReset} d-flex  flex-row-reverse me-2`}
                       >
                         <h5 className={`${styles.CreatArticle} me-3 fw-bold`}>
                           + 建立文章
