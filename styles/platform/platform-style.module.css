@@ -46,6 +46,10 @@
     border-radius: 15px;
 }
 
+div.Rounded5 {
+    border-radius: 15px;
+}
+
 .H60 {
     height: 60%;
 }
@@ -83,7 +87,7 @@
     color: #F4BC7A;
 }
 
-.BorderCoffee {
+div.BorderCoffee {
     border-color: #6a513d;
 }
 
@@ -163,7 +167,7 @@ button.BorderStartDel {
     border-bottom-left-radius: unset;
 }
 
-.MyActive {
+a.MyActive {
     color: #f6d554 !important;
     border-bottom: 3px solid #f6d554;
 }
