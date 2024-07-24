@@ -14,3 +14,6 @@ export const ARTICLE_ADD_POST = `${API_SERVER}/article/add`
 
 //edit article
 export const ARTICLE_EDIT_POST = `${API_SERVER}/article/edit`
+
+//add message
+export const MESSAGE_ADD_POST = `${API_SERVER}/message/add`

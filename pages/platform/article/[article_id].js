@@ -8,6 +8,7 @@ import {
   BsBookmarkFill,
   BsFillShareFill,
 } from 'react-icons/bs'
+import { IoSend } from 'react-icons/io5'
 import { useRouter } from 'next/router'
 import { ARTICLE_PAGE } from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
@@ -224,13 +225,20 @@ export default function ArticleId() {
                                       </div>
                                       {replyToMessageId ===
                                         message.message_id && (
-                                        <div className="pb-3 d-flex justify-content-center">
+                                        <div className="pb-3 d-flex">
                                           <input
                                             style={{ height: '40px' }}
-                                            className={`card  border-3 ${styles.W95} ${styles.SetPlaceholder2}`}
+                                            className={`card border-3 ${styles.W80} ${styles.SetPlaceholder2} ${styles.BorderEndDel} border-end-0`}
                                             type="text"
                                             placeholder="回覆......"
                                           />
+                                          <button
+                                            style={{ height: '40px' }}
+                                            className={`${styles.BorderStartDel} card border-3 border-start-0`}
+                                            type="submit"
+                                          >
+                                            <IoSend className="mt-2 me-1 text-black-50" />
+                                          </button>
                                         </div>
                                       )}
                                     </div>
@@ -248,7 +256,7 @@ export default function ArticleId() {
                           <div className="p-3 d-flex justify-content-center">
                             <input
                               style={{ height: '45px' }}
-                              className={`card ${styles.W95} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder}`}
+                              className={`card ${styles.W80} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder} ${styles.BorderEndDel} border-end-0`}
                               onClick={() => {
                                 if (!auth.b2c_id) {
                                   swal
@@ -264,6 +272,16 @@ export default function ArticleId() {
                               type="text"
                               placeholder="回覆......"
                             />
+                            <button
+                              style={{ height: '45px' }}
+                              className={`${styles.BorderStartDel} ${styles.BorderBlue} card border-3 border-start-0`}
+                              type="submit"
+                            >
+                              <IoSend
+                                style={{ marginTop: 10, color: '#4CB1C8' }}
+                                className="me-1"
+                              />
+                            </button>
                           </div>
                         </div>
                       </div>
