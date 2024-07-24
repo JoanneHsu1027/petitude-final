@@ -253,8 +253,6 @@ export default function ArticleId() {
                                     .then(() => {
                                       setShowModal(true) // 在警告框關閉後顯示登入視窗
                                     })
-                                } else {
-                                  router.push('./create-article')
                                 }
                               }}
                               type="text"
