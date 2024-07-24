@@ -99,6 +99,7 @@ function PiPayment03() {
       // localStorage.setItem('InsuranceOrder', JSON.stringify(insuranceData))
 
       // 資料發送到後端
+      console.log(insuranceData)
       const response = await fetch(INSURANCE_ADD_POST, {
         method: 'POST',
         headers: {
@@ -114,6 +115,7 @@ function PiPayment03() {
       const result = await response.json()
       console.log('Server response:', result)
 
+      // 如果訂單成立, 返回一個order id 進localstorage
       if (result.success) {
         if (result.latestOrderId !== undefined) {
           localStorage.setItem('order_id', result.latestOrderId.toString())

@@ -23,50 +23,7 @@ export default function PiPayment04() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // 進行全面驗證
-    // const result = schemaForm.safeParse(formData)
-
-    // if (!result.success) {
-    //   const newFormErrors = {
-    //     buyerName: '',
-    //     mobile: '',
-    //   }
-    //   for (let issue of result.error.issues) {
-    //     newFormErrors[issue.path[0]] = issue.message
-    //   }
-    //   setFormDataErrors(newFormErrors)
-
-    //   swal.fire({
-    //     icon: 'error',
-    //     title: '表單驗證失敗',
-    //     text: '請檢查並修正錯誤的欄位',
-    //   })
-    //   return // 阻止表單提交
-    // }
-
-    // 如果驗證通過，繼續原有的提交邏輯
     try {
-      // const dataToSend = {
-      //   ...formData,
-      //   county: counties.find(
-      //     (c) => c.county_id === parseInt(formData.countyId),
-      //   )?.county_name,
-      //   city: cities.find((c) => c.city_id === parseInt(formData.cityId))
-      //     ?.city_name,
-      //   cartItems: JSON.parse(
-      //     localStorage.getItem('joannesshoppingcart') || '[]',
-      //   ),
-      // }
-
-      // 首先發送到資料庫新增路由
-      // const paymentResponse = await axios.post(
-      //   `http://localhost:3001/product/cartCheckout`,
-      //   dataToSend,
-      // )
-
-      // if (paymentResponse.data.success) {
-      // 資料庫新增成功就處理綠界
-
       // 確認localstorage有收到新成立的訂單編號 (綠界必須用get)
       if (localStorage.order_id) {
         const response = await fetch(
@@ -161,9 +118,13 @@ export default function PiPayment04() {
             <h4 className={styles['top-frame']}>前往付款</h4>
             <div className={styles['data-frame']}>
               <div className="col-12 px-5">
-                <form className="d-flex justify-content-center">
-                  <button type="submit" onClick={handleSubmit}>
-                    <h1>串接綠界</h1>
+                <form className="d-flex justify-content-center my-5">
+                  <button
+                    type="submit"
+                    style={{ border: 'none', padding: 0 }}
+                    onClick={handleSubmit}
+                  >
+                    <img src="/pi-pic/ecpay.png" style={{ border: 'none' }} />
                   </button>
                 </form>
               </div>
@@ -267,12 +228,12 @@ export default function PiPayment04() {
             <Link href="/insurance" className="text-decoration-none">
               <button className={styles['own-btn4']}>離開</button>
             </Link>
-            <Link
+            {/* <Link
               href="/insurance/insurance-payment05"
               className="text-decoration-none"
             >
               <button className={styles['own-btn4']}>送出</button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>
