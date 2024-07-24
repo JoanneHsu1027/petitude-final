@@ -19,11 +19,15 @@ export default function InsuranceSection() {
         threshold: 0.1, // 當10%的元素可見時觸發
       },
     )
-    if (imageRef.current) {
-      observer.observe(imageRef.current)
+    const currentRef = imageRef.current
+    if (currentRef) {
+      observer.observe(currentRef)
     }
     return () => {
-      observer.unobserve(imageRef.current)
+      if (currentRef) {
+        observer.unobserve(currentRef)
+      }
+      observer.disconnect()
     }
   }, [])
 

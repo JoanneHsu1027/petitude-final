@@ -56,16 +56,16 @@
 
 /* 首頁 */
 .cardUp {
-  padding-top: 3.375rem ;
-  padding-bottom: 8.125rem ;
+  padding-top: 30px ;
+  padding-bottom: 150px ;
   width: 15rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .cardDown {
-  padding-bottom: 3.375rem ;
-  padding-top: 8.125rem ;
+  padding-bottom: 30px ;
+  padding-top: 150px ;
   width: 15rem;
   display: flex;
   justify-content: center;

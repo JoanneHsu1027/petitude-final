@@ -26,7 +26,7 @@ export default function InsuranceCard({ cardStyle, imageSrc, title, text }) {
               alt="..."
             />
             <div className="card-body">
-              <h5 className={`card-title ${styles['text-color']}`}>{title}</h5>
+              <h5 className={`card-title ${styles['own-orange']}`}>{title}</h5>
               <p className={`card-text ${styles['text-color']}`}>{text}</p>
             </div>
           </div>
