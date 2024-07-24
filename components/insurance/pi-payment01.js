@@ -101,7 +101,9 @@ function PiPayment01() {
   // 檔案輸入參考
   const fileInputRef = React.createRef()
   // localStorage大小限制(5MB)
-  const LOCALSTORAGE_LIMIT = 5 * 1024 * 1024
+  // const LOCALSTORAGE_LIMIT = 5 * 1024 * 1024
+  // localStorage大小限制(100kb)
+  const LOCALSTORAGE_LIMIT = 100 * 1024 // 100KB 的大小限制
   // 為了主動告知事項
   const [disclosure1, setDisclosure1] = useState('否')
   const [disclosure2, setDisclosure2] = useState('否')
@@ -125,10 +127,10 @@ function PiPayment01() {
       }
 
       if (file.size > LOCALSTORAGE_LIMIT) {
-        setMessage('圖片大小超過 5MB 限制，請選擇較小的圖片')
+        setMessage('圖片大小超過 100kb 限制，請選擇較小的圖片')
         return
       }
-
+      setMessage('')
       setSelectedImg(file)
       const newPreviewUrl = URL.createObjectURL(file)
       setPreviewURL(newPreviewUrl)
@@ -142,7 +144,7 @@ function PiPayment01() {
       reader.onloadend = () => {
         const base64String = reader.result
         if (base64String.length > LOCALSTORAGE_LIMIT) {
-          setMessage('圖片大小超過 5MB 限制')
+          setMessage('圖片大小超過 100kb 限制')
           return
         }
         try {
@@ -150,7 +152,7 @@ function PiPayment01() {
           localStorage.setItem('petPhoto', base64String)
           setMessage('照片已成功上傳!')
         } catch (e) {
-          setMessage('上傳照片失敗, 可能是超出 5MB 限制')
+          setMessage('上傳照片失敗, 可能是超出 100kb 限制')
         }
       }
       reader.readAsDataURL(selectedImg)
@@ -439,7 +441,7 @@ function PiPayment01() {
                   >
                     點擊上傳照片
                   </button>
-                  {message && <p style={{ color: 'green' }}> {message}</p>}
+                  {message && <p style={{ color: 'orange' }}> {message}</p>}
                 </div>
               </div>
             </div>

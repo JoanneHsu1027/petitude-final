@@ -54,6 +54,24 @@
 
 }
 
+/* 首頁 */
+.cardUp {
+  padding-top: 3.375rem ;
+  padding-bottom: 8.125rem ;
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cardDown {
+  padding-bottom: 3.375rem ;
+  padding-top: 8.125rem ;
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* 按鈕1 */
 .own-btn1{
   border-radius: 2.1875rem;
