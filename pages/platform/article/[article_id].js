@@ -10,7 +10,7 @@ import {
 } from 'react-icons/bs'
 import { IoSend } from 'react-icons/io5'
 import { useRouter } from 'next/router'
-import { ARTICLE_PAGE } from '@/configs/platform/api-path'
+import { ARTICLE_PAGE, MESSAGE_ADD_POST } from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
 import LoginModal from '@/components/member/LoginModal'
 import { useAuth } from '@/contexts/member/auth-context'
@@ -111,12 +111,65 @@ export default function ArticleId() {
         .then(() => {
           setShowModal(true) // 在警告框關閉後顯示登入視窗
         })
-    } else {
-      // 處理提交的邏輯
-      console.log('Reply submitted:', replyInput)
-      // 重置輸入框
-      setReplyInput('')
+      return // 確保沒有進一步執行
     }
+
+    const replyData = {
+      message_content: replyInput,
+      fk_article_id: articleData.article_id,
+      fk_b2c_id: auth.b2c_id,
+      message_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+      parent_message_id: replyToMessageId, // 新增的父留言ID
+    }
+
+    console.log('提交回覆數據:', replyData)
+
+    fetch(MESSAGE_ADD_POST, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(replyData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('網路回應不正常')
+        }
+        return response.json()
+      })
+      .then((data) => {
+        console.log('回應數據:', data)
+
+        if (data.success) {
+          swal.fire({
+            text: '留言添加成功！',
+            icon: 'success',
+          })
+
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+              ...replyData,
+              b2c_name: auth.b2c_name,
+              message_id: data.message_id,
+            },
+          ])
+          setReplyInput('')
+          setReplyToMessageId(null)
+        } else {
+          swal.fire({
+            text: '留言添加失敗！',
+            icon: 'error',
+          })
+        }
+      })
+      .catch((error) => {
+        console.error('提交回覆錯誤:', error)
+        swal.fire({
+          text: '留言添加失敗！',
+          icon: 'error',
+        })
+      })
   }
 
   return (
@@ -155,7 +208,7 @@ export default function ArticleId() {
                             <div className="d-flex me-3 ms-2">
                               <div className="m-2 d-flex flex-grow-1 word-wrap">
                                 <a className={`${styles.AReset}`} href="">
-                                  <p className="border border-dark rounded-3 me-2 word-wrap">
+                                  <p className="border px-1 border-dark rounded-3 me-2 word-wrap">
                                     {articleData.class_name}
                                   </p>
                                 </a>
@@ -272,12 +325,12 @@ export default function ArticleId() {
                               )
                             })
                           ) : (
-                            <p>目前沒有留言。</p>
+                            <p>目前還沒有留言，成為第一個留言的人吧！</p>
                           )}
                         </section>
 
                         {/* 回覆留言區塊 */}
-                        <div className="position-sticky bottom-0 ">
+                        <div className="position-sticky bottom-0">
                           <div className="p-3 d-flex justify-content-center">
                             <input
                               style={{ height: '45px' }}
@@ -295,7 +348,7 @@ export default function ArticleId() {
                                 }
                               }}
                               type="text"
-                              placeholder="回覆......"
+                              placeholder="留言......"
                               value={replyInput}
                               onChange={handleReplyInputChange}
                             />
