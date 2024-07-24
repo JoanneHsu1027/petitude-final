@@ -49,6 +49,29 @@ export default function ArticleId() {
     }
   }, [articleData.article_img])
 
+  const handleEditClick = () => {
+    console.log('Auth b2c_id:', auth.b2c_id)
+    console.log('Article fk_b2c_id:', articleData.fk_b2c_id)
+
+    if (!auth.b2c_id) {
+      swal
+        .fire({
+          text: '請先登入會員！',
+          icon: 'error',
+        })
+        .then(() => {
+          setShowModal(true) // 在警告框關閉後顯示登入視窗
+        })
+    } else if (auth.b2c_id !== articleData.fk_b2c_id) {
+      swal.fire({
+        text: '您沒有權限編輯此文章！',
+        icon: 'error',
+      })
+    } else {
+      router.push(`../edit-article/${router.query.article_id}`)
+    }
+  }
+
   const handleReplyClick = (messageId) => {
     if (!auth.b2c_id) {
       swal
@@ -111,6 +134,7 @@ export default function ArticleId() {
                               {auth.b2c_id === articleData.fk_b2c_id && (
                                 <button
                                   className={`${styles.BtnReset} ${styles.LightGray}`}
+                                  onClick={handleEditClick}
                                 >
                                   <BsFillPencilFill
                                     className={`mb-1`}
