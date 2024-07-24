@@ -13,8 +13,6 @@ export default function SideBarMobile({ onSearch }) {
       setActiveLink('class')
     } else if (router.pathname.includes('article')) {
       setActiveLink('article')
-    } else if (router.pathname.includes('hot-topics')) {
-      setActiveLink('hot-topics')
     } else if (router.pathname.includes('favorites')) {
       setActiveLink('favorites')
     }
@@ -80,13 +78,6 @@ export default function SideBarMobile({ onSearch }) {
             className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'article' ? styles.MobilePageSelect : ''} `}
           >
             最新文章
-          </Link>
-          <Link
-            href="../../platform/hot-topics"
-            type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'hot-topics' ? styles.MobilePageSelect : ''} `}
-          >
-            熱門話題
           </Link>
           <Link
             href="../../platform/favorites"
