@@ -58,7 +58,7 @@ export default function AppointmentService() {
                   height: 'auto',
                   position: 'relative',
                   zIndex: 1,
-                  marginTop: '-8%',
+                  marginTop: '-6%',
                 }}
               >
                 {/* 綠色圖形 */}
@@ -67,10 +67,10 @@ export default function AppointmentService() {
                   src="/funeral/Vector 433.png"
                   alt=""
                   style={{
-                    width: '35%',
+                    width: '30%',
                     height: 'auto',
                     zIndex: 1,
-                    marginRight: '-35px',
+                    marginRight: '-60px',
                   }}
                 />
                 {/* 深黃色圖形 */}
@@ -79,9 +79,9 @@ export default function AppointmentService() {
                   src="/funeral/Vector 431.png"
                   alt=""
                   style={{
-                    width: '40%',
+                    width: '35%',
                     height: 'auto',
-                    marginLeft: '-35px',
+                    marginLeft: '-60px',
                   }}
                 />
               </div>

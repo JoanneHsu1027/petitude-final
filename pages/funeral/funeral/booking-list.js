@@ -14,6 +14,13 @@ export default function BookingList() {
   const [selectedBillMethod, setSelectedBillMethod] = useState('')
   const [cartItems, setCartItems] = useState([])
 
+  const billMethodMapping = {
+    phoneBill: '手機載具',
+    memberBill: '會員載具',
+    donateBill: '捐贈發票',
+    companyBill: '公司發票',
+  }
+
   const [formData, setFormData] = useState({
     buyerName: '',
     mobile: '',
@@ -40,14 +47,7 @@ export default function BookingList() {
         ...prevData,
         buyerName: userData.b2c_name || '',
         mobile: userData.b2c_mobile || '',
-        countyId: userData.fk_county_id || '',
-        cityId: userData.fk_city_id || '',
-        address: userData.b2c_address || '',
       }))
-
-      // 更新選中的縣市和城市
-      setSelectedCounty(userData.countyId || '')
-      setSelectedCity(userData.cityId || '')
     }
   }, [])
 
@@ -64,20 +64,16 @@ export default function BookingList() {
           'http://localhost:3001/project/counties',
         )
         if (response.data.success) {
-          setCounties(response.data.data)
-
           // 在縣市資料加載完成後，設置用戶的縣市選擇
           const storedUser = localStorage.getItem('user')
           if (storedUser) {
             const userData = JSON.parse(storedUser)
             if (userData.fk_county_id) {
-              setSelectedCounty(userData.fk_county_id)
+              // setSelectedCounty(userData.fk_county_id)
               setFormData((prevData) => ({
                 ...prevData,
                 countyId: userData.fk_county_id,
               }))
-              // 獲取對應的城市資料
-              fetchCities(userData.fk_county_id)
             }
           }
         }
@@ -88,59 +84,6 @@ export default function BookingList() {
 
     fetchCounties()
   }, [])
-
-  // 將 fetchCities 函數移到組件內部
-  const fetchCities = async (countyId) => {
-    if (countyId) {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/project/cities/${countyId}`,
-        )
-        if (response.data.success) {
-          setCities(response.data.data)
-
-          // 在城市資料加載完成後，設置用戶的城市選擇
-          const storedUser = localStorage.getItem('user')
-          if (storedUser) {
-            const userData = JSON.parse(storedUser)
-            if (userData.fk_city_id) {
-              setSelectedCity(userData.fk_city_id)
-              setFormData((prevData) => ({
-                ...prevData,
-                cityId: userData.fk_city_id,
-              }))
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching cities:', error)
-      }
-    } else {
-      setCities([])
-    }
-  }
-
-  // 修改 handleCountyChange 函數
-  const handleCountyChange = (e) => {
-    const countyId = e.target.value
-    setSelectedCounty(countyId)
-    setSelectedCity('')
-    setFormData((prevData) => ({
-      ...prevData,
-      countyId: countyId,
-      cityId: '',
-    }))
-    fetchCities(countyId)
-  }
-
-  const handleCityChange = (e) => {
-    const cityId = e.target.value
-    setSelectedCity(cityId)
-    setFormData((prevData) => ({
-      ...prevData,
-      cityId: cityId,
-    }))
-  }
 
   const schemaForm = z.object({
     buyerName: z.string().min(2, { message: '姓名至少兩個字' }),
@@ -237,24 +180,6 @@ export default function BookingList() {
       } else {
         console.error('新增資料庫失敗')
       }
-
-      // 顯示成功消息並導航
-      // swal
-      //   .fire({
-      //     icon: 'success',
-      //     html: `訂單已成功建立`,
-      //     showCancelButton: true,
-      //     focusConfirm: false,
-      //     confirmButtonText: `回首頁`,
-      //     cancelButtonText: `回商品列表`,
-      //   })
-      //   .then((result) => {
-      //     if (result.isConfirm) {
-      //       router.push('/')
-      //     } else {
-      //       router.push('/estore/')
-      //     }
-      //   })
     } catch (error) {
       console.error('發生錯誤:', error)
       // 處理錯誤
@@ -576,23 +501,6 @@ export default function BookingList() {
                             <div
                               className={`col-12 ${styles.quantityPriceContainer} mt-2`}
                             >
-                              {/* 項目數量 */}
-                              {/* <div
-                                className="justify-content-start fs-5"
-                                style={{
-                                  color: '#FFF5CF',
-                                  backgroundColor: '#6A513D',
-                                  borderRadius: 30 + 'px',
-                                  paddingLeft: 2 + 'rem',
-                                  paddingRight: 2 + 'rem',
-                                  paddingTop: 0.1 + 'rem',
-                                  paddingBottom: 0.1 + 'rem',
-                                }}
-                              >
-                                數量：{r.qty}
-                              </div> */}
-
-                              {/* 項目價格*項目數量 */}
                               <div
                                 className={`justify-content-end fs-4 ${styles.productPrice}`}
                               >
@@ -614,7 +522,9 @@ export default function BookingList() {
                     <p className="card-text mb-1 fs-5">發票開立方式</p>
                   </div>
                   <div className="text-end ms-5 ms-auto">
-                    <p className="card-text fs-5">手機載具</p>
+                    <p className="card-text fs-5">
+                      {billMethodMapping[selectedBillMethod] || ''}
+                    </p>
                   </div>
                 </div>
                 <div className="col d-flex align-items-center">

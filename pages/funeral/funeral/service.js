@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Modal1 from '@/components/funeral/service/modal1'
 import Styles from '@/components/funeral/service/modal.module.css'
 
-export default function Service() {
-  const [showModal1, setShowModal1] = useState(false) // 定義 showModal1 狀態
 
-  const handleShowModal1 = () => {
-    setShowModal1(true) // 設置 showModal1 為 true，顯示 Modal1
-  }
+export default function Service() {
 
   return (
     <>
+
       <div className="container-fluid mt-5 mb-5">
         <div className="row d-flex justify-content-center">
           <h2
@@ -25,7 +21,7 @@ export default function Service() {
           </h2>
           <div
             className="col-md-6 col-12 d-flex justify-content-center mt-3"
-            style={{ maxWidth: '500px' }} // 控制最大宽度
+            style={{ maxWidth: '600px' }}
           >
             <div
               className={`card text-dark mb-1 border-0 text-center ${Styles.card}`}
@@ -60,7 +56,7 @@ export default function Service() {
           </div>
           <div
             className="col-md-6 col-12 d-flex justify-content-center mt-3"
-            style={{ maxWidth: '500px' }} // 控制最大宽度
+            style={{ maxWidth: '600px' }} 
           >
             <div
               className={`card text-dark mb-1 border-0 text-center ${Styles.card}`}
@@ -85,17 +81,7 @@ export default function Service() {
               </div>
             </div>
           </div>
-          {/* <div className="d-flex justify-content-center align-items-center">
-            <button
-              className="btn btn-warning mt-5"
-              onClick={handleShowModal1}
-              style={{ width: '150px', marginTop: '20px' }}
-            >
-              客製化服務
-            </button>
-          </div> */}
         </div>
-        {/* <Modal1 show={showModal1} handleClose={() => setShowModal1(false)} /> */}
       </div>
       <style jsx>{`
         .list-group {
