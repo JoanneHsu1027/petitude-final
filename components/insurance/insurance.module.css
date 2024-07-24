@@ -72,6 +72,15 @@
   align-items: center;
 }
 
+.fadeInImage {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 3s ease-out;
+}
+
+.animate {
+  clip-path: inset(0 0 0 0);
+}
+
 /* 按鈕1 */
 .own-btn1{
   border-radius: 2.1875rem;

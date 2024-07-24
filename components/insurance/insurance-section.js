@@ -1,9 +1,32 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from '@/components/insurance/insurance.module.css'
 import Card from '../common/insurance-card'
-import Link from 'next/link'
 
 export default function InsuranceSection() {
+  // 滾輪動畫
+  const [isVisible, setIsVisible] = useState(false)
+  const imageRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.unobserve(entry.target)
+        }
+      },
+      {
+        threshold: 0.1, // 當10%的元素可見時觸發
+      },
+    )
+    if (imageRef.current) {
+      observer.observe(imageRef.current)
+    }
+    return () => {
+      observer.unobserve(imageRef.current)
+    }
+  }, [])
+
   return (
     <>
       <div
@@ -34,6 +57,21 @@ export default function InsuranceSection() {
           className="row"
           style={{ paddingRight: '60px', paddingLeft: '60px' }}
         >
+          <div
+            ref={imageRef}
+            style={{ position: 'relative', width: '100%', height: '100%' }}
+          >
+            <img
+              src="./pi-pic/scrollDownPrint.png"
+              className={`${styles.fadeInImage} ${isVisible ? styles.animate : ''}`}
+              style={{
+                position: 'absolute',
+                top: '-9.375rem',
+                left: '-15.625rem',
+              }}
+            />
+          </div>
+
           <div className="col-12 d-flex justify-content-around">
             <Card
               cardStyle={styles.cardUp}
