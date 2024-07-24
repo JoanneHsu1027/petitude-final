@@ -22,6 +22,7 @@ export default function ArticleId() {
   const [articleData, setArticleData] = useState({})
   const [messages, setMessages] = useState([])
   const [imageLoaded, setImageLoaded] = useState(true) // 用來追蹤圖片是否成功加載
+  const [replyToMessageId, setReplyToMessageId] = useState(null) // 用來跟蹤正在回覆的留言ID
 
   useEffect(() => {
     if (!router.isReady) return
@@ -69,6 +70,10 @@ export default function ArticleId() {
     } else {
       router.push(`../edit-article/${router.query.article_id}`)
     }
+  }
+
+  const handleReplyClick = (messageId) => {
+    setReplyToMessageId(messageId)
   }
 
   return (
@@ -181,11 +186,8 @@ export default function ArticleId() {
                                 message.message_date,
                               ).format('YYYY-MM-DD HH:MM')
                               return (
-                                <>
-                                  <div
-                                    key={message.message_id}
-                                    className="d-flex border-bottom mt-4 mb-2 mx-1 px-2"
-                                  >
+                                <div key={message.message_id}>
+                                  <div className="d-flex border-bottom mt-4 mb-2 mx-1 px-2">
                                     <div className="me-2">
                                       <img src="/forum-pic/avatar.png" alt="" />
                                     </div>
@@ -196,14 +198,27 @@ export default function ArticleId() {
                                         <p className="me-4">{dateFormat}</p>
                                         <button
                                           className={`${styles.BtnReset} ${styles.LightGray} mb-4`}
-                                          href="#"
+                                          onClick={() =>
+                                            handleReplyClick(message.message_id)
+                                          }
                                         >
                                           回覆
                                         </button>
                                       </div>
+                                      {replyToMessageId ===
+                                        message.message_id && (
+                                        <div className="pb-3 d-flex justify-content-center">
+                                          <input
+                                            style={{ height: '40px' }}
+                                            className={`card  border-3 ${styles.W95} ${styles.SetPlaceholder2}`}
+                                            type="text"
+                                            placeholder="回覆......"
+                                          />
+                                        </div>
+                                      )}
                                     </div>
                                   </div>
-                                </>
+                                </div>
                               )
                             })
                           ) : (
