@@ -25,6 +25,7 @@ export default function ArticleId() {
   const [imageLoaded, setImageLoaded] = useState(true) // 用來追蹤圖片是否成功加載
   const [replyToMessageId, setReplyToMessageId] = useState(null) // 用來跟蹤正在回覆的留言ID
   const [searchKeyword, setSearchKeyword] = useState(router.query.keyword || '')
+  const [replyInput, setReplyInput] = useState('') // 新增的回覆輸入框的狀態
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword)
@@ -91,6 +92,30 @@ export default function ArticleId() {
         })
     } else {
       setReplyToMessageId(messageId)
+    }
+  }
+
+  const handleReplyInputChange = (e) => {
+    setReplyInput(e.target.value)
+  }
+
+  const handleReplySubmit = (e) => {
+    e.preventDefault()
+
+    if (!auth.b2c_id) {
+      swal
+        .fire({
+          text: '請先登入會員！',
+          icon: 'error',
+        })
+        .then(() => {
+          setShowModal(true) // 在警告框關閉後顯示登入視窗
+        })
+    } else {
+      // 處理提交的邏輯
+      console.log('Reply submitted:', replyInput)
+      // 重置輸入框
+      setReplyInput('')
     }
   }
 
@@ -271,11 +296,14 @@ export default function ArticleId() {
                               }}
                               type="text"
                               placeholder="回覆......"
+                              value={replyInput}
+                              onChange={handleReplyInputChange}
                             />
                             <button
                               style={{ height: '45px' }}
                               className={`${styles.BorderStartDel} ${styles.BorderBlue} card border-3 border-start-0`}
                               type="submit"
+                              onClick={handleReplySubmit}
                             >
                               <IoSend
                                 style={{ marginTop: 10, color: '#4CB1C8' }}
