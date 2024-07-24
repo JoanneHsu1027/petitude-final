@@ -23,6 +23,12 @@ export default function ArticleId() {
   const [messages, setMessages] = useState([])
   const [imageLoaded, setImageLoaded] = useState(true) // 用來追蹤圖片是否成功加載
   const [replyToMessageId, setReplyToMessageId] = useState(null) // 用來跟蹤正在回覆的留言ID
+  const [searchKeyword, setSearchKeyword] = useState(router.query.keyword || '')
+
+  const handleSearch = (keyword) => {
+    setSearchKeyword(keyword)
+    router.push(`/platform/article?keyword=${encodeURIComponent(keyword)}`)
+  }
 
   useEffect(() => {
     if (!router.isReady) return
@@ -93,7 +99,7 @@ export default function ArticleId() {
         <Layout title={articleData.article_name} pageName="platform">
           <div className="container mb-5">
             <div className="row">
-              <SideBarPc></SideBarPc>
+              <SideBarPc onSearch={handleSearch} />
               <div className="col-xl-9 col-lg-12">
                 <div
                   className={`container card my-1 ${styles.Rounded5} border-0 h-100 px-3`}
