@@ -49,10 +49,7 @@ export default function ArticleId() {
     }
   }, [articleData.article_img])
 
-  const handleEditClick = () => {
-    console.log('Auth b2c_id:', auth.b2c_id)
-    console.log('Article fk_b2c_id:', articleData.fk_b2c_id)
-
+  const handleReplyClick = (messageId) => {
     if (!auth.b2c_id) {
       swal
         .fire({
@@ -62,18 +59,9 @@ export default function ArticleId() {
         .then(() => {
           setShowModal(true) // 在警告框關閉後顯示登入視窗
         })
-    } else if (auth.b2c_id !== articleData.fk_b2c_id) {
-      swal.fire({
-        text: '您沒有權限編輯此文章！',
-        icon: 'error',
-      })
     } else {
-      router.push(`../edit-article/${router.query.article_id}`)
+      setReplyToMessageId(messageId)
     }
-  }
-
-  const handleReplyClick = (messageId) => {
-    setReplyToMessageId(messageId)
   }
 
   return (
@@ -122,7 +110,6 @@ export default function ArticleId() {
                               </div>
                               {auth.b2c_id === articleData.fk_b2c_id && (
                                 <button
-                                  onClick={handleEditClick}
                                   className={`${styles.BtnReset} ${styles.LightGray}`}
                                 >
                                   <BsFillPencilFill
@@ -232,6 +219,20 @@ export default function ArticleId() {
                             <input
                               style={{ height: '45px' }}
                               className={`card ${styles.W95} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder}`}
+                              onClick={() => {
+                                if (!auth.b2c_id) {
+                                  swal
+                                    .fire({
+                                      text: '請先登入會員！',
+                                      icon: 'error',
+                                    })
+                                    .then(() => {
+                                      setShowModal(true) // 在警告框關閉後顯示登入視窗
+                                    })
+                                } else {
+                                  router.push('./create-article')
+                                }
+                              }}
                               type="text"
                               placeholder="回覆......"
                             />
