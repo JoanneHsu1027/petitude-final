@@ -78,9 +78,9 @@ export default function Card() {
                 alt=""
               />
               <div className={Styles.cardContent}>
-                <h5>{card.project_name}</h5>
+                <h5 className={Styles.cardTitle}>{card.project_name}</h5>
 
-                <div className="mb-3">
+                <div className="mb-5">
                   <h6
                     style={{
                       overflow: 'hidden',
@@ -88,7 +88,7 @@ export default function Card() {
                         ? 'normal'
                         : 'nowrap',
                       textOverflow: 'ellipsis',
-                      margin: '0',
+                      margin: '1rem',
                       justifyContent: 'end',
                     }}
                   >
@@ -96,7 +96,7 @@ export default function Card() {
                   </h6>
                   {!expandedCards[card.project_id] && (
                     <span
-                      style={{ cursor: 'pointer', fontSize: '12px' }}
+                      style={{ cursor: 'pointer', fontSize: '1rem' }}
                       onClick={() => toggleExpand(card.project_id)}
                     >
                       ...閱讀更多
@@ -110,7 +110,7 @@ export default function Card() {
                       <div>
                         <i
                           class="bi bi-triangle-fill"
-                          style={{ color: 'gray', fontSize: '0.9rem' }}
+                          style={{ color: '#6A513D', fontSize: '0.9rem' }}
                         ></i>
                       </div>
                     </span>

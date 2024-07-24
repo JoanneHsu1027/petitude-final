@@ -12,7 +12,10 @@
   height: auto;
   margin: 5% 0;
 }
-
+.card-text{
+  font-size: 0.9rem;
+  padding-right: 14rem;
+}
 .cardLevelContainer {
   display: flex;
   justify-content: space-between;
@@ -24,10 +27,13 @@
   font-weight: 900;
   margin-top: 20px;
 }
-
+.cardTitle{
+  font-size: 1.8rem;
+  font-weight: 700;
+}
 .card h6,
 .card-details {
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-align: start;
   line-height: 1.8;
   margin-bottom: 10px;
@@ -37,26 +43,30 @@
 
 .card p {
   text-align: start;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  padding-left: 10px;
+  padding-left: 1.6rem;
+  /* padding-right: 12rem; */
+  /* margin-right:15rem; */
   color: #a0722a;
 }
 
 .btnPlan,
 .btnPlan1 {
-  height: 34px;
-  font-size: 0.9rem;
+  width:25%;
+  height: auto;
+  font-size: 1rem;
   margin-right: 5px;
   white-space: nowrap; /* 防止文字超出按鈕 */
   font-weight: 600;
   color: #6A513D;
-
+  border-radius: 35px;
 }
 .btnPlan:hover,
 .btnPlan1:hover {
-  height: 34px;
-  font-size: 0.9rem;
+  width:25%;
+  height: auto;
+  font-size: 1rem;
   margin-right: 5px;
   white-space: nowrap; /* 防止文字超出按鈕 */
   background-color: #6A513D;
@@ -118,8 +128,9 @@
 
 .btnPlan,
 .btnPlan1 {
-  height: 28px;
-  font-size: 0.7rem;
+  width:30%;
+  height: auto;
+  font-size: 0.6rem;
   margin-right: 5px;
   margin-top: 10px;
   white-space: nowrap;
@@ -152,7 +163,7 @@
 
 .card h6,
 .card-details {
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-align: start;
   line-height: 1.8;
   margin-bottom: 15px;
