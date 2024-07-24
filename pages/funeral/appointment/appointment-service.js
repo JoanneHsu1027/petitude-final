@@ -19,7 +19,7 @@ export default function AppointmentService() {
   return (
     <>
       {/* <StarTwinkle /> */}
-      <div className="container-fluid p-4" style={{ overflow: 'hidden' }}>
+      <div className="container-fluid" style={{ overflow: 'hidden' }}>
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-8 position-relative p-0">
             {/* 上方文字+圖形區塊 */}
@@ -58,32 +58,13 @@ export default function AppointmentService() {
                   height: 'auto',
                   position: 'relative',
                   zIndex: 1,
-                  marginTop: '-6%',
+                  marginTop: '-4.5%',
                 }}
               >
                 {/* 綠色圖形 */}
-                <img
-                  className="green"
-                  src="/funeral/Vector 433.png"
-                  alt=""
-                  style={{
-                    width: '30%',
-                    height: 'auto',
-                    zIndex: 1,
-                    marginRight: '-60px',
-                  }}
-                />
+                <img className="green" src="/funeral/Vector 433.png" alt="" />
                 {/* 深黃色圖形 */}
-                <img
-                  className="yellow"
-                  src="/funeral/Vector 431.png"
-                  alt=""
-                  style={{
-                    width: '35%',
-                    height: 'auto',
-                    marginLeft: '-60px',
-                  }}
-                />
+                <img className="yellow" src="/funeral/Vector 431.png" alt="" />
               </div>
             </div>
             {/* 左側文字 */}
@@ -94,18 +75,9 @@ export default function AppointmentService() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                marginTop: '30px',
-                marginBottom: '20px',
               }}
             >
-              <div
-                className="content text-center"
-                style={{
-                  marginTop: '30px',
-                  marginBottom: '0px',
-                  margin: '30px',
-                }}
-              >
+              <div className="content text-center">
                 <p>毛寶貝，你值得永遠的守護</p>
                 <p>
                   雖然知道你我相伴的日子，一天一天在倒數著...
@@ -151,11 +123,6 @@ export default function AppointmentService() {
               className="dog"
               src="/funeral/unsplash_g2FtlFrc164 2.png"
               alt=""
-              width="70%"
-              height="auto"
-              style={{
-                maxWidth: '80%',
-              }}
             />
           </div>
           {/* 底部圖片 */}
@@ -181,16 +148,46 @@ export default function AppointmentService() {
       </div>
 
       <style jsx>{`
+        .container-fluid {
+          margin-top: 5%;
+          margin-bottom: 5%;
+        }
         .btn {
+          width: 10%;
           background-color: #6a513d;
           color: #fff5cf;
           margin-bottom: 20px;
-          font-weight: 700;
+          font-weight: 600;
+          font-size: 18px;
         }
         .btn:hover {
           background-color: #f6d554;
           color: #6a513d;
           font-weight: 700;
+        }
+        .dog {
+          width: 70%;
+          margin-top: 20%;
+        }
+        .content {
+          margin-top: 5rem;
+          margin-bottom: 3rem;
+          padding: 0 5rem;
+          line-height: 2;
+        }
+        p {
+          font-size: 20px;
+        }
+        .green {
+          width: 20%;
+          height: auto;
+          z-index: 1;
+          margin-right: -60px;
+        }
+        .yellow {
+          width: 25%;
+          height: auto;
+          margin-right: -10px;
         }
 
         @media (max-width: 768px) {
@@ -207,7 +204,13 @@ export default function AppointmentService() {
             z-index: 2;
             position: relative;
           }
-          .content p {
+          .content {
+            margin-top: 5rem;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            line-height: 2;
+          }
+          .p {
             font-size: 0.9rem;
           }
           .dog {
@@ -215,11 +218,21 @@ export default function AppointmentService() {
             margin-right: -85%;
             margin-top: -35%;
           }
-          .green,
-          .yellow {
+          .green {
+            width: 35%;
+            height: auto;
+            z-index: 1;
+            margin-right: -60px;
             margin-top: 1%;
           }
-          .btn-warning {
+          .yellow {
+            width: 40%;
+            height: auto;
+            margin-right: -10px;
+            margin-top: 1%;
+          }
+          .btn {
+            width: 30%;
             font-size: 0.8rem; /* 在較小螢幕下設定較小的按鈕字體大小 */
             padding: 5px 10px; /* 調整按鈕內邊距 */
           }
@@ -228,6 +241,11 @@ export default function AppointmentService() {
           .title {
             font-size: 1.4rem; /* 在較小螢幕下進行調整 */
           }
+          .content {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            line-height: 2;
+          }
           .content p {
             font-size: 0.9rem;
           }
@@ -236,9 +254,18 @@ export default function AppointmentService() {
             margin-right: -85%;
             margin-top: -35%;
           }
-          .green,
+          .green {
+            width: 50%;
+            height: auto;
+            z-index: 1;
+            margin-right: -60px;
+            margin-top: -7%;
+          }
           .yellow {
-            margin-top: 1%;
+            width: 55%;
+            height: auto;
+            margin-right: -10px;
+            margin-top: -7%;
           }
           .btn-warning {
             font-size: 0.9rem; /* 在較小螢幕下設定較小的按鈕字體大小 */
