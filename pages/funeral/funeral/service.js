@@ -2,23 +2,12 @@ import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Styles from '@/components/funeral/service/modal.module.css'
 
-
 export default function Service() {
-
   return (
     <>
-
-      <div className="container-fluid mt-5 mb-5">
+      <div className="container-fluid">
         <div className="row d-flex justify-content-center">
-          <h2
-            className="text-center mb-4"
-            style={{
-              fontSize: '2rem',
-              marginBottom: '4%',
-            }}
-          >
-            寵物火化服務項目一覽
-          </h2>
+          <h2 className="title text-center">寵物火化服務項目一覽</h2>
           <div
             className="col-md-6 col-12 d-flex justify-content-center mt-3"
             style={{ maxWidth: '600px' }}
@@ -56,7 +45,7 @@ export default function Service() {
           </div>
           <div
             className="col-md-6 col-12 d-flex justify-content-center mt-3"
-            style={{ maxWidth: '600px' }} 
+            style={{ maxWidth: '600px' }}
           >
             <div
               className={`card text-dark mb-1 border-0 text-center ${Styles.card}`}
@@ -84,6 +73,18 @@ export default function Service() {
         </div>
       </div>
       <style jsx>{`
+        .container-fluid {
+          margin-bottom: 8%;
+        }
+        .title {
+          font-size: 34px;
+          margin-top: 5rem;
+          margin-bottom: 5rem;
+        }
+        h5 {
+          font-size: 24px;
+          font-weight: 700;
+        }
         .list-group {
           padding: 0; /* 移除內邊距 */
           margin: 0; /* 移除外邊距 */
@@ -91,6 +92,7 @@ export default function Service() {
         }
 
         .list-group-item {
+          font-size: 20px;
           border: none; /* 移除每個項目的邊框 */
           padding: 0.5rem 1rem; /* 自定義內邊距 */
           background-color: transparent; /* 設定背景顏色為透明 */
