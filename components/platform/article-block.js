@@ -63,7 +63,7 @@ export default function ArticleBlock({ keyword }) {
             >
               <div className="m-2 border-bottom">
                 <div className="mx-2 d-flex">
-                  <p className="me-3 border border-dark rounded-3">
+                  <p className="me-3 px-1 border border-dark rounded-3">
                     {r.class_name}
                   </p>
                   <p className={`${styles.LightGray}`}>{dateFormat}</p>
@@ -100,7 +100,7 @@ export default function ArticleBlock({ keyword }) {
             >
               <div className="m-2 border-bottom">
                 <div className="mx-2 d-flex">
-                  <p className="me-3 border border-dark rounded-3">
+                  <p className="me-3 px-1 border border-dark rounded-3">
                     {r.class_name}
                   </p>
                   <p className={`${styles.LightGray}`}>{dateFormat}</p>
