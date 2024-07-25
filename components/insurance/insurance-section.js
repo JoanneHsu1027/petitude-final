@@ -35,7 +35,7 @@ export default function InsuranceSection() {
     <>
       <div
         className={`container-fluid d-flex flex-column justify-content-center ${styles['bg-image']}`}
-        style={{ padding: 0 }}
+        style={{ paddingRight: '60px', paddingLeft: '60px' }}
       >
         <div className="row justify-content-center">
           <div className="col-3">

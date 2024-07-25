@@ -35,9 +35,9 @@ export default function PetSick() {
   }
   return (
     <>
-      <div className="container-fluid" style={{ padding: 0 }}>
+      <div className="container-fluid">
         <div className="row">
-          <div className={`col-12 ${styles.barHight}`}>
+          <div className={`col-12 px-0 ${styles.barHight}`}>
             <img
               className="w-100"
               loading="lazy"
@@ -47,7 +47,7 @@ export default function PetSick() {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 mb-2">
+          <div className="col-12 mb-2 px-0">
             <h2
               className={`d-flex justify-content-center ${styles['text-color']}`}
             >
@@ -58,7 +58,7 @@ export default function PetSick() {
         {/* 電腦版 */}
         <div
           className={`row ${styles.forDeskTop}`}
-          style={{ padding: '0 60px' }}
+          // style={{ padding: '0 60px' }}
         >
           <div
             className="col-lg-4 d-flex align-items-center justify-content-end"
@@ -117,7 +117,7 @@ export default function PetSick() {
               ))}
             </ul>
           </div>
-          <div className="col-lg-5 col-xxl-6">
+          <div className="col-lg-5 col-xxl-6 px-0">
             <div
               className="d-flex justify-content-center"
               style={{
@@ -202,7 +202,7 @@ export default function PetSick() {
         </div>
 
         <div className="row">
-          <div className={`col-12 ${styles.barHight}`}>
+          <div className={`col-12 px-0 ${styles.barHight}`}>
             <img
               className="w-100 h-100"
               loading="lazy"
