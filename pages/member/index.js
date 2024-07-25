@@ -7,7 +7,7 @@ import MemberProfileView from '@/components/member/MemberProfileView'
 import PurchaseRecord from '@/components/member/PurchaseRecord'
 import AppointmentRecord from '@/components/member/AppointmentRecord'
 import FavoriteProduct from '@/components/member/FavoriteProduct'
-import styles from './css/MemberProfile.module.css'
+import styles from '@/styles/member/MemberProfile.module.css'
 
 const Member = () => {
   const { auth, getAuthHeader, updateUser } = useAuth()

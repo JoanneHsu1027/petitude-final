@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import InsuranceRecords from '@/components/member/records/InsuranceRecords'
 import LifeCeremonyRecords from '@/components/member/records/LifeCeremonyRecords'
 import ProductRecords from '@/components/member/records/ProductRecords'
+import recordstyles from '@/styles/member/PurchaseRecord.module.css'
 
 const PurchaseHistory = ({ memberData }) => {
   const [activeRecordType, setActiveRecordType] = useState('insurance')
@@ -28,7 +29,7 @@ const PurchaseHistory = ({ memberData }) => {
 
   return (
     <div className="p-4">
-      <div className="button-group">
+      <div className={recordstyles['record-group']}>
         <button
           className={activeRecordType === 'insurance' ? 'active' : ''}
           onClick={() => setActiveRecordType('insurance')}
