@@ -331,39 +331,40 @@ export default function ArticleId() {
 
                         {/* 回覆留言區塊 */}
                         <div className="position-sticky bottom-0">
-                          <div className="p-3 d-flex justify-content-center">
-                            <input
-                              style={{ height: '45px' }}
-                              className={`card ${styles.W80} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder} ${styles.BorderEndDel} border-end-0`}
-                              onClick={() => {
-                                if (!auth.b2c_id) {
-                                  swal
-                                    .fire({
-                                      text: '請先登入會員！',
-                                      icon: 'error',
-                                    })
-                                    .then(() => {
-                                      setShowModal(true) // 在警告框關閉後顯示登入視窗
-                                    })
-                                }
-                              }}
-                              type="text"
-                              placeholder="留言......"
-                              value={replyInput}
-                              onChange={handleReplyInputChange}
-                            />
-                            <button
-                              style={{ height: '45px' }}
-                              className={`${styles.BorderStartDel} ${styles.BorderBlue} card border-3 border-start-0`}
-                              type="submit"
-                              onClick={handleReplySubmit}
-                            >
-                              <IoSend
-                                style={{ marginTop: 10, color: '#4CB1C8' }}
-                                className="me-1"
+                          <form onSubmit={handleReplySubmit}>
+                            <div className="p-3 d-flex justify-content-center">
+                              <input
+                                style={{ height: '45px' }}
+                                className={`card ${styles.W80} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder} ${styles.BorderEndDel} border-end-0`}
+                                onClick={() => {
+                                  if (!auth.b2c_id) {
+                                    swal
+                                      .fire({
+                                        text: '請先登入會員！',
+                                        icon: 'error',
+                                      })
+                                      .then(() => {
+                                        setShowModal(true) // 在警告框關閉後顯示登入視窗
+                                      })
+                                  }
+                                }}
+                                type="text"
+                                placeholder="留言......"
+                                value={replyInput}
+                                onChange={handleReplyInputChange}
                               />
-                            </button>
-                          </div>
+                              <button
+                                style={{ height: '45px' }}
+                                className={`${styles.BorderStartDel} ${styles.BorderBlue} card border-3 border-start-0`}
+                                type="submit"
+                              >
+                                <IoSend
+                                  style={{ marginTop: 10, color: '#4CB1C8' }}
+                                  className="me-1"
+                                />
+                              </button>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
