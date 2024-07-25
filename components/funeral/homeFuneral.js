@@ -13,10 +13,10 @@ export default function HomePage() {
     <>
       <MemorialPage />
       <div className="container-fluid d-flex justify-content-center p-0 m-0">
-        <div className="row">
+        <div className="row justify-content-center w-100">
           <div className="col-12 d-flex flex-column flex-md-row justify-content-center">
             {/* left */}
-            <div className="left col-12 col-md-3 d-flex flex-column align-items-center ms-md-5 p-0">
+            <div className="left col-12 col-md-3 d-flex flex-column align-items-center p-0">
               <div className="w-100 text-center">
                 <img
                   className="indexIcon img-fluid ms-3 mt-3"

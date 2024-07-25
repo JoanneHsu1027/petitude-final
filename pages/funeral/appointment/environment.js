@@ -6,77 +6,50 @@ export default function Environment() {
     {
       src: '/funeral/樹花葬區域.png',
       alt: '樹/花葬區',
-      width: 540,
-      height: 400,
     },
     {
       src: '/funeral/家長休息區.png',
       alt: '家長休息區',
-      width: 540,
-      height: 400,
     },
     {
       src: '/funeral/戶外玻璃法會區.png',
       alt: '戶外玻璃法會區',
-      width: 540,
-      height: 400,
     },
     {
       src: '/funeral/戶外環境.png',
       alt: '戶外環境',
-      width: 540,
-      height: 400,
     },
     {
       src: '/funeral/中西式溫馨花海告別廳.png',
       alt: '中/西式溫馨花海告別廳',
-      width: 540,
-      height: 400,
     },
     {
       src: '/funeral/蓮花寶座區.png',
       alt: '蓮花寶座區',
-      width: 540,
-      height: 400,
     },
   ]
 
   const [selectedPic, setSelectedPic] = useState(environmentPic[0])
+  const [hoveredPic, setHoveredPic] = useState(null)
 
   const handleButtonClick = (index) => {
     setSelectedPic(environmentPic[index])
   }
 
+  const handleButtonHover = (index) => {
+    setHoveredPic(environmentPic[index])
+  }
+
+  const handleButtonLeave = () => {
+    setHoveredPic(null)
+  }
+
   return (
     <>
-      <div className="container-fluid mt-5">
+      <div className="container-fluid mt-5 allFont">
         <div className="row">
           {/* 上方文字+圖形區塊 */}
-          <div
-            className="headSection"
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 'auto',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              marginTop: '25px',
-              marginBottom: '80px',
-            }}
-          >
-            <h2
-              className="title"
-              style={{
-                textAlign: 'center',
-                zIndex: 2,
-                position: 'relative',
-                marginTop: '20px',
-              }}
-            >
-              園區環境介紹
-            </h2>
+          <div className="headSection">
             <div
               className="pattern"
               style={{
@@ -94,130 +67,280 @@ export default function Environment() {
               {/* 深黃色圖形 */}
               <img className="yellow" src="/funeral/Vector 431.png" alt="" />
             </div>
-          </div>
-          <div className="col-12 d-flex justify-content-center">
-            {/* 影片區塊 */}
-            <div
-              className="video-container"
-              style={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
-              <iframe
-                src="https://www.youtube.com/embed/q3OTetBQ3YQ?autoplay=1&mute=1"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-                style={{ margin: '20px', width: '900px', height: '500px' }}
-              ></iframe>
+            <div className="titleText">
+              <h2 className="title">園區環境介紹</h2>
             </div>
           </div>
-          <p className="d-flex justify-content-center align-items-center flex-wrap">
-            {environmentPic.map((pic, index) => (
-              <button
-                key={index}
-                className="btn btn-warning"
-                type="button"
-                onClick={() => handleButtonClick(index)}
-                style={{ marginRight: '10px', marginTop: '10px' }}
-              >
-                {pic.alt}
-              </button>
-            ))}
-          </p>
-          <div className="col-12 py-3 d-flex justify-content-center">
+
+          <div className="video-wrapper col-12 d-flex justify-content-center">
+            {/* 影片區塊 */}
+            <iframe
+              src="https://www.youtube.com/embed/q3OTetBQ3YQ?autoplay=1&mute=1"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            ></iframe>
+          </div>
+
+          <div className="col-12 d-flex flex-column justify-content-center align-items-center">
+            <div className="picArea d-flex justify-content-center align-items-center">
+              {environmentPic.map((pic, index) => (
+                <button
+                  key={index}
+                  className="custom-btn"
+                  type="button"
+                  onClick={() => handleButtonClick(index)}
+                  onMouseEnter={() => handleButtonHover(index)}
+                  onMouseLeave={handleButtonLeave}
+                >
+                  {pic.alt}
+                </button>
+              ))}
+            </div>
             <img
-              src={selectedPic.src}
-              alt={selectedPic.alt}
-              width={selectedPic.width}
-              height={selectedPic.height}
-              className="environment-image"
+              src={(hoveredPic || selectedPic).src}
+              alt={(hoveredPic || selectedPic).alt}
+              width={(hoveredPic || selectedPic).width}
+              height={(hoveredPic || selectedPic).height}
+              className="environment-image mt-3"
             />
           </div>
         </div>
+        <style jsx>
+          {`
+          @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+            .headSection {
+              position: relative;
+              width: 100%;
+              height: auto;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;
+              margin-top: 5rem;
+              margin-bottom: 5rem;
+            }
+            .yellow {
+              position: absolute;
+              width: 17%;
+              height: auto;
+              margin-left: 130px;
+              margin-bottom: 50px;
+              max-width: 100%;
+            }
+            .green {
+              position: absolute;
+              width: 15%;
+              height: auto;
+              margin-right: 150px;
+              margin-bottom: 50px;
+              max-width: 100%;
+            }
+
+            .titleText {
+              position: absolute;
+              transform: translateY(-50%);
+              z-index: 2;
+            }
+            .title {
+              text-align: center;
+              z-index: 2;
+              position: relative;
+            }
+            .video-wrapper {
+              position: relative;
+              width: 100%;
+              max-width: 1000px;
+              margin: 0 auto;
+              padding-bottom: 30%;
+              height: 0;
+              overflow: hidden;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+              border-radius: 15px;
+              transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+            }
+
+            .video-wrapper iframe {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              border: 0;
+              border-radius: 15px;
+            }
+
+            .video-wrapper:hover {
+              transform: scale(1.02);
+              box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            }
+
+            .picArea {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 1rem;
+              justify-content: center;
+              {/* margin-top: 2rem; */}
+              width: 100%;
+            }
+
+            .custom-btn {
+              background-color: #6a513d;
+              font-weight: 500;
+              color: #fff;
+              border: none;
+              border-radius: 5px;
+              padding: 10px 20px;
+              font-size: 18px;
+              margin-bottom: 1rem;
+              cursor: pointer;
+              transition:
+                background-color 0.3s ease,
+                transform 0.3s ease;
+            }
+
+            .custom-btn:hover {
+              background-color: #f6d554;
+              font-weight: 600;
+              color: #6a513d;
+              transform: scale(1.05);
+            }
+
+            .environment-image {
+              width: 50%;
+              height: 70%;
+              transition: opacity 0.5s ease-in-out;
+              opacity: 1;
+            }
+
+            .environment-image.fade {
+              opacity: 0;
+            }
+
+            @media (max-width: 576px) {
+              .headSection {
+                position: relative;
+                width: 100%;
+                height: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                margin-top: 5rem;
+                margin-bottom: 5rem;
+              }
+              .yellow {
+                position: absolute;
+                width: 50%;
+                height: auto;
+                margin-left: 80px;
+                margin-bottom: 0px;
+                max-width: 100%;
+              }
+              .green {
+                position: absolute;
+                width: 48%;
+                height: auto;
+                margin-right: 90px;
+                margin-bottom: 0px;
+                max-width: 100%;
+              }
+
+              .titleText {
+                position: absolute;
+                transform: translateY(-50%);
+                z-index: 2;
+                 margin-top: 3rem;
+              }
+              .title {
+                text-align: center;
+                z-index: 2;
+                position: relative;
+               
+              }
+              .video-wrapper {
+                position: relative;
+                width: 80%;
+                max-width: 500px;
+                margin: 0 auto;
+                padding-bottom: 50%;
+                height: 0;
+                overflow: hidden;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                border-radius: 15px;
+                transition:
+                  transform 0.3s ease,
+                  box-shadow 0.3s ease;
+              }
+
+              .video-wrapper iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+                border-radius: 15px;
+              }
+
+              .video-wrapper:hover {
+                transform: scale(1.02);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+              }
+
+              .picArea {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+                margin-top: 2rem;
+                margin-bottom: 1rem;
+                width: 100%;
+              }
+
+              .custom-btn {
+                width: 30%;
+                background-color: #6a513d;
+                font-weight: 500;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                font-size: 0.6rem;
+                margin: 0;
+                cursor: pointer;
+                transition:
+                  background-color 0.3s ease,
+                  transform 0.3s ease;
+              }
+
+              .custom-btn:hover {
+                background-color: #f6d554;
+                font-weight: 600;
+                color: #6a513d;
+                transform: scale(1.05);
+              }
+              .environment-image {
+              width: 70%;
+              height: 60%;
+              transition: opacity 0.5s ease-in-out;
+              opacity: 1;
+            }
+
+            .environment-image.fade {
+              opacity: 0;
+            }
+            }
+          `}
+        </style>
       </div>
-
-      <style jsx>{`
-        .yellow {
-          position: absolute;
-          width: 25%;
-          height: auto;
-          margin-left: 120px;
-          margin-bottom: 50px;
-          max-width: 100%;
-        }
-        .green {
-          position: absolute;
-          width: 22%;
-          height: auto;
-          margin-right: 120px;
-          margin-bottom: 50px;
-          max-width: 100%;
-        }
-
-        @media (max-width: 812px) {
-          .iframe {
-            width: 70%;
-            padding: 20px;
-          }
-          .environment-image {
-            width: 80%;
-            height: auto;
-          }
-
-          .yellow {
-            position: absolute;
-            width: 35%;
-            height: auto;
-            margin-left: 100px;
-            margin-bottom: 50px; /* 在較小的螢幕上調整成合適的大小 */
-          }
-          .green {
-            position: absolute;
-            width: 30%;
-            height: auto;
-            margin-right: 100px;
-            margin-bottom: 50px;
-          }
-          .btn.btn-warning {
-            font-size: 0.8rem;
-            margin-right: 10px;
-            margin-top: 10px;
-          }
-        }
-        @media (max-width: 576px) {
-          .iframe {
-            width: 50%;
-            padding: 20px;
-          }
-          .environment-image {
-            width: 80%;
-            height: auto;
-          }
-          .yellow {
-            position: absolute;
-            width: 40%;
-            height: auto;
-            margin-left: 90px;
-            margin-bottom: 50px; /* 在較小的螢幕上調整成合適的大小 */
-          }
-          .green {
-            position: absolute;
-            width: 37%;
-            height: auto;
-            margin-right: 90px;
-            margin-bottom: 50px;
-          }
-          .btn.btn-warning {
-            font-size: 0.8rem;
-            margin-right: 10px;
-            margin-top: 10px;
-          }
-        }
-      `}</style>
     </>
   )
 }

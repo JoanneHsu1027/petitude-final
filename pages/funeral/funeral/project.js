@@ -5,7 +5,7 @@ import Card from '@/components/funeral/project/card'
 export default function Project() {
   return (
     <>
-      <div className="container-fluid mt-5">
+      <div className="container-fluid mt-5 allFont">
         <div className="row justify-content-center" style={{ margin: '10px' }}>
           <div className="col-12">
             <div style={{ display: 'flex' }}>
@@ -16,7 +16,9 @@ export default function Project() {
                 height={40}
                 style={{ marginRight: '15px' }}
               />
-              <h2>禮儀方案</h2>
+              <h2 style={{ fontSize: '34px', marginBottom: '2rem' }}>
+                禮儀方案
+              </h2>
             </div>
             <h6>
               寵返星球是一群熱愛毛孩的年輕團隊，我們深深感受到陪伴與服務的重要性。
@@ -25,6 +27,14 @@ export default function Project() {
           <Card />
         </div>
       </div>
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+      `}</style>
     </>
   )
 }

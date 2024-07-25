@@ -1,13 +1,16 @@
 import React from 'react'
+import { useState, useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/contexts/member/auth-context'
 import swal from 'sweetalert2'
 import StarTwinkle from '@/components/funeral/star'
+import LoginModal from '@/components/member/LoginModal'
 
 export default function AppointmentService() {
   const router = useRouter()
   const { auth } = useAuth()
+  const [showModal, setShowModal] = useState(false)
 
   const handleButtonClick = () => {
     router.push('/funeral/appointment/reservation-add')
@@ -16,7 +19,7 @@ export default function AppointmentService() {
   return (
     <>
       {/* <StarTwinkle /> */}
-      <div className="container-fluid p-4" style={{ overflow: 'hidden' }}>
+      <div className="container-fluid allFont" style={{ overflow: 'hidden' }}>
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-8 position-relative p-0">
             {/* 上方文字+圖形區塊 */}
@@ -55,32 +58,13 @@ export default function AppointmentService() {
                   height: 'auto',
                   position: 'relative',
                   zIndex: 1,
-                  marginTop: '-8%',
+                  marginTop: '-4.5%',
                 }}
               >
                 {/* 綠色圖形 */}
-                <img
-                  className="green"
-                  src="/funeral/Vector 433.png"
-                  alt=""
-                  style={{
-                    width: '35%',
-                    height: 'auto',
-                    zIndex: 1,
-                    marginRight: '-35px',
-                  }}
-                />
+                <img className="green" src="/funeral/Vector 433.png" alt="" />
                 {/* 深黃色圖形 */}
-                <img
-                  className="yellow"
-                  src="/funeral/Vector 431.png"
-                  alt=""
-                  style={{
-                    width: '40%',
-                    height: 'auto',
-                    marginLeft: '-35px',
-                  }}
-                />
+                <img className="yellow" src="/funeral/Vector 431.png" alt="" />
               </div>
             </div>
             {/* 左側文字 */}
@@ -91,18 +75,9 @@ export default function AppointmentService() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
-                marginTop: '30px',
-                marginBottom: '20px',
               }}
             >
-              <div
-                className="content text-center"
-                style={{
-                  marginTop: '30px',
-                  marginBottom: '0px',
-                  margin: '30px',
-                }}
-              >
+              <div className="content text-center">
                 <p>毛寶貝，你值得永遠的守護</p>
                 <p>
                   雖然知道你我相伴的日子，一天一天在倒數著...
@@ -125,10 +100,14 @@ export default function AppointmentService() {
                 className="btn"
                 onClick={() => {
                   if (!auth.b2c_id) {
-                    swal.fire({
-                      text: '請先登入會員！',
-                      icon: 'error',
-                    })
+                    swal
+                      .fire({
+                        text: '請先登入會員！',
+                        icon: 'error',
+                      })
+                      .then(() => {
+                        setShowModal(true) // 在警告框關閉後顯示登入視窗
+                      })
                   } else {
                     router.push('/funeral/appointment/reservation-add')
                   }
@@ -144,11 +123,6 @@ export default function AppointmentService() {
               className="dog"
               src="/funeral/unsplash_g2FtlFrc164 2.png"
               alt=""
-              width="70%"
-              height="auto"
-              style={{
-                maxWidth: '80%',
-              }}
             />
           </div>
           {/* 底部圖片 */}
@@ -174,16 +148,52 @@ export default function AppointmentService() {
       </div>
 
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+        .container-fluid {
+          margin-top: 5%;
+          margin-bottom: 5%;
+        }
         .btn {
+          width: 10%;
           background-color: #6a513d;
           color: #fff5cf;
           margin-bottom: 20px;
-          font-weight: 700;
+          font-weight: 600;
+          font-size: 18px;
         }
         .btn:hover {
           background-color: #f6d554;
           color: #6a513d;
           font-weight: 700;
+        }
+        .dog {
+          width: 70%;
+          margin-top: 20%;
+        }
+        .content {
+          margin-top: 5rem;
+          margin-bottom: 3rem;
+          padding: 0 5rem;
+          line-height: 2;
+        }
+        p {
+          font-size: 20px;
+        }
+        .green {
+          width: 20%;
+          height: auto;
+          z-index: 1;
+          margin-right: -60px;
+        }
+        .yellow {
+          width: 25%;
+          height: auto;
+          margin-right: -10px;
         }
 
         @media (max-width: 768px) {
@@ -200,7 +210,13 @@ export default function AppointmentService() {
             z-index: 2;
             position: relative;
           }
-          .content p {
+          .content {
+            margin-top: 5rem;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            line-height: 2;
+          }
+          .p {
             font-size: 0.9rem;
           }
           .dog {
@@ -208,11 +224,21 @@ export default function AppointmentService() {
             margin-right: -85%;
             margin-top: -35%;
           }
-          .green,
-          .yellow {
+          .green {
+            width: 35%;
+            height: auto;
+            z-index: 1;
+            margin-right: -60px;
             margin-top: 1%;
           }
-          .btn-warning {
+          .yellow {
+            width: 40%;
+            height: auto;
+            margin-right: -10px;
+            margin-top: 1%;
+          }
+          .btn {
+            width: 30%;
             font-size: 0.8rem; /* 在較小螢幕下設定較小的按鈕字體大小 */
             padding: 5px 10px; /* 調整按鈕內邊距 */
           }
@@ -221,6 +247,11 @@ export default function AppointmentService() {
           .title {
             font-size: 1.4rem; /* 在較小螢幕下進行調整 */
           }
+          .content {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            line-height: 2;
+          }
           .content p {
             font-size: 0.9rem;
           }
@@ -229,9 +260,18 @@ export default function AppointmentService() {
             margin-right: -85%;
             margin-top: -35%;
           }
-          .green,
+          .green {
+            width: 50%;
+            height: auto;
+            z-index: 1;
+            margin-right: -60px;
+            margin-top: -7%;
+          }
           .yellow {
-            margin-top: 1%;
+            width: 55%;
+            height: auto;
+            margin-right: -10px;
+            margin-top: -7%;
           }
           .btn-warning {
             font-size: 0.9rem; /* 在較小螢幕下設定較小的按鈕字體大小 */
@@ -247,6 +287,7 @@ export default function AppointmentService() {
           width: 80%;
         }
       `}</style>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
 }
