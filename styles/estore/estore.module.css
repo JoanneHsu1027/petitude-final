@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+
+.full {
+  /* background-color: #FFF5CF; */
+  background-image: url('/pic/bg-img01.png');
+  font-family: "Noto Serif TC", serif;
+}
+
+.cart {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1.5px solid #F6D554;
+  background-color: #F6D554;
+  color: #6A513D;
+}
+
+.textStyle{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.cardStyle{
+  border-radius: 30px;
+}
+
+.checkBtn {
+  background-color: #6A513D;
+  color: #FFF5CF;
+  border-radius: 100px;
+  border: none;
+  display: flex;
+  width: 255px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 24px;
+}
+.checkBtn:hover {
+  background-color: #f6d554;
+  color: #6A513D;
+  border-radius: 100px;
+  border: none;
+  display: flex;
+  width: 255px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 24px;
+}
+
+
+@media (max-width: 864px) {
+  .cart {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1.5px solid #F6D554;
+    background-color: #F6D554;
+    color: #6A513D;
+  }
+  
+  .textStyle{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  
+  .cardStyle{
+    border-radius: 30px;
+  }
+  
+  .checkBtn {
+    background-color: #6A513D;
+    color: #FFF5CF;
+    border-radius: 100px;
+    border: none;
+    display: flex;
+    width: 255px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    font-size: 24px;
+  }
+  .checkBtn:hover {
+    background-color: #f6d554;
+    color: #6A513D;
+    border-radius: 100px;
+    border: none;
+    display: flex;
+    width: 255px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    font-size: 24px;
+  }
+  
+  
+  @media (max-width: 864px) {
+    .cart {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 1.5px solid #F6D554;
+      background-color: #F6D554;
+      color: #6A513D;
+    }
+  }
+}

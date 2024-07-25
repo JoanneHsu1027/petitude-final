@@ -8,15 +8,28 @@ import { useRouter } from 'next/router'
 import { product_GET_ITEM } from '@/configs/estore/api-path'
 import { useCart } from '@/contexts/estore/CartContext'
 import swal from 'sweetalert2'
+import LoginModal from '@/components/member/LoginModal'
+import { useAuth } from '@/contexts/member/auth-context'
 
 export default function Productid() {
   const router = useRouter()
   const [data, setData] = useState([])
+  const [isFavorite, setIsFavorite] = useState(false)
+  const [userId, setUserId] = useState(null)
+  const [showModal, setShowModal] = useState(false)
+  const { auth } = useAuth()
 
   const { addToCart } = useCart()
 
   const handleAddItem = () => {
     addToCart(data)
+  }
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
   }
 
   const [quantity, setQuantity] = useState(1)
@@ -36,18 +49,61 @@ export default function Productid() {
       })
   }, [router])
 
-  // document.querySelectorAll('.thumbnail').forEach((item) => {
-  //   item.addEventListener('click', (event) => {
-  //     const mainImage = document.getElementById('mainImage')
-  //     mainImage.src = item.dataset.mainImage
-  //   })
-  // })
+  // 收藏功能
+
+  useEffect(() => {
+    // 從localStorage獲取用戶ID
+    const auth = JSON.parse(localStorage.getItem('petmember-auth')) || {}
+    setUserId(auth.b2c_id)
+  }, [])
+
+  const handleAddFavorite = async () => {
+    if (!userId) {
+      swal
+        .fire({
+          text: '請先登入會員！',
+          icon: 'error',
+        })
+        .then(() => {
+          setShowModal(true) // 在警告框關閉後顯示登入視窗
+        })
+      return
+    }
+    try {
+      const response = await fetch(
+        `http://localhost:3001/product/addFavorite`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fk_b2c_id: userId,
+            fk_product_id: data.pk_product_id,
+          }),
+        },
+      )
+
+      if (response.ok) {
+        const result = await response.json()
+        setIsFavorite(true)
+        swal.fire('成功', result.message, 'success')
+      } else {
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Failed to add favorite')
+      }
+    } catch (error) {
+      console.error('Error adding favorite:', error)
+      swal.fire('錯誤', error.message || '加入收藏失敗，請稍後再試', 'error')
+    }
+  }
 
   return (
-    <Layout>
+    <Layout backgroundColor="#ffffff">
       <main
-        className={`flex-shrink-0 mt-5 pt-5 ${styles.full}`}
+        className={`flex-shrink-0 mt-5 pt-5 mb-0 ${styles.full}`}
         key={data.pk_product_id}
+        style={{ backgroundColor: '#ffffff' }}
       >
         {/* <!-- 產品區 --> */}
         <div
@@ -162,7 +218,7 @@ export default function Productid() {
                   style={{ margin: 11 + 'px' + ' ' + 0 + 'px' }}
                 >
                   <div
-                    className="col-3"
+                    className="col-2 d-flex justify-content-start"
                     style={
                       ({ width: 'auto' },
                       { padding: 0 + 'px' + ' ' + 5 + 'px' })
@@ -194,7 +250,7 @@ export default function Productid() {
                     </select>
                   </div>
                   <div
-                    className="col-3 d-flex justify-content-center"
+                    className="col-2 d-flex justify-content-start"
                     style={
                       ({ width: 'auto' },
                       { padding: 0 + 'px' + ' ' + 5 + 'px' })
@@ -218,7 +274,7 @@ export default function Productid() {
                     </button>
                   </div>
                   <div
-                    className="col-3 d-flex justify-content-center"
+                    className="col-2 d-flex justify-content-start"
                     style={
                       ({ width: 'auto' },
                       { padding: 0 + 'px' + ' ' + 5 + 'px' })
@@ -227,8 +283,10 @@ export default function Productid() {
                     <button
                       type="button"
                       className={`btn ${styles.productBtn}`}
+                      onClick={handleAddFavorite}
                     >
-                      收藏 <i className="bi bi-heart-fill"></i>
+                      {isFavorite ? '已收藏' : '收藏'}{' '}
+                      <i className="bi bi-heart-fill"></i>
                     </button>
                   </div>
                 </div>
@@ -236,7 +294,7 @@ export default function Productid() {
                   className={`fs-4 ${styles.depicition}`}
                   style={({ marginTop: 12 + 'px' }, { marginBottom: 5 + 'px' })}
                 >
-                  $ {data.product_price}
+                  $ {formatCurrency(data.product_price)}
                 </div>
                 <div
                   className={`fs-4 ${styles.depicition}`}
@@ -356,7 +414,7 @@ export default function Productid() {
                   className={`fs-5 text-center ${styles.depicition}`}
                   style={({ marginTop: 12 + 'px' }, { marginBottom: 5 + 'px' })}
                 >
-                  $ {data.product_price}
+                  $ {formatCurrency(data.product_price)}
                 </div>
                 <div
                   className={`fs-5 text-center ${styles.depicition}`}
@@ -479,6 +537,7 @@ export default function Productid() {
 
         {/* <!-- 頁籤區 --> */}
       </main>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </Layout>
   )
 }

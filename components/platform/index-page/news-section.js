@@ -72,7 +72,7 @@ function NewsSection() {
     <div className="container mt-3 mb-5 px-0">
       <div className="row border border-2 border-dark rounded-3">
         <div className="p-0 col-md-8 news-block-img1">
-          <a href="#">
+          <a href="http://localhost:3000/platform/article/21">
             <img className="img-fluid " src="/forum-pic/news-00.jpg" />
           </a>
         </div>
@@ -80,12 +80,12 @@ function NewsSection() {
         <div className="p-0 col-md-4">
           <Slider {...settings}>
             <div>
-              <a href="#">
+              <a href="http://localhost:3000/platform/article/9">
                 <img className="img-fluid" src="/forum-pic/news-01.jpg" />
               </a>
             </div>
             <div>
-              <a href="#">
+              <a href="http://localhost:3000/platform/article/18">
                 <img className="img-fluid" src="/forum-pic/news-02.jpg" />
               </a>
             </div>

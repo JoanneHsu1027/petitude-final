@@ -10,11 +10,20 @@ import swal from 'sweetalert2'
 export default function Card() {
   const router = useRouter()
   // 設定card.js文字過長的問題
-  const [isExpanded, setIsExpanded] = useState(false)
+  // const [isExpanded, setIsExpanded] = useState(false)
+  const [expandedCards, setExpandedCards] = useState({})
+
   const [data, setData] = useState({
     success: false,
     rows: [],
   })
+
+  const toggleExpand = (projectId) => {
+    setExpandedCards((prevState) => ({
+      ...prevState,
+      [projectId]: !prevState[projectId],
+    }))
+  }
 
   const fetchData = async () => {
     const page = router.query.page || 1
@@ -58,7 +67,7 @@ export default function Card() {
 
   return (
     <div title="生前契約" pageName="project-list">
-      <div className="row">
+      <div className="row allFont">
         {data.rows.map((card) => (
           <div className="col-md-4 text-center p-2" key={card.project_id}>
             <div className={Styles.card}>
@@ -69,41 +78,45 @@ export default function Card() {
                 alt=""
               />
               <div className={Styles.cardContent}>
-                <h5>{card.project_name}</h5>
-                <div className="mb-3">
+                <h5 className={Styles.cardTitle}>{card.project_name}</h5>
+
+                <div className="mb-5">
                   <h6
                     style={{
                       overflow: 'hidden',
-                      whiteSpace: isExpanded ? 'normal' : 'nowrap',
+                      whiteSpace: expandedCards[card.project_id]
+                        ? 'normal'
+                        : 'nowrap',
                       textOverflow: 'ellipsis',
-                      margin: '0',
+                      margin: '1rem',
                       justifyContent: 'end',
                     }}
                   >
                     {card.project_content}
                   </h6>
-                  {!isExpanded && (
+                  {!expandedCards[card.project_id] && (
                     <span
-                      style={{ cursor: 'pointer', fontSize: '12px' }}
-                      onClick={() => setIsExpanded(true)}
+                      style={{ cursor: 'pointer', fontSize: '1rem' }}
+                      onClick={() => toggleExpand(card.project_id)}
                     >
                       ...閱讀更多
                     </span>
                   )}
-                  {isExpanded && (
+                  {expandedCards[card.project_id] && (
                     <span
                       style={{ color: 'gray', cursor: 'pointer' }}
-                      onClick={() => setIsExpanded(false)}
+                      onClick={() => toggleExpand(card.project_id)}
                     >
                       <div>
                         <i
                           class="bi bi-triangle-fill"
-                          style={{ color: 'gray', fontSize: '0.9rem' }}
+                          style={{ color: '#6A513D', fontSize: '0.9rem' }}
                         ></i>
                       </div>
                     </span>
                   )}
                 </div>
+
                 <div className="d-flex justify-content-between">
                   <div className="text-start me-4" style={{ flex: 1 }}>
                     <p className="card-text">
@@ -124,7 +137,7 @@ export default function Card() {
                 </div>
 
                 <div className="d-flex justify-content-end align-items-right mb-3">
-                  <button
+                  {/* <button
                     type="button"
                     className={`btnPlan btn btn-warning ${Styles.btnPlan}`}
                     onClick={() => {
@@ -136,7 +149,7 @@ export default function Card() {
                     }}
                   >
                     選擇方案
-                  </button>
+                  </button> */}
                   <button
                     className={`btnPlan1 btn btn-warning ${Styles.btnPlan1}`}
                     onClick={(e) => {
@@ -148,7 +161,7 @@ export default function Card() {
                       )
                     }}
                   >
-                    <i className="bi bi-bag-fill cartItem"></i>
+                    加入購物車
                   </button>
                 </div>
               </div>

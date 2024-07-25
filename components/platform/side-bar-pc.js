@@ -2,30 +2,29 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from '../../styles/platform/platform-style.module.css'
 import { BsFillTriangleFill, BsSearch } from 'react-icons/bs'
-import Link from 'next/link'
 
 export default function SideBarPc({ onSearch }) {
   const router = useRouter()
-  const [activeLink, setActiveLink] = useState('')
+  const [activea, setActivea] = useState('')
   const [sidebarOffset, setSidebarOffset] = useState(140)
 
   useEffect(() => {
     if (router.pathname.includes('class')) {
-      setActiveLink('class')
+      setActivea('class')
     } else if (router.pathname.includes('article')) {
-      setActiveLink('article')
+      setActivea('article')
     } else if (router.pathname.includes('favorites')) {
-      setActiveLink('favorites')
+      setActivea('favorites')
     } else if (router.pathname.includes('article-page')) {
-      setActiveLink('article-page')
+      setActivea('article-page')
     }
   }, [router.pathname])
 
   useEffect(() => {
     const handleScroll = () => {
       const isBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight
-      setSidebarOffset(isBottom ? 100 : 140)
+        window.outerHeight + window.scrollY >= document.body.offsetHeight
+      setSidebarOffset(isBottom ? 10 : 140)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -41,7 +40,7 @@ export default function SideBarPc({ onSearch }) {
   }
 
   return (
-    <div className="col-xl-3 d-none d-xl-block mb-0">
+    <div className={`col-xl-3 d-none d-xl-block mb-0 ${styles.AllFont}`}>
       <div
         className={`bg-white ${styles.W10} ${styles.Rounded5} ${styles.H60} px-3 pt-4 position-fixed d-flex flex-column justify-content-between`}
         style={{ top: `${sidebarOffset}px`, transition: 'top 0.3s ease' }}
@@ -62,34 +61,34 @@ export default function SideBarPc({ onSearch }) {
               <BsSearch />
             </button>
           </form>
-          <Link
+          <a
             href="/platform/"
             type="button"
-            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === '' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
+            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activea === '' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
           >
             論壇首頁
-          </Link>
-          <Link
+          </a>
+          <a
             href="/platform/class"
             type="button"
-            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'class' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
+            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activea === 'class' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
           >
             主題分類
-          </Link>
-          <Link
+          </a>
+          <a
             href="/platform/article"
             type="button"
-            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'article' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
+            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activea === 'article' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
           >
             最新文章
-          </Link>
-          <Link
+          </a>
+          <a
             href="/platform/favorites"
             type="button"
-            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activeLink === 'favorites' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
+            className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activea === 'favorites' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
           >
             文章收藏
-          </Link>
+          </a>
         </div>
         <div className="d-flex justify-content-center mt-3">
           <a className={`${styles.AReset} ${styles.GoTopBtn} mb-2`} href="#">

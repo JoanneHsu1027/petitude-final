@@ -101,13 +101,22 @@ function PiPayment01() {
   // 檔案輸入參考
   const fileInputRef = React.createRef()
   // localStorage大小限制(5MB)
-  const LOCALSTORAGE_LIMIT = 5 * 1024 * 1024
+  // const LOCALSTORAGE_LIMIT = 5 * 1024 * 1024
+  // localStorage大小限制(100kb)
+  const LOCALSTORAGE_LIMIT = 100 * 1024 // 100KB 的大小限制
   // 為了主動告知事項
   const [disclosure1, setDisclosure1] = useState('否')
   const [disclosure2, setDisclosure2] = useState('否')
   const [disclosure3, setDisclosure3] = useState('否')
   const [disclosure4, setDisclosure4] = useState('否')
   const [disclosure5, setDisclosure5] = useState('否')
+
+  // 防止非滑鼠操作
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      handleImgClick()
+    }
+  }
 
   const router = useRouter()
 
@@ -125,10 +134,10 @@ function PiPayment01() {
       }
 
       if (file.size > LOCALSTORAGE_LIMIT) {
-        setMessage('圖片大小超過 5MB 限制，請選擇較小的圖片')
+        setMessage('圖片大小超過 100kb 限制，請選擇較小的圖片')
         return
       }
-
+      setMessage('')
       setSelectedImg(file)
       const newPreviewUrl = URL.createObjectURL(file)
       setPreviewURL(newPreviewUrl)
@@ -142,15 +151,15 @@ function PiPayment01() {
       reader.onloadend = () => {
         const base64String = reader.result
         if (base64String.length > LOCALSTORAGE_LIMIT) {
-          setMessage('圖片大小超過 5MB 限制')
+          setMessage('圖片大小超過 100kb 限制')
           return
         }
         try {
           // 保存到 localStorage
           localStorage.setItem('petPhoto', base64String)
-          setMessage('照片已成功上傳')
+          setMessage('照片已成功上傳!')
         } catch (e) {
-          setMessage('上傳照片失敗, 可能是超出 5MB 限制')
+          setMessage('上傳照片失敗, 可能是超出 100kb 限制')
         }
       }
       reader.readAsDataURL(selectedImg)
@@ -159,8 +168,35 @@ function PiPayment01() {
     }
   }
 
+  // 須將聲明書讀完
+  const [agreementsScrolled, setAgreementScrolled] = useState({
+    agreementItem01: false,
+    agreementItem02: false,
+    agreementItem03: false,
+    agreementItem04: false,
+  })
+
+  // 處理聲明書滾動
+  const handleScroll = (e, agreementId) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.target
+    if (scrollHeight - scrollTop <= clientHeight + 1) {
+      setAgreementScrolled((prev) => ({
+        ...prev,
+        [agreementId]: true,
+      }))
+    }
+  }
+
   // 處理點擊聲明書
   const handleClick = (id) => {
+    if (!agreementsScrolled[id]) {
+      Swal.fire({
+        icon: 'warning',
+        title: '請先閱讀完整內容',
+        text: '請將內容滾動到底部後才進行勾選',
+      })
+      return
+    }
     setAgreementsStatus((prevStatus) => {
       // 如果已經是true，就不能取消
       if (prevStatus[id]) return prevStatus
@@ -173,7 +209,8 @@ function PiPayment01() {
 
     setSelectedAgreement(agreements.find((agreement) => agreement.id === id))
   }
-  // 以點擊過的聲明書仍可對應顯示
+
+  // 點擊過的聲明書仍可對應顯示
   const handleAgreementClick = (id) => {
     setSelectedAgreement(agreements.find((agreement) => agreement.id === id))
   }
@@ -233,15 +270,8 @@ function PiPayment01() {
         }),
       )
 
-      // 成功提示
-      Swal.fire({
-        icon: 'success',
-        title: '資料已成功保存',
-        text: '請繼續下一步',
-      }).then(() => {
-        // 跳轉下一頁
-        router.push('/insurance/insurance-payment02')
-      })
+      // 跳轉下一頁
+      router.push('/insurance/insurance-payment02')
     } catch (error) {
       if (error.errors) {
         error.errors.forEach((err) => {
@@ -332,7 +362,7 @@ function PiPayment01() {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="col-8 d-flex flex-column justify-content-center align-items-center"
+            className={`col-8 d-flex flex-column justify-content-center align-items-center ${styles.allFont}`}
           >
             <div className="col-12" style={{ marginTop: '30px' }}>
               <h4 className={styles['top-frame']}>投保寵物資料</h4>
@@ -394,20 +424,37 @@ function PiPayment01() {
                 </div>
                 <div
                   className="col-6 d-flex flex-column justify-content-start align-items-center"
-                  style={{ padding: '0 20px 20px 20px' }}
+                  style={{
+                    padding: '0 20px 20px 20px',
+                  }}
                 >
-                  <img
-                    src={previewURL}
-                    className="img-fluid rounded-circle mb-4"
-                    style={{
-                      backgroundColor: '#D9D9D9',
-                      width: '60%',
-                      cursor: 'pointer',
-                    }}
-                    // 圖案點了可以選擇上傳圖片
+                  <div
+                    className=" img-fluid rounded-circle mb-3"
                     onClick={handleImgClick}
-                    alt="Pet"
-                  />
+                    onKeyDown={handleKeyDown}
+                    role="button"
+                    tabIndex="0"
+                    style={{
+                      width: '250px',
+                      height: '250px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <img
+                      src={previewURL}
+                      className=" mb-4"
+                      style={{
+                        backgroundColor: '#D9D9D9',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        cursor: 'pointer',
+                      }}
+                      // 圖案點了可以選擇上傳圖片
+                      alt="Pet"
+                    />
+                  </div>
+
                   <input
                     type="file"
                     ref={fileInputRef}
@@ -423,7 +470,7 @@ function PiPayment01() {
                   >
                     點擊上傳照片
                   </button>
-                  {message && <p style={{ color: 'red' }}> {message}</p>}
+                  {message && <p style={{ color: 'orange' }}> {message}</p>}
                 </div>
               </div>
             </div>
@@ -705,7 +752,8 @@ function PiPayment01() {
             {/* 同意聲明告知 */}
             <div className="col-12" style={{ marginTop: '30px' }}>
               <div className={styles['top-frame']}>
-                <h4>同意聲明告知</h4>
+                <h4 className="mb-0">同意聲明告知</h4>
+                <p className="mb-0">(請先閱讀完整內容後才能勾選)</p>
               </div>
               <div className={styles['data-frame']}>
                 <div className="col-12 justify-content-center">
@@ -726,6 +774,7 @@ function PiPayment01() {
                           type="checkbox"
                           onChange={() => handleClick(agreement.id)}
                           checked={agreementsStatus[agreement.id]}
+                          disabled={!agreementsScrolled[agreement.id]}
                           id={agreement.id}
                         />
                         <label
@@ -747,6 +796,9 @@ function PiPayment01() {
                     className={`mt-3 ${styles.InfoDetail} border-0 no-outline`}
                     value={selectedAgreement.agreementContent}
                     readOnly
+                    onScroll={(e) => {
+                      handleScroll(e, selectedAgreement.id)
+                    }}
                   />
                   {/* </form> */}
                 </div>

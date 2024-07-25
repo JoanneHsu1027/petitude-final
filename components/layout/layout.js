@@ -3,7 +3,13 @@ import Navbar from './navbar'
 import Head from 'next/head'
 import Footer from './footer'
 
-export default function Layout({ children, title = '', pageName = '' }) {
+export default function Layout({
+  children,
+  title = '',
+  pageName = '',
+  backgroundImage,
+  backgroundColor,
+}) {
   return (
     <>
       {/* footer置底用div */}
@@ -19,7 +25,14 @@ export default function Layout({ children, title = '', pageName = '' }) {
         </Head>
         <Navbar {...{ pageName }} />
 
-        <div>{children}</div>
+        <div
+          style={{
+            backgroundImage: backgroundImage,
+            backgroundColor: backgroundColor,
+          }}
+        >
+          {children}
+        </div>
         <Footer />
       </div>
     </>

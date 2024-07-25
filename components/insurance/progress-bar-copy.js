@@ -42,7 +42,7 @@ export default function ProgressBarCopy() {
 
   return (
     <>
-      <div className="col-8" style={{ padding: '0 50px' }}>
+      <div className={`col-8 ${styles.allFont}`} style={{ padding: '0 50px' }}>
         <div className="d-flex flex-row justify-content-center align-items-center">
           {steps.map((step, index) => (
             <React.Fragment key={index}>

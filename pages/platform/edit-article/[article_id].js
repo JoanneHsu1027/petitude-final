@@ -8,14 +8,14 @@ import Swal from 'sweetalert2'
 
 export default function EditArticle() {
   const router = useRouter()
+  const [imageLoaded, setImageLoaded] = useState(true)
   const [previewURL, setPreviewURL] = useState('')
-
   const [myForm, setMyForm] = useState({
     article_id: 0,
     article_name: '',
     article_content: '',
     fk_class_id: '',
-    article_img: null,
+    article_img: '',
   })
 
   const [myFormErrors, setMyFormErrors] = useState({
@@ -24,17 +24,15 @@ export default function EditArticle() {
     fk_class_id: '',
   })
 
-  const [imageFile, setImageFile] = useState(null) // 新增的狀態
+  const [imageFile, setImageFile] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const onChange = (e) => {
     const { name, value, files } = e.target
 
     if (name === 'article_img') {
-      // 判斷是否為圖片檔案的輸入並檢查文件
       if (files && files[0]) {
         setImageFile(files[0])
-        // 產生預覽網址
         setPreviewURL(URL.createObjectURL(files[0]))
       } else {
         setImageFile(null)
@@ -46,7 +44,6 @@ export default function EditArticle() {
         [name]: value,
       })
 
-      // 如果用戶填寫了某個欄位，則清除相應的錯誤提示
       if (value.trim() !== '') {
         setMyFormErrors({
           ...myFormErrors,
@@ -83,29 +80,32 @@ export default function EditArticle() {
       formData.append('article_content', myForm.article_content)
       formData.append('fk_class_id', myForm.fk_class_id)
       if (imageFile) {
-        formData.append('article_img', imageFile) // 將圖片檔案加入到FormData
+        formData.append('article_img', imageFile)
       }
 
-      console.log('Submitting form data:', formData)
+      console.log('Submitting form data:', myForm) // 调试日志
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`) // 调试日志
+      }
 
       const r = await fetch(`${ARTICLE}/${router.query.article_id}`, {
         method: 'PUT',
         body: formData,
       })
 
-      console.log('Response:', r)
+      console.log('Response:', r) // 调试日志
 
       const result = await r.json()
-      console.log(result)
+      console.log(result) // 调试日志
       if (result.success) {
-        setIsSubmitted(true) // 表單提交成功後，更新狀態
+        setIsSubmitted(true)
         Swal.fire({
           icon: 'success',
           title: '編輯成功',
           showConfirmButton: false,
           timer: 1500,
         })
-        router.push('/platform/article')
+        router.push(`/platform/article/${myForm.article_id}`)
       } else {
         Swal.fire({
           title: '內容未編輯',
@@ -123,7 +123,7 @@ export default function EditArticle() {
         })
       }
     } catch (ex) {
-      console.log('Exception:', ex)
+      console.log('Exception:', ex) // 调试日志
     }
   }
 
@@ -135,21 +135,31 @@ export default function EditArticle() {
       .then((result) => {
         if (result.success) {
           setMyForm(result.data)
+          if (result.data.article_img) {
+            setPreviewURL(
+              `http://localhost:3001/uploads/${result.data.article_img}`,
+            )
+          }
         } else {
-          router.push('../article') // 跳回列表頁
+          router.push('../article')
         }
       })
-      .catch((ex) => {})
+      .catch((ex) => {
+        console.log('Fetch exception:', ex) // 调试日志
+      })
   }, [router])
 
   return (
     <>
-      <section style={{ height: '100%' }} className={`${styles.BgImg}`}>
+      <section
+        style={{ height: '100%' }}
+        className={`${styles.BgImg} ${styles.AllFont}`}
+      >
         <title>{'貓狗論壇 | Petitude'}</title>
 
         <Navbar />
 
-        <div className="container-fluid col-xl-6 col-lg-12 mb-5">
+        <div className="container-fluid col-xl-6 col-lg-12 mb-5 pt-4">
           <div
             className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4 position-relative`}
           >
@@ -167,7 +177,7 @@ export default function EditArticle() {
                   id="inputGroupSelect01"
                   onChange={onChange}
                   name="fk_class_id"
-                  value={myForm.fk_class_id} // 確保選擇器的值與狀態一致
+                  value={myForm.fk_class_id}
                 >
                   <option value="" disabled>
                     --選擇主題--
@@ -230,12 +240,16 @@ export default function EditArticle() {
                   type="file"
                   className="form-control rounded-pill mt-2"
                   aria-label="Upload"
-                  name="article_img" // 新增的name屬性
-                  onChange={onChange} // 捕捉圖片輸入變化
-                />{' '}
+                  name="article_img"
+                  onChange={onChange}
+                />
                 {previewURL && (
                   <div className="d-flex justify-content-center mt-3">
-                    <img className="w-75 " src={previewURL} alt="預覽圖片" />
+                    <img
+                      className="w-75"
+                      src={previewURL}
+                      onError={() => setImageLoaded(false)}
+                    />
                   </div>
                 )}
                 <div className="d-flex flex-row-reverse">
@@ -251,7 +265,7 @@ export default function EditArticle() {
             </div>
           </div>
         </div>
-        <div style={{ height: 5 }} className={`${styles.BgImg}`}></div>
+        <div className={`${styles.BgImg} pb-5`}></div>
       </section>
     </>
   )

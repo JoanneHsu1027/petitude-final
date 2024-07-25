@@ -32,11 +32,22 @@ export default function Navbar({ pageName = '' }) {
 
   return (
     <>
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+        .AllFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+
+        .nav-link {
+          cursor: pointer;
+        }
+      `}</style>
       <nav
-        className={`navbar navbar-expand-lg navbar-light d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block ${styles['bg-image']}`}
+        className={`navbar navbar-expand-lg navbar-light d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block AllFont ${styles['bg-image']}`}
         style={{ backgroundColor: '#FFF5CF' }}
       >
-        <div className="container-fluid">
+        <div className="container-fluid AllFont">
           <div className="collapse navbar-collapse">
             <div className="d-flex justify-content-center w-100">
               <ul className="navbar-nav">
@@ -120,8 +131,19 @@ export default function Navbar({ pageName = '' }) {
         )}
       </nav>
       {/* 手機板 */}
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+        .AllFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+
+        .nav-link {
+          cursor: pointer;
+        }
+      `}</style>
       <nav
-        className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 ${styles['bg-image']}`}
+        className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 AllFont ${styles['bg-image']}`}
       >
         <div className="container-fluid">
           <Link className="navbar-brand mx-auto" href="/home">
@@ -216,11 +238,6 @@ export default function Navbar({ pageName = '' }) {
           </Modal>
         )}
       </nav>
-      <style jsx>{`
-        .nav-link {
-          cursor: pointer;
-        }
-      `}</style>
     </>
   )
 }

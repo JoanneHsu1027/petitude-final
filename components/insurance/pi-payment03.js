@@ -57,8 +57,6 @@ function PiPayment03() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // const formData = new FormData(formRef.current)
-
     // 檢查"已審閱並了解貴公司所提供之上述須知及商品簡介"已勾選
     if (!checkedRead) {
       setErrors((prev) => ({
@@ -98,9 +96,10 @@ function PiPayment03() {
         pet_pic: selectedImg,
       }
       // 保存所有數據到 localStorage
-      localStorage.setItem('InsuranceOrder', JSON.stringify(insuranceData))
+      // localStorage.setItem('InsuranceOrder', JSON.stringify(insuranceData))
 
       // 資料發送到後端
+      console.log(insuranceData)
       const response = await fetch(INSURANCE_ADD_POST, {
         method: 'POST',
         headers: {
@@ -113,10 +112,20 @@ function PiPayment03() {
         throw new Error('Failed to save data to server')
       }
 
-      // 成功提示
-      alert('資料已成功保存，請繼續下一步驟')
+      const result = await response.json()
+      console.log('Server response:', result)
+
+      // 如果訂單成立, 返回一個order id 進localstorage
+      if (result.success) {
+        if (result.latestOrderId !== undefined) {
+          localStorage.setItem('order_id', result.latestOrderId.toString())
+        } else {
+          console.error('Latest order ID is undefinded')
+        }
+      }
+
       // 跳轉下一頁
-      router.push('/insurance/insurance-payment04') // 改串綠界
+      router.push('/insurance/insurance-payment04')
     } catch (error) {
       console.error('保存失敗:', error)
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')
@@ -189,7 +198,7 @@ function PiPayment03() {
       <Head>
         <title>保單確認 | Petitude</title>
       </Head>
-      <div className="container-fluid mb-5">
+      <div className={`container-fluid mb-5 ${styles.allFont}`}>
         <form onSubmit={handleSubmit}>
           <div className="row justify-content-center">
             {/* 進度條 */}
@@ -294,13 +303,29 @@ function PiPayment03() {
               >
                 <div
                   className="col-5 d-flex flex-column justify-content-start align-items-center"
-                  style={{ padding: '0 20px' }}
+                  style={{
+                    padding: '0 20px',
+                  }}
                 >
-                  <img
-                    src={selectedImg}
+                  <div
                     className="img-fluid rounded-circle"
-                    style={{ backgroundColor: '#D9D9D9', width: '60%' }}
-                  />
+                    style={{
+                      width: '250px',
+                      height: '250px',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <img
+                      src={selectedImg}
+                      className="img-fluid rounded-circle"
+                      style={{
+                        backgroundColor: '#D9D9D9',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
                 </div>
                 <div className="col-7 d-flex flex-column justify-content-center ">
                   <div className="d-flex  mb-3">
@@ -494,11 +519,8 @@ function PiPayment03() {
               >
                 <button className={styles['own-btn4']}>上一步</button>
               </Link>
-              {/* <button className={styles['own-btn4']} type="submit">
-                下一步
-              </button> */}
               <button className={styles['own-btn4']} type="submit">
-                前往付費
+                下一步
               </button>
             </div>
           </div>

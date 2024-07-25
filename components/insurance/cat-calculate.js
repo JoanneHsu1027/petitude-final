@@ -81,7 +81,7 @@ export default function CatCalculate() {
       window.dispatchEvent(new Event('localStorageChange'))
 
       // 成功提示
-      alert('資料已成功保存，請繼續下一步驟')
+      // alert('資料已成功保存，請繼續下一步驟')
 
       const closeModalAndNavigate = () => {
         return new Promise((resolve) => {
@@ -135,7 +135,9 @@ export default function CatCalculate() {
 
   return (
     <>
-      <div className="col-4 d-flex justify-content-center text-center">
+      <div
+        className={`col-4 d-flex justify-content-center text-center ${styles.allFont}`}
+      >
         <button
           style={{
             backgroundColor: 'white',
@@ -158,7 +160,7 @@ export default function CatCalculate() {
 
       {/* 試算modal-cat start */}
       <div
-        className="modal fade"
+        className={`modal fade ${styles.allFont}`}
         id="ModalCat"
         tabIndex={-1}
         aria-labelledby="ModalCatLabel"

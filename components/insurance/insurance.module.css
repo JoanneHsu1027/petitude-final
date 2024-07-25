@@ -7,6 +7,15 @@
   margin: 0;
 } */
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+
+
+.allFont {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+}
+
+
 /* 文字顏色 */
 .text-color {
   color: #515151;
@@ -52,6 +61,33 @@
     background-position: center; 
     background-repeat: no-repeat; 
 
+}
+
+/* 首頁 */
+.cardUp {
+  padding-top: 30px ;
+  padding-bottom: 150px ;
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cardDown {
+  padding-bottom: 30px ;
+  padding-top: 150px ;
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fadeInImage {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 3s ease-out;
+}
+
+.animate {
+  clip-path: inset(0 0 0 0);
 }
 
 /* 按鈕1 */
@@ -309,7 +345,7 @@
   /* 試算表 */
   .pi-options {
     text-align: center;
-    height: 150px;
+    /* height: 150px; */
     }
   
   /* 付費流程外框 */
@@ -338,15 +374,17 @@
     width: 100%;
     color: white;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 0;
+  
   }
   
   /* 同意聲明樣式 */
   .cfm-frame {
     color: #6A513D;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 900;
     background-color: 
     #DBDBDB;
@@ -358,7 +396,7 @@
   
   .cfm-frame:hover {
     color: white;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 900;
     background-color: 
     #94BF5C;

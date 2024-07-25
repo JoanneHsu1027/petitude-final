@@ -5,92 +5,68 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { z } from 'zod'
 import { RV_ADD_POST } from '@/configs/funeral/api-path'
+import swal from 'sweetalert2'
 
 export default function RvEdit() {
   const router = useRouter()
-  const [showModal, setShowModal] = useState(false)
 
   const [myForm, setMyForm] = useState({
-    fk_b2c_id: '',
+    b2c_name: '',
+    b2c_mobile: '',
     reservation_date: '',
     note: '',
   })
   const [myFormErrors, setMyFormErrors] = useState({
-    fk_b2c_id: '',
+    b2c_name: '',
+    b2c_mobile: '',
     reservation_date: '',
     note: '',
   })
 
+  const schemaForm = z.object({
+    b2c_name: z.string().min(2, { message: '姓名至少兩個字' }),
+    b2c_mobile: z
+      .string()
+      .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
+  })
+
   const onChange = (e) => {
     const { name, value } = e.target
-    if (name === 'reservation_date') {
-      const formattedDate = new Date(value).toISOString()
-      setMyForm({ ...myForm, [name]: formattedDate })
-    } else {
-      setMyForm({ ...myForm, [name]: value })
-    }
-    // 做表單的驗證
-    /*
-        const schemaEmail = z.string().email({ message: "請填寫正確的電郵格式" });
-        if (e.target.name === "email") {
-        const result = schemaEmail.safeParse(e.target.value);
-        console.log(JSON.stringify(result, null, 4));
-        }
-        */
-
-    /*
-        {
-        "success": false,
-        "error": {
-            "issues": [
-                {
-                    "validation": "regex",
-                    "code": "invalid_string",
-                    "message": "請填寫正確的手機格式",
-                    "path": [
-                        "mobile"
-                    ]
-                }
-            ],
-            "name": "ZodError"
-        }
-        }
-        */
-
-    const schemaForm = z.object({
-      name: z.string().min(2, { message: '姓名至少兩個字' }),
-      email: z.string().email({ message: '請填寫正確的電郵格式' }),
-      mobile: z
-        .string()
-        .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
-    })
-
-    const newForm = { ...myForm, [e.target.name]: e.target.value }
-
-    const result2 = schemaForm.safeParse(newForm)
-    console.log(JSON.stringify(result2, null, 4))
-
-    // 重置 myFormErrors
-    const newFormErrors = {
-      fk_b2c_id: '',
-      reservation_date: '',
-      note: '',
-    }
-
-    if (!result2.success && result2?.error?.issues?.length) {
-      for (let issue of result2.error.issues) {
-        newFormErrors[issue.path[0]] = issue.message
-      }
-    }
-    setMyFormErrors(newFormErrors)
-    console.log(newForm)
-    setMyForm(newForm)
+    setMyForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }))
   }
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    console.log('Submitting form to:', RV_ADD_POST)
-    // 如果表單驗證有通過的話
+    // 使用 Zod schema 驗證表單數據
+    const result = schemaForm.safeParse(myForm)
+    // 如果驗證失敗
+    if (!result.success) {
+      //創建一個新的空對象來存儲錯誤信息
+      const newFormErrors = {}
+      // 遍歷所有驗證錯誤
+      result.error.issues.forEach((issue) => {
+        // 將每個錯誤信息添加到 newFormErrors 對象中
+        // issue.path[0] 是錯誤發生的字段名稱
+        // issue.message 是錯誤信息
+        newFormErrors[issue.path[0]] = issue.message
+      })
+      // 更新表單錯誤狀態
+      setMyFormErrors(newFormErrors)
+
+      // 顯示 SweetAlert 錯誤提示
+      swal.fire({
+        icon: 'error',
+        title: '表單驗證失敗',
+        text: '請檢查並修正錯誤的欄位',
+      })
+
+      return
+    }
+
+    // 驗證成功，繼續提交表單
     try {
       const r = await fetch(RV_ADD_POST, {
         method: 'POST',
@@ -99,10 +75,24 @@ export default function RvEdit() {
           'Content-Type': 'application/json',
         },
       })
+      if (!r.ok) {
+        throw new Error('Network response was not ok')
+      }
       const result = await r.json()
-      console.log(result)
       if (result.success) {
-        router.push(`/funeral/`) // 跳頁
+        // 使用 SweetAlert 顯示成功訊息
+        swal
+          .fire({
+            title: '預約成功！',
+            text: '謝謝您的預約，專人會與您聯繫~',
+            icon: 'success',
+            confirmButtonText: '回首頁',
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              router.push('/funeral')
+            }
+          })
       } else {
         console.log('Form submission failed:', result)
       }
@@ -110,17 +100,6 @@ export default function RvEdit() {
       console.log('Fetch error:', ex)
     }
   }
-  //  底下按鈕跳modal
-  useEffect(() => {
-    if (showModal) {
-      // 顯示modal
-      const modalElement = document.getElementById('exampleModalToggle2')
-      const bootstrapModal = new window.bootstrap.Modal(modalElement)
-      bootstrapModal.show()
-      // 在modal顯示後用router進行頁面跳轉
-      router.push('/funeral')
-    }
-  }, [showModal])
 
   return (
     <>
@@ -222,12 +201,25 @@ export default function RvEdit() {
                   type="text"
                   className="form-control"
                   id="name"
-                  name="fk_b2c_id"
-                  value={myForm.fk_b2c_id}
+                  name="b2c_name"
+                  value={myForm.b2c_name}
                   onChange={onChange}
                 />
-
-                <div className="form-text"></div>
+                <div className="form-text">{myFormErrors.b2c_name}</div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="mobile" className="form-label">
+                  手機
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="mobile"
+                  name="b2c_mobile"
+                  value={myForm.b2c_mobile}
+                  onChange={onChange}
+                />
+                <div className="form-text">{myFormErrors.b2c_mobile}</div>
               </div>
 
               <div className="mb-3">
@@ -271,9 +263,8 @@ export default function RvEdit() {
                 }}
               >
                 <button
+                  type="submit"
                   className="btn btn-warning"
-                  data-bs-toggle="modal"
-                  href="#exampleModalToggle2"
                   style={{
                     width: '30%',
                     backgroundColor: '#6a513d',
@@ -295,7 +286,7 @@ export default function RvEdit() {
             id="exampleModalToggle2"
             aria-hidden="true"
             aria-labelledby="exampleModalToggleLabel2"
-            tabindex="-1"
+            tabIndex="-1"
           >
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
