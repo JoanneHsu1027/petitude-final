@@ -37,6 +37,13 @@ export default function CartPage() {
     }
   }
 
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
+  }
+
   // 商城功能
   // 生命禮儀功能
   // 購物車設定每個項目只能買一項, 買超過一項則無法列入計算價格跟刪除
@@ -59,7 +66,7 @@ export default function CartPage() {
   // 生命禮儀功能
 
   return (
-    <Layout>
+    <Layout backgroundImage="url(/pic/bg-img01.png)">
       <main className={`flex-shrink-0 pt-5 ${styles.full}`}>
         <div className="container d-flex justify-content-center">
           <h1 className={styles.title}>購物車</h1>
@@ -198,7 +205,7 @@ export default function CartPage() {
                               >
                                 <div className={styles.productPrice}>
                                   <p className="fs-4 text-end m-0">
-                                    $ {r.product_price * r.qty}
+                                    $ {formatCurrency(r.product_price * r.qty)}
                                   </p>
                                 </div>
                               </div>
@@ -253,7 +260,7 @@ export default function CartPage() {
                                       </div>
                                     </div>
                                     <div className={styles.productPrice}>
-                                      $ {r.product_price * r.qty}
+                                      ${formatCurrency(r.product_price * r.qty)}
                                     </div>
                                   </div>
                                 </div>
@@ -271,7 +278,7 @@ export default function CartPage() {
                         <p className="fs-4">總價</p>
                       </div>
                       <div className={`col-12 ${styles.total}`}>
-                        <p className="fs-4">$ {totalPrice}</p>
+                        <p className="fs-4">$ {formatCurrency(totalPrice)}</p>
                       </div>
                       <div className={`col-12 ${styles.total2}`}>
                         <button

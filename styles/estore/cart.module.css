@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+
 .full {
   font-family: "Noto Serif TC", serif;
-  background-color: #FFF5CF;
-  background-image: url(/pic/bg-img01.png);
+  /* background-color: #FFF5CF; */
+  background-image: url('/pic/bg-img01.png');
+  /* background-image: url(./img/background.jpg); */
 }
 
 .title {
