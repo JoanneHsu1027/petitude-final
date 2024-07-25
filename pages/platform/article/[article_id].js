@@ -99,19 +99,25 @@ export default function ArticleId() {
     setReplyInput(e.target.value)
   }
 
-  const handleReplySubmit = (e) => {
-    e.preventDefault()
-
+  const handleReplySubmit = async (e) => {
+    // 檢查用戶是否已登入
     if (!auth.b2c_id) {
-      swal
-        .fire({
-          text: '請先登入會員！',
-          icon: 'error',
-        })
-        .then(() => {
-          setShowModal(true) // 在警告框關閉後顯示登入視窗
-        })
-      return // 確保沒有進一步執行
+      swal.fire({
+        text: '請先登入會員！',
+        icon: 'error',
+      })
+      e.preventDefault() // 阻止表單提交
+      return // 返回，避免進行後續操作
+    }
+
+    // 檢查輸入框是否有值
+    if (replyInput.trim() === '') {
+      swal.fire({
+        text: '留言內容不能為空！',
+        icon: 'warning',
+      })
+      e.preventDefault() // 阻止表單提交
+      return // 返回，避免進行後續操作
     }
 
     const replyData = {
@@ -119,57 +125,55 @@ export default function ArticleId() {
       fk_article_id: articleData.article_id,
       fk_b2c_id: auth.b2c_id,
       message_date: moment().format('YYYY-MM-DD HH:mm:ss'),
-      parent_message_id: replyToMessageId, // 新增的父留言ID
+      parent_message_id: replyToMessageId,
     }
 
-    console.log('提交回覆數據:', replyData)
-
-    fetch(MESSAGE_ADD_POST, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(replyData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('網路回應不正常')
-        }
-        return response.json()
+    try {
+      const response = await fetch(MESSAGE_ADD_POST, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(replyData),
       })
-      .then((data) => {
-        console.log('回應數據:', data)
 
-        if (data.success) {
-          swal.fire({
-            text: '留言添加成功！',
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        swal
+          .fire({
+            text: '留言已送出！',
             icon: 'success',
           })
+          .then(() => {
+            // 在提示框關閉後，清空輸入框並更新留言列表
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              {
+                ...replyData,
+                b2c_name: auth.b2c_name,
+                message_id: data.message_id,
+              },
+            ])
+            setReplyInput('')
+            setReplyToMessageId(null)
 
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            {
-              ...replyData,
-              b2c_name: auth.b2c_name,
-              message_id: data.message_id,
-            },
-          ])
-          setReplyInput('')
-          setReplyToMessageId(null)
-        } else {
-          swal.fire({
-            text: '留言添加失敗！',
-            icon: 'error',
+            // 可以使用 window.location.reload() 強制頁面刷新
+            window.location.reload()
           })
-        }
-      })
-      .catch((error) => {
-        console.error('提交回覆錯誤:', error)
+      } else {
         swal.fire({
           text: '留言添加失敗！',
           icon: 'error',
         })
+      }
+    } catch (error) {
+      console.error('提交回覆錯誤:', error)
+      swal.fire({
+        text: '留言添加失敗！',
+        icon: 'error',
       })
+    }
   }
 
   return (
@@ -336,18 +340,6 @@ export default function ArticleId() {
                               <input
                                 style={{ height: '45px' }}
                                 className={`card ${styles.W80} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder} ${styles.BorderEndDel} border-end-0`}
-                                onClick={() => {
-                                  if (!auth.b2c_id) {
-                                    swal
-                                      .fire({
-                                        text: '請先登入會員！',
-                                        icon: 'error',
-                                      })
-                                      .then(() => {
-                                        setShowModal(true) // 在警告框關閉後顯示登入視窗
-                                      })
-                                  }
-                                }}
                                 type="text"
                                 placeholder="留言......"
                                 value={replyInput}
