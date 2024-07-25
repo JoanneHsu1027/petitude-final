@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import styles from './insurance.module.css'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import axios from 'axios'
+import { INSURANCE_GET_ITEM } from '@/configs/insurance/api-path'
 
 export default function PiPayment04() {
   // 選擇付費方式
   // const [selectedPayment, setSelectedPayment] = useState('')
 
+  const router = useRouter()
+  // 從url抓取orderId
+  const { OrderId } = router.query
+
   // 抓取新訂單id
-  const [orderID, setOrderID] = useState('')
+  // const [orderID, setOrderID] = useState('')
+
   // 抓取保費
   const [planPrice, setPlanPrice] = useState('')
   // 保費轉成數字
@@ -25,9 +33,13 @@ export default function PiPayment04() {
 
     try {
       // 確認localstorage有收到新成立的訂單編號 (綠界必須用get)
-      if (localStorage.order_id) {
+      // if (localStorage.order_id) {
+
+      // 用從 URL 獲取的 orderId
+      if (OrderId) {
         const response = await fetch(
           `http://localhost:3001/ecpayJ?${new URLSearchParams({ amount: price })}`,
+          // `http://localhost:3001/ecpayJ?${new URLSearchParams({ amount: price, OrderId: OrderId })}`,
         )
 
         const ecpayResponse = await response.json()
@@ -54,20 +66,42 @@ export default function PiPayment04() {
       // 處理錯誤
     }
   }
+  // 從localstorage抓訂單id跟保險價格
+  // useEffect(() => {
+  //   // 這個代碼塊只會在客戶端執行
 
+  //   const orderID = localStorage.getItem('order_id') // 訂單id
+  //   if (orderID) {
+  //     setOrderID(orderID)
+  //   }
+
+  //   const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
+  //   if (selectedPlan) {
+  //     setPlanPrice(selectedPlan.price) // 保險價格
+  //   }
+  // }, [])
+
+  // 從後端抓訂單id跟保險價格
   useEffect(() => {
-    // 這個代碼塊只會在客戶端執行
-
-    const orderID = localStorage.getItem('order_id') // 訂單id
-    if (orderID) {
-      setOrderID(orderID)
+    const fetchOrderData = async () => {
+      try {
+        const response = await axios.get(`${INSURANCE_GET_ITEM}/${OrderId}`)
+        console.log('API response:', response.data)
+        if (response.data && response.data.data) {
+          const orderData = response.data.data
+          setPlanPrice(orderData.insurance_premium)
+        } else {
+          console.log('無效的 API 響應格式')
+          return null
+        }
+      } catch (error) {
+        console.log('Error fetching insurance data:', error)
+      }
     }
-
-    const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
-    if (selectedPlan) {
-      setPlanPrice(selectedPlan.price) // 保險價格
+    if (OrderId) {
+      fetchOrderData()
     }
-  }, [])
+  }, [OrderId])
   return (
     <>
       <div className={`container-fluid mb-5 ${styles.allFont}`}>
@@ -93,7 +127,7 @@ export default function PiPayment04() {
                     className={`col-8 ${styles['own-green']}`}
                     style={{ color: 'green' }}
                   >
-                    PIO{orderID}
+                    PIO{OrderId}
                   </h5>
                 </div>
               </div>

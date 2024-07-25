@@ -85,89 +85,10 @@ export default function PetInsurance() {
               >
                 保護您的毛孩子，就像保護家人一樣
               </h4>
-              <ImageCarousel />
-              {/* <div className="d-flex justify-content-start overflow-hidden">
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-              </div> */}
+              <div style={{ width: '100%', marginBottom: '20px' }}>
+                <ImageCarousel />
+              </div>
+              
               <h5
                 className={styles['text-color']}
                 style={{marginTop: '30px'}}
