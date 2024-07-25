@@ -27,7 +27,7 @@ export default function ArticleList() {
 
   return (
     <>
-      <section className={`${styles.BgImg}`}>
+      <section className={`${styles.BgImg} ${styles.AllFont}`}>
         <Layout title="貓狗論壇" pageName="article-list">
           <div className="container mb-5">
             <div className="row">

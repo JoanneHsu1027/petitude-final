@@ -17,7 +17,9 @@ export default function Platform() {
 
   return (
     <>
-      <section className={`d-flex flex-column h-100 ${styles.BgImg}`}>
+      <section
+        className={`d-flex flex-column h-100 ${styles.BgImg} ${styles.AllFont}`}
+      >
         <Layout title="貓狗論壇" pageName="platform">
           <div className="container">
             <div className="row">

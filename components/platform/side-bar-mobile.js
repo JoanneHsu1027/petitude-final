@@ -33,7 +33,7 @@ export default function SideBarMobile({ onSearch }) {
           overflow-y: hidden;
         }
       `}</style>
-      <div className="d-flex mt-4 ms-3 ">
+      <div className={`d-flex mt-4 ms-3 ${styles.AllFont}`}>
         <form
           className="d-flex mt-2 d-xl-none d-xxl-block d-xxl-none mb-3 p-0"
           onSubmit={handleSearch}
@@ -55,7 +55,7 @@ export default function SideBarMobile({ onSearch }) {
       </div>
       <div
         style={{ height: 60 }}
-        className="border-bottom border-dark bg-white position-sticky top-0 d-xl-none d-xxl-block d-xxl-none mb-3 p-0"
+        className={`border-bottom border-dark bg-white position-sticky top-0 d-xl-none d-xxl-block d-xxl-none mb-3 p-0 ${styles.AllFont}`}
       >
         <div className={`d-flex text-nowrap overflow-scroll`}>
           <Link

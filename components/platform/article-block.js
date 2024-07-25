@@ -58,7 +58,7 @@ export default function ArticleBlock({ keyword }) {
             <a
               ref={lastArticleElementRef}
               key={r.article_id}
-              className={`${styles.AReset}`}
+              className={`${styles.AReset} ${styles.AllFont}`}
               href={`../../platform/article/${r.article_id}`}
             >
               <div className="m-2 border-bottom">
@@ -95,7 +95,7 @@ export default function ArticleBlock({ keyword }) {
           return (
             <a
               key={r.article_id}
-              className={`${styles.AReset}`}
+              className={`${styles.AReset} ${styles.AllFont}`}
               href={`../../platform/article/${r.article_id}`}
             >
               <div className="m-2 border-bottom">

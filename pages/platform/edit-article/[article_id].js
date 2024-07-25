@@ -151,7 +151,10 @@ export default function EditArticle() {
 
   return (
     <>
-      <section style={{ height: '100%' }} className={`${styles.BgImg}`}>
+      <section
+        style={{ height: '100%' }}
+        className={`${styles.BgImg} ${styles.AllFont}`}
+      >
         <title>{'貓狗論壇 | Petitude'}</title>
 
         <Navbar />

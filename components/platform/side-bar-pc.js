@@ -40,7 +40,7 @@ export default function SideBarPc({ onSearch }) {
   }
 
   return (
-    <div className="col-xl-3 d-none d-xl-block mb-0">
+    <div className={`col-xl-3 d-none d-xl-block mb-0 ${styles.AllFont}`}>
       <div
         className={`bg-white ${styles.W10} ${styles.Rounded5} ${styles.H60} px-3 pt-4 position-fixed d-flex flex-column justify-content-between`}
         style={{ top: `${sidebarOffset}px`, transition: 'top 0.3s ease' }}

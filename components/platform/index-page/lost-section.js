@@ -50,7 +50,7 @@ function LostSection() {
     ],
   }
   return (
-    <div className="container my-5 slider-container">
+    <div className={`container my-5 slider-container ${styles.AllFont}`}>
       <div className="row">
         <div className="col p-0">
           <Slider {...settings} className="p-0">

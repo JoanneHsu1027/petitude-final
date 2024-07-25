@@ -4,8 +4,15 @@ import styles from '@/styles/footer/footer-style.module.css'
 export default function Footer() {
   return (
     <>
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+        .AllFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+      `}</style>
       <div
-        className="container-fluid pt-4 pb-1"
+        className="container-fluid pt-4 pb-1 AllFont"
         style={{ backgroundColor: '#FFDF79', marginTop: 'auto' }}
       >
         <div className="row ms-3  d-flex justify-content-center">
@@ -49,7 +56,7 @@ export default function Footer() {
       </div>
       <div
         style={{ backgroundColor: '#f4bc7a' }}
-        className=" w-100 py-3 text-center text-black fw-bold"
+        className=" w-100 py-3 text-center text-black fw-bold AllFont"
       >
         @ CopyRight 2024 Petitude
       </div>

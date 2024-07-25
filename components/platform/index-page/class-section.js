@@ -34,7 +34,7 @@ export default function ClassSection() {
         }
       `}</style>
       <div
-        className={`card my-5 border-5 ${styles.Rounded5} ${styles.BorderCoffee}`}
+        className={`card my-5 border-5 ${styles.Rounded5} ${styles.BorderCoffee} ${styles.AllFont}`}
       >
         <div className="mx-5 mt-4 pt-2">
           <nav className={`border-bottom d-flex text-nowrap overflow-scroll`}>

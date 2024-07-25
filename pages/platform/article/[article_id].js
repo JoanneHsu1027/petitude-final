@@ -174,7 +174,7 @@ export default function ArticleId() {
 
   return (
     <>
-      <section className={`${styles.BgImg}`}>
+      <section className={`${styles.BgImg} ${styles.AllFont}`}>
         <Layout title={articleData.article_name} pageName="platform">
           <div className="container mb-5">
             <div className="row">
