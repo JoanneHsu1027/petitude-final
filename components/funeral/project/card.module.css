@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
 .card {
   width: 100%;
   height: auto;

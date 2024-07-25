@@ -8,7 +8,7 @@ import ScrollToTopButton from '@/components/funeral/scrollToTop'
 export default function Question() {
   return (
     <>
-      <div className="container-fluid mb-5">
+      <div className="container-fluid mb-5 allFont">
         <div className="row justify-content-center align-items-center">
           <div className="col-md-8">
             <h2 className="text-center my-5">常見問題</h2>
@@ -195,6 +195,12 @@ export default function Question() {
       </div>
       <ScrollToTopButton />
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
         .accordion-item .accordion-button {
           background-color: #ffe4c4;
           color: #515151;

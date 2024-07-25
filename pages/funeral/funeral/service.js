@@ -5,7 +5,7 @@ import Styles from '@/components/funeral/service/modal.module.css'
 export default function Service() {
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid allFont">
         <div className="row d-flex justify-content-center">
           <h2 className="title text-center">寵物火化服務項目一覽</h2>
           <div
@@ -73,6 +73,12 @@ export default function Service() {
         </div>
       </div>
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
         .container-fluid {
           margin-bottom: 8%;
         }

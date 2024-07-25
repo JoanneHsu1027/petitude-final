@@ -46,7 +46,7 @@ export default function Environment() {
 
   return (
     <>
-      <div className="container-fluid mt-5">
+      <div className="container-fluid mt-5 allFont">
         <div className="row">
           {/* 上方文字+圖形區塊 */}
           <div className="headSection">
@@ -109,6 +109,12 @@ export default function Environment() {
         </div>
         <style jsx>
           {`
+          @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
             .headSection {
               position: relative;
               width: 100%;

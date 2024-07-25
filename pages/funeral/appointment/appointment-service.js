@@ -19,7 +19,7 @@ export default function AppointmentService() {
   return (
     <>
       {/* <StarTwinkle /> */}
-      <div className="container-fluid" style={{ overflow: 'hidden' }}>
+      <div className="container-fluid allFont" style={{ overflow: 'hidden' }}>
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-8 position-relative p-0">
             {/* 上方文字+圖形區塊 */}
@@ -148,6 +148,12 @@ export default function AppointmentService() {
       </div>
 
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
         .container-fluid {
           margin-top: 5%;
           margin-bottom: 5%;

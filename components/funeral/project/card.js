@@ -67,7 +67,7 @@ export default function Card() {
 
   return (
     <div title="生前契約" pageName="project-list">
-      <div className="row">
+      <div className="row allFont">
         {data.rows.map((card) => (
           <div className="col-md-4 text-center p-2" key={card.project_id}>
             <div className={Styles.card}>
