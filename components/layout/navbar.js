@@ -131,6 +131,17 @@ export default function Navbar({ pageName = '' }) {
         )}
       </nav>
       {/* 手機板 */}
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+        .AllFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+
+        .nav-link {
+          cursor: pointer;
+        }
+      `}</style>
       <nav
         className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 AllFont ${styles['bg-image']}`}
       >

@@ -1,53 +1,16 @@
-<<<<<<< HEAD
-.full{
+/* .full{
     height: 68vh; 
     font-family: "Noto Serif TC", serif;
   }
+   */
   
-  .outerFrame{
-    border-radius: 30px;
-    border: 0px;
-    background-color: white;
-    height: 100%;
-    font-weight: 900;
-    color: #515151
-  }
-  
-  .btn{
-    background-color: #6A513D;
-    color: #FFF5CF;
-    border-radius: 100px;
-    border: 0px;
-    display: flex;
-    width: 150px;
-    height: 40px;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
-    font-size: 20px;
-  }
-  
-  .btn:hover{
-    background-color: #f6d554;
-    color: #6A513D;
-    border-radius: 100px;
-    border: 0px;
-    display: flex;
-    width: 150px;
-    height: 40px;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
-    font-size: 20px;
-  }
-  
-=======
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
 
 .full{
   height: 68vh; 
   font-family: "Noto Serif TC", serif;
 }
+
 
 .outerFrame{
   border-radius: 30px;
@@ -85,4 +48,3 @@
   font-weight: 900;
   font-size: 20px;
 }
->>>>>>> origin/estore
