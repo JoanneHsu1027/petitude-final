@@ -162,7 +162,6 @@ export default function ArticleId() {
             setReplyInput('')
             setReplyToMessageId(null)
 
-            // 可以使用 window.location.reload() 強制頁面刷新
             window.location.reload()
           })
       } else {
