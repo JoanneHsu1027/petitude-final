@@ -7,6 +7,15 @@
   margin: 0;
 } */
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+
+
+.allFont {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+}
+
+
 /* 文字顏色 */
 .text-color {
   color: #515151;
@@ -336,7 +345,7 @@
   /* 試算表 */
   .pi-options {
     text-align: center;
-    height: 150px;
+    /* height: 150px; */
     }
   
   /* 付費流程外框 */

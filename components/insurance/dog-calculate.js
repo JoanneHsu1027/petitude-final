@@ -122,7 +122,9 @@ export default function DogCalculate() {
 
   return (
     <>
-      <div className="col-4 d-flex justify-content-center">
+      <div
+        className={`col-4 d-flex justify-content-center text-center ${styles.allFont}`}
+      >
         <button
           style={{
             backgroundColor: 'white',
@@ -145,7 +147,7 @@ export default function DogCalculate() {
 
       {/* 試算modal-dog start */}
       <div
-        className="modal fade"
+        className={`modal fade ${styles.allFont}`}
         id="ModalDog"
         tabIndex={-1}
         aria-labelledby="ModalDogLabel"

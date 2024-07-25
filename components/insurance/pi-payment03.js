@@ -198,7 +198,7 @@ function PiPayment03() {
       <Head>
         <title>保單確認 | Petitude</title>
       </Head>
-      <div className="container-fluid mb-5">
+      <div className={`container-fluid mb-5 ${styles.allFont}`}>
         <form onSubmit={handleSubmit}>
           <div className="row justify-content-center">
             {/* 進度條 */}

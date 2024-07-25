@@ -362,7 +362,7 @@ function PiPayment01() {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="col-8 d-flex flex-column justify-content-center align-items-center"
+            className={`col-8 d-flex flex-column justify-content-center align-items-center ${styles.allFont}`}
           >
             <div className="col-12" style={{ marginTop: '30px' }}>
               <h4 className={styles['top-frame']}>投保寵物資料</h4>

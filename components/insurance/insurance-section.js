@@ -34,7 +34,7 @@ export default function InsuranceSection() {
   return (
     <>
       <div
-        className={`container-fluid d-flex flex-column justify-content-center ${styles['bg-image']}`}
+        className={`container-fluid d-flex flex-column justify-content-center ${styles['bg-image']} ${styles.allFont}`}
         style={{ paddingRight: '60px', paddingLeft: '60px' }}
       >
         <div className="row justify-content-center">

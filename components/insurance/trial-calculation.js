@@ -140,7 +140,7 @@ export default function TrialCalculation() {
 
   return (
     <>
-      <div className="container-fluid">
+      <div className={`container-fluid ${styles.allFont}`}>
         <div
           className="row justify-content-center"
           style={{ margin: 0, padding: '0 60px' }}
@@ -175,7 +175,7 @@ export default function TrialCalculation() {
                     style={{ backgroundColor: '#4CB1C8' }}
                   >
                     <h3>基礎方案</h3>
-                    <p>(自負額: 損失之30%)</p>
+                    <p className="mb-2">(自負額: 損失之30%)</p>
                   </th>
                   <th
                     scope="col"
@@ -183,7 +183,7 @@ export default function TrialCalculation() {
                     style={{ backgroundColor: '#CFE7B1' }}
                   >
                     <h3>進階方案</h3>
-                    <p>(自負額: 損失之30%)</p>
+                    <p className="mb-2">(自負額: 損失之30%)</p>
                   </th>
                   <th
                     scope="col"
@@ -191,7 +191,7 @@ export default function TrialCalculation() {
                     style={{ backgroundColor: '#F6D554' }}
                   >
                     <h3>完整方案</h3>
-                    <p>(自負額: 損失之30%)</p>
+                    <p className="mb-2">(自負額: 損失之30%)</p>
                   </th>
                 </tr>
               </thead>

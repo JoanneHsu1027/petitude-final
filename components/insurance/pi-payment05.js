@@ -36,7 +36,7 @@ function PiPayment05() {
       <Head>
         <title>投保完成 | Petitude</title>
       </Head>
-      <div className="container-fluid mb-5">
+      <div className={`container-fluid mb-5 ${styles.allFont}`}>
         <div className="row justify-content-center">
           {/* 進度條 */}
           <ProgressBarCopy />

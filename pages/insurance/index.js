@@ -50,7 +50,7 @@ export default function PetInsurance() {
       <Layout title="寵度寵物保險" pageName="pet-insurance">
         {/* section 1 介紹 start */}
         <div
-          className={`container-fluid d-flex justify-content-center ${styles['bg-image']} pt-5`}
+          className={`container-fluid d-flex justify-content-center ${styles['bg-image']} ${styles.allFont} pt-5`}
         >
           <div
             className="row align-items-center d-flex"
@@ -211,7 +211,7 @@ export default function PetInsurance() {
         {/* section 2 end */}
 
         {/* section 3 優點介紹 start */}
-        <div className={`container-fluid ${styles['bg-image']}`}>
+        <div className={`container-fluid ${styles['bg-image']} ${styles.allFont}`}>
           <div className="row" style={{ padding: '0 60px' }}>
             <div className="col-12 d-flex justify-content-center">
               <ul
@@ -226,7 +226,7 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
                     保障全面
                   </h5>
                   <p
@@ -244,7 +244,7 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
                     理賠快速
                   </h5>
                   <p
@@ -262,7 +262,7 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
                     方案靈活
                   </h5>
                   <p
@@ -280,7 +280,7 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
                     專業客服
                   </h5>
                   <p
@@ -308,7 +308,7 @@ export default function PetInsurance() {
 
         {/* section 4 保險試算 start */}
         <div
-          className={`container-fluid d-flex flex-column justify-content-center ${styles.crossBoarder}`}
+          className={`container-fluid d-flex flex-column justify-content-center ${styles.crossBoarder} ${styles.allFont}`}
         >
           <div
             className={`${styles.calculateUpperSpace} row d-flex justify-content-center`}
@@ -346,7 +346,7 @@ export default function PetInsurance() {
         {/* section 4 end */}
 
         {/* section 5 顧客意見回饋 start */}
-        <div className="container-fluid mt-5">
+        <div className={`container-fluid mt-5 ${styles.allFont}`}>
           <div className="row mt-3 d-flex justify-content-center">
             <div className="col-9">
               <h2
@@ -464,7 +464,7 @@ export default function PetInsurance() {
 
         {/* section 5 end */}
         {/* section 6 常見問題 start */}
-        <div className="col-12 ">
+        <div className={`col-12 ${styles.allFont}`}>
           <img
             className="img-fluid w-100"
             loading="lazy"
@@ -472,7 +472,7 @@ export default function PetInsurance() {
             alt=""
           />
         </div>
-        <div className={`container-fluid pb-5 ${styles['bg-image']}`}>
+        <div className={`container-fluid pb-5 ${styles['bg-image']} ${styles.allFont}`}>
           <div className="row d-flex justify-content-center">
             <div className="col-12">
               <h2

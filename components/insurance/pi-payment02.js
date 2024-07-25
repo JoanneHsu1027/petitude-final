@@ -230,53 +230,6 @@ function PiPayment02() {
     }
   }, [selectedCounty])
 
-  // 獲取會員資料(如果想要一開始載入頁面就顯示會員資料)
-  // useEffect(() => {
-  //   const fetchMemberData = async () => {
-  //     try {
-  //       console.log('Fetching member data...') // 新增：記錄開始獲取數據
-  //       const response = await axios.get(INSURANCE_GET_B2C)
-
-  //       console.log('Raw response:', response) // 新增：記錄整個響應對象
-  //       console.log('Response data:', response.data) // 新增：記錄響應數據
-
-  //       const data = response.data
-  //       console.log('Processed data:', {
-  //         // 新增：記錄處理後的數據
-  //         policyholder_name: data.b2c_name || '',
-  //         policyholder_IDcard: data.b2c_IDcard || '',
-  //         policyholder_birthday: data.b2c_birth || '',
-  //         fk_policyholder_email: data.b2c_email || '',
-  //         fk_policyholder_mobile: data.b2c_mobile || '',
-  //         fk_county_id: data.fk_county_id || '',
-  //         fk_city_id: data.fk_city_id || '',
-  //         fk_policyholder_address: data.b2c_address || '',
-  //       })
-
-  //       setMemberData({
-  //         policyholder_name: data.b2c_name || '',
-  //         policyholder_IDcard: data.b2c_IDcard || '',
-  //         policyholder_birthday: data.b2c_birth || '',
-  //         fk_policyholder_email: data.b2c_email || '',
-  //         fk_policyholder_mobile: data.b2c_mobile || '',
-  //         fk_county_id: data.fk_county_id || '',
-  //         fk_city_id: data.fk_city_id || '',
-  //         fk_policyholder_address: data.b2c_address || '',
-  //       })
-  //       setSelectedCounty(data.fk_county_id) // 設置初始縣市
-  //       console.log('Member data set successfully') // 新增：記錄數據設置成功
-  //     } catch (error) {
-  //       console.error('Error fetching member data:', error)
-  //       console.log(
-  //         'Error details:',
-  //         error.response ? error.response.data : 'No response data',
-  //       ) // 新增：記錄詳細錯誤信息
-  //     }
-  //   }
-
-  //   fetchMemberData()
-  // }, [])
-
   useEffect(() => {
     if (useInfo) {
       const memberId = getMemberId()
@@ -314,7 +267,7 @@ function PiPayment02() {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="col-8 d-flex flex-column justify-content-center align-items-center"
+            className={`col-8 d-flex flex-column justify-content-center align-items-center ${styles.allFont}`}
           >
             {/* 要保人資料 */}
             <div className="col-12" style={{ marginTop: '30px' }}>

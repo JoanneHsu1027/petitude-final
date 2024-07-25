@@ -70,7 +70,7 @@ export default function PiPayment04() {
   }, [])
   return (
     <>
-      <div className="container-fluid mb-5">
+      <div className={`container-fluid mb-5 ${styles.allFont}`}>
         <div className="row justify-content-center">
           {/* 請款資訊 */}
           <div className="col-8" style={{ marginTop: '30px' }}>
