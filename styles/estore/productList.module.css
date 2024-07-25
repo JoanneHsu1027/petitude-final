@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+
 .full {
   /* background-color: #FFF5CF; */
   background-image: url('/pic/bg-img01.png');
@@ -49,6 +51,10 @@
 
 }
 
+.cardStyle{
+  border-radius: 30px;
+}
+
 .pagination,
 .pageNumbers {
   display: flex;
@@ -83,6 +89,13 @@
   color: #6A513D;
 }
 
+.btnNav:active,
+.btnPage:active{
+  border-radius: 50%;
+  background-color: #F6D554;
+  color: #6A513D;
+}
+
 
 .btnPage {
   border: none;
@@ -100,8 +113,8 @@
 }
 
 .cart {
-  width: 42px;
-  height: 42px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   border: 1.5px solid #F6D554;
   background-color: #F6D554;

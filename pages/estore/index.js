@@ -287,11 +287,11 @@ export default function ProjectList() {
                         className="col-6 col-lg-4 col-xl-3 my-2"
                         key={r.pk_product_id}
                       >
-                        <div className="card">
+                        <div className={`card ${styles.cardStyle}`}>
                           <a href={`estore/product/${r.pk_product_id}`}>
                             <img
                               src={`http://localhost:3001/estore/A${r.pk_product_id}.png`}
-                              className="card-img-top w-100 p-2"
+                              className="card-img-top w-100 p-3"
                               alt="..."
                             />
                           </a>
