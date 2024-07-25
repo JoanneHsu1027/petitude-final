@@ -20,7 +20,7 @@ const MemberProfileView = ({ memberData, onEdit }) => {
 
   return (
     <div className="p-4">
-      <h2 className="mb-4">會員資料</h2>
+      <h3 className="mb-4">會員資料</h3>
       <div className="mb-3">
         <h5 className={viewStyles['form-lable']}>姓名:</h5>
         <p className={viewStyles['form-innerText']}>{memberData.b2c_name}</p>
