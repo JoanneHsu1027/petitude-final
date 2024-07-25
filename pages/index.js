@@ -6,13 +6,22 @@ export default function home() {
   return (
     <>
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+        .AllFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+
         .TopCenter {
           position: absolute;
           top: 30px !important;
           z-index: 999999;
         }
       `}</style>
-      <div style={{ backgroundImage: 'url(/index/bg-img.png)' }}>
+      <div
+        className="AllFont"
+        style={{ backgroundImage: 'url(/index/bg-img.png)' }}
+      >
         <Layout>
           <Funeral />
 
