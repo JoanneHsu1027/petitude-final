@@ -13,7 +13,7 @@ const slideAnimation = keyframes`
 const CarouselContainer = styled.div`
   overflow: hidden;
   width: 100%;
-  height: 100px;
+  height: 100%;
 `
 
 const ImageStrip = styled.div`
