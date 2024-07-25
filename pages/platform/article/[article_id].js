@@ -102,10 +102,14 @@ export default function ArticleId() {
   const handleReplySubmit = async (e) => {
     // 檢查用戶是否已登入
     if (!auth.b2c_id) {
-      swal.fire({
-        text: '請先登入會員！',
-        icon: 'error',
-      })
+      swal
+        .fire({
+          text: '請先登入會員！',
+          icon: 'error',
+        })
+        .then(() => {
+          setShowModal(true) // 在警告框关闭后显示登录窗口
+        })
       e.preventDefault() // 阻止表單提交
       return // 返回，避免進行後續操作
     }
