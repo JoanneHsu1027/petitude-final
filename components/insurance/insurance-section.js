@@ -69,6 +69,7 @@ export default function InsuranceSection() {
               className={styles.animateLoop}
               style={{
                 width: '25%',
+                opacity: '70%',
                 position: 'absolute',
                 top: '-180px',
                 right: '0px',
