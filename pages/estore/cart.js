@@ -137,7 +137,9 @@ export default function CartPage() {
                         className="col-12 text-center"
                         style={{ color: '#6A513D' }}
                       >
-                        <p className="fs-2">購物車</p>
+                        <p className={`fs-2 ${styles.smallTitle}`}>
+                          商城購物車
+                        </p>
                       </div>
                     </div>
                     {/* <!-- 商品區 --> */}
@@ -213,8 +215,8 @@ export default function CartPage() {
                           </div>
                           {/* <!-- Mobile layout --> */}
                           <div className="d-md-none">
-                            <div className="row align-items-center mb-3">
-                              <div className="col-3">
+                            <div className="row align-items-center mb-2">
+                              <div className="col-3 p-0">
                                 <img
                                   src={`http://localhost:3001/estore/A${r.pk_product_id}.png`}
                                   alt="..."
@@ -229,9 +231,9 @@ export default function CartPage() {
                                     </div>
                                   </div>
                                   <div
-                                    className={`col-12 ${styles.quantityPriceContainer} mt-2`}
+                                    className={`col-12 ${styles.quantityPriceContainer} mt-2 align-items-center`}
                                   >
-                                    <div className="input-group justify-content-start w-auto">
+                                    <div className="input-group justify-content-start align-items-center w-auto">
                                       <div className="input-group-prepend">
                                         <button
                                           className={`btn ${styles.quantitySelector1}`}
@@ -246,7 +248,7 @@ export default function CartPage() {
                                         type="text"
                                         className={`form-control text-center ${styles.quantity}`}
                                         value={r.qty}
-                                        style={{ maxWidth: 40 + 'px' }}
+                                        style={{ maxWidth: 29 + 'px' }}
                                       />
                                       <div className="input-group-append">
                                         <button
@@ -325,7 +327,9 @@ export default function CartPage() {
                       className="col-12 text-center"
                       style={{ color: '#6A513D' }}
                     >
-                      <p className="fs-2">生前契約購物車</p>
+                      <p className={`fs-2 ${styles.smallTitle}`}>
+                        生前契約購物車
+                      </p>
                     </div>
                   </div>
                   {/* 方案區 */}
@@ -422,7 +426,7 @@ export default function CartPage() {
                     <div className={`col-12 ${styles.total}`}>
                       <p className="fs-4">${totalProjectPrice}</p>
                     </div>
-                    <div className={`col-12 ${styles.total}`}>
+                    <div className={`col-12 ${styles.total2}`}>
                       <button
                         type="button"
                         className={`btn ${styles.checkBtn}`}

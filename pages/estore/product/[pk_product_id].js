@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Layout from '../../../components/layout/layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -38,6 +38,35 @@ export default function Productid() {
     setQuantity(parseInt(e.target.value))
   }
 
+  const checkFavoriteStatus = useCallback(async (userId, productId) => {
+    if (!userId || !productId) return
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/product/checkFavorite`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fk_b2c_id: userId,
+            fk_product_id: productId,
+          }),
+        },
+      )
+
+      if (response.ok) {
+        const result = await response.json()
+        setIsFavorite(result.isFavorite)
+      } else {
+        console.error('Failed to check favorite status')
+      }
+    } catch (error) {
+      console.error('Error checking favorite status:', error)
+    }
+  }, [])
+
   useEffect(() => {
     if (!router.isReady) return
 
@@ -46,26 +75,51 @@ export default function Productid() {
       .then((myData) => {
         console.log(myData.data)
         setData(myData.data)
+
+        if (auth.b2c_id && myData.data.pk_product_id) {
+          checkFavoriteStatus(auth.b2c_id, myData.data.pk_product_id)
+        }
       })
-  }, [router])
+  }, [
+    router.isReady,
+    router.query.pk_product_id,
+    checkFavoriteStatus,
+    auth.b2c_id,
+  ])
 
   // 收藏功能
 
   useEffect(() => {
-    // 從localStorage獲取用戶ID
+    if (!router.isReady) return
+
+    // 从 localStorage 获取用户 ID
     const auth = JSON.parse(localStorage.getItem('petmember-auth')) || {}
-    setUserId(auth.b2c_id)
-  }, [])
+    const currentUserId = auth.b2c_id
+    setUserId(currentUserId)
+
+    // 获取产品数据
+    fetch(`${product_GET_ITEM}/${router.query.pk_product_id}`)
+      .then((r) => r.json())
+      .then((myData) => {
+        console.log(myData.data)
+        setData(myData.data)
+
+        // 检查收藏状态
+        if (currentUserId && myData.data.pk_product_id) {
+          checkFavoriteStatus(currentUserId, myData.data.pk_product_id)
+        }
+      })
+  }, [router.isReady, router.query.pk_product_id, checkFavoriteStatus])
 
   const handleAddFavorite = async () => {
-    if (!userId) {
+    if (!auth.b2c_id) {
       swal
         .fire({
           text: '請先登入會員！',
           icon: 'error',
         })
         .then(() => {
-          setShowModal(true) // 在警告框關閉後顯示登入視窗
+          setShowModal(true)
         })
       return
     }
@@ -78,7 +132,7 @@ export default function Productid() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            fk_b2c_id: userId,
+            fk_b2c_id: auth.b2c_id,
             fk_product_id: data.pk_product_id,
           }),
         },
@@ -88,6 +142,8 @@ export default function Productid() {
         const result = await response.json()
         setIsFavorite(true)
         swal.fire('成功', result.message, 'success')
+        // 添加收藏后立即检查状态
+        checkFavoriteStatus(auth.b2c_id, data.pk_product_id)
       } else {
         const errorData = await response.json()
         throw new Error(errorData.message || 'Failed to add favorite')
@@ -96,6 +152,13 @@ export default function Productid() {
       console.error('Error adding favorite:', error)
       swal.fire('錯誤', error.message || '加入收藏失敗，請稍後再試', 'error')
     }
+  }
+
+  const [activeTab, setActiveTab] = useState('s1')
+
+  // 在按鈕點擊事件中
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId)
   }
 
   return (
@@ -286,7 +349,11 @@ export default function Productid() {
                       onClick={handleAddFavorite}
                     >
                       {isFavorite ? '已收藏' : '收藏'}{' '}
-                      <i className="bi bi-heart-fill"></i>
+                      <i
+                        className={
+                          isFavorite ? 'bi bi-heart-fill' : 'bi bi-heart'
+                        }
+                      ></i>
                     </button>
                   </div>
                 </div>
@@ -340,10 +407,10 @@ export default function Productid() {
             <div className="d-block d-md-none col-12">
               <div className="row">
                 <div className="row" style={{ marginBottom: 5 + '%' }}>
-                  <div className="fs-5 title text-center">
+                  <div className={`fs-5 ${styles.title} text-center mt-2`}>
                     {data.product_brand}
                   </div>
-                  <div className="fs-2 title title text-center">
+                  <div className={`fs-2 ${styles.title} text-center`}>
                     {data.product_name}
                   </div>
                 </div>
@@ -405,8 +472,13 @@ export default function Productid() {
                     <button
                       type="button"
                       className={`btn ${styles.productBtn}`}
+                      onClick={handleAddFavorite}
                     >
-                      <i className="bi bi-heart-fill"></i>
+                      <i
+                        className={
+                          isFavorite ? 'bi bi-heart-fill' : 'bi bi-heart'
+                        }
+                      ></i>
                     </button>
                   </div>
                 </div>
@@ -463,13 +535,13 @@ export default function Productid() {
         {/* <!-- 頁籤區 --> */}
         <div className="container-fluid p-0">
           <ul
-            className={`nav nav-pills justify-content-center mb-5 w-100 ${styles.bookmark}`}
+            className={`nav justify-content-center mb-5 w-100 ${styles.bookmark}`}
             id="myTab"
             role="tablist"
           >
             <li className="nav-item" role="presentation">
               <button
-                className={`nav-link active nav-btn ${styles.page}`}
+                className={`${styles['nav-link']} nav-btn ${styles.page} ${activeTab === 's1' ? 'active' : ''}`}
                 id="home-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#s1"
@@ -477,14 +549,18 @@ export default function Productid() {
                 role="tab"
                 aria-controls="s1"
                 aria-selected="true"
-                style={{ backgroundColor: '#CFE7B1' }}
+                style={{
+                  borderTopLeftRadius: '20px',
+                  borderTopRightRadius: '20px',
+                }}
+                onClick={() => handleTabClick('s1')}
               >
                 主要效益
               </button>
             </li>
             <li className="nav-item" role="presentation">
               <button
-                className={`nav-link nav-btn ${styles.page}`}
+                className={`${styles['nav-link']} nav-btn ${styles.page} ${activeTab === 's2' ? 'active' : ''}`}
                 id="profile-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#s2"
@@ -493,10 +569,10 @@ export default function Productid() {
                 aria-controls="s2"
                 aria-selected="false"
                 style={{
-                  backgroundColor: '#CFE7B1',
-                  borderRadius:
-                    20 + 'px' + ' ' + 20 + 'px' + ' ' + 0 + 'px' + 0 + 'px',
+                  borderTopLeftRadius: '20px',
+                  borderTopRightRadius: '20px',
                 }}
+                onClick={() => handleTabClick('s2')}
               >
                 &emsp;原料&emsp;
               </button>
@@ -513,7 +589,7 @@ export default function Productid() {
           >
             {/* 主要效益 start */}
             <div
-              className="tab-pane fade show active fs-5"
+              className={`tab-pane fade show active ${styles.descriptionLong}`}
               id="s1"
               role="tabpanel"
               aria-labelledby="home-tab"
@@ -524,7 +600,7 @@ export default function Productid() {
 
             {/* 原料 start */}
             <div
-              className="tab-pane fade fs-5"
+              className={`tab-pane fade ${styles.descriptionLong}`}
               id="s2"
               role="tabpanel"
               aria-labelledby="profile-tab"
