@@ -62,7 +62,7 @@ export default function ArticleBlock({ keyword }) {
               href={`../../platform/article/${r.article_id}`}
             >
               <div className="m-2 border-bottom">
-                <div className="mx-2 d-flex">
+                <div className="mx-3 d-flex">
                   <p className="me-3 px-1 border border-dark rounded-3">
                     {r.class_name}
                   </p>
@@ -99,7 +99,7 @@ export default function ArticleBlock({ keyword }) {
               href={`../../platform/article/${r.article_id}`}
             >
               <div className="m-2 border-bottom">
-                <div className="mx-2 d-flex">
+                <div className="mx-3 d-flex">
                   <p className="me-3 px-1 border border-dark rounded-3">
                     {r.class_name}
                   </p>
