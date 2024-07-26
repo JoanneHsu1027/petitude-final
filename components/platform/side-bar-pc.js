@@ -24,12 +24,12 @@ export default function SideBarPc({ onSearch }) {
     const handleScroll = () => {
       const isBottom =
         //大螢幕設定
-        //   window.innerHeight + window.scrollY >= document.body.offsetHeight
-        // setSidebarOffset(isBottom ? 100 : 140)
+        window.innerHeight + window.scrollY >= document.body.offsetHeight
+      setSidebarOffset(isBottom ? 100 : 140)
 
-        //小螢幕設定
-        window.outerHeight + window.scrollY >= document.body.offsetHeight
-      setSidebarOffset(isBottom ? 10 : 140)
+      //小螢幕設定
+      //   window.outerHeight + window.scrollY >= document.body.offsetHeight
+      // setSidebarOffset(isBottom ? 10 : 140)
     }
 
     window.addEventListener('scroll', handleScroll)
