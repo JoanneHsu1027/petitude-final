@@ -10,7 +10,11 @@ import {
 } from 'react-icons/bs'
 import { IoSend } from 'react-icons/io5'
 import { useRouter } from 'next/router'
-import { ARTICLE_PAGE, MESSAGE_ADD_POST } from '@/configs/platform/api-path'
+import {
+  ARTICLE_PAGE,
+  MESSAGE_ADD_POST,
+  RE_MESSAGE_ADD_POST,
+} from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
 import LoginModal from '@/components/member/LoginModal'
 import { useAuth } from '@/contexts/member/auth-context'
@@ -26,6 +30,7 @@ export default function ArticleId() {
   const [replyToMessageId, setReplyToMessageId] = useState(null) // 用來跟蹤正在回覆的留言ID
   const [searchKeyword, setSearchKeyword] = useState(router.query.keyword || '')
   const [replyInput, setReplyInput] = useState('') // 新增的回覆輸入框的狀態
+  const [reMessInput, setReMessInput] = useState('') // 新增的回覆輸入框的狀態
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword)
@@ -97,6 +102,10 @@ export default function ArticleId() {
 
   const handleReplyInputChange = (e) => {
     setReplyInput(e.target.value)
+  }
+
+  const handleReMessInputChange = (e) => {
+    setReMessInput(e.target.value)
   }
 
   const handleReplySubmit = async (e) => {
@@ -174,6 +183,71 @@ export default function ArticleId() {
       console.error('提交回覆錯誤:', error)
       swal.fire({
         text: '留言添加失敗！',
+        icon: 'error',
+      })
+    }
+  }
+
+  const handleReMessageSubmit = async (e) => {
+    // 檢查輸入框是否有值
+    if (reMessInput.trim() === '') {
+      swal.fire({
+        text: '留言內容不能為空！',
+        icon: 'warning',
+      })
+      e.preventDefault()
+      return // 返回，避免進行後續操作
+    }
+
+    const reMessData = {
+      re_message_content: reMessInput,
+      re_message_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+      fk_message_id: replyToMessageId,
+      fk_b2c_id: auth.b2c_id,
+    }
+
+    try {
+      const response = await fetch(RE_MESSAGE_ADD_POST, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reMessData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        swal
+          .fire({
+            text: '回覆留言已送出！',
+            icon: 'success',
+          })
+          .then(() => {
+            // 在提示框關閉後，清空輸入框並更新留言列表
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              {
+                ...reMessData,
+                b2c_name: auth.b2c_name,
+                re_message_id: data.re_message_id,
+              },
+            ])
+            setReMessInput('')
+            setReplyToMessageId(null)
+
+            window.location.reload()
+          })
+      } else {
+        swal.fire({
+          text: '回覆留言添加失敗！',
+          icon: 'error',
+        })
+      }
+    } catch (error) {
+      console.error('提交回覆錯誤:', error)
+      swal.fire({
+        text: '回覆留言添加失敗！',
         icon: 'error',
       })
     }
@@ -310,12 +384,17 @@ export default function ArticleId() {
                                       </div>
                                       {replyToMessageId ===
                                         message.message_id && (
-                                        <div className="pb-3 d-flex">
+                                        <form
+                                          onSubmit={handleReMessageSubmit}
+                                          className="pb-3 d-flex"
+                                        >
                                           <input
                                             style={{ height: '40px' }}
                                             className={`card border-3 ${styles.W80} ${styles.SetPlaceholder2} ${styles.BorderEndDel} border-end-0`}
                                             type="text"
                                             placeholder="回覆......"
+                                            value={reMessInput}
+                                            onChange={handleReMessInputChange}
                                           />
                                           <button
                                             style={{ height: '40px' }}
@@ -324,7 +403,7 @@ export default function ArticleId() {
                                           >
                                             <IoSend className="mt-2 me-1 text-black-50" />
                                           </button>
-                                        </div>
+                                        </form>
                                       )}
                                     </div>
                                   </div>
