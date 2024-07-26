@@ -101,6 +101,10 @@
   color: #6A513D;
 }
 
+.smallTitle{
+  font-weight: 600;
+}
+
 .productImage {
   width: 100px;
   height: 100px;
@@ -261,8 +265,8 @@
   }
 
   .productImage {
-    width: 100px;
-    height: 60px;
+    width: auto;
+    /* height: 60px; */
   }
   .projectImage {
     width: 120px;
@@ -295,15 +299,15 @@
     color: #FFF5CF;
     border-radius: 100px;
     display: flex;
-    width: 130px;
-    height: 40px;
+    width: 120px;
+    height: 30px;
     justify-content: center;
     align-items: center;
     font-weight: 900;
-    font-size: 18px;
+    font-size: 16px;
   }
 
-   .btn{
+  .btn{
     background-color: #6A513D;
     color: #ffffff;
   }
@@ -313,6 +317,58 @@
   }
   .btnArea{
     padding-left: 4%;
+  }
+
+  .quantity {
+    background-color: #6A513D;
+    border: none;
+    color: #FFF5CF;
+    font-weight: 900;
+    padding: 1.5px 6px;
+    height: 29px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .quantitySelector1 {
+    background-color: #6A513D;
+    color: white;
+    border-bottom-width: 1px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-color: #6A513D;
+    color: #FFF5CF;
+    font-weight: 900;
+    padding: 1.5px 6px;
+    display: flex;
+    align-items: top;
+  }
+  
+  .quantitySelector2 {
+    background-color: #6A513D;
+    color: white;
+    border-bottom-width: 1px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+    border-color: #6A513D;
+    color: #FFF5CF;
+    font-weight: 900;
+    padding: 1.5px 6px;
+    display: flex;
+    align-items: top;
+  }
+  
+  .line {
+    border: 3px solid rgb(106, 81, 61);
+    border-radius: 10px;
+    height: 1px;
+    background-color: rgb(106, 81, 61);
+    opacity: 1;
+    margin-top: 8px;
   }
 
 }

@@ -85,92 +85,13 @@ export default function PetInsurance() {
               >
                 保護您的毛孩子，就像保護家人一樣
               </h4>
-              <ImageCarousel />
-              {/* <div className="d-flex justify-content-start overflow-hidden">
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-              </div> */}
+              <div style={{ width: '100%', marginBottom: '20px' }}>
+                <ImageCarousel />
+              </div>
+              
               <h5
                 className={styles['text-color']}
-
+                style={{marginTop: '30px'}}
               >
                 我們的團隊由保險業的專家組成，同時也是熱愛飼養多隻寵物的飼主。對我們來說，寵物一直是我們的家人。選擇我們的寵物保險服務，讓您的毛孩子擁有專屬的健康守護者，讓您與您的愛寵都能享有最貼心、最專業的保障。
               </h5>

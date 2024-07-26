@@ -4,10 +4,10 @@ import { API_SERVER } from '@/configs/api-path'
 import Layout from '@/components/layout/layout'
 import MemberProfileForm from '@/components/member/MemberProfileForm'
 import MemberProfileView from '@/components/member/MemberProfileView'
-import PurchaseHistory from '@/components/member/PurchaseHistory'
+import PurchaseRecord from '@/components/member/PurchaseRecord'
 import AppointmentRecord from '@/components/member/AppointmentRecord'
 import FavoriteProduct from '@/components/member/FavoriteProduct'
-import styles from './css/MemberProfile.module.css'
+import styles from '@/styles/member/MemberProfile.module.css'
 
 const Member = () => {
   const { auth, getAuthHeader, updateUser } = useAuth()
@@ -146,7 +146,6 @@ const Member = () => {
             收藏商品
           </button>
         </div>
-        <h2>會員中心</h2>
         {activeTab === 'profile' && (
           <>
             <div
@@ -185,7 +184,7 @@ const Member = () => {
             </div>
           </>
         )}
-        {activeTab === 'purchase' && <PurchaseHistory />}
+        {activeTab === 'purchase' && <PurchaseRecord />}
         {activeTab === 'appointment' && <AppointmentRecord />}
         {activeTab === 'favorite' && <FavoriteProduct />}
       </div>

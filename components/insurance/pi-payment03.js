@@ -53,6 +53,17 @@ function PiPayment03() {
   const ErrorMessage = ({ message }) =>
     message ? <span style={{ color: 'red' }}>{message}</span> : null
 
+  // 清除 localStorage 內確認有送出表單的函數
+  const clearLocalStorage = () => {
+    localStorage.removeItem('catInsuranceData')
+    localStorage.removeItem('dogInsuranceData')
+    localStorage.removeItem('selectedPlan')
+    localStorage.removeItem('petPhoto')
+    localStorage.removeItem('petBasicData')
+    localStorage.removeItem('holderBasicData')
+    localStorage.removeItem('order_id')
+  }
+
   //寄出表單
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -99,7 +110,6 @@ function PiPayment03() {
       // localStorage.setItem('InsuranceOrder', JSON.stringify(insuranceData))
 
       // 資料發送到後端
-      console.log(insuranceData)
       const response = await fetch(INSURANCE_ADD_POST, {
         method: 'POST',
         headers: {
@@ -116,16 +126,22 @@ function PiPayment03() {
       console.log('Server response:', result)
 
       // 如果訂單成立, 返回一個order id 進localstorage
-      if (result.success) {
-        if (result.latestOrderId !== undefined) {
-          localStorage.setItem('order_id', result.latestOrderId.toString())
-        } else {
-          console.error('Latest order ID is undefinded')
-        }
-      }
-
+      // if (result.success) {
+      //   if (result.latestOrderId !== undefined) {
+      //     localStorage.setItem('order_id', result.latestOrderId.toString())
+      //   } else {
+      //     console.error('Latest order ID is undefinded')
+      //   }
+      // }
       // 跳轉下一頁
-      router.push('/insurance/insurance-payment04')
+      // router.push('/insurance/insurance-payment04')
+
+      if (result.success && result.OrderId) {
+        await router.push(`/insurance/payment/${result.OrderId}`)
+        clearLocalStorage()
+      } else {
+        console.error('Order creation failed or no order ID returned')
+      }
     } catch (error) {
       console.error('保存失敗:', error)
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')

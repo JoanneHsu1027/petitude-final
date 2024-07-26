@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { MEMBER_UPDATE_POST } from '@/configs/api-path'
 import { counties } from '@/components/common/county'
 import { cities } from '@/components/common/city'
-import formStyles from './css/MemberProfileForm.module.css'
+import formStyles from '@/styles/member/MemberProfileForm.module.css'
 import AuthContext from '@/contexts/member/auth-context'
 
 const MemberProfileForm = ({ memberData, onCancel }) => {

@@ -10,7 +10,11 @@ import {
 } from 'react-icons/bs'
 import { IoSend } from 'react-icons/io5'
 import { useRouter } from 'next/router'
-import { ARTICLE_PAGE, MESSAGE_ADD_POST } from '@/configs/platform/api-path'
+import {
+  ARTICLE_PAGE,
+  MESSAGE_ADD_POST,
+  RE_MESSAGE_ADD_POST,
+} from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
 import LoginModal from '@/components/member/LoginModal'
 import { useAuth } from '@/contexts/member/auth-context'
@@ -26,6 +30,7 @@ export default function ArticleId() {
   const [replyToMessageId, setReplyToMessageId] = useState(null) // 用來跟蹤正在回覆的留言ID
   const [searchKeyword, setSearchKeyword] = useState(router.query.keyword || '')
   const [replyInput, setReplyInput] = useState('') // 新增的回覆輸入框的狀態
+  const [reMessInput, setReMessInput] = useState('') // 新增的回覆輸入框的狀態
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword)
@@ -99,9 +104,12 @@ export default function ArticleId() {
     setReplyInput(e.target.value)
   }
 
-  const handleReplySubmit = (e) => {
-    e.preventDefault()
+  const handleReMessInputChange = (e) => {
+    setReMessInput(e.target.value)
+  }
 
+  const handleReplySubmit = async (e) => {
+    // 檢查用戶是否已登入
     if (!auth.b2c_id) {
       swal
         .fire({
@@ -109,9 +117,20 @@ export default function ArticleId() {
           icon: 'error',
         })
         .then(() => {
-          setShowModal(true) // 在警告框關閉後顯示登入視窗
+          setShowModal(true) // 在警告框关闭后显示登录窗口
         })
-      return // 確保沒有進一步執行
+      e.preventDefault() // 阻止表單提交
+      return // 返回，避免進行後續操作
+    }
+
+    // 檢查輸入框是否有值
+    if (replyInput.trim() === '') {
+      swal.fire({
+        text: '留言內容不能為空！',
+        icon: 'warning',
+      })
+      e.preventDefault() // 阻止表單提交
+      return // 返回，避免進行後續操作
     }
 
     const replyData = {
@@ -119,57 +138,119 @@ export default function ArticleId() {
       fk_article_id: articleData.article_id,
       fk_b2c_id: auth.b2c_id,
       message_date: moment().format('YYYY-MM-DD HH:mm:ss'),
-      parent_message_id: replyToMessageId, // 新增的父留言ID
+      parent_message_id: replyToMessageId,
     }
 
-    console.log('提交回覆數據:', replyData)
-
-    fetch(MESSAGE_ADD_POST, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(replyData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('網路回應不正常')
-        }
-        return response.json()
+    try {
+      const response = await fetch(MESSAGE_ADD_POST, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(replyData),
       })
-      .then((data) => {
-        console.log('回應數據:', data)
 
-        if (data.success) {
-          swal.fire({
-            text: '留言添加成功！',
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        swal
+          .fire({
+            text: '留言已送出！',
             icon: 'success',
           })
+          .then(() => {
+            // 在提示框關閉後，清空輸入框並更新留言列表
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              {
+                ...replyData,
+                b2c_name: auth.b2c_name,
+                message_id: data.message_id,
+              },
+            ])
+            setReplyInput('')
+            setReplyToMessageId(null)
 
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            {
-              ...replyData,
-              b2c_name: auth.b2c_name,
-              message_id: data.message_id,
-            },
-          ])
-          setReplyInput('')
-          setReplyToMessageId(null)
-        } else {
-          swal.fire({
-            text: '留言添加失敗！',
-            icon: 'error',
+            window.location.reload()
           })
-        }
-      })
-      .catch((error) => {
-        console.error('提交回覆錯誤:', error)
+      } else {
         swal.fire({
           text: '留言添加失敗！',
           icon: 'error',
         })
+      }
+    } catch (error) {
+      console.error('提交回覆錯誤:', error)
+      swal.fire({
+        text: '留言添加失敗！',
+        icon: 'error',
       })
+    }
+  }
+
+  const handleReMessageSubmit = async (e) => {
+    // 檢查輸入框是否有值
+    if (reMessInput.trim() === '') {
+      swal.fire({
+        text: '留言內容不能為空！',
+        icon: 'warning',
+      })
+      e.preventDefault()
+      return // 返回，避免進行後續操作
+    }
+
+    const reMessData = {
+      re_message_content: reMessInput,
+      re_message_date: moment().format('YYYY-MM-DD HH:mm:ss'),
+      fk_message_id: replyToMessageId,
+      fk_b2c_id: auth.b2c_id,
+    }
+
+    try {
+      const response = await fetch(RE_MESSAGE_ADD_POST, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reMessData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        swal
+          .fire({
+            text: '回覆留言已送出！',
+            icon: 'success',
+          })
+          .then(() => {
+            // 在提示框關閉後，清空輸入框並更新留言列表
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              {
+                ...reMessData,
+                b2c_name: auth.b2c_name,
+                re_message_id: data.re_message_id,
+              },
+            ])
+            setReMessInput('')
+            setReplyToMessageId(null)
+
+            window.location.reload()
+          })
+      } else {
+        swal.fire({
+          text: '回覆留言添加失敗！',
+          icon: 'error',
+        })
+      }
+    } catch (error) {
+      console.error('提交回覆錯誤:', error)
+      swal.fire({
+        text: '回覆留言添加失敗！',
+        icon: 'error',
+      })
+    }
   }
 
   return (
@@ -303,12 +384,17 @@ export default function ArticleId() {
                                       </div>
                                       {replyToMessageId ===
                                         message.message_id && (
-                                        <div className="pb-3 d-flex">
+                                        <form
+                                          onSubmit={handleReMessageSubmit}
+                                          className="pb-3 d-flex"
+                                        >
                                           <input
                                             style={{ height: '40px' }}
                                             className={`card border-3 ${styles.W80} ${styles.SetPlaceholder2} ${styles.BorderEndDel} border-end-0`}
                                             type="text"
                                             placeholder="回覆......"
+                                            value={reMessInput}
+                                            onChange={handleReMessInputChange}
                                           />
                                           <button
                                             style={{ height: '40px' }}
@@ -317,8 +403,27 @@ export default function ArticleId() {
                                           >
                                             <IoSend className="mt-2 me-1 text-black-50" />
                                           </button>
-                                        </div>
+                                        </form>
                                       )}
+                                      {/* 回覆留言區塊 */}
+
+                                      <div className="d-flex border-bottom mt-2 mx-1 px-2">
+                                        <div className="me-2">
+                                          <img
+                                            src="/forum-pic/avatar.png"
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div className="flex-grow-1 me-2">
+                                          <p>b2c_name</p>
+                                          <p>re_message_content</p>
+                                          <div className="d-flex">
+                                            <p className="me-4">
+                                              re_message_date
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -331,39 +436,28 @@ export default function ArticleId() {
 
                         {/* 回覆留言區塊 */}
                         <div className="position-sticky bottom-0">
-                          <div className="p-3 d-flex justify-content-center">
-                            <input
-                              style={{ height: '45px' }}
-                              className={`card ${styles.W80} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder} ${styles.BorderEndDel} border-end-0`}
-                              onClick={() => {
-                                if (!auth.b2c_id) {
-                                  swal
-                                    .fire({
-                                      text: '請先登入會員！',
-                                      icon: 'error',
-                                    })
-                                    .then(() => {
-                                      setShowModal(true) // 在警告框關閉後顯示登入視窗
-                                    })
-                                }
-                              }}
-                              type="text"
-                              placeholder="留言......"
-                              value={replyInput}
-                              onChange={handleReplyInputChange}
-                            />
-                            <button
-                              style={{ height: '45px' }}
-                              className={`${styles.BorderStartDel} ${styles.BorderBlue} card border-3 border-start-0`}
-                              type="submit"
-                              onClick={handleReplySubmit}
-                            >
-                              <IoSend
-                                style={{ marginTop: 10, color: '#4CB1C8' }}
-                                className="me-1"
+                          <form onSubmit={handleReplySubmit}>
+                            <div className="p-3 d-flex justify-content-center">
+                              <input
+                                style={{ height: '45px' }}
+                                className={`card ${styles.W80} border-3 ${styles.BorderBlue} ${styles.SetPlaceholder} ${styles.BorderEndDel} border-end-0`}
+                                type="text"
+                                placeholder="留言......"
+                                value={replyInput}
+                                onChange={handleReplyInputChange}
                               />
-                            </button>
-                          </div>
+                              <button
+                                style={{ height: '45px' }}
+                                className={`${styles.BorderStartDel} ${styles.BorderBlue} card border-3 border-start-0`}
+                                type="submit"
+                              >
+                                <IoSend
+                                  style={{ marginTop: 10, color: '#4CB1C8' }}
+                                  className="me-1"
+                                />
+                              </button>
+                            </div>
+                          </form>
                         </div>
                       </div>
                     </div>
