@@ -19,6 +19,20 @@ export default function Productid() {
   const [showModal, setShowModal] = useState(false)
   const { auth } = useAuth()
 
+  // 切換圖片功能
+  const [mainImage, setMainImage] = useState('')
+
+  useEffect(() => {
+    if (data.pk_product_id) {
+      setMainImage(`http://localhost:3001/estore/A${data.pk_product_id}.png`)
+    }
+  }, [data.pk_product_id])
+
+  const handleThumbnailClick = (imageSrc) => {
+    setMainImage(imageSrc)
+  }
+
+  // 購物車功能
   const { addToCart } = useCart()
 
   const handleAddItem = () => {
@@ -180,29 +194,46 @@ export default function Productid() {
                 <div className="col-12">
                   <img
                     id={styles.mainImage}
-                    // src="/estore/圖1.jpg"
-                    src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
+                    src={mainImage}
                     alt="MainImage"
                     className="img-fluid"
                   />
                 </div>
               </div>
-              <div className="row">
+              <div className="row mt-3">
                 <div className="d-none d-md-block col-md-3 mt-2 mb-3 py-1">
-                  <img
-                    className={styles.thumbnail}
-                    src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
-                    alt="Thumbnail 1"
-                    data-main-image={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
-                  />
+                  <button
+                    className={styles.thumbnailButton}
+                    onClick={() =>
+                      handleThumbnailClick(
+                        `http://localhost:3001/estore/A${data.pk_product_id}.png`,
+                      )
+                    }
+                    aria-label="View larger image"
+                  >
+                    <img
+                      className={styles.thumbnail}
+                      src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
+                      alt="Thumbnail 1"
+                    />
+                  </button>
                 </div>
                 <div className="d-none d-md-block col-md-3 mt-2 mb-3 py-1">
-                  <img
-                    className={styles.thumbnail}
-                    src={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
-                    alt="Thumbnail 2"
-                    data-main-image={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
-                  />
+                  <button
+                    className={styles.thumbnailButton}
+                    onClick={() =>
+                      handleThumbnailClick(
+                        `http://localhost:3001/estore/B${data.pk_product_id}.png`,
+                      )
+                    }
+                    aria-label="View larger image"
+                  >
+                    <img
+                      className={styles.thumbnail}
+                      src={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
+                      alt="Thumbnail 2"
+                    />
+                  </button>
                 </div>
               </div>
             </div>
@@ -489,14 +520,14 @@ export default function Productid() {
                   $ {formatCurrency(data.product_price)}
                 </div>
                 <div
-                  className={`fs-5 text-center ${styles.depicition}`}
+                  className={`fs-6 text-center ${styles.depicition}`}
                   style={{ margin: 5 + 'px' + ' ' + 0 + 'px' }}
                 >
                   規格 {data.product_specification}
                 </div>
                 <hr style={{ margin: 12 + 'px' + ' ' + 0 + 'px' }} />
                 <div
-                  className={`fs-5 ${styles.depicition}`}
+                  className={`fs-6 ${styles.depicition}`}
                   style={({ marginTop: 5 + 'px' }, { marginBottom: 10 + 'px' })}
                 >
                   {data.description_short}

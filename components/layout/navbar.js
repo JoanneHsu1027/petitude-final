@@ -146,7 +146,7 @@ export default function Navbar({ pageName = '' }) {
         className={`navbar navbar-expand-lg navbar-light d-lg-none d-xl-block d-xl-none d-xxl-block d-xxl-none p-0 AllFont ${styles['bg-image']}`}
       >
         <div className="container-fluid">
-          <Link className="navbar-brand mx-auto" href="/home">
+          <Link className="navbar-brand mx-auto" href="/">
             <img src="/pi-pic/petitude-mobile-icon.png" alt="" />
           </Link>
           <button
@@ -226,7 +226,7 @@ export default function Navbar({ pageName = '' }) {
               )}
               <li className="nav-item">
                 <Link className="nav-link" href="/estore/cart">
-                  <i className="bi bi-bag-fill cartItem"></i>
+                  購物車
                 </Link>
               </li>
             </ul>
