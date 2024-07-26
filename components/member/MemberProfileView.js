@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { counties } from '@/components/common/county'
 import { cities } from '@/components/common/city'
-import viewStyles from './css/MemberProfileView.module.css'
+import viewStyles from '@/styles/member/MemberProfileView.module.css'
 
 const MemberProfileView = ({ memberData, onEdit }) => {
   const [countyLabel, setCountyLabel] = useState('')
