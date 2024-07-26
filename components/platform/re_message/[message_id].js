@@ -6,7 +6,7 @@ import styles from '../../../styles/platform/platform-style.module.css'
 export default function MessageId({ message_id }) {
   const [replies, setReplies] = useState([])
   const [error, setError] = useState(null)
-  const [isHidden, setIsHidden] = useState(true) // 控制留言顯示與隱藏
+  const [isHidden, setIsHidden] = useState(true) // 預設隱藏留言
 
   useEffect(() => {
     const fetchReplies = async () => {
@@ -17,8 +17,8 @@ export default function MessageId({ message_id }) {
         }
         const data = await res.json()
         setReplies(data)
-        // 如果有回覆，顯示「隱藏留言」按鈕
-        setIsHidden(data.length > 0)
+        // 如果有回覆，顯示「查看其他留言」按鈕
+        setIsHidden(true) // 預設隱藏留言
       } catch (error) {
         console.error('Fetch error:', error)
         setError(error.message)
@@ -42,7 +42,7 @@ export default function MessageId({ message_id }) {
     <>
       {replies.length > 0 && (
         <button className={`${styles.BtnReset}`} onClick={handleToggleReplies}>
-          {isHidden ? '顯示留言' : '隱藏留言'}
+          {isHidden ? `查看其他 ${replies.length} 則留言` : '隱藏留言'}
         </button>
       )}
       {!isHidden &&
