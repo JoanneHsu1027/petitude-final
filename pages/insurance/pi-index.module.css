@@ -162,7 +162,7 @@
     transform: translateY(-10px); /* 調整跳動的幅度 */
   }
 }
-
+ 
 .bounce {
   animation: bounce 2s infinite;
 }

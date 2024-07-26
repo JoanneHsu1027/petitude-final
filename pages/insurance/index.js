@@ -141,7 +141,7 @@ export default function PetInsurance() {
                 <li className={`col-2 ${styles.advantageFlatTop}`}>
                   <div className="d-flex justify-content-center">
                     <img
-                      className="img-fluid"
+                      className={`img-fluid ${styles.bounce}`}
                       loading="lazy"
                       src="/pi-pic/full-secur-01.png"
                       alt=""
@@ -159,7 +159,7 @@ export default function PetInsurance() {
                 <li className={`col-2 ${styles.advantageFlatBottom}`}>
                   <div className="d-flex justify-content-center">
                     <img
-                      className="img-fluid"
+                      className={`img-fluid ${styles.bounce}`}
                       loading="lazy"
                       src="/pi-pic/fast-pay-01.png"
                       alt=""
@@ -177,7 +177,7 @@ export default function PetInsurance() {
                 <li className={`col-2 ${styles.advantageFlatBottom}`}>
                   <div className="d-flex justify-content-center">
                     <img
-                      className="img-fluid"
+                      className={`img-fluid ${styles.bounce}`}
                       loading="lazy"
                       src="/pi-pic/agile-project-01.png"
                       alt=""
@@ -195,7 +195,7 @@ export default function PetInsurance() {
                 <li className={`col-2 ${styles.advantageFlatTop}`}>
                   <div className="d-flex justify-content-center">
                     <img
-                      className="img-fluid"
+                      className={`img-fluid ${styles.bounce}`}
                       loading="lazy"
                       src="/pi-pic/pro-service-01.png"
                       alt=""
