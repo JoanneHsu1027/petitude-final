@@ -336,7 +336,7 @@ export default function ArticleId() {
                           </div>
 
                           {/* 功能連結 */}
-                          <div className="border-bottom border-secondary d-flex justify-content-around pb-4 mt-5">
+                          <div className="border-bottom border-secondary d-flex justify-content-around pb-4 mb-3 mt-5">
                             <a
                               className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover}`}
                             >
@@ -365,19 +365,21 @@ export default function ArticleId() {
                               ).format('YYYY-MM-DD HH:MM')
                               return (
                                 <div key={message.message_id}>
-                                  <div className="d-flex border-bottom mt-4 mb-2 mx-1 px-2">
+                                  <div className="d-flex border-bottom pt-2 mb-2 mx-1 px-2">
                                     <div className="me-2">
                                       <img src="/forum-pic/avatar.png" alt="" />
                                     </div>
-                                    <div className="flex-grow-1 me-2">
+                                    <div className="flex-grow-1 me-2 pb-3">
                                       <p className="fw-bold">
                                         {message.b2c_name}
                                       </p>
                                       <p>{message.message_content}</p>
                                       <div className="d-flex ">
-                                        <p className="me-4">{dateFormat}</p>
+                                        <span className="me-4">
+                                          {dateFormat}
+                                        </span>
                                         <button
-                                          className={`${styles.BtnReset} ${styles.LightGray} mb-4`}
+                                          className={`${styles.BtnReset} ${styles.LightGray}`}
                                           onClick={() =>
                                             handleReplyClick(message.message_id)
                                           }
