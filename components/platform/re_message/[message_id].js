@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { RE_MESSAGE } from '@/configs/platform/api-path'
 import { useRouter } from 'next/router'
+import moment from 'moment-timezone'
 
 export default function MessageId({ message_id }) {
   const router = useRouter()
@@ -33,25 +34,26 @@ export default function MessageId({ message_id }) {
 
   return (
     <>
-      {replies.map((reply) => (
-        <div
-          key={reply.re_message_id}
-          className="d-flex border-bottom mt-2 mx-1 px-2"
-        >
-          <div className="me-2">
-            <img src="/forum-pic/avatar.png" alt="" />
-          </div>
-          <div className="flex-grow-1 me-2">
-            <p>{reply.b2c_name}</p>
-            <p>{reply.re_message_content}</p>
-            <div className="d-flex">
-              <p className="me-4">
-                {new Date(reply.re_message_date).toLocaleString()}
-              </p>
+      {replies.map((reply) => {
+        const dateFormat = moment(reply.message_date).format('YYYY-MM-DD HH:MM')
+        return (
+          <div
+            key={reply.re_message_id}
+            className="d-flex border-bottom mt-2 mx-1 px-2"
+          >
+            <div className="me-2">
+              <img src="/forum-pic/avatar.png" alt="" />
+            </div>
+            <div className="flex-grow-1 me-2">
+              <p>{reply.b2c_name}</p>
+              <p>{reply.re_message_content}</p>
+              <div className="d-flex">
+                <p className="me-4">{dateFormat}</p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </>
   )
 }
