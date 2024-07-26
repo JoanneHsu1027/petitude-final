@@ -226,7 +226,7 @@ export default function Navbar({ pageName = '' }) {
               )}
               <li className="nav-item">
                 <Link className="nav-link" href="/estore/cart">
-                  <i className="bi bi-bag-fill cartItem"></i>
+                  購物車
                 </Link>
               </li>
             </ul>
