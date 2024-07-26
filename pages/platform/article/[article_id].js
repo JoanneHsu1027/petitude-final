@@ -19,6 +19,7 @@ import moment from 'moment-timezone'
 import LoginModal from '@/components/member/LoginModal'
 import { useAuth } from '@/contexts/member/auth-context'
 import swal from 'sweetalert2'
+import ReMessage from '@/components/platform/re_message/[message_id]'
 
 export default function ArticleId() {
   const router = useRouter()
@@ -407,23 +408,9 @@ export default function ArticleId() {
                                       )}
                                       {/* 回覆留言區塊 */}
 
-                                      <div className="d-flex border-bottom mt-2 mx-1 px-2">
-                                        <div className="me-2">
-                                          <img
-                                            src="/forum-pic/avatar.png"
-                                            alt=""
-                                          />
-                                        </div>
-                                        <div className="flex-grow-1 me-2">
-                                          <p>b2c_name</p>
-                                          <p>re_message_content</p>
-                                          <div className="d-flex">
-                                            <p className="me-4">
-                                              re_message_date
-                                            </p>
-                                          </div>
-                                        </div>
-                                      </div>
+                                      <ReMessage
+                                        message_id={message.message_id}
+                                      />
                                     </div>
                                   </div>
                                 </div>

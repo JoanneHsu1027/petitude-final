@@ -33,7 +33,6 @@ export default function MessageId({ message_id }) {
 
   return (
     <>
-      {/* 回覆留言區塊 */}
       {replies.map((reply) => (
         <div
           key={reply.re_message_id}
@@ -55,15 +54,4 @@ export default function MessageId({ message_id }) {
       ))}
     </>
   )
-}
-
-// 假設在頁面組件中使用這個 MessageId 組件
-export async function getServerSideProps(context) {
-  const { message_id } = context.params
-
-  return {
-    props: {
-      message_id,
-    },
-  }
 }
