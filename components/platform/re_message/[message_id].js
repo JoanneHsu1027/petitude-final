@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { RE_MESSAGE } from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
 import styles from '../../../styles/platform/platform-style.module.css'
+import { GoDash } from 'react-icons/go'
 
 export default function MessageId({ message_id }) {
   const [replies, setReplies] = useState([])
@@ -41,8 +42,19 @@ export default function MessageId({ message_id }) {
   return (
     <>
       {replies.length > 0 && (
-        <button className={`${styles.BtnReset}`} onClick={handleToggleReplies}>
-          {isHidden ? `查看其他 ${replies.length} 則留言` : '隱藏留言'}
+        <button
+          className={`${styles.BtnReset} ${styles.LightGray} pt-3 `}
+          onClick={handleToggleReplies}
+        >
+          {isHidden ? (
+            <>
+              <GoDash /> 查看其他 {replies.length} 則留言
+            </>
+          ) : (
+            <>
+              <GoDash /> 隱藏留言
+            </>
+          )}
         </button>
       )}
       {!isHidden &&
