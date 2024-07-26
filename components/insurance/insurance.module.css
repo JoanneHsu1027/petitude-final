@@ -67,8 +67,13 @@
 .framePadding{
   padding-left: 60px;
   padding-right: 60px;
+  margin-bottom: 100px;
 }
 
+.titlePic {
+  width: 361px;
+  height: 174px;
+}
 .sloganSpace {
   margin-top: 50px;
   margin-bottom: -50px;
@@ -95,6 +100,12 @@
   .framePadding{
     padding-left: 10px;
     padding-right: 10px;
+    margin-bottom: 0;
+  }
+
+  .titlePic {
+    width: 230px;
+    height: 114px;
   }
   .sloganSpace {
     margin-top: 10px;
@@ -118,20 +129,42 @@
   }
 }
 
-.fadeInImage {
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 3s ease-out;
+/* .fadeInImage {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .animate {
-  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  transform: translateY(0);
+} */
+
+@keyframes clipRevealAndHide {
+  0%, 100% {
+    clip-path: inset(100% 0 0 0); /* 從下到上完全消失 */
+  }
+  40%, 60% {
+    clip-path: inset(0 0 0 0); /* 完全顯示 */
+  }
+  20% {
+    clip-path: inset(0 0 100% 0); /* 從上到下顯示 */
+  }
 }
+
+.animateLoop {
+  animation: clipRevealAndHide 10s ease-in-out infinite;
+}
+
+
 
 @media (max-width: 430px) {
   .fadeInImage {
     display: none;
   }
-  
+  .animateLoop {
+    display: none;
+  }
 }
 
 /* 按鈕1 */
