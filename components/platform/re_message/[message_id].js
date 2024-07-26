@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { RE_MESSAGE } from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
 import styles from '../../../styles/platform/platform-style.module.css'
-import { GoDash } from 'react-icons/go'
+import { CgBorderStyleSolid } from 'react-icons/cg'
 
 export default function MessageId({ message_id }) {
   const [replies, setReplies] = useState([])
@@ -48,11 +48,11 @@ export default function MessageId({ message_id }) {
         >
           {isHidden ? (
             <>
-              <GoDash /> 查看其他 {replies.length} 則留言
+              <CgBorderStyleSolid /> 查看其他 {replies.length} 則留言
             </>
           ) : (
             <>
-              <GoDash /> 隱藏留言
+              <CgBorderStyleSolid /> 隱藏留言
             </>
           )}
         </button>
