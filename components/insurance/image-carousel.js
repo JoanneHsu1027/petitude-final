@@ -20,11 +20,11 @@ const ImageStrip = styled.div`
 `
 
 const ImageWrapper = styled.div`
-  flex: 0 0 5%;
+  flex: 0 0 auto;
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 `
 
 const StyledImage = styled.img`
@@ -32,6 +32,8 @@ const StyledImage = styled.img`
   max-height: 100%;
   object-fit: contain;
   transform: ${(props) => (props.rotate ? 'rotate(-13deg)' : 'none')};
+  margin: 0;
+  padding: 0;
 `
 
 const ImageCarousel = () => {

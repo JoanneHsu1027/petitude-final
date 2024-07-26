@@ -154,6 +154,19 @@
 }
 
 /* section 3 優點介紹 */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); /* 調整跳動的幅度 */
+  }
+}
+
+.bounce {
+  animation: bounce 2s infinite;
+}
+
 @media (max-width: 992px) {
   .xl-hide {
   display: none;
