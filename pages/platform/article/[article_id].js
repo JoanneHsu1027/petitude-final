@@ -370,7 +370,9 @@ export default function ArticleId() {
                                       <img src="/forum-pic/avatar.png" alt="" />
                                     </div>
                                     <div className="flex-grow-1 me-2">
-                                      <p>{message.b2c_name}</p>
+                                      <p className="fw-bold">
+                                        {message.b2c_name}
+                                      </p>
                                       <p>{message.message_content}</p>
                                       <div className="d-flex ">
                                         <p className="me-4">{dateFormat}</p>
