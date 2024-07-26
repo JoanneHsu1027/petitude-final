@@ -11,13 +11,13 @@ export default function ScrollToTopButton() {
   }
 
   return (
-    <div className="d-flex">
+    <div className="d-flex allFont">
       <button
         onClick={scrollToTop}
         style={{
           position: 'fixed',
-          bottom: '10px',
-          right: '0px',
+          bottom: '2rem',
+          right: '1.2rem',
           backgroundColor: 'transparent',
           color: '#fff',
           border: 'none',
@@ -35,10 +35,20 @@ export default function ScrollToTopButton() {
         <img
           src="/funeral/image_44.png"
           alt="Scroll to top"
-          style={{ width: '30px', height: '30px', transform: 'rotate(-20deg)' }}
+          style={{ width: '60px', height: '60px', transform: 'rotate(-20deg)' }}
         />
-        <span style={{ fontSize: '12px', color: '#bbbbbb' }}>Top</span>{' '}
+        <span style={{ fontSize: '14px', color: '#bbbbbb', fontWeight: '900' }}>
+          Top
+        </span>{' '}
       </button>
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+      `}</style>
     </div>
   )
 }
