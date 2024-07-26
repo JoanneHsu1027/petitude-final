@@ -56,6 +56,13 @@ export default function BookingList() {
     0,
   )
 
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
+  }
+
   useEffect(() => {
     // 獲取所有縣市
     const fetchCounties = async () => {
@@ -504,7 +511,7 @@ export default function BookingList() {
                               <div
                                 className={`justify-content-end fs-4 ${styles.productPrice}`}
                               >
-                                $ {r.project_price * r.qty}
+                                $ {formatCurrency(r.project_price * r.qty)}
                               </div>
                             </div>
                           </div>
@@ -532,7 +539,9 @@ export default function BookingList() {
                     <p className="card-text mb-1 fs-5">總金額</p>
                   </div>
                   <div className="text-end ms-5 ms-auto">
-                    <p className="card-text fs-4">$ {totalPrice}</p>
+                    <p className="card-text fs-4">
+                      $ {formatCurrency(totalPrice)}
+                    </p>
                   </div>
                 </div>
                 <div className="d-flex justify-content-center align-items-center">

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 export default function Environment() {
   const environmentPic = [
     {
-      src: '/funeral/樹花葬區域.png',
+      src: '/funeral/樹花葬區.png',
       alt: '樹/花葬區',
     },
     {
@@ -72,7 +72,7 @@ export default function Environment() {
             </div>
           </div>
 
-          <div className="video-wrapper col-12 d-flex justify-content-center">
+          <div className="video-wrapper col-12 d-flex justify-content-center radio-16x9">
             {/* 影片區塊 */}
             <iframe
               src="https://www.youtube.com/embed/q3OTetBQ3YQ?autoplay=1&mute=1"
@@ -109,12 +109,12 @@ export default function Environment() {
         </div>
         <style jsx>
           {`
-          @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
 
-        .allFont {
-          font-family: 'Noto Serif TC', serif;
-          font-weight: 900;
-        }
+            .allFont {
+              font-family: 'Noto Serif TC', serif;
+              font-weight: 900;
+            }
             .headSection {
               position: relative;
               width: 100%;
@@ -188,7 +188,7 @@ export default function Environment() {
               flex-wrap: wrap;
               gap: 1rem;
               justify-content: center;
-              {/* margin-top: 2rem; */}
+              margin-top: 2rem;
               width: 100%;
             }
 
@@ -215,8 +215,8 @@ export default function Environment() {
             }
 
             .environment-image {
-              width: 50%;
-              height: 70%;
+              width: 60%;
+              height: auto;
               transition: opacity 0.5s ease-in-out;
               opacity: 1;
             }
@@ -258,13 +258,12 @@ export default function Environment() {
                 position: absolute;
                 transform: translateY(-50%);
                 z-index: 2;
-                 margin-top: 3rem;
+                margin-top: 3rem;
               }
               .title {
                 text-align: center;
                 z-index: 2;
                 position: relative;
-               
               }
               .video-wrapper {
                 position: relative;
@@ -328,15 +327,15 @@ export default function Environment() {
                 transform: scale(1.05);
               }
               .environment-image {
-              width: 70%;
-              height: 60%;
-              transition: opacity 0.5s ease-in-out;
-              opacity: 1;
-            }
+                width: 70%;
+                height: 60%;
+                transition: opacity 0.5s ease-in-out;
+                opacity: 1;
+              }
 
-            .environment-image.fade {
-              opacity: 0;
-            }
+              .environment-image.fade {
+                opacity: 0;
+              }
             }
           `}
         </style>

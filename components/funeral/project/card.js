@@ -13,6 +13,13 @@ export default function Card() {
   // const [isExpanded, setIsExpanded] = useState(false)
   const [expandedCards, setExpandedCards] = useState({})
 
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
+  }
+
   const [data, setData] = useState({
     success: false,
     rows: [],
@@ -96,7 +103,11 @@ export default function Card() {
                   </h6>
                   {!expandedCards[card.project_id] && (
                     <span
-                      style={{ cursor: 'pointer', fontSize: '1rem' }}
+                      style={{
+                        cursor: 'pointer',
+                        fontSize: '1rem',
+                        fontWeight: 'normal',
+                      }}
                       onClick={() => toggleExpand(card.project_id)}
                     >
                       ...閱讀更多
@@ -132,7 +143,7 @@ export default function Card() {
                       flexShrink: 0,
                     }}
                   >
-                    <h6>售價: {card.project_price} 元</h6>
+                    <h6>售價: $ {formatCurrency(card.project_price)} 元</h6>
                   </div>
                 </div>
 

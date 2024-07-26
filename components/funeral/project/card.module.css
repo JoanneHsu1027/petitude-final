@@ -1,16 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
 
-        .allFont {
-          font-family: 'Noto Serif TC', serif;
-          font-weight: 900;
-        }
+.allFont {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+  }
 .card {
-  width: 100%;
+  width: 90%;
   height: auto;
   padding: 10px;
   background-color: antiquewhite;
   border-radius: 20px;
-  margin-top: 10%;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin: 1rem auto;
+
+}
+
+.card:hover {
+  transform: scale(1.05); /* 放大效果 */
+  /* transform: translateY(-10px); */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .cardImage {
@@ -30,12 +38,12 @@
 
 
 .card h3 {
-  font-weight: 900;
+  /* font-weight: 900; */
   margin-top: 20px;
 }
 .cardTitle{
   font-size: 1.8rem;
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 .card h6,
 .card-details {
@@ -50,7 +58,7 @@
 .card p {
   text-align: start;
   font-size: 0.9rem;
-  font-weight: 700;
+  /* font-weight: 700; */
   padding-left: 1.6rem;
   /* padding-right: 12rem; */
   /* margin-right:15rem; */
@@ -64,7 +72,7 @@
   font-size: 1rem;
   margin-right: 5px;
   white-space: nowrap; /* 防止文字超出按鈕 */
-  font-weight: 600;
+  /* font-weight: 600; */
   color: #6A513D;
   border-radius: 35px;
 }
@@ -77,7 +85,7 @@
   white-space: nowrap; /* 防止文字超出按鈕 */
   background-color: #6A513D;
   color: #ffffff;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 
 
@@ -108,7 +116,7 @@
 
 .card h5 {
   font-size: 1.2rem;
-  font-weight: 900;
+  /* font-weight: 900; */
 
 }
 
@@ -127,7 +135,7 @@
   text-align: start;
   line-height: 1;
   font-size: 0.7rem;
-  font-weight: 700;
+  /* font-weight: 700; */
   padding-left: 10px;
   color: #a0722a;
 }
@@ -163,7 +171,7 @@
 }
 .card h5 {
   font-size: 1.4rem;
-  font-weight: 900;
+  /* font-weight: 900; */
 
 }
 
@@ -181,7 +189,7 @@
   text-align: start;
   line-height: 1.2;
   font-size: 0.9rem;
-  font-weight: 700;
+  /* font-weight: 700; */
   padding-left: 20px;
   color: #a0722a;
 }
@@ -219,7 +227,7 @@
 
 .card h5 {
   font-size: 1.4rem;
-  font-weight: 900;
+  /* font-weight: 900; */
   margin-top: 20px;
 }
 
@@ -237,7 +245,7 @@
   text-align: start;
   line-height: 1;
   font-size: 0.9rem;
-  font-weight: 700;
+  /* font-weight: 700; */
   padding-left: 10px;
   color: #a0722a;
 }
