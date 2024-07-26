@@ -142,13 +142,13 @@
 
 @keyframes clipRevealAndHide {
   0%, 100% {
-    clip-path: inset(100% 0 0 0); /* 從下到上完全消失 */
+    clip-path: inset(100% 0 0 0); 
   }
   40%, 60% {
-    clip-path: inset(0 0 0 0); /* 完全顯示 */
+    clip-path: inset(0 0 0 0); 
   }
   20% {
-    clip-path: inset(0 0 100% 0); /* 從上到下顯示 */
+    clip-path: inset(0 0 100% 0); 
   }
 }
 

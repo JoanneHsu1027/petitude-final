@@ -20,8 +20,6 @@ export default function PiPayment04() {
   const [planPrice, setPlanPrice] = useState('')
   // 保費轉成數字
   const price = parseFloat(planPrice.replace(/,/g, ''))
-  // 付費狀態
-  const [isPay, setIsPay] = useState('false')
 
   // const handlePaymentChange = (e) => {
   //   setSelectedPayment(e.target.id)
@@ -52,6 +50,11 @@ export default function PiPayment04() {
           if (form) {
             document.body.appendChild(form)
             form.submit()
+            // 再把訂單號碼加入localstorage
+            localStorage.setItem(
+              'OrderId',
+              JSON.stringify({ OrderId: OrderId }),
+            )
           } else {
             console.error('找不到支付表單')
           }
