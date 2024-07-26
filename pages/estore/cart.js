@@ -357,7 +357,7 @@ export default function CartPage() {
                           >
                             <div className={styles.productPrice}>
                               <p className="fs-4 text-end m-0">
-                                $ {project.project_price}
+                                $ {formatCurrency(project.project_price)}
                               </p>
                             </div>
                           </div>
@@ -420,7 +420,9 @@ export default function CartPage() {
                       <p className="fs-4">總價</p>
                     </div>
                     <div className={`col-12 ${styles.total}`}>
-                      <p className="fs-4">${totalProjectPrice}</p>
+                      <p className="fs-4">
+                        $ {formatCurrency(totalProjectPrice)}
+                      </p>
                     </div>
                     <div className={`col-12 ${styles.total}`}>
                       <button
