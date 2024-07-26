@@ -153,7 +153,7 @@ export default function PetInsurance() {
                   <p
                     className={`${styles[('text-color', 'xl-hide')]} text-center text-wrap `}
                   >
-                    涵蓋意外、疾病、手術等多種醫療費用，讓您的寵物在需要醫療時得到全面的保障。
+                    涵蓋意外、疾病、手術等多種醫療費用，讓您的寵物在需要醫療時得到全面保障。
                   </p>
                 </li>
                 <li className={`col-2 ${styles.advantageFlatBottom}`}>
