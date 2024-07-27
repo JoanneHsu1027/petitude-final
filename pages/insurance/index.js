@@ -6,6 +6,8 @@ import DogCalculate from '@/components/insurance/dog-calculate'
 import TrialCalculation from '@/components/insurance/trial-calculation'
 import PetSick from '@/components/insurance/pet-sick'
 import { Router, useRouter } from 'next/router'
+import ImageCarousel from '@/components/insurance/image-carousel'
+
 
 export default function PetInsurance() {
   // 確認是否有收到試算的表單資料
@@ -48,7 +50,7 @@ export default function PetInsurance() {
       <Layout title="寵度寵物保險" pageName="pet-insurance">
         {/* section 1 介紹 start */}
         <div
-          className={`container-fluid d-flex justify-content-center ${styles['bg-image']} pt-5`}
+          className={`container-fluid d-flex justify-content-center ${styles['bg-image']} ${styles.allFont} pt-5`}
         >
           <div
             className="row align-items-center d-flex"
@@ -83,91 +85,13 @@ export default function PetInsurance() {
               >
                 保護您的毛孩子，就像保護家人一樣
               </h4>
-              <div className="d-flex justify-content-start overflow-hidden">
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Dog_Bone.png"
-                  alt=""
-                  style={{
-                    transform: 'rotate(-13deg)',
-                    width: '10%',
-                    height: '10%',
-                  }}
-                />
-                <img
-                  loading="lazy"
-                  src="/pi-pic/Fish_Bone.png"
-                  alt=""
-                  style={{ width: '10%', height: '10%' }}
-                />
+              <div style={{ width: '100%', marginBottom: '20px' }}>
+                <ImageCarousel />
               </div>
+              
               <h5
                 className={styles['text-color']}
-                style={{ margin: '1.875rem 0 0 0' }}
+                style={{marginTop: '30px'}}
               >
                 我們的團隊由保險業的專家組成，同時也是熱愛飼養多隻寵物的飼主。對我們來說，寵物一直是我們的家人。選擇我們的寵物保險服務，讓您的毛孩子擁有專屬的健康守護者，讓您與您的愛寵都能享有最貼心、最專業的保障。
               </h5>
@@ -208,7 +132,7 @@ export default function PetInsurance() {
         {/* section 2 end */}
 
         {/* section 3 優點介紹 start */}
-        <div className={`container-fluid ${styles['bg-image']}`}>
+        <div className={`container-fluid ${styles['bg-image']} ${styles.allFont}`}>
           <div className="row" style={{ padding: '0 60px' }}>
             <div className="col-12 d-flex justify-content-center">
               <ul
@@ -223,7 +147,7 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
                     保障全面
                   </h5>
                   <p
@@ -241,7 +165,7 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
                     理賠快速
                   </h5>
                   <p
@@ -259,7 +183,7 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
                     方案靈活
                   </h5>
                   <p
@@ -277,7 +201,7 @@ export default function PetInsurance() {
                       alt=""
                     />
                   </div>
-                  <h5 className={`${styles['text-color']} text-center mt-3`}>
+                  <h5 className={`${styles['text-color']} ${styles.allFont} text-center mt-3`}>
                     專業客服
                   </h5>
                   <p
@@ -305,7 +229,7 @@ export default function PetInsurance() {
 
         {/* section 4 保險試算 start */}
         <div
-          className={`container-fluid d-flex flex-column justify-content-center ${styles.crossBoarder}`}
+          className={`container-fluid d-flex flex-column justify-content-center ${styles.crossBoarder} ${styles.allFont}`}
         >
           <div
             className={`${styles.calculateUpperSpace} row d-flex justify-content-center`}
@@ -343,7 +267,7 @@ export default function PetInsurance() {
         {/* section 4 end */}
 
         {/* section 5 顧客意見回饋 start */}
-        <div className="container-fluid mt-5">
+        <div className={`container-fluid mt-5 ${styles.allFont}`}>
           <div className="row mt-3 d-flex justify-content-center">
             <div className="col-9">
               <h2
@@ -461,7 +385,7 @@ export default function PetInsurance() {
 
         {/* section 5 end */}
         {/* section 6 常見問題 start */}
-        <div className="col-12 ">
+        <div className={`col-12 ${styles.allFont}`}>
           <img
             className="img-fluid w-100"
             loading="lazy"
@@ -469,7 +393,7 @@ export default function PetInsurance() {
             alt=""
           />
         </div>
-        <div className={`container-fluid pb-5 ${styles['bg-image']}`}>
+        <div className={`container-fluid pb-5 ${styles['bg-image']} ${styles.allFont}`}>
           <div className="row d-flex justify-content-center">
             <div className="col-12">
               <h2

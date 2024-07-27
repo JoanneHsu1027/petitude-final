@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { counties } from '@/components/common/county'
 import { cities } from '@/components/common/city'
-import viewStyles from './css/MemberProfileView.module.css'
+import viewStyles from '@/styles/member/MemberProfileView.module.css'
 
 const MemberProfileView = ({ memberData, onEdit }) => {
   const [countyLabel, setCountyLabel] = useState('')
@@ -20,7 +20,7 @@ const MemberProfileView = ({ memberData, onEdit }) => {
 
   return (
     <div className="p-4">
-      <h2 className="mb-4">會員資料</h2>
+      <h3 className="mb-4">會員資料</h3>
       <div className="mb-3">
         <h5 className={viewStyles['form-lable']}>姓名:</h5>
         <p className={viewStyles['form-innerText']}>{memberData.b2c_name}</p>

@@ -35,9 +35,9 @@ export default function PetSick() {
   }
   return (
     <>
-      <div className="container-fluid" style={{ padding: 0 }}>
+      <div className={` container-fluid ${styles.allFont}`}>
         <div className="row">
-          <div className={`col-12 ${styles.barHight}`}>
+          <div className={`col-12 px-0 ${styles.barHight}`}>
             <img
               className="w-100"
               loading="lazy"
@@ -47,14 +47,15 @@ export default function PetSick() {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 mb-2">
+          <div className="col-12 mb-2 px-0">
             <h2
-              className={`d-flex justify-content-center ${styles['text-color']}`}
+              className={`d-flex justify-content-center ${styles['text-color']} `}
             >
               常見醫療花費
             </h2>
           </div>
         </div>
+        {/* <div className="col-12 d-flex justify-content-center"> */}
         {/* 電腦版 */}
         <div
           className={`row ${styles.forDeskTop}`}
@@ -68,11 +69,14 @@ export default function PetSick() {
               className={`col-9 ${styles['stats-container']} text-center`}
               style={{ padding: '1.25rem 3.125rem', width: '100%}' }}
             >
-              <h4 style={{ fontWeight: '700' }}>
+              <h4 style={{ fontWeight: '700' }} className={styles.allFont}>
                 {selectedAccident.accidentType}
               </h4>
               <h5>平均每次治療金額</h5>
-              <h4 className={styles['own-orange']} style={{ margin: 0 }}>
+              <h4
+                className={`${styles['own-orange']} ${styles.allFont}`}
+                style={{ margin: 0 }}
+              >
                 {selectedAccident.accidentExpense}
               </h4>
             </div>
@@ -117,12 +121,12 @@ export default function PetSick() {
               ))}
             </ul>
           </div>
-          <div className="col-lg-5 col-xxl-6">
+          <div className="col-4 px-0 py-5">
             <div
               className="d-flex justify-content-center"
               style={{
-                width: '100%',
-                height: '100%',
+                width: '110%',
+                height: '110%',
                 objectFit: 'cover',
               }}
             >
@@ -200,9 +204,10 @@ export default function PetSick() {
             </div>
           </div>
         </div>
+        {/* </div> */}
 
         <div className="row">
-          <div className={`col-12 ${styles.barHight}`}>
+          <div className={`col-12 px-0 ${styles.barHight}`}>
             <img
               className="w-100 h-100"
               loading="lazy"

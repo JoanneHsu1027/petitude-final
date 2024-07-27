@@ -9,18 +9,65 @@ import { counties } from '../common/county'
 import { cities } from '../common/city'
 import { z } from 'zod'
 import axios from 'axios'
+import { INSURANCE_GET_B2C } from '@/configs/insurance/api-path'
 
 function PiPayment02() {
   const router = useRouter()
   const formRef = useRef(null)
+
+  // 取得使用者會員Id
+  const getMemberId = () => {
+    const authData = localStorage.getItem('petmember-auth')
+    if (authData) {
+      const parsedData = JSON.parse(authData)
+      return parsedData.b2c_id
+    }
+    return null
+  }
+
+  //勾選後根據登入會員id去抓後端資料
+  const fetchMemberData = async (memberId) => {
+    try {
+      const response = await axios.get(`${INSURANCE_GET_B2C}/${memberId}`)
+      console.log('API response:', response.data)
+      if (response.data && response.data.data) {
+        return response.data.data
+      } else {
+        console.log('無效的 API 響應格式')
+        return null
+      }
+    } catch (error) {
+      console.log('Error fetching member data:', error)
+      return null
+    }
+  }
+
   // 儲存會員資料
   const [memberData, setMemberData] = useState({
+    policyholder_name: '',
+    policyholder_IDcard: '',
+    policyholder_birthday: '',
     fk_policyholder_email: '',
     fk_policyholder_mobile: '',
     fk_county_id: '',
     fk_city_id: '',
     fk_policyholder_address: '',
   })
+
+  // 為每個欄位創建錯誤狀態
+  const [errors, setErrors] = useState({
+    policyholder_name: '',
+    policyholder_IDcard: '',
+    policyholder_birthday: '',
+    fk_policyholder_email: '',
+    fk_policyholder_mobile: '',
+    fk_county_id: '',
+    fk_city_id: '',
+    fk_policyholder_address: '',
+  })
+
+  // 選擇是否帶入會員資料
+  const [useInfo, setUseInfo] = useState(false)
 
   // 台灣身分證字號驗證
   const [idError, setIdError] = useState('')
@@ -54,21 +101,54 @@ function PiPayment02() {
   const [selectedCounty, setSelectedCounty] = useState('')
   // 為了區的選擇
   const [filteredCities, setFilteredCities] = useState([])
-  // 為了已審閱並了解貴公司所提供之上述須知及商品簡介
-  const [checkedRead, setCheckedRead] = useState(false)
 
-  // 為每個欄位創建錯誤狀態
-  const [errors, setErrors] = useState({
-    policyholder_name: '',
-    policyholder_IDcard: '',
-    policyholder_birthday: '',
-    fk_policyholder_email: '',
-    fk_policyholder_mobile: '',
-    fk_county_id: '',
-    fk_city_id: '',
-    fk_policyholder_address: '',
-    // checkedRead: '',
-  })
+  // 選擇帶入會員資料
+  const handleCheckboxChange = async (e) => {
+    const isChecked = e.target.checked
+    setUseInfo(isChecked)
+
+    if (isChecked) {
+      const memberId = getMemberId()
+
+      if (memberId) {
+        try {
+          const fullMemberData = await fetchMemberData(memberId)
+
+          if (fullMemberData) {
+            const newMemberData = {
+              policyholder_name: fullMemberData.b2c_name || '',
+              policyholder_IDcard: fullMemberData.b2c_IDcard || '',
+              policyholder_birthday: fullMemberData.b2c_birth
+                ? new Date(fullMemberData.b2c_birth).toISOString().split('T')[0]
+                : '',
+              fk_policyholder_email: fullMemberData.b2c_email || '',
+              fk_policyholder_mobile: fullMemberData.b2c_mobile || '',
+              fk_county_id: fullMemberData.fk_county_id || '',
+              fk_city_id: fullMemberData.fk_city_id || '',
+              fk_policyholder_address: fullMemberData.b2c_address || '',
+            }
+
+            setMemberData(newMemberData)
+            setSelectedCounty(fullMemberData.fk_county_id)
+          }
+        } catch (error) {
+          console.log('獲取會員數據失敗:', error)
+        }
+      }
+    } else {
+      setMemberData({
+        policyholder_name: '',
+        policyholder_IDcard: '',
+        policyholder_birthday: '',
+        fk_policyholder_email: '',
+        fk_policyholder_mobile: '',
+        fk_county_id: '',
+        fk_city_id: '',
+        fk_policyholder_address: '',
+      })
+      setSelectedCounty()
+    }
+  }
 
   //寄出表單
   const handleSubmit = async (e) => {
@@ -120,8 +200,6 @@ function PiPayment02() {
       //   fk_policyholder_address: formDataObject.fk_policyholder_address,
       // })
 
-      // 成功提示
-      alert('資料已成功保存，請繼續下一步驟')
       // 跳轉下一頁
       router.push('/insurance/insurance-payment03')
       console.log(
@@ -152,22 +230,30 @@ function PiPayment02() {
     }
   }, [selectedCounty])
 
-  // 獲取會員資料
   useEffect(() => {
-    const fetchMemberData = async () => {
-      try {
-        const response = await axios.get(
-          'http://localhost:3001/petcompany/b2c_members',
-        )
-        setMemberData(response.data)
-        setSelectedCounty(response.data.fk_county_id) // 設置初始縣市
-      } catch (error) {
-        console.error('Error fetching member data:', error)
+    if (useInfo) {
+      const memberId = getMemberId()
+      if (memberId) {
+        fetchMemberData(memberId).then((fullMemberData) => {
+          if (fullMemberData) {
+            setMemberData({
+              policyholder_name: fullMemberData.b2c_name || '',
+              policyholder_IDcard: fullMemberData.b2c_IDcard || '',
+              policyholder_birthday: fullMemberData.b2c_birth
+                ? new Date(fullMemberData.b2c_birth).toISOString().split('T')[0]
+                : '',
+              fk_policyholder_email: fullMemberData.b2c_email || '',
+              fk_policyholder_mobile: fullMemberData.b2c_mobile || '',
+              fk_county_id: fullMemberData.fk_county_id || '',
+              fk_city_id: fullMemberData.fk_city_id || '',
+              fk_policyholder_address: fullMemberData.b2c_address || '',
+            })
+            setSelectedCounty(fullMemberData.fk_county_id)
+          }
+        })
       }
     }
-
-    fetchMemberData()
-  }, [])
+  }, [useInfo])
 
   return (
     <>
@@ -181,7 +267,7 @@ function PiPayment02() {
           <form
             ref={formRef}
             onSubmit={handleSubmit}
-            className="col-8 d-flex flex-column justify-content-center align-items-center"
+            className={`col-8 d-flex flex-column justify-content-center align-items-center ${styles.allFont}`}
           >
             {/* 要保人資料 */}
             <div className="col-12" style={{ marginTop: '30px' }}>
@@ -192,6 +278,27 @@ function PiPayment02() {
                 <div className="col-12 justify-content-center align-items-center px-5">
                   <div className="col-12 d-flex flex-row">
                     <div className="col-6">
+                      <div>
+                        <input
+                          className="form-check-input"
+                          style={{
+                            border: '3px solid #B7B7B7',
+                            marginLeft: 0,
+                            paddingTop: 10,
+                          }}
+                          type="checkbox"
+                          id="loadInfo"
+                          name="loadInfo"
+                          checked={useInfo}
+                          onChange={handleCheckboxChange}
+                        />
+                        <label
+                          className="form-check-label ms-2"
+                          htmlFor="loadInfo"
+                        >
+                          <p>以下資訊同步會員基本資料</p>
+                        </label>
+                      </div>
                       <div className="d-flex flex-column">
                         <label htmlFor="policyholder_name">
                           <h5
@@ -208,6 +315,13 @@ function PiPayment02() {
                           id="policyholder_name"
                           name="policyholder_name"
                           style={{ width: '100%' }}
+                          value={memberData.policyholder_name}
+                          onChange={(e) =>
+                            setMemberData({
+                              ...memberData,
+                              policyholder_name: e.target.value,
+                            })
+                          }
                         />
                       </div>
                       <div className="d-flex flex-column">
@@ -228,6 +342,13 @@ function PiPayment02() {
                           id="policyholder_IDcard"
                           name="policyholder_IDcard"
                           style={{ width: '100%' }}
+                          value={memberData.policyholder_IDcard}
+                          onChange={(e) =>
+                            setMemberData({
+                              ...memberData,
+                              policyholder_IDcard: e.target.value,
+                            })
+                          }
                         />
                         {idError && <p style={{ color: 'red' }}>{idError}</p>}
                       </div>
@@ -249,6 +370,13 @@ function PiPayment02() {
                           id="policyholder_birthday"
                           name="policyholder_birthday"
                           style={{ width: '100%' }}
+                          value={memberData.policyholder_birthday}
+                          onChange={(e) =>
+                            setMemberData({
+                              ...memberData,
+                              policyholder_birthday: e.target.value,
+                            })
+                          }
                         />
                       </div>
                       <div className="d-flex flex-column">
@@ -332,7 +460,6 @@ function PiPayment02() {
                       style={{ width: '49%' }}
                       id="fk_county_id"
                       name="fk_county_id"
-                      // value={selectedCounty}
                       value={memberData.fk_county_id}
                       onChange={(e) => {
                         setSelectedCounty(e.target.value)

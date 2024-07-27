@@ -5,13 +5,14 @@ import styles from '@/styles/funeral/booking-list.module.css'
 import axios from 'axios'
 import swal from 'sweetalert2'
 import { RL } from '@/configs/funeral/api-path'
+import { useAuth } from '@/contexts/member/auth-context'
 import { useCart1 } from '@/contexts/funeral/CartContext1'
 import { z } from 'zod'
 
 export default function BookingList() {
   const router = useRouter()
-  const [selectedBillMethod, setSelectedBillMethod] = useState(false) // 發票方式
-  const [cartProjects, setCartProjects] = useState([]) //儲存購物車項目
+  const [selectedBillMethod, setSelectedBillMethod] = useState('')
+  const [cartItems, setCartItems] = useState([])
 
   const billMethodMapping = {
     phoneBill: '手機載具',
@@ -20,29 +21,22 @@ export default function BookingList() {
     companyBill: '公司發票',
   }
 
-  // 用於儲存結帳表單的值
   const [formData, setFormData] = useState({
-    paymentMethod: '',
-    creditCardNumber: '',
-    expiryDate: '',
-    cvv: '',
     buyerName: '',
     mobile: '',
-    telephone: '',
-    billMethod: '',
-    billNumber: '',
   })
   const [formDataErrors, setFormDataErrors] = useState({
     buyerName: '',
     mobile: '',
   })
+
   const { clearCart1 } = useCart1()
 
   useEffect(() => {
     // 從 localStorage 讀取購物車資料
     const storedCart1 = localStorage.getItem('funeralShoppingCart')
     if (storedCart1) {
-      setCartProjects(JSON.parse(storedCart1))
+      setCartItems(JSON.parse(storedCart1))
     }
 
     // 從 localStorage 讀取用戶資料
@@ -57,33 +51,46 @@ export default function BookingList() {
     }
   }, [])
 
-  const totalPrice = cartProjects.reduce(
-    (total, items) => total + items.project_price * items.qty,
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.project_price * item.qty,
     0,
   )
 
-  // 下面兩個分别處理縣市和鄉鎮市區的選擇變更，並更新對應的狀態及表單數據
-  // 修改 handleCountyChange 函數
-  const handleCountyChange = (e) => {
-    const countyId = e.target.value
-    setSelectedCounty(countyId)
-    setSelectedCity('')
-    setFormData((prevData) => ({
-      ...prevData,
-      countyId: countyId,
-      cityId: '',
-    }))
-    fetchCities(countyId)
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
   }
 
-  const handleCityChange = (e) => {
-    const cityId = e.target.value
-    setSelectedCity(cityId)
-    setFormData((prevData) => ({
-      ...prevData,
-      cityId: cityId,
-    }))
-  }
+  useEffect(() => {
+    // 獲取所有縣市
+    const fetchCounties = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost:3001/project/counties',
+        )
+        if (response.data.success) {
+          // 在縣市資料加載完成後，設置用戶的縣市選擇
+          const storedUser = localStorage.getItem('user')
+          if (storedUser) {
+            const userData = JSON.parse(storedUser)
+            if (userData.fk_county_id) {
+              // setSelectedCounty(userData.fk_county_id)
+              setFormData((prevData) => ({
+                ...prevData,
+                countyId: userData.fk_county_id,
+              }))
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching counties:', error)
+      }
+    }
+
+    fetchCounties()
+  }, [])
 
   const schemaForm = z.object({
     buyerName: z.string().min(2, { message: '姓名至少兩個字' }),
@@ -122,7 +129,7 @@ export default function BookingList() {
 
     if (!result.success) {
       const newFormErrors = {
-        buyerName: '',
+        b2cName: '',
         mobile: '',
       }
       for (let issue of result.error.issues) {
@@ -137,10 +144,12 @@ export default function BookingList() {
       })
       return // 阻止表單提交
     }
+
+    // 如果驗證通過，繼續原有的提交邏輯
     try {
       const dataToSend = {
         ...formData,
-        cartProjects: JSON.parse(
+        cartItems: JSON.parse(
           localStorage.getItem('funeralShoppingCart') || '[]',
         ),
       }
@@ -150,16 +159,17 @@ export default function BookingList() {
         `http://localhost:3001/project/cartCheckout1`,
         dataToSend,
       )
+      console.log('Data to send:', dataToSend)
 
       if (paymentResponse.data.success) {
         // 資料庫新增成功就處理綠界
-        const ecpayResponse = await axios.get(
-          `http://localhost:3001/ecpay?${new URLSearchParams({ ...dataToSend, amount: totalPrice })}`,
+        const ecpay1Response = await axios.get(
+          `http://localhost:3001/ecpay1?${new URLSearchParams({ ...dataToSend, amount: totalPrice })}`,
         )
-        console.log(ecpayResponse)
-        if (ecpayResponse.data.htmlContent) {
+        console.log(ecpay1Response)
+        if (ecpay1Response.data.htmlContent) {
           const tempDiv = document.createElement('div')
-          tempDiv.innerHTML = ecpayResponse.data.htmlContent
+          tempDiv.innerHTML = ecpay1Response.data.htmlContent
           const form = tempDiv.querySelector('form')
           if (form) {
             document.body.appendChild(form)
@@ -177,24 +187,6 @@ export default function BookingList() {
       } else {
         console.error('新增資料庫失敗')
       }
-
-      // 顯示成功消息並導航
-      // swal
-      //   .fire({
-      //     icon: 'success',
-      //     html: `訂單已成功建立`,
-      //     showCancelButton: true,
-      //     focusConfirm: false,
-      //     confirmButtonText: `回首頁`,
-      //     cancelButtonText: `回商品列表`,
-      //   })
-      //   .then((result) => {
-      //     if (result.isConfirm) {
-      //       router.push('/')
-      //     } else {
-      //       router.push('/estore/')
-      //     }
-      //   })
     } catch (error) {
       console.error('發生錯誤:', error)
       // 處理錯誤
@@ -243,6 +235,7 @@ export default function BookingList() {
                       type="text"
                       className={`form-control rounded-pill ${formDataErrors.buyerName ? 'is-invalid' : ''}`}
                       id="buyerName"
+                      name="buyerName"
                       placeholder="姓名"
                       value={formData.buyerName}
                       onChange={handleInputChange}
@@ -484,11 +477,11 @@ export default function BookingList() {
                   fontWeight: 900,
                 }}
               >
-                {/* 若cartProjects長度大於0, 則顯示購物車項目列表, 否則顯示"購物車是空的" */}
-                {cartProjects.length > 0 ? (
+                {/* 若cartItems 長度大於0, 則顯示購物車項目列表, 否則顯示"購物車是空的" */}
+                {cartItems.length > 0 ? (
                   <>
-                    {/* 使用map遍歷cartProjects中的每個project項目 */}
-                    {cartProjects.map((r, i) => (
+                    {/* 使用map遍歷cartItems 中的每個project項目 */}
+                    {cartItems.map((r, i) => (
                       <div
                         key={i}
                         className="row align-items-center justify-content-center mb-3"
@@ -515,27 +508,10 @@ export default function BookingList() {
                             <div
                               className={`col-12 ${styles.quantityPriceContainer} mt-2`}
                             >
-                              {/* 項目數量 */}
-                              {/* <div
-                                className="justify-content-start fs-5"
-                                style={{
-                                  color: '#FFF5CF',
-                                  backgroundColor: '#6A513D',
-                                  borderRadius: 30 + 'px',
-                                  paddingLeft: 2 + 'rem',
-                                  paddingRight: 2 + 'rem',
-                                  paddingTop: 0.1 + 'rem',
-                                  paddingBottom: 0.1 + 'rem',
-                                }}
-                              >
-                                數量：{r.qty}
-                              </div> */}
-
-                              {/* 項目價格*項目數量 */}
                               <div
                                 className={`justify-content-end fs-4 ${styles.productPrice}`}
                               >
-                                $ {r.project_price * r.qty}
+                                $ {formatCurrency(r.project_price * r.qty)}
                               </div>
                             </div>
                           </div>
@@ -563,7 +539,9 @@ export default function BookingList() {
                     <p className="card-text mb-1 fs-5">總金額</p>
                   </div>
                   <div className="text-end ms-5 ms-auto">
-                    <p className="card-text fs-4">$ {totalPrice}</p>
+                    <p className="card-text fs-4">
+                      $ {formatCurrency(totalPrice)}
+                    </p>
                   </div>
                 </div>
                 <div className="d-flex justify-content-center align-items-center">
@@ -571,7 +549,6 @@ export default function BookingList() {
                     className="btn w-100  fs-4"
                     onClick={handleSubmit}
                     style={{
-                      // width: '120px',
                       marginTop: '20px',
                       color: '#FFF5CF',
                       backgroundColor: '#6A513D',

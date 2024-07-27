@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+
 .full {
   font-family: "Noto Serif TC", serif;
   /* background-color: #FFF5CF; */
@@ -27,6 +29,13 @@
   display: block;
   margin: 0 auto;
   /* 将缩略图居中 */
+}
+
+.thumbnailButton {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .title {
@@ -93,8 +102,25 @@
   background-color: bisque;
 }
 
+.nav-link{
+  background-color: #CFE7B1;
+  color: #6A513D;
+}
+
+/* .nav-link:hover{
+  background-color: #6A513D !important;
+  color: #CFE7B1 !important;
+} */
+
+.nav-link:global(.active){
+  background-color: #ffffff !important;
+  color: #6A513D !important;
+}
+
+
+
 .page {
-  border-radius: 20px 20px 0 0;
+  /* border-radius: 20px 20px 0 0; */
   background-color: #CFE7B1;
   margin-top: 20px;
   margin-left: 16px;
@@ -109,14 +135,26 @@
   font-weight: 900;
 }
 
-.page:hover{
-  background-color: white;
-}
 
 .page:active {
-  background-color: white;
+  /* border-radius: 20px 20px 0 0; */
+  background-color: #ffffff;
+  margin-top: 20px;
+  margin-left: 16px;
+  margin-right: 8px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: #6A513D;
+  border: none;
+  font-size: 24px;
+  font-weight: 900;
 }
 
+.descriptionLong{
+  font-size: 20px;
+}
 
 @media (max-width: 767px) {
   select.custom-select {
@@ -142,7 +180,6 @@
   }
 
   .page {
-    border-radius: 20px 20px 0 0;
     background-color: #CFE7B1;
     margin-top: 10px;
     margin-left: 0px;
@@ -153,7 +190,26 @@
     padding-right: 15px;
     color: #6A513D;
     border: none;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 900;
+  }
+
+  .page:active {
+    background-color: #ffffff;
+    margin-top: 10px;
+    margin-left: 0px;
+    margin-right: 1px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #6A513D;
+    border: none;
+    font-size: 20px;
+    font-weight: 900;
+  }
+
+  .descriptionLong{
+    font-size: 16px;
   }
 }

@@ -1,31 +1,16 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Modal1 from '@/components/funeral/service/modal1'
 import Styles from '@/components/funeral/service/modal.module.css'
 
 export default function Service() {
-  const [showModal1, setShowModal1] = useState(false) // 定義 showModal1 狀態
-
-  const handleShowModal1 = () => {
-    setShowModal1(true) // 設置 showModal1 為 true，顯示 Modal1
-  }
-
   return (
     <>
-      <div className="container-fluid mt-5 mb-5">
+      <div className="container-fluid allFont">
         <div className="row d-flex justify-content-center">
-          <h2
-            className="text-center mb-4"
-            style={{
-              fontSize: '2rem',
-              marginBottom: '4%',
-            }}
-          >
-            寵物火化服務項目一覽
-          </h2>
+          <h2 className="title text-center">寵物火化服務項目一覽</h2>
           <div
             className="col-md-6 col-12 d-flex justify-content-center mt-3"
-            style={{ maxWidth: '500px' }} // 控制最大宽度
+            style={{ maxWidth: '600px' }}
           >
             <div
               className={`card text-dark mb-1 border-0 text-center ${Styles.card}`}
@@ -60,7 +45,7 @@ export default function Service() {
           </div>
           <div
             className="col-md-6 col-12 d-flex justify-content-center mt-3"
-            style={{ maxWidth: '500px' }} // 控制最大宽度
+            style={{ maxWidth: '600px' }}
           >
             <div
               className={`card text-dark mb-1 border-0 text-center ${Styles.card}`}
@@ -85,19 +70,27 @@ export default function Service() {
               </div>
             </div>
           </div>
-          <div className="d-flex justify-content-center align-items-center">
-            <button
-              className="btn btn-warning mt-5"
-              onClick={handleShowModal1}
-              style={{ width: '150px', marginTop: '20px' }}
-            >
-              客製化服務
-            </button>
-          </div>
         </div>
-        <Modal1 show={showModal1} handleClose={() => setShowModal1(false)} />
       </div>
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+        .container-fluid {
+          margin-bottom: 8%;
+        }
+        .title {
+          font-size: 34px;
+          margin-top: 5rem;
+          margin-bottom: 5rem;
+        }
+        h5 {
+          font-size: 24px;
+          font-weight: 700;
+        }
         .list-group {
           padding: 0; /* 移除內邊距 */
           margin: 0; /* 移除外邊距 */
@@ -105,6 +98,7 @@ export default function Service() {
         }
 
         .list-group-item {
+          font-size: 20px;
           border: none; /* 移除每個項目的邊框 */
           padding: 0.5rem 1rem; /* 自定義內邊距 */
           background-color: transparent; /* 設定背景顏色為透明 */

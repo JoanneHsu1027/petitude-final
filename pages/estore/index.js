@@ -106,14 +106,12 @@ export default function ProjectList() {
     addToCart(product)
   }
 
-  const handleCardClick = (e, productId) => {
-    // 檢查點擊的元素是否是購物車按鈕或其子元素
-    if (!e.target.closest(`.${styles.cart}`)) {
-      router.push(`/estore/product/${productId}`)
-    }
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
   }
-
-  function showMessage() {}
 
   return (
     <Layout title="商品列表" pageName="index">
@@ -289,11 +287,11 @@ export default function ProjectList() {
                         className="col-6 col-lg-4 col-xl-3 my-2"
                         key={r.pk_product_id}
                       >
-                        <div className="card">
+                        <div className={`card ${styles.cardStyle}`}>
                           <a href={`estore/product/${r.pk_product_id}`}>
                             <img
                               src={`http://localhost:3001/estore/A${r.pk_product_id}.png`}
-                              className="card-img-top w-100 p-2"
+                              className="card-img-top w-100 p-3"
                               alt="..."
                             />
                           </a>
@@ -303,7 +301,7 @@ export default function ProjectList() {
                             </h4>
                             <div className="row mt-5 mx-0">
                               <div className="col-9 p-0 d-flex justify-content-start align-items-center fs-4">
-                                $ {r.product_price}
+                                $ {formatCurrency(r.product_price)}
                               </div>
                               <div className="col-3 p-0 d-flex justify-content-end">
                                 <button

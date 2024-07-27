@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { MEMBER_UPDATE_POST } from '@/configs/api-path'
 import { counties } from '@/components/common/county'
 import { cities } from '@/components/common/city'
-import formStyles from './css/MemberProfileForm.module.css'
+import formStyles from '@/styles/member/MemberProfileForm.module.css'
 import AuthContext from '@/contexts/member/auth-context'
 
 const MemberProfileForm = ({ memberData, onCancel }) => {
@@ -85,8 +85,8 @@ const MemberProfileForm = ({ memberData, onCancel }) => {
           alert('資料更新成功')
 
           const updatedUser = {
-            ...formData,
-            b2c_birth: formData.b2c_birth || '',
+            b2c_name: formData.b2c_name,
+            b2c_email: formData.b2c_email,
           }
           updateUser(updatedUser)
 

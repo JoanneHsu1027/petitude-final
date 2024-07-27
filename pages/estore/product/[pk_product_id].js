@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Layout from '../../../components/layout/layout'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -8,15 +8,42 @@ import { useRouter } from 'next/router'
 import { product_GET_ITEM } from '@/configs/estore/api-path'
 import { useCart } from '@/contexts/estore/CartContext'
 import swal from 'sweetalert2'
+import LoginModal from '@/components/member/LoginModal'
+import { useAuth } from '@/contexts/member/auth-context'
 
 export default function Productid() {
   const router = useRouter()
   const [data, setData] = useState([])
+  const [isFavorite, setIsFavorite] = useState(false)
+  const [userId, setUserId] = useState(null)
+  const [showModal, setShowModal] = useState(false)
+  const { auth } = useAuth()
 
+  // 切換圖片功能
+  const [mainImage, setMainImage] = useState('')
+
+  useEffect(() => {
+    if (data.pk_product_id) {
+      setMainImage(`http://localhost:3001/estore/A${data.pk_product_id}.png`)
+    }
+  }, [data.pk_product_id])
+
+  const handleThumbnailClick = (imageSrc) => {
+    setMainImage(imageSrc)
+  }
+
+  // 購物車功能
   const { addToCart } = useCart()
 
   const handleAddItem = () => {
     addToCart(data)
+  }
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
   }
 
   const [quantity, setQuantity] = useState(1)
@@ -24,6 +51,35 @@ export default function Productid() {
   const handleQuantityChange = (e) => {
     setQuantity(parseInt(e.target.value))
   }
+
+  const checkFavoriteStatus = useCallback(async (userId, productId) => {
+    if (!userId || !productId) return
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/product/checkFavorite`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fk_b2c_id: userId,
+            fk_product_id: productId,
+          }),
+        },
+      )
+
+      if (response.ok) {
+        const result = await response.json()
+        setIsFavorite(result.isFavorite)
+      } else {
+        console.error('Failed to check favorite status')
+      }
+    } catch (error) {
+      console.error('Error checking favorite status:', error)
+    }
+  }, [])
 
   useEffect(() => {
     if (!router.isReady) return
@@ -33,21 +89,98 @@ export default function Productid() {
       .then((myData) => {
         console.log(myData.data)
         setData(myData.data)
-      })
-  }, [router])
 
-  // document.querySelectorAll('.thumbnail').forEach((item) => {
-  //   item.addEventListener('click', (event) => {
-  //     const mainImage = document.getElementById('mainImage')
-  //     mainImage.src = item.dataset.mainImage
-  //   })
-  // })
+        if (auth.b2c_id && myData.data.pk_product_id) {
+          checkFavoriteStatus(auth.b2c_id, myData.data.pk_product_id)
+        }
+      })
+  }, [
+    router.isReady,
+    router.query.pk_product_id,
+    checkFavoriteStatus,
+    auth.b2c_id,
+  ])
+
+  // 收藏功能
+
+  useEffect(() => {
+    if (!router.isReady) return
+
+    // 从 localStorage 获取用户 ID
+    const auth = JSON.parse(localStorage.getItem('petmember-auth')) || {}
+    const currentUserId = auth.b2c_id
+    setUserId(currentUserId)
+
+    // 获取产品数据
+    fetch(`${product_GET_ITEM}/${router.query.pk_product_id}`)
+      .then((r) => r.json())
+      .then((myData) => {
+        console.log(myData.data)
+        setData(myData.data)
+
+        // 检查收藏状态
+        if (currentUserId && myData.data.pk_product_id) {
+          checkFavoriteStatus(currentUserId, myData.data.pk_product_id)
+        }
+      })
+  }, [router.isReady, router.query.pk_product_id, checkFavoriteStatus])
+
+  const handleAddFavorite = async () => {
+    if (!auth.b2c_id) {
+      swal
+        .fire({
+          text: '請先登入會員！',
+          icon: 'error',
+        })
+        .then(() => {
+          setShowModal(true)
+        })
+      return
+    }
+    try {
+      const response = await fetch(
+        `http://localhost:3001/product/addFavorite`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            fk_b2c_id: auth.b2c_id,
+            fk_product_id: data.pk_product_id,
+          }),
+        },
+      )
+
+      if (response.ok) {
+        const result = await response.json()
+        setIsFavorite(true)
+        swal.fire('成功', result.message, 'success')
+        // 添加收藏后立即检查状态
+        checkFavoriteStatus(auth.b2c_id, data.pk_product_id)
+      } else {
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Failed to add favorite')
+      }
+    } catch (error) {
+      console.error('Error adding favorite:', error)
+      swal.fire('錯誤', error.message || '加入收藏失敗，請稍後再試', 'error')
+    }
+  }
+
+  const [activeTab, setActiveTab] = useState('s1')
+
+  // 在按鈕點擊事件中
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId)
+  }
 
   return (
-    <Layout>
+    <Layout backgroundColor="#ffffff">
       <main
-        className={`flex-shrink-0 mt-5 pt-5 ${styles.full}`}
+        className={`flex-shrink-0 mt-5 pt-5 mb-0 ${styles.full}`}
         key={data.pk_product_id}
+        style={{ backgroundColor: '#ffffff' }}
       >
         {/* <!-- 產品區 --> */}
         <div
@@ -61,29 +194,46 @@ export default function Productid() {
                 <div className="col-12">
                   <img
                     id={styles.mainImage}
-                    // src="/estore/圖1.jpg"
-                    src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
+                    src={mainImage}
                     alt="MainImage"
                     className="img-fluid"
                   />
                 </div>
               </div>
-              <div className="row">
+              <div className="row mt-3">
                 <div className="d-none d-md-block col-md-3 mt-2 mb-3 py-1">
-                  <img
-                    className={styles.thumbnail}
-                    src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
-                    alt="Thumbnail 1"
-                    data-main-image={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
-                  />
+                  <button
+                    className={styles.thumbnailButton}
+                    onClick={() =>
+                      handleThumbnailClick(
+                        `http://localhost:3001/estore/A${data.pk_product_id}.png`,
+                      )
+                    }
+                    aria-label="View larger image"
+                  >
+                    <img
+                      className={styles.thumbnail}
+                      src={`http://localhost:3001/estore/A${data.pk_product_id}.png`}
+                      alt="Thumbnail 1"
+                    />
+                  </button>
                 </div>
                 <div className="d-none d-md-block col-md-3 mt-2 mb-3 py-1">
-                  <img
-                    className={styles.thumbnail}
-                    src={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
-                    alt="Thumbnail 2"
-                    data-main-image={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
-                  />
+                  <button
+                    className={styles.thumbnailButton}
+                    onClick={() =>
+                      handleThumbnailClick(
+                        `http://localhost:3001/estore/B${data.pk_product_id}.png`,
+                      )
+                    }
+                    aria-label="View larger image"
+                  >
+                    <img
+                      className={styles.thumbnail}
+                      src={`http://localhost:3001/estore/B${data.pk_product_id}.png`}
+                      alt="Thumbnail 2"
+                    />
+                  </button>
                 </div>
               </div>
             </div>
@@ -162,7 +312,7 @@ export default function Productid() {
                   style={{ margin: 11 + 'px' + ' ' + 0 + 'px' }}
                 >
                   <div
-                    className="col-3"
+                    className="col-2 d-flex justify-content-start"
                     style={
                       ({ width: 'auto' },
                       { padding: 0 + 'px' + ' ' + 5 + 'px' })
@@ -194,7 +344,7 @@ export default function Productid() {
                     </select>
                   </div>
                   <div
-                    className="col-3 d-flex justify-content-center"
+                    className="col-2 d-flex justify-content-start"
                     style={
                       ({ width: 'auto' },
                       { padding: 0 + 'px' + ' ' + 5 + 'px' })
@@ -218,7 +368,7 @@ export default function Productid() {
                     </button>
                   </div>
                   <div
-                    className="col-3 d-flex justify-content-center"
+                    className="col-2 d-flex justify-content-start"
                     style={
                       ({ width: 'auto' },
                       { padding: 0 + 'px' + ' ' + 5 + 'px' })
@@ -227,8 +377,14 @@ export default function Productid() {
                     <button
                       type="button"
                       className={`btn ${styles.productBtn}`}
+                      onClick={handleAddFavorite}
                     >
-                      收藏 <i className="bi bi-heart-fill"></i>
+                      {isFavorite ? '已收藏' : '收藏'}{' '}
+                      <i
+                        className={
+                          isFavorite ? 'bi bi-heart-fill' : 'bi bi-heart'
+                        }
+                      ></i>
                     </button>
                   </div>
                 </div>
@@ -236,7 +392,7 @@ export default function Productid() {
                   className={`fs-4 ${styles.depicition}`}
                   style={({ marginTop: 12 + 'px' }, { marginBottom: 5 + 'px' })}
                 >
-                  $ {data.product_price}
+                  $ {formatCurrency(data.product_price)}
                 </div>
                 <div
                   className={`fs-4 ${styles.depicition}`}
@@ -282,10 +438,10 @@ export default function Productid() {
             <div className="d-block d-md-none col-12">
               <div className="row">
                 <div className="row" style={{ marginBottom: 5 + '%' }}>
-                  <div className="fs-5 title text-center">
+                  <div className={`fs-5 ${styles.title} text-center mt-2`}>
                     {data.product_brand}
                   </div>
-                  <div className="fs-2 title title text-center">
+                  <div className={`fs-2 ${styles.title} text-center`}>
                     {data.product_name}
                   </div>
                 </div>
@@ -347,8 +503,13 @@ export default function Productid() {
                     <button
                       type="button"
                       className={`btn ${styles.productBtn}`}
+                      onClick={handleAddFavorite}
                     >
-                      <i className="bi bi-heart-fill"></i>
+                      <i
+                        className={
+                          isFavorite ? 'bi bi-heart-fill' : 'bi bi-heart'
+                        }
+                      ></i>
                     </button>
                   </div>
                 </div>
@@ -356,17 +517,17 @@ export default function Productid() {
                   className={`fs-5 text-center ${styles.depicition}`}
                   style={({ marginTop: 12 + 'px' }, { marginBottom: 5 + 'px' })}
                 >
-                  $ {data.product_price}
+                  $ {formatCurrency(data.product_price)}
                 </div>
                 <div
-                  className={`fs-5 text-center ${styles.depicition}`}
+                  className={`fs-6 text-center ${styles.depicition}`}
                   style={{ margin: 5 + 'px' + ' ' + 0 + 'px' }}
                 >
                   規格 {data.product_specification}
                 </div>
                 <hr style={{ margin: 12 + 'px' + ' ' + 0 + 'px' }} />
                 <div
-                  className={`fs-5 ${styles.depicition}`}
+                  className={`fs-6 ${styles.depicition}`}
                   style={({ marginTop: 5 + 'px' }, { marginBottom: 10 + 'px' })}
                 >
                   {data.description_short}
@@ -405,13 +566,13 @@ export default function Productid() {
         {/* <!-- 頁籤區 --> */}
         <div className="container-fluid p-0">
           <ul
-            className={`nav nav-pills justify-content-center mb-5 w-100 ${styles.bookmark}`}
+            className={`nav justify-content-center mb-5 w-100 ${styles.bookmark}`}
             id="myTab"
             role="tablist"
           >
             <li className="nav-item" role="presentation">
               <button
-                className={`nav-link active nav-btn ${styles.page}`}
+                className={`${styles['nav-link']} nav-btn ${styles.page} ${activeTab === 's1' ? 'active' : ''}`}
                 id="home-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#s1"
@@ -419,14 +580,18 @@ export default function Productid() {
                 role="tab"
                 aria-controls="s1"
                 aria-selected="true"
-                style={{ backgroundColor: '#CFE7B1' }}
+                style={{
+                  borderTopLeftRadius: '20px',
+                  borderTopRightRadius: '20px',
+                }}
+                onClick={() => handleTabClick('s1')}
               >
                 主要效益
               </button>
             </li>
             <li className="nav-item" role="presentation">
               <button
-                className={`nav-link nav-btn ${styles.page}`}
+                className={`${styles['nav-link']} nav-btn ${styles.page} ${activeTab === 's2' ? 'active' : ''}`}
                 id="profile-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#s2"
@@ -435,10 +600,10 @@ export default function Productid() {
                 aria-controls="s2"
                 aria-selected="false"
                 style={{
-                  backgroundColor: '#CFE7B1',
-                  borderRadius:
-                    20 + 'px' + ' ' + 20 + 'px' + ' ' + 0 + 'px' + 0 + 'px',
+                  borderTopLeftRadius: '20px',
+                  borderTopRightRadius: '20px',
                 }}
+                onClick={() => handleTabClick('s2')}
               >
                 &emsp;原料&emsp;
               </button>
@@ -455,7 +620,7 @@ export default function Productid() {
           >
             {/* 主要效益 start */}
             <div
-              className="tab-pane fade show active fs-5"
+              className={`tab-pane fade show active ${styles.descriptionLong}`}
               id="s1"
               role="tabpanel"
               aria-labelledby="home-tab"
@@ -466,7 +631,7 @@ export default function Productid() {
 
             {/* 原料 start */}
             <div
-              className="tab-pane fade fs-5"
+              className={`tab-pane fade ${styles.descriptionLong}`}
               id="s2"
               role="tabpanel"
               aria-labelledby="profile-tab"
@@ -479,6 +644,7 @@ export default function Productid() {
 
         {/* <!-- 頁籤區 --> */}
       </main>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </Layout>
   )
 }

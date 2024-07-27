@@ -13,8 +13,6 @@ export default function SideBarMobile({ onSearch }) {
       setActiveLink('class')
     } else if (router.pathname.includes('article')) {
       setActiveLink('article')
-    } else if (router.pathname.includes('hot-topics')) {
-      setActiveLink('hot-topics')
     } else if (router.pathname.includes('favorites')) {
       setActiveLink('favorites')
     }
@@ -35,7 +33,7 @@ export default function SideBarMobile({ onSearch }) {
           overflow-y: hidden;
         }
       `}</style>
-      <div className="d-flex mt-4 ms-3 ">
+      <div className={`d-flex mt-4 ms-3 ${styles.AllFont}`}>
         <form
           className="d-flex mt-2 d-xl-none d-xxl-block d-xxl-none mb-3 p-0"
           onSubmit={handleSearch}
@@ -57,35 +55,34 @@ export default function SideBarMobile({ onSearch }) {
       </div>
       <div
         style={{ height: 60 }}
-        className="border-bottom border-dark bg-white position-sticky top-0 d-xl-none d-xxl-block d-xxl-none mb-3 p-0"
+        className={`border-bottom border-dark bg-white position-sticky top-0 d-xl-none d-xxl-block d-xxl-none mb-3 p-0 ${styles.AllFont}`}
       >
         <div className={`d-flex text-nowrap overflow-scroll`}>
           <Link
             href="../../platform"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === '' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === '' ? styles.MobilePageSelect : ''} `}
           >
             論壇首頁
           </Link>
           <Link
             href="../../platform/class"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'class' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'class' ? styles.MobilePageSelect : ''} `}
           >
             主題分類
           </Link>
-
           <Link
             href="../../platform/article"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'article' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'article' ? styles.MobilePageSelect : ''} `}
           >
             最新文章
           </Link>
           <Link
             href="../../platform/favorites"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'favorites' ? styles.MobilePageSelect : ''}`}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'favorites' ? styles.MobilePageSelect : ''} `}
           >
             文章收藏
           </Link>

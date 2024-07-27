@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../../styles/platform/platform-style.module.css'
 import { BsXLg } from 'react-icons/bs'
 import Navbar from '@/components/layout/navbar'
@@ -9,8 +9,8 @@ import Swal from 'sweetalert2'
 export default function CreateArticle() {
   const router = useRouter()
   const [previewURL, setPreviewURL] = useState('')
-
   const [myForm, setMyForm] = useState({
+    fk_b2c_id: '', // 初始化為空字串
     article_name: '',
     article_content: '',
     fk_class_id: '',
@@ -18,22 +18,32 @@ export default function CreateArticle() {
   })
 
   const [myFormErrors, setMyFormErrors] = useState({
+    fk_b2c_id: '',
     article_name: '',
     article_content: '',
     fk_class_id: '',
   })
 
-  const [imageFile, setImageFile] = useState(null) // 新增的狀態
+  const [imageFile, setImageFile] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  useEffect(() => {
+    // 假設資料存在於 localStorage
+    const userData = JSON.parse(localStorage.getItem('petmember-auth'))
+    if (userData && userData.b2c_id) {
+      setMyForm((prevForm) => ({
+        ...prevForm,
+        fk_b2c_id: userData.b2c_id,
+      }))
+    }
+  }, [])
 
   const onChange = (e) => {
     const { name, value, files } = e.target
 
     if (name === 'article_img') {
-      // 判斷是否為圖片檔案的輸入並檢查文件
       if (files && files[0]) {
         setImageFile(files[0])
-        // 產生預覽網址
         setPreviewURL(URL.createObjectURL(files[0]))
       } else {
         setImageFile(null)
@@ -45,7 +55,6 @@ export default function CreateArticle() {
         [name]: value,
       })
 
-      // 如果用戶填寫了某個欄位，則清除相應的錯誤提示
       if (value.trim() !== '') {
         setMyFormErrors({
           ...myFormErrors,
@@ -81,8 +90,9 @@ export default function CreateArticle() {
     formData.append('article_name', myForm.article_name)
     formData.append('article_content', myForm.article_content)
     formData.append('fk_class_id', myForm.fk_class_id)
+    formData.append('fk_b2c_id', myForm.fk_b2c_id) // 加入 fk_b2c_id
     if (imageFile) {
-      formData.append('article_img', imageFile) // 將圖片檔案加入到FormData
+      formData.append('article_img', imageFile)
     }
 
     console.log('Submitting form data:', formData)
@@ -97,7 +107,7 @@ export default function CreateArticle() {
     const result = await r.json()
     console.log(result)
     if (result.success) {
-      setIsSubmitted(true) // 表單提交成功後，更新狀態
+      setIsSubmitted(true)
       Swal.fire({
         icon: 'success',
         title: '建立成功',
@@ -110,12 +120,15 @@ export default function CreateArticle() {
 
   return (
     <>
-      <section style={{ height: '100%' }} className={`${styles.BgImg}`}>
+      <section
+        style={{ height: '100%' }}
+        className={`${styles.BgImg} ${styles.AllFont}`}
+      >
         <title>{'貓狗論壇 | Petitude'}</title>
 
         <Navbar />
 
-        <div className="container-fluid col-xl-6 col-lg-12 mb-5">
+        <div className="container-fluid col-xl-6 col-lg-12 mb-5 pt-4">
           <div
             className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4 position-relative`}
           >
@@ -133,7 +146,7 @@ export default function CreateArticle() {
                   id="inputGroupSelect01"
                   onChange={onChange}
                   name="fk_class_id"
-                  value={myForm.fk_class_id} // 確保選擇器的值與狀態一致
+                  value={myForm.fk_class_id}
                 >
                   <option value="" disabled>
                     --選擇主題--
@@ -196,8 +209,8 @@ export default function CreateArticle() {
                   type="file"
                   className="form-control rounded-pill mt-2"
                   aria-label="Upload"
-                  name="article_img" // 新增的name屬性
-                  onChange={onChange} // 捕捉圖片輸入變化
+                  name="article_img"
+                  onChange={onChange}
                 />
                 {previewURL && (
                   <div className="d-flex justify-content-center mt-3">
@@ -217,7 +230,7 @@ export default function CreateArticle() {
             </div>
           </div>
         </div>
-        <div style={{ height: 5 }} className={`${styles.BgImg}`}></div>
+        <div className={`${styles.BgImg} pb-5`}></div>
       </section>
     </>
   )

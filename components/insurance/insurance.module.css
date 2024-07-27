@@ -7,6 +7,15 @@
   margin: 0;
 } */
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+
+
+.allFont {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+}
+
+
 /* 文字顏色 */
 .text-color {
   color: #515151;
@@ -52,6 +61,110 @@
     background-position: center; 
     background-repeat: no-repeat; 
 
+}
+
+/* 首頁 */
+.framePadding{
+  padding-left: 60px;
+  padding-right: 60px;
+  margin-bottom: 100px;
+}
+
+.titlePic {
+  width: 361px;
+  height: 174px;
+}
+.sloganSpace {
+  margin-top: 50px;
+  margin-bottom: -50px;
+}
+
+.cardUp {
+  padding-top: 30px ;
+  padding-bottom: 150px ;
+  /* width: 15rem; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cardDown {
+  padding-bottom: 30px ;
+  padding-top: 150px ;
+  /* width: 15rem; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 391px) {
+  .framePadding{
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 0;
+  }
+
+  .titlePic {
+    width: 230px;
+    height: 114px;
+  }
+  .sloganSpace {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .cardUp {
+    padding-bottom: 10px ;
+    padding-top: 0px ;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .cardDown {
+    padding-bottom: 10px ;
+    padding-top: 0px ;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* .fadeInImage {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.animate {
+  opacity: 1;
+  transform: translateY(0);
+} */
+
+@keyframes clipRevealAndHide {
+  0%, 100% {
+    clip-path: inset(100% 0 0 0); 
+  }
+  40%, 60% {
+    clip-path: inset(0 0 0 0); 
+  }
+  20% {
+    clip-path: inset(0 0 100% 0); 
+  }
+}
+
+.animateLoop {
+  animation: clipRevealAndHide 10s ease-in-out infinite;
+}
+
+
+
+@media (max-width: 430px) {
+  .fadeInImage {
+    display: none;
+  }
+  .animateLoop {
+    display: none;
+  }
 }
 
 /* 按鈕1 */
@@ -179,7 +292,7 @@
 
 /* section 2 的pet-sick */
 .barHight {
-  height: 7.5rem;
+  height: 170px;
 }
 
 .stats-container {
@@ -309,7 +422,7 @@
   /* 試算表 */
   .pi-options {
     text-align: center;
-    height: 150px;
+    /* height: 150px; */
     }
   
   /* 付費流程外框 */
@@ -338,15 +451,17 @@
     width: 100%;
     color: white;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 0;
+  
   }
   
   /* 同意聲明樣式 */
   .cfm-frame {
     color: #6A513D;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 900;
     background-color: 
     #DBDBDB;
@@ -358,7 +473,7 @@
   
   .cfm-frame:hover {
     color: white;
-    font-size: 1rem;
+    font-size: 1.4rem;
     font-weight: 900;
     background-color: 
     #94BF5C;

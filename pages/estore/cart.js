@@ -37,6 +37,13 @@ export default function CartPage() {
     }
   }
 
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
+  }
+
   // 商城功能
   // 生命禮儀功能
   // 購物車設定每個項目只能買一項, 買超過一項則無法列入計算價格跟刪除
@@ -59,7 +66,7 @@ export default function CartPage() {
   // 生命禮儀功能
 
   return (
-    <Layout>
+    <Layout backgroundImage="url(/pic/bg-img01.png)">
       <main className={`flex-shrink-0 pt-5 ${styles.full}`}>
         <div className="container d-flex justify-content-center">
           <h1 className={styles.title}>購物車</h1>
@@ -130,7 +137,9 @@ export default function CartPage() {
                         className="col-12 text-center"
                         style={{ color: '#6A513D' }}
                       >
-                        <p className="fs-2">購物車</p>
+                        <p className={`fs-2 ${styles.smallTitle}`}>
+                          商城購物車
+                        </p>
                       </div>
                     </div>
                     {/* <!-- 商品區 --> */}
@@ -198,7 +207,7 @@ export default function CartPage() {
                               >
                                 <div className={styles.productPrice}>
                                   <p className="fs-4 text-end m-0">
-                                    $ {r.product_price * r.qty}
+                                    $ {formatCurrency(r.product_price * r.qty)}
                                   </p>
                                 </div>
                               </div>
@@ -206,8 +215,8 @@ export default function CartPage() {
                           </div>
                           {/* <!-- Mobile layout --> */}
                           <div className="d-md-none">
-                            <div className="row align-items-center mb-3">
-                              <div className="col-3">
+                            <div className="row align-items-center mb-2">
+                              <div className="col-3 p-0">
                                 <img
                                   src={`http://localhost:3001/estore/A${r.pk_product_id}.png`}
                                   alt="..."
@@ -222,9 +231,9 @@ export default function CartPage() {
                                     </div>
                                   </div>
                                   <div
-                                    className={`col-12 ${styles.quantityPriceContainer} mt-2`}
+                                    className={`col-12 ${styles.quantityPriceContainer} mt-2 align-items-center`}
                                   >
-                                    <div className="input-group justify-content-start w-auto">
+                                    <div className="input-group justify-content-start align-items-center w-auto">
                                       <div className="input-group-prepend">
                                         <button
                                           className={`btn ${styles.quantitySelector1}`}
@@ -239,7 +248,7 @@ export default function CartPage() {
                                         type="text"
                                         className={`form-control text-center ${styles.quantity}`}
                                         value={r.qty}
-                                        style={{ maxWidth: 40 + 'px' }}
+                                        style={{ maxWidth: 29 + 'px' }}
                                       />
                                       <div className="input-group-append">
                                         <button
@@ -253,7 +262,7 @@ export default function CartPage() {
                                       </div>
                                     </div>
                                     <div className={styles.productPrice}>
-                                      $ {r.product_price * r.qty}
+                                      ${formatCurrency(r.product_price * r.qty)}
                                     </div>
                                   </div>
                                 </div>
@@ -271,7 +280,7 @@ export default function CartPage() {
                         <p className="fs-4">總價</p>
                       </div>
                       <div className={`col-12 ${styles.total}`}>
-                        <p className="fs-4">$ {totalPrice}</p>
+                        <p className="fs-4">$ {formatCurrency(totalPrice)}</p>
                       </div>
                       <div className={`col-12 ${styles.total2}`}>
                         <button
@@ -318,7 +327,9 @@ export default function CartPage() {
                       className="col-12 text-center"
                       style={{ color: '#6A513D' }}
                     >
-                      <p className="fs-2">生前契約購物車</p>
+                      <p className={`fs-2 ${styles.smallTitle}`}>
+                        生前契約購物車
+                      </p>
                     </div>
                   </div>
                   {/* 方案區 */}
@@ -350,7 +361,7 @@ export default function CartPage() {
                           >
                             <div className={styles.productPrice}>
                               <p className="fs-4 text-end m-0">
-                                $ {project.project_price}
+                                $ {formatCurrency(project.project_price)}
                               </p>
                             </div>
                           </div>
@@ -413,9 +424,11 @@ export default function CartPage() {
                       <p className="fs-4">總價</p>
                     </div>
                     <div className={`col-12 ${styles.total}`}>
-                      <p className="fs-4">${totalProjectPrice}</p>
+                      <p className="fs-4">
+                        $ {formatCurrency(totalProjectPrice)}
+                      </p>
                     </div>
-                    <div className={`col-12 ${styles.total}`}>
+                    <div className={`col-12 ${styles.total2}`}>
                       <button
                         type="button"
                         className={`btn ${styles.checkBtn}`}
