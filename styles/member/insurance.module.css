@@ -1,0 +1,434 @@
+/* 自設的pi-main.css start*/
+/* Custom styles */
+
+/* 文字粗細 */
+/* h1, h2, h3, h4, h5, p {
+  font-weight: 900;
+  margin: 0;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
+
+
+.allFont {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+}
+
+
+/* 文字顏色 */
+.text-color {
+  color: #515151;
+}
+
+/* 配色 */
+.own-blue{
+  color: #4CB1C8;
+}
+
+.own-green {
+  color: #94BF5C;
+}
+
+.own-li-green {
+  color: #CFE7B1;
+}
+
+.own-orange {
+  color: #CA5C3D;
+}
+
+.own-li-orange {
+  color: #F69A30;
+}
+
+.own-yellow {
+  color: #FFF5CF;
+}
+
+.own-main-yellow {
+  color: #F6D554;
+}
+
+.own-li-grey {
+  color: #C8C8C8;
+}
+
+/* 背景圖片 */
+.bg-image {
+    background-image: url('/pi-pic/bg-img01.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+
+}
+
+/* 首頁 */
+.cardUp {
+  padding-top: 30px ;
+  padding-bottom: 150px ;
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cardDown {
+  padding-bottom: 30px ;
+  padding-top: 150px ;
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fadeInImage {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 3s ease-out;
+}
+
+.animate {
+  clip-path: inset(0 0 0 0);
+}
+
+/* 按鈕1 */
+.own-btn1{
+  border-radius: 2.1875rem;
+  background-color: #A2E5F8;
+  color: #515151;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-align: center;
+  white-space: nowrap;
+  width: 9.375rem;
+  height: 3.125rem;
+  border: 0;
+}
+
+.own-btn2{
+  border-radius: 2.1875rem;
+  background-color: #F6D554;
+  color: #515151;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-align: center;
+  white-space: nowrap;
+  width: 18.75rem;
+  height: 3.125rem;  
+}
+
+.own-btn3 {
+  border-radius: 1.25rem;
+  background-color: white;
+  border: 1px solid #F69A30;
+  color: #515151;
+  font-size: 1rem;
+  font-weight: 900;
+  white-space: nowrap;
+  width: 7rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  margin: 5px; 
+  cursor: pointer;
+}
+.own-btn3:hover {
+  background-color: #f0f0f0; /* 懸停效果 */
+}
+
+@media (max-width: 430px) {
+  .own-btn3 {
+    border-radius: 1.25rem;
+    background-color: white;
+    border: 1px solid #F69A30;
+    color: #515151;
+    font-size: 1rem;
+    font-weight: 900;
+    white-space: nowrap;
+    width: 5rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    margin: 5px; 
+    cursor: pointer;
+  }
+  
+}
+
+.btn-check {
+  display: none;
+}
+
+.btn-check:checked + .own-btn3 {
+  background-color: #F69A30;
+  color: white;
+  border-color: #F69A30;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.own-btn4 {
+  border-radius: 1.25rem;
+  background-color: #F69A30;
+  border: 1px solid #F69A30;
+  color: white;
+  font-size: 1rem;
+  font-weight: 900;
+  white-space: nowrap;
+  width: 9.375rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  margin: 5px; 
+  cursor: pointer;
+  
+}
+
+.own-btn4:hover {
+  border-radius: 1.25rem;
+  background-color: #F69A30;
+  border: 1px solid #F69A30;
+  color: white;
+  font-size: 1rem;
+  font-weight: 900;
+  white-space: nowrap;
+  width: 9.375rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0;
+  margin: 5px; 
+  cursor: pointer;
+  box-shadow: 0 .125rem 1rem  #F69A30;
+}
+
+/* section 2 的pet-sick */
+.barHight {
+  height: 7.5rem;
+}
+
+.stats-container {
+  background-color: #CFE7B1;
+  border-radius: 1.25rem;
+}
+.sick-expense{
+  padding: 1.25rem 0;
+  width: 50%;
+}
+.circleColorChange{
+  padding: .5rem;
+  background-color: #FFF5CF;
+  cursor:pointer
+}
+@media (max-width: 430px) {
+  .barHight {
+    height: 1rem;
+  }
+  .sick-expense{
+    padding: 0.5rem 0;
+    width: 80%;
+  }
+  
+  .circleColorChange{
+    padding: 4px;
+    background-color: #FFF5CF;
+    cursor:pointer
+  }
+}
+.circleColorChange:hover{
+  background-color: #F6D554;
+}
+
+.clicked{
+  background-color: #F6D554;
+}
+
+.forDeskTop {
+  display: flex;
+}
+
+@media (max-width: 992px) {
+  .forDeskTop {
+    display: none;
+  }
+}
+
+.forPhone {
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .forPhone {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+
+/* radio btn樣式 */
+.form-check-input {
+  width: 1.5625rem;
+  height: 1.5625rem;
+}
+
+/* 資料填選框 */
+.sheet-input {
+  border: .0625rem solid #B7B7B7;
+  border-radius: 1.25rem;
+  width: 100%;
+  height: 2.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6F6F6F;
+  padding-left: .625rem;
+  padding-right: .625rem;
+}
+
+
+/* 自設的pi-main.css end */
+
+
+
+/* 麵包屑橫槓 */
+.bread-bar {
+    border: 3px solid rgb(153, 153, 153); 
+    width: 100%; 
+    height: 0;
+    border-radius: 20px;
+  }
+  
+  .bread-bar-active {
+    border: 3px solid #6A513D; 
+    width: 100%; 
+    height: 0;
+    border-radius: 20px;
+  
+  }
+  
+  /* 試算內容 */
+  .downScroll {
+    max-height: 700px;
+    overflow-y: auto
+  }
+
+  .formLayout{
+    align-items: start;
+    margin-top: 1rem;
+  }
+
+  .formSpace{
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 992px) {
+    .formLayout{
+      flex-direction:column;
+      align-items: center;
+      margin-top: 0;
+    }
+    .formSpace{
+      margin-bottom: 0;
+    }
+  }
+
+  /* 試算表 */
+  .pi-options {
+    text-align: center;
+    /* height: 150px; */
+    }
+  
+  /* 付費流程外框 */
+  .data-frame {
+    padding: 20px;
+    border: 3px solid #C8C8C8;
+    border-top: none;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+  
+
+  .data-frame-up {
+    padding: 20px;
+    border: 3px solid #C8C8C8;
+    border-top: none;  
+  }
+  
+  
+  /* 付費流程欄位頭樣式 */
+  .top-frame {
+    background-color: #94BF5C;
+    border-top-left-radius: 1.875rem ;
+    border-top-right-radius: 1.875rem ;
+    height: 5rem;
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+  
+  }
+  
+  /* 同意聲明樣式 */
+  .cfm-frame {
+    color: #6A513D;
+    font-size: 1.4rem;
+    font-weight: 900;
+    background-color: 
+    #DBDBDB;
+    display: flex;
+    align-items: center;
+    border-radius: 35px;
+    padding: 5px 20px;
+  }
+  
+  .cfm-frame:hover {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 900;
+    background-color: 
+    #94BF5C;
+    display: flex;
+    align-items: center;
+    border-radius: 35px;
+    padding: 5px 20px;
+  }
+
+  .read{
+    background-color: #94BF5C;
+  }
+  
+  .InfoDetail {
+    width: 100%; 
+    overflow-y: auto; 
+    resize: none; 
+    box-sizing: border-box; 
+    padding: 10px;
+  } 
+
+  /* .InfoDetail :focus {
+    width: 100%; 
+    overflow-y: auto; 
+    resize: none; 
+    box-sizing: border-box; 
+    padding: 10px;
+    outline: none;
+  }
+  取消外框沒搞定 */
+  
+  /* 保險內容項目 */
+  .item-dot {
+    list-style-type: disc; 
+  }
