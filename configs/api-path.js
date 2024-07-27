@@ -17,6 +17,10 @@ export const RESET_PASSWORD_POST = `${API_SERVER}/b2c_member/reset-password`
 
 export const InsuranceRecords_GET = `${API_SERVER}/b2c_member/insurancerecords`
 
+export const ProductRecords_GET = `${API_SERVER}/b2c_member/productrecords`
+
+export const ProductRecords_Detail_GET = `${API_SERVER}/b2c_member/productrecords_detail`
+
 export const getUploadAvatarUrl = (b2c_id) =>
   `${API_SERVER}/b2c_member/${b2c_id}/avatar`
 

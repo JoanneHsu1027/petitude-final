@@ -1,96 +1,62 @@
-//生命禮儀紀錄
-
 import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import { useRouter } from 'next/router'
 import { useAuth } from '@/contexts/member/auth-context'
-// import { BOOKING_GET_ITEM } from '@/configs/funeral/api-path'
+import {
+  ProductRecords_GET,
+  ProductRecords_Detail_GET,
+} from '@/configs/api-path'
 
 export default function ProductRecords() {
-  const router = useRouter()
   const { auth } = useAuth()
-  const [data, setData] = useState([])
-  const [latestReservation, setLatestReservation] = useState(null)
-  const [latestBooking, setLatestBooking] = useState(null)
-
-  const stateMapping = {
-    0: '未付款',
-    1: '已付款',
-  }
-  const projectName = {
-    1: '溫馨寵物 -個別羽化',
-    2: '尊榮寵物 - 個別羽化',
-    3: '朋友寵物 -集體羽化',
-  }
+  const [orders, setOrders] = useState([])
+  const [selectedOrderDetails, setSelectedOrderDetails] = useState([]) // 儲存選擇的訂單細節
+  const [modalVisible, setModalVisible] = useState(false) // 控制 modal 顯示狀態
 
   useEffect(() => {
-    // 購買紀錄
-    const fetchReservation = async () => {
+    const fetchOrderData = async () => {
+      if (!auth.b2c_id) return
+
       try {
-        const response = await fetch(`http://localhost:3001/reservation`)
-        console.log('Response status:', response.status)
-        if (!response.ok) throw new Error('Network response was not ok')
-        const data = await response.json()
-        console.log('Received reservation data:', data)
-        if (data && data.rows && Array.isArray(data.rows)) {
-          const sortedReservation = data.rows.sort(
-            (a, b) => b.reservation_id - a.reservation_id,
-          )
-          setLatestReservation(sortedReservation[0])
-          console.log(
-            'Sorted and set latest reservation:',
-            sortedReservation[0],
-          )
+        const response = await fetch(`${ProductRecords_GET}/${auth.b2c_id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${auth.token}`,
+          },
+        })
+        const result = await response.json()
+        console.log('API Response:', result) // 檢查 API 響應的數據
+
+        if (result.success) {
+          setOrders(result.data)
         } else {
-          console.error('Invalid data structure for reservation:', data)
+          console.error(result.error)
         }
-      } catch (error) {
-        console.error('Error fetching reservation:', error)
-      }
-    }
-    // 契約購買紀錄
-    const fetchBookingData = async () => {
-      try {
-        const response = await fetch(`http://localhost:3001/booking`)
-        if (!response.ok) throw new Error('Network response was not ok')
-        const data = await response.json()
-        if (data.success && data.rows && data.rows.length > 0) {
-          const sortedBookings = data.rows.sort(
-            (a, b) => b.booking_id - a.booking_id,
-          )
-          const latestBookingData = sortedBookings[0]
-          latestBookingData.booking_state =
-            stateMapping[latestBookingData.booking_state]
-          latestBookingData.fk_project_id =
-            projectName[latestBookingData.fk_project_id]
-          setLatestBooking(latestBookingData)
-        } else {
-          console.error('No booking data found')
-        }
-      } catch (error) {
-        console.error('Error fetching booking:', error)
+      } catch (ex) {
+        console.error(ex)
       }
     }
 
-    fetchReservation()
-    fetchBookingData()
+    fetchOrderData()
+  }, [auth.b2c_id, auth.token])
 
-    const intervalId = setInterval(() => {
-      fetchReservation()
-      fetchBookingData()
-    }, 60000)
-
-    return () => clearInterval(intervalId)
-  }, [])
+  const handleViewDetails = async (requestId) => {
+    try {
+      const response = await fetch(`${ProductRecords_Detail_GET}/${requestId}`)
+      const result = await response.json()
+      if (result.success) {
+        setSelectedOrderDetails(result.data) // 將獲取到的訂單細節設置到狀態中
+        setModalVisible(true) // 顯示 modal
+      }
+    } catch (error) {
+      console.error('無法獲取訂單細節:', error)
+    }
+  }
 
   return (
     <div className="container my-5">
       <div className="row">
-        <h2>預約/ 訂單紀錄</h2>
-        {/* 預約 */}
         <div className="col-12 justify-content-center align-items-center mb-3 mt-3">
-          {/* <!-- 線上預約紀錄 --> */}
           <div
             className="card my-3"
             style={{
@@ -105,7 +71,7 @@ export default function ProductRecords() {
             <div
               className="card-header text-center"
               style={{
-                backgroundColor: '#F6D554',
+                backgroundColor: '#4CB1C8',
                 color: '#ffffff',
                 borderTopRightRadius: '30px',
                 borderTopLeftRadius: '30px',
@@ -114,46 +80,98 @@ export default function ProductRecords() {
               購買紀錄
             </div>
             <div className="card-body">
-              <div className="row no-border-table">
-                <div className="col-12 col-md-6">
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th>訂單編號: </th>
-                        <td>{latestReservation?.reservation_id}</td>
-                      </tr>
-                      <tr>
-                        <th>訂單狀態: </th>
-                        <td>
-                          {new Date(
-                            latestReservation?.reservation_date,
-                          ).toLocaleDateString()}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+              {orders.map((order) => (
+                <div
+                  className="my-3"
+                  key={order.request_id}
+                  style={{
+                    border: '1px solid #ccc',
+                    borderRadius: '10px',
+                    padding: '10px',
+                    marginBottom: '10px',
+                  }}
+                >
+                  <div className="row no-border-table">
+                    <div className="col-12 col-md-6">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <th>訂單編號: </th>
+                            <td>{order.request_id}</td>
+                          </tr>
+                          <tr>
+                            <th>訂單狀態: </th>
+                            <td>{order.request_status}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="col-12 col-md-6">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <th>訂單細項: </th>
+                            <td>
+                              <button
+                                onClick={() =>
+                                  handleViewDetails(order.request_id)
+                                }
+                              >
+                                點擊查看
+                              </button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>訂單金額: </th>
+                            <td>{order.request_price} 元</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
-                <div className="col-12 col-md-6">
-                  <table>
-                    <tbody>
-                      <tr>
-                        <th>訂單細項: </th>
-                        <td>
-                          <button>點擊查看</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th>訂單金額: </th>
-                        <td>{latestReservation?.note}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
+
+      {/* Modal 用於顯示訂單細節 */}
+      {modalVisible && (
+        <div className="modal show" style={{ display: 'block' }}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">訂單細節</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setModalVisible(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <ul>
+                  {selectedOrderDetails.map((detail) => (
+                    <li key={detail.request_detail_id}>
+                      {detail.purchase_quantity} x {detail.product_name} - NT{' '}
+                      {detail.purchase_price}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setModalVisible(false)}
+                >
+                  關閉
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         .card-header,

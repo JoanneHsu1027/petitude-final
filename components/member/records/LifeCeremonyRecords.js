@@ -87,7 +87,6 @@ export default function LifeCeremonyRecords() {
   return (
     <div className="container my-5">
       <div className="row">
-        <h2>預約/ 訂單紀錄</h2>
         {/* 預約 */}
         <div className="col-12 justify-content-center align-items-center mb-3 mt-3">
           {/* <!-- 線上預約紀錄 --> */}
