@@ -8,6 +8,7 @@ import {
   FAVORITE_CHECK,
   FAVORITE_REMOVE,
 } from '@/configs/platform/api-path'
+import { useAuth } from '@/contexts/member/auth-context'
 
 export default function ArticleBlock({ keyword }) {
   const [data, setData] = useState([])
@@ -15,6 +16,7 @@ export default function ArticleBlock({ keyword }) {
   const [hasMore, setHasMore] = useState(true)
   const [favorites, setFavorites] = useState([])
   const observer = useRef()
+  const { auth } = useAuth()
 
   const lastArticleElementRef = useCallback(
     (node) => {
@@ -57,7 +59,9 @@ export default function ArticleBlock({ keyword }) {
 
   const checkFavoriteStatus = async (articleId) => {
     try {
-      const response = await fetch(`${FAVORITE_CHECK}/${1}/${articleId}`) // 這裡的1替換為當前用戶的id
+      const response = await fetch(
+        `${FAVORITE_CHECK}/${auth.b2c_id}/${articleId}`,
+      )
       const data = await response.json()
       if (response.ok && data.isFavorite) {
         setFavorites((prev) => [...prev, articleId])
@@ -72,12 +76,12 @@ export default function ArticleBlock({ keyword }) {
     const isFavorite = favorites.includes(articleId)
     const method = isFavorite ? 'DELETE' : 'POST'
     const url = isFavorite
-      ? `${FAVORITE_REMOVE}/${1}/${articleId}` // 這裡的1替換為當前用戶的id
+      ? `${FAVORITE_REMOVE}/${auth.b2c_id}/${articleId}`
       : FAVORITE_ADD_POST
     const body = isFavorite
       ? null
       : JSON.stringify({
-          fk_b2c_id: 1, // 替換為當前用戶的id
+          fk_b2c_id: auth.b2c_id,
           fk_article_id: articleId,
         })
 
