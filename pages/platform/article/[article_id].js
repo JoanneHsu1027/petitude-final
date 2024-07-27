@@ -353,35 +353,40 @@ export default function ArticleId() {
                       {/* 文章內容 */}
                       <div>
                         <section>
-                          <div className="border-bottom border-secondary mt-3 mx-2">
-                            <h2 className="ms-2">{articleData.article_name}</h2>
-                            <div className="d-flex me-3 ms-2">
-                              <div className="m-2 d-flex flex-grow-1 word-wrap">
-                                <a className={`${styles.AReset}`} href="">
-                                  <p className="border px-1 border-dark rounded-3 me-2 word-wrap">
-                                    {articleData.class_name}
-                                  </p>
-                                </a>
-                                <p className="me-1 word-wrap">
-                                  {articleData.article_date}
-                                </p>
+                          <div className="container">
+                            <div className="row d-flex justify-content-center">
+                              <div className="col-lg-11 border-bottom border-secondary mt-3 mx-2">
+                                <h2 className="ms-2">
+                                  {articleData.article_name}
+                                </h2>
+                                <div className="d-flex me-3 ms-2">
+                                  <div className="m-2 d-flex flex-grow-1 word-wrap">
+                                    <a className={`${styles.AReset}`} href="">
+                                      <p className="border px-1 border-dark rounded-3 me-2 word-wrap">
+                                        {articleData.class_name}
+                                      </p>
+                                    </a>
+                                    <p className="me-1 word-wrap">
+                                      {articleData.article_date}
+                                    </p>
+                                  </div>
+                                  {auth.b2c_id === articleData.fk_b2c_id && (
+                                    <button
+                                      className={`${styles.BtnReset} ${styles.LightGray}`}
+                                      onClick={handleEditClick}
+                                    >
+                                      <BsFillPencilFill
+                                        className={`mb-1`}
+                                      ></BsFillPencilFill>
+                                      編輯
+                                    </button>
+                                  )}
+                                </div>
                               </div>
-                              {auth.b2c_id === articleData.fk_b2c_id && (
-                                <button
-                                  className={`${styles.BtnReset} ${styles.LightGray}`}
-                                  onClick={handleEditClick}
-                                >
-                                  <BsFillPencilFill
-                                    className={`mb-1`}
-                                  ></BsFillPencilFill>
-                                  編輯
-                                </button>
-                              )}
                             </div>
                           </div>
-
                           {/* 主內容 */}
-                          <div className="mx-4 my-4">
+                          <div className="mx-4 mt-4">
                             <div className="d-flex justify-content-center">
                               <div
                                 className="d-flex justify-content-center align-items-center"
@@ -392,7 +397,7 @@ export default function ArticleId() {
                                 </p>
                               </div>
                             </div>
-                            <div className="d-flex justify-content-center mt-3 ">
+                            <div className="d-flex justify-content-center mt-3 mb-4">
                               {imageLoaded ? (
                                 <img
                                   className={`w-75`}
@@ -404,24 +409,28 @@ export default function ArticleId() {
                           </div>
 
                           {/* 功能連結 */}
-                          <div className="border-bottom border-secondary d-flex justify-content-around pb-4 mb-3 mt-5">
-                            <button
-                              className={`${styles.BtnReset} ${styles.LightGray} ${styles.FavHover} ${isFavorite ? styles.FavSet : ''}`}
-                              onClick={handleFavoriteClick}
-                            >
-                              <BsBookmarkFill
-                                className={`mb-1`}
-                              ></BsBookmarkFill>
-                              收藏
-                            </button>
-                            <button
-                              className={`${styles.BtnReset} ${styles.LightGray} ${styles.ShareHover}`}
-                            >
-                              <BsFillShareFill
-                                className={`mb-1`}
-                              ></BsFillShareFill>
-                              分享
-                            </button>
+                          <div className="container">
+                            <div className="row d-flex justify-content-center">
+                              <div className=" col-lg-11 border-bottom border-secondary d-flex justify-content-around pb-4 mb-3">
+                                <button
+                                  className={`${styles.BtnReset} ${styles.LightGray} ${styles.FavHover} ${isFavorite ? styles.FavSet : ''} me-4`}
+                                  onClick={handleFavoriteClick}
+                                >
+                                  <BsBookmarkFill
+                                    className={`mb-1`}
+                                  ></BsBookmarkFill>
+                                  收藏
+                                </button>
+                                <button
+                                  className={`${styles.BtnReset} ${styles.LightGray} ${styles.ShareHover} ms-4`}
+                                >
+                                  <BsFillShareFill
+                                    className={`mb-1`}
+                                  ></BsFillShareFill>
+                                  分享
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </section>
 
