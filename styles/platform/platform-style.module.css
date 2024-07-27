@@ -45,6 +45,10 @@
     color: #4CB1C8;
 }
 
+.FavSet {
+    color: #4CB1C8 !important;
+}
+
 .ShareHover:hover {
     color:black;
 }

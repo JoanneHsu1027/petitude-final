@@ -15,6 +15,7 @@ import {
   MESSAGE_ADD_POST,
   RE_MESSAGE_ADD_POST,
   FAVORITE_ADD_POST,
+  FAVORITE_CHECK,
 } from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
 import LoginModal from '@/components/member/LoginModal'
@@ -33,6 +34,7 @@ export default function ArticleId() {
   const [searchKeyword, setSearchKeyword] = useState(router.query.keyword || '')
   const [replyInput, setReplyInput] = useState('') // 新增的回覆輸入框的狀態
   const [reMessInput, setReMessInput] = useState('') // 新增的回覆輸入框的狀態
+  const [isFavorite, setIsFavorite] = useState(false) // 收藏狀態
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword)
@@ -53,7 +55,11 @@ export default function ArticleId() {
       .catch((error) => {
         console.error('Error fetching article:', error)
       })
-  }, [router.query.article_id, router.isReady]) // 依賴 router.query.article_id
+
+    if (auth.b2c_id) {
+      checkFavoriteStatus()
+    }
+  }, [router.query.article_id, router.isReady, auth.b2c_id]) // 依賴 router.query.article_id 和 auth.b2c_id
 
   useEffect(() => {
     if (articleData.article_img) {
@@ -87,6 +93,22 @@ export default function ArticleId() {
     }
   }
 
+  const checkFavoriteStatus = async () => {
+    try {
+      const response = await fetch(
+        `${FAVORITE_CHECK}/${auth.b2c_id}/${router.query.article_id}`,
+      )
+      const data = await response.json()
+      if (response.ok && data.isFavorite) {
+        setIsFavorite(true)
+      } else {
+        setIsFavorite(false)
+      }
+    } catch (error) {
+      console.error('Error checking favorite status:', error)
+    }
+  }
+
   const handleFavoriteClick = async () => {
     if (!auth.b2c_id) {
       swal.fire({ text: '請先登入會員！', icon: 'error' }).then(() => {
@@ -104,7 +126,11 @@ export default function ArticleId() {
         })
         const data = await response.json()
         if (response.ok && data.success) {
-          swal.fire({ text: '收藏成功！', icon: 'success' })
+          setIsFavorite(!isFavorite) // Toggle favorite status
+          swal.fire({
+            text: isFavorite ? '取消收藏成功！' : '收藏成功！',
+            icon: 'success',
+          })
         } else {
           swal.fire({ text: '收藏失敗！', icon: 'error' })
         }
@@ -367,7 +393,7 @@ export default function ArticleId() {
                           {/* 功能連結 */}
                           <div className="border-bottom border-secondary d-flex justify-content-around pb-4 mb-3 mt-5">
                             <button
-                              className={`${styles.BtnReset} ${styles.LightGray} ${styles.FavHover}`}
+                              className={`${styles.BtnReset} ${styles.LightGray} ${styles.FavHover} ${isFavorite ? styles.FavSet : ''}`}
                               onClick={handleFavoriteClick}
                             >
                               <BsBookmarkFill

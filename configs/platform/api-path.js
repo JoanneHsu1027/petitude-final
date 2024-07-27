@@ -26,3 +26,6 @@ export const RE_MESSAGE_ADD_POST = `${API_SERVER}/message/re_message/add`
 
 //add favorite
 export const FAVORITE_ADD_POST = `${API_SERVER}/favorite/add`
+
+// check favorite
+export const FAVORITE_CHECK = `${API_SERVER}/favorite/check`
