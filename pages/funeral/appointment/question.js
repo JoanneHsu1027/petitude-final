@@ -11,7 +11,9 @@ export default function Question() {
       <div className="container-fluid mb-5 allFont">
         <div className="row justify-content-center align-items-center">
           <div className="col-md-8">
-            <h2 className="text-center my-5">常見問題</h2>
+            <h2 className="text-center my-5" style={{ fontWeight: '900' }}>
+              常見問題
+            </h2>
             <div className="accordion" id="accordionExample">
               <div className="accordion-item">
                 <h2 className="accordion-header" id="headingOne">

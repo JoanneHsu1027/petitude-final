@@ -68,7 +68,9 @@ export default function Environment() {
               <img className="yellow" src="/funeral/Vector 431.png" alt="" />
             </div>
             <div className="titleText">
-              <h2 className="title">園區環境介紹</h2>
+              <h2 className="title" style={{ fontWeight: '900' }}>
+                園區環境介紹
+              </h2>
             </div>
           </div>
 

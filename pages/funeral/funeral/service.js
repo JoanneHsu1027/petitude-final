@@ -7,7 +7,9 @@ export default function Service() {
     <>
       <div className="container-fluid allFont">
         <div className="row d-flex justify-content-center">
-          <h2 className="title text-center">寵物火化服務項目一覽</h2>
+          <h2 className="title text-center" style={{ fontWeight: '900' }}>
+            寵物火化服務項目一覽
+          </h2>
           <div
             className="col-md-6 col-12 d-flex justify-content-center mt-3"
             style={{ maxWidth: '600px' }}
@@ -17,7 +19,9 @@ export default function Service() {
             >
               <div className={`card-header ${Styles.headerCard1}`}>
                 <h5>個別</h5>
-                <h6>擇日告別式(依家長宗教及需求討論)</h6>
+                <h6 style={{ fontWeight: '900' }}>
+                  擇日告別式(依家長宗教及需求討論)
+                </h6>
               </div>
               <div className={`card-body bg-light ${Styles.cardBody}`}>
                 <ul className="list-group">
@@ -52,7 +56,9 @@ export default function Service() {
             >
               <div className={`card-header ${Styles.headerCard2}`}>
                 <h5>團體</h5>
-                <h6>園區流程火化 ,無法觀禮拍照</h6>
+                <h6 style={{ fontWeight: '900' }}>
+                  園區流程火化 ,無法觀禮拍照
+                </h6>
               </div>
               <div className="card-body bg-light">
                 <ul className="list-group">
@@ -89,6 +95,9 @@ export default function Service() {
         }
         h5 {
           font-size: 24px;
+          font-weight: 700;
+        }
+        .h6 {
           font-weight: 700;
         }
         .list-group {

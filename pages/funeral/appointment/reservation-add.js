@@ -107,7 +107,7 @@ export default function RvEdit() {
       <div
         title="新增線上預約"
         pageName="reservation-add"
-        className="container-fluid d-flex justify-content-center align-items-center position-relative my-5"
+        className="container-fluid d-flex justify-content-center align-items-center position-relative my-5 allFont"
       >
         <div className="row d-flex flex-column align-items-center">
           <div className="col-12 col-md-6 header justify-content-center">
@@ -133,6 +133,7 @@ export default function RvEdit() {
                   zIndex: 2,
                   position: 'relative',
                   top: '25px',
+                  fontWeight: '900',
                 }}
               >
                 線上預約
@@ -185,7 +186,11 @@ export default function RvEdit() {
           >
             <p
               className="text"
-              style={{ textAlign: 'center', marginTop: '40px' }}
+              style={{
+                textAlign: 'center',
+                marginTop: '40px',
+                fontWeight: '900',
+              }}
             >
               我們提供多元服務管道，
               您可以撥打24小時免費客服專線0800-899-999由專人即時解答，
@@ -341,7 +346,7 @@ export default function RvEdit() {
         src="/funeral/dog2.png"
         alt=""
         style={{
-          bottom: '-90px',
+          bottom: '0px',
           width: '100px',
           right: '0px',
           overflow: 'hidden',
@@ -359,60 +364,14 @@ export default function RvEdit() {
           zIndex: '0',
         }}
       />
-      <img
-        className="bookingbone position-absolute text-start"
-        src="/funeral/bone.png"
-        alt=""
-        style={{
-          top: '500px',
-          left: '150px',
-          width: '120px',
-          overflow: 'hidden',
-          zIndex: '0',
-          opacity: '0.4',
-        }}
-      />
-      <img
-        className="bookingbone position-absolute text-start"
-        src="/funeral/bone.png"
-        alt=""
-        style={{
-          top: '280px',
-          left: '400px',
-          width: '50px',
-          overflow: 'hidden',
-          zIndex: '0',
-          transform: 'scaleX(-1)', // 將圖片左右翻轉
-          opacity: '0.4',
-        }}
-      />
-      <img
-        className="bookingbone position-absolute text-start"
-        src="/funeral/bone.png"
-        alt=""
-        style={{
-          bottom: '120px',
-          width: '70px',
-          right: '240px',
-          overflow: 'hidden',
-          zIndex: '0',
-          opacity: '0.4',
-        }}
-      />
-      <img
-        className="bookingbone position-absolute text-start"
-        src="/funeral/bone.png"
-        alt=""
-        style={{
-          top: '150px',
-          right: '600px',
-          width: '60px',
-          overflow: 'hidden',
-          zIndex: '0',
-          transform: 'scaleX(-1)',
-          opacity: '0.4',
-        }}
-      />
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
+      `}</style>
     </>
   )
 }

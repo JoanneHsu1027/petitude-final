@@ -16,13 +16,19 @@ export default function Project() {
                 height={40}
                 style={{ marginRight: '15px' }}
               />
-              <h2 style={{ fontSize: '34px', marginBottom: '2rem' }}>
+              <h2
+                style={{
+                  fontSize: '34px',
+                  marginBottom: '2rem',
+                  fontWeight: '900',
+                }}
+              >
                 禮儀方案
               </h2>
             </div>
-            <h6>
+            <h5 style={{ fontWeight: '900' }}>
               寵返星球是一群熱愛毛孩的年輕團隊，我們深深感受到陪伴與服務的重要性。
-            </h6>
+            </h5>
           </div>
           <Card />
         </div>
