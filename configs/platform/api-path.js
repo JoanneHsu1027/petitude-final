@@ -23,3 +23,6 @@ export const MESSAGE_ADD_POST = `${API_SERVER}/message/add`
 
 //add re_message
 export const RE_MESSAGE_ADD_POST = `${API_SERVER}/message/re_message/add`
+
+//add favorite
+export const FAVORITE_ADD_POST = `${API_SERVER}/favorite/add`

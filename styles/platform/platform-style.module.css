@@ -1,16 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
 
-
 .AllFont {
   font-family: 'Noto Serif TC', serif;
   font-weight: 500;
 }
+
 .BgImg {
     background-image: url('/forum-pic/bg-img.png'); 
 }
+
 .AReset {
     text-decoration: none;
     color: #000;
+}
+
+.BtnReset{
+    border:0;
+    background-color:white;
+    outline:none;
 }
 
 .AReset:hover {
@@ -35,15 +42,14 @@
     line-height: 20px;
 }
 
-.BtnReset{
-    border:0;
-    background-color:white;
-    outline:none;
-}
-
 .FavHover:hover {
     color: #4CB1C8;
 }
+
+.ShareHover:hover {
+    color:black;
+}
+
 
 .DelHover:hover {
     color: red;

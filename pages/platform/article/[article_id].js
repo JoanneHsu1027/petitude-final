@@ -14,6 +14,7 @@ import {
   ARTICLE_PAGE,
   MESSAGE_ADD_POST,
   RE_MESSAGE_ADD_POST,
+  FAVORITE_ADD_POST,
 } from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
 import LoginModal from '@/components/member/LoginModal'
@@ -83,6 +84,34 @@ export default function ArticleId() {
       })
     } else {
       router.push(`../edit-article/${router.query.article_id}`)
+    }
+  }
+
+  const handleFavoriteClick = async () => {
+    if (!auth.b2c_id) {
+      swal.fire({ text: '請先登入會員！', icon: 'error' }).then(() => {
+        setShowModal(true)
+      })
+    } else {
+      try {
+        const response = await fetch(FAVORITE_ADD_POST, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fk_b2c_id: auth.b2c_id,
+            fk_article_id: articleData.article_id,
+          }),
+        })
+        const data = await response.json()
+        if (response.ok && data.success) {
+          swal.fire({ text: '收藏成功！', icon: 'success' })
+        } else {
+          swal.fire({ text: '收藏失敗！', icon: 'error' })
+        }
+      } catch (error) {
+        console.error('收藏失敗:', error)
+        swal.fire({ text: '收藏失敗！', icon: 'error' })
+      }
     }
   }
 
@@ -337,22 +366,23 @@ export default function ArticleId() {
 
                           {/* 功能連結 */}
                           <div className="border-bottom border-secondary d-flex justify-content-around pb-4 mb-3 mt-5">
-                            <a
-                              className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover}`}
+                            <button
+                              className={`${styles.BtnReset} ${styles.LightGray} ${styles.FavHover}`}
+                              onClick={handleFavoriteClick}
                             >
                               <BsBookmarkFill
                                 className={`mb-1`}
                               ></BsBookmarkFill>
                               收藏
-                            </a>
-                            <a
-                              className={`${styles.AReset} ${styles.LightGray}`}
+                            </button>
+                            <button
+                              className={`${styles.BtnReset} ${styles.LightGray} ${styles.ShareHover}`}
                             >
                               <BsFillShareFill
                                 className={`mb-1`}
                               ></BsFillShareFill>
                               分享
-                            </a>
+                            </button>
                           </div>
                         </section>
 
