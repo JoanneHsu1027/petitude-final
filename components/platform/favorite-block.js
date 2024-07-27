@@ -38,6 +38,7 @@ export default function FavoriteBlock({ keyword }) {
     setPage(1)
     setData([])
     setHasMore(true)
+    setFavorites([]) // 重置收藏狀態
   }, [keyword])
 
   useEffect(() => {
@@ -48,27 +49,36 @@ export default function FavoriteBlock({ keyword }) {
           if (myData.rows.length === 0) {
             setHasMore(false)
           } else {
+            const articleIds = myData.rows.map((item) => item.article_id)
             setData((prevData) => {
               const newData = [...prevData, ...myData.rows]
               return [...new Set(newData.map((item) => item.article_id))].map(
                 (id) => newData.find((item) => item.article_id === id),
               )
             })
+            // 檢查這些文章的收藏狀態
+            checkFavoriteStatus(articleIds)
           }
         })
         .catch((error) => console.error('Error loading articles:', error))
     }
   }, [keyword, page, hasMore])
 
-  const checkFavoriteStatus = async (articleId) => {
+  const checkFavoriteStatus = async (articleIds) => {
     try {
-      const response = await fetch(
-        `${FAVORITE_CHECK}/${auth.b2c_id}/${articleId}`,
+      const favoriteStatuses = await Promise.all(
+        articleIds.map(async (articleId) => {
+          const response = await fetch(
+            `${FAVORITE_CHECK}/${auth.b2c_id}/${articleId}`,
+          )
+          const data = await response.json()
+          return data.isFavorite ? articleId : null
+        }),
       )
-      const data = await response.json()
-      if (response.ok && data.isFavorite) {
-        setFavorites((prev) => [...prev, articleId])
-      }
+      setFavorites((prev) => [
+        ...prev,
+        ...favoriteStatuses.filter((id) => id !== null),
+      ])
     } catch (error) {
       console.error('Error checking favorite status:', error)
     }
@@ -120,18 +130,17 @@ export default function FavoriteBlock({ keyword }) {
     }
   }
 
-  useEffect(() => {
-    data.forEach((article) => {
-      checkFavoriteStatus(article.article_id)
-    })
-  }, [data])
+  // 只渲染已收藏的文章
+  const favoriteArticles = data.filter((article) =>
+    favorites.includes(article.article_id),
+  )
 
   return (
     <>
-      {data.map((r, index) => {
+      {favoriteArticles.map((r, index) => {
         const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
         const isFavorite = favorites.includes(r.article_id)
-        if (data.length === index + 1) {
+        if (favoriteArticles.length === index + 1) {
           return (
             <a
               ref={lastArticleElementRef}
