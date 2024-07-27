@@ -95,14 +95,14 @@ export default function PetInsurance() {
               >
                 我們的團隊由保險業的專家組成，同時也是熱愛飼養多隻寵物的飼主。對我們來說，寵物一直是我們的家人。選擇我們的寵物保險服務，讓您的毛孩子擁有專屬的健康守護者，讓您與您的愛寵都能享有最貼心、最專業的保障。
               </h5>
-              <a href="#/">
+              {/* <a href="#/">
                 <button
                   className={`${styles['own-btn1']} border-0`}
                   style={{ marginTop: '1.875rem' }}
                 >
                   了解更多
                 </button>
-              </a>
+              </a> */}
               <div
                 className={styles['stats-container']}
                 style={{ marginTop: '1.875rem' }}
@@ -374,13 +374,13 @@ export default function PetInsurance() {
           </div>
           {/* 手機板 end */}
 
-          <div className="d-flex justify-content-center">
+          {/* <div className="d-flex justify-content-center">
             <button
               className={`${styles['own-btn2']} ${styles.btnUpSpace} border-0 d-flex justify-content-center align-items-center`}
             >
               <h5 style={{ margin: 0 }}>了解更多回饋</h5>
             </button>
-          </div>
+          </div> */}
         </div>
 
         {/* section 5 end */}
@@ -408,7 +408,7 @@ export default function PetInsurance() {
                 寵物保險常見問題
               </h2>
             </div>
-            <div className="col-sm-6 col-12">
+            <div className=" col-12">
               <div className="accordion" id="accordionExample">
                 <div className="accordion-item">
                   <h2 className="accordion-header" id="headingOne">
