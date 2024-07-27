@@ -386,7 +386,10 @@ export default function ArticleId() {
                             </div>
                           </div>
                           {/* 主內容 */}
-                          <div className="mx-4 mt-4">
+                          <div
+                            style={{ minHeight: '40vh' }}
+                            className="mx-4 mt-4"
+                          >
                             <div className="d-flex justify-content-center">
                               <div
                                 className="d-flex justify-content-center align-items-center"
@@ -436,7 +439,10 @@ export default function ArticleId() {
 
                         {/* 留言區塊 */}
 
-                        <div className="container">
+                        <div
+                          style={{ minHeight: '50vh' }}
+                          className="container"
+                        >
                           <div className="row d-flex justify-content-center">
                             <div className="col-lg-10">
                               <section className="w-100">
@@ -510,7 +516,9 @@ export default function ArticleId() {
                                     )
                                   })
                                 ) : (
-                                  <p>目前還沒有留言，成為第一個留言的人吧！</p>
+                                  <p className="text-center mt-2">
+                                    目前還沒有留言，成為第一個留言的人吧！
+                                  </p>
                                 )}
                               </section>
                             </div>
