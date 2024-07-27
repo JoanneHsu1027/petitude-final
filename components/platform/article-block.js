@@ -128,88 +128,100 @@ export default function ArticleBlock({ keyword }) {
 
   return (
     <>
-      {data.map((r, index) => {
-        const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
-        const isFavorite = favorites.includes(r.article_id)
-        if (data.length === index + 1) {
-          return (
-            <a
-              ref={lastArticleElementRef}
-              key={r.article_id}
-              className={`${styles.AReset} ${styles.AllFont}`}
-              href={`../../platform/article/${r.article_id}`}
-            >
-              <div className="m-2 border-bottom">
-                <div className="mx-3 d-flex">
-                  <p className="me-3 px-1 border border-dark rounded-3">
-                    {r.class_name}
-                  </p>
-                  <p className={`${styles.LightGray}`}>{dateFormat}</p>
+      {data.length === 0 && !hasMore ? (
+        <div>
+          <p className="text-center fs-1 pt-5 mt-5">沒有相關文章喔!</p>
+          <a
+            href={`../platform/article/create`}
+            className={`${styles.AReset} ${styles.Hover} d-flex justify-content-center fs-4`}
+          >
+            建立文章?
+          </a>
+        </div>
+      ) : (
+        data.map((r, index) => {
+          const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
+          const isFavorite = favorites.includes(r.article_id)
+          if (data.length === index + 1) {
+            return (
+              <a
+                ref={lastArticleElementRef}
+                key={r.article_id}
+                className={`${styles.AReset} ${styles.AllFont}`}
+                href={`../../platform/article/${r.article_id}`}
+              >
+                <div className="m-2 border-bottom">
+                  <div className="mx-3 d-flex">
+                    <p className="me-3 px-1 border border-dark rounded-3">
+                      {r.class_name}
+                    </p>
+                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
+                  </div>
+                  <div className="mx-3">
+                    <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
+                      {r.article_name}
+                    </h2>
+                    <p className={`${styles.ContentOverHide} mx-2`}>
+                      {r.article_content}
+                    </p>
+                  </div>
+                  <div className="d-flex mx-5">
+                    <p className={`me-5 ${styles.OrangeYellow}`}>
+                      <BsChatText className={`mb-1`} />
+                      {r.message_count}
+                    </p>
+                    <button
+                      className={` ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} ${isFavorite ? styles.FavSet : ''} mb-3`}
+                      onClick={(e) => handleFavoriteClick(e, r.article_id)}
+                    >
+                      <BsBookmarkFill className={`mb-1`} />
+                      收藏
+                    </button>
+                  </div>
                 </div>
-                <div className="mx-3">
-                  <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
-                    {r.article_name}
-                  </h2>
-                  <p className={`${styles.ContentOverHide} mx-2`}>
-                    {r.article_content}
-                  </p>
+              </a>
+            )
+          } else {
+            return (
+              <a
+                key={r.article_id}
+                className={`${styles.AReset} ${styles.AllFont}`}
+                href={`../../platform/article/${r.article_id}`}
+              >
+                <div className="m-2 border-bottom">
+                  <div className="mx-3 d-flex">
+                    <p className="me-3 px-1 border border-dark rounded-3">
+                      {r.class_name}
+                    </p>
+                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
+                  </div>
+                  <div className="mx-3">
+                    <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
+                      {r.article_name}
+                    </h2>
+                    <p className={`${styles.ContentOverHide} mx-2`}>
+                      {r.article_content}
+                    </p>
+                  </div>
+                  <div className="d-flex mx-5">
+                    <p className={`me-5 ${styles.OrangeYellow}`}>
+                      <BsChatText className={`mb-1`} />
+                      {r.message_count}
+                    </p>
+                    <button
+                      className={` ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} ${isFavorite ? styles.FavSet : ''} mb-3`}
+                      onClick={(e) => handleFavoriteClick(e, r.article_id)}
+                    >
+                      <BsBookmarkFill className={`mb-1`} />
+                      收藏
+                    </button>
+                  </div>
                 </div>
-                <div className="d-flex mx-5">
-                  <p className={`me-5 ${styles.OrangeYellow}`}>
-                    <BsChatText className={`mb-1`} />
-                    {r.message_count}
-                  </p>
-                  <button
-                    className={` ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} ${isFavorite ? styles.FavSet : ''} mb-3`}
-                    onClick={(e) => handleFavoriteClick(e, r.article_id)}
-                  >
-                    <BsBookmarkFill className={`mb-1`} />
-                    收藏
-                  </button>
-                </div>
-              </div>
-            </a>
-          )
-        } else {
-          return (
-            <a
-              key={r.article_id}
-              className={`${styles.AReset} ${styles.AllFont}`}
-              href={`../../platform/article/${r.article_id}`}
-            >
-              <div className="m-2 border-bottom">
-                <div className="mx-3 d-flex">
-                  <p className="me-3 px-1 border border-dark rounded-3">
-                    {r.class_name}
-                  </p>
-                  <p className={`${styles.LightGray}`}>{dateFormat}</p>
-                </div>
-                <div className="mx-3">
-                  <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
-                    {r.article_name}
-                  </h2>
-                  <p className={`${styles.ContentOverHide} mx-2`}>
-                    {r.article_content}
-                  </p>
-                </div>
-                <div className="d-flex mx-5">
-                  <p className={`me-5 ${styles.OrangeYellow}`}>
-                    <BsChatText className={`mb-1`} />
-                    {r.message_count}
-                  </p>
-                  <button
-                    className={` ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} ${isFavorite ? styles.FavSet : ''} mb-3`}
-                    onClick={(e) => handleFavoriteClick(e, r.article_id)}
-                  >
-                    <BsBookmarkFill className={`mb-1`} />
-                    收藏
-                  </button>
-                </div>
-              </div>
-            </a>
-          )
-        }
-      })}
+              </a>
+            )
+          }
+        })
+      )}
       {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
