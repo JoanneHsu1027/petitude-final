@@ -2,6 +2,9 @@ export const API_SERVER = 'http://localhost:3001'
 
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+// 登入, 表單資料 {email, password}
+export const JWT_LOGIN_POST = `${API_SERVER}/login-jwt`
+
 export const MEMBER_ADD_POST = `${API_SERVER}/b2c_member/add`
 
 export const MEMBER_UPDATE_POST = `${API_SERVER}/b2c_member/api`

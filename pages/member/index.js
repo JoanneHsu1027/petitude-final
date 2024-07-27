@@ -5,7 +5,6 @@ import Layout from '@/components/layout/layout'
 import MemberProfileForm from '@/components/member/MemberProfileForm'
 import MemberProfileView from '@/components/member/MemberProfileView'
 import PurchaseRecord from '@/components/member/PurchaseRecord'
-import AppointmentRecord from '@/components/member/AppointmentRecord'
 import FavoriteProduct from '@/components/member/FavoriteProduct'
 import styles from '@/styles/member/MemberProfile.module.css'
 
@@ -125,16 +124,7 @@ const Member = () => {
           >
             購物紀錄
           </button>
-          <button
-            className={
-              activeTab === 'appointment'
-                ? styles['switch-button-active']
-                : styles['switch-button']
-            }
-            onClick={() => setActiveTab('appointment')}
-          >
-            預約紀錄
-          </button>
+
           <button
             className={
               activeTab === 'favorite'
@@ -185,7 +175,6 @@ const Member = () => {
           </>
         )}
         {activeTab === 'purchase' && <PurchaseRecord />}
-        {activeTab === 'appointment' && <AppointmentRecord />}
         {activeTab === 'favorite' && <FavoriteProduct />}
       </div>
     </Layout>
