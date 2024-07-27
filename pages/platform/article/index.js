@@ -38,7 +38,7 @@ export default function ArticleList() {
           setShowModal(true) // 在警告框关闭后显示登录窗口
         })
     } else {
-      router.push('/platform/create-article') // 确保路径正确
+      router.push('/platform/article/create') // 确保路径正确
     }
   }
 

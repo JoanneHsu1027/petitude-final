@@ -90,7 +90,7 @@ export default function ArticleId() {
         icon: 'error',
       })
     } else {
-      router.push(`../edit-article/${router.query.article_id}`)
+      router.push(`./edit/${router.query.article_id}`)
     }
   }
 
