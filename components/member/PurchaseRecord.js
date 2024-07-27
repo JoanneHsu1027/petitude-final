@@ -27,46 +27,42 @@ const PurchaseHistory = ({ memberData }) => {
     }
   }, [memberData, activeRecordType])
 
+  const renderRecordTypeButton = (type, label) => (
+    <button
+      className={`${recordstyles['record-button']} ${activeRecordType === type ? recordstyles['record-button-active'] : ''}`}
+      onClick={() => setActiveRecordType(type)}
+    >
+      {label}
+    </button>
+  )
+
   return (
-    <div className="p-4">
+    <div style={{ width: '100%' }}>
       <div className={recordstyles['record-group']}>
-        <button
-          className={activeRecordType === 'insurance' ? 'active' : ''}
-          onClick={() => setActiveRecordType('insurance')}
-        >
-          保險紀錄
-        </button>
-        <button
-          className={activeRecordType === 'lifeCeremony' ? 'active' : ''}
-          onClick={() => setActiveRecordType('lifeCeremony')}
-        >
-          生命典禮紀錄
-        </button>
-        <button
-          className={activeRecordType === 'product' ? 'active' : ''}
-          onClick={() => setActiveRecordType('product')}
-        >
-          產品購買紀錄
-        </button>
+        {renderRecordTypeButton('insurance', '保險紀錄')}
+        {renderRecordTypeButton('lifeCeremony', '禮儀紀錄')}
+        {renderRecordTypeButton('product', '產品紀錄')}
       </div>
-      {activeRecordType === 'insurance' && (
-        <>
-          <h3>保險紀錄</h3>
-          <InsuranceRecords records={records} />
-        </>
-      )}
-      {activeRecordType === 'lifeCeremony' && (
-        <>
-          <h3>生命典禮紀錄</h3>
-          <LifeCeremonyRecords records={records} />
-        </>
-      )}
-      {activeRecordType === 'product' && (
-        <>
-          <h3>產品購買紀錄</h3>
-          <ProductRecords records={records} />
-        </>
-      )}
+      <div className={recordstyles['record-title']}>
+        {activeRecordType === 'insurance' && (
+          <>
+            <h3>保險紀錄</h3>
+            <InsuranceRecords records={records} />
+          </>
+        )}
+        {activeRecordType === 'lifeCeremony' && (
+          <>
+            <h3>生命禮儀紀錄</h3>
+            <LifeCeremonyRecords records={records} />
+          </>
+        )}
+        {activeRecordType === 'product' && (
+          <>
+            <h3>產品購買紀錄</h3>
+            <ProductRecords records={records} />
+          </>
+        )}
+      </div>
     </div>
   )
 }
