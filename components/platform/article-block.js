@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react'
 import styles from '../../styles/platform/platform-style.module.css'
 import { BsBookmarkFill, BsChatText } from 'react-icons/bs'
 import moment from 'moment-timezone'
+import Swal from 'sweetalert2'
 import {
   ARTICLE,
   FAVORITE_ADD_POST,
@@ -9,6 +10,7 @@ import {
   FAVORITE_REMOVE,
 } from '@/configs/platform/api-path'
 import { useAuth } from '@/contexts/member/auth-context'
+import LoginModal from '@/components/member/LoginModal'
 
 export default function ArticleBlock({ keyword }) {
   const [data, setData] = useState([])
@@ -16,6 +18,7 @@ export default function ArticleBlock({ keyword }) {
   const [hasMore, setHasMore] = useState(true)
   const [favorites, setFavorites] = useState([])
   const observer = useRef()
+  const [showModal, setShowModal] = useState(false)
   const { auth } = useAuth()
 
   const lastArticleElementRef = useCallback(
@@ -72,7 +75,7 @@ export default function ArticleBlock({ keyword }) {
   }
 
   const handleFavoriteClick = async (e, articleId) => {
-    e.preventDefault() // 防止點擊按鈕時導航到文章頁面
+    e.preventDefault() // Prevents navigation to article page on button click
     const isFavorite = favorites.includes(articleId)
     const method = isFavorite ? 'DELETE' : 'POST'
     const url = isFavorite
@@ -99,11 +102,21 @@ export default function ArticleBlock({ keyword }) {
             ? prev.filter((id) => id !== articleId)
             : [...prev, articleId],
         )
+        Swal.fire({
+          text: isFavorite ? '取消收藏成功！' : '收藏成功！',
+          icon: 'success',
+        })
       } else {
-        console.error('操作失敗:', data.error)
+        Swal.fire({ text: '請先登入會員！', icon: 'error' }).then(() => {
+          setShowModal(true)
+        })
       }
     } catch (error) {
       console.error('操作失敗:', error)
+      Swal.fire({
+        text: '操作失敗！',
+        icon: 'error',
+      })
     }
   }
 
@@ -197,6 +210,7 @@ export default function ArticleBlock({ keyword }) {
           )
         }
       })}
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
 }
