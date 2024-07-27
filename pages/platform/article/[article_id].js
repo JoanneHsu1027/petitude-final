@@ -16,6 +16,7 @@ import {
   RE_MESSAGE_ADD_POST,
   FAVORITE_ADD_POST,
   FAVORITE_CHECK,
+  FAVORITE_REMOVE,
 } from '@/configs/platform/api-path'
 import moment from 'moment-timezone'
 import LoginModal from '@/components/member/LoginModal'
@@ -116,27 +117,39 @@ export default function ArticleId() {
       })
     } else {
       try {
-        const response = await fetch(FAVORITE_ADD_POST, {
-          method: 'POST',
+        const method = isFavorite ? 'DELETE' : 'POST'
+        const url = isFavorite
+          ? `${FAVORITE_REMOVE}/${auth.b2c_id}/${router.query.article_id}`
+          : FAVORITE_ADD_POST
+        const body = isFavorite
+          ? null
+          : JSON.stringify({
+              fk_b2c_id: auth.b2c_id,
+              fk_article_id: articleData.article_id,
+            })
+
+        const response = await fetch(url, {
+          method: method,
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fk_b2c_id: auth.b2c_id,
-            fk_article_id: articleData.article_id,
-          }),
+          body: body,
         })
+
         const data = await response.json()
         if (response.ok && data.success) {
-          setIsFavorite(!isFavorite) // Toggle favorite status
+          setIsFavorite(!isFavorite)
           swal.fire({
-            text: isFavorite ? '取消收藏成功！' : '收藏成功！',
+            text: isFavorite ? '已取消收藏！' : '收藏成功！',
             icon: 'success',
           })
         } else {
-          swal.fire({ text: '收藏失敗！', icon: 'error' })
+          swal.fire({
+            text: isFavorite ? '取消收藏失敗！' : '收藏失敗！',
+            icon: 'error',
+          })
         }
       } catch (error) {
-        console.error('收藏失敗:', error)
-        swal.fire({ text: '收藏失敗！', icon: 'error' })
+        console.error('操作失敗:', error)
+        swal.fire({ text: '操作失敗！', icon: 'error' })
       }
     }
   }
