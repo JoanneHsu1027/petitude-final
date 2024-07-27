@@ -31,7 +31,6 @@
     text-overflow:ellipsis;
 }
 
-
 .ContentOverHide{
     text-overflow: ellipsis;
     overflow: hidden;
