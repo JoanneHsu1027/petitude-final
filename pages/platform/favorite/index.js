@@ -31,7 +31,10 @@ export default function FavoriteList() {
                   className={`container card my-3 ${styles.Rounded5} border-0 h-100`}
                 >
                   <div className="row">
-                    <div className="col-lg-12 col-md-12 d-flex flex-column m-1">
+                    <div
+                      style={{ minHeight: '80vh' }}
+                      className="col-lg-12 col-md-12 d-flex flex-column m-1"
+                    >
                       <SideBarMobile onSearch={handleSearch} />
 
                       <FavoriteBlock keyword={searchKeyword} />
