@@ -2,12 +2,18 @@ import React, { useEffect, useState, useRef, useCallback } from 'react'
 import styles from '../../styles/platform/platform-style.module.css'
 import { BsBookmarkFill, BsChatText } from 'react-icons/bs'
 import moment from 'moment-timezone'
-import { ARTICLE } from '@/configs/platform/api-path'
+import {
+  ARTICLE,
+  FAVORITE_ADD_POST,
+  FAVORITE_CHECK,
+  FAVORITE_REMOVE,
+} from '@/configs/platform/api-path'
 
 export default function ArticleBlock({ keyword }) {
   const [data, setData] = useState([])
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
+  const [favorites, setFavorites] = useState([])
   const observer = useRef()
 
   const lastArticleElementRef = useCallback(
@@ -49,10 +55,65 @@ export default function ArticleBlock({ keyword }) {
     }
   }, [keyword, page, hasMore])
 
+  const checkFavoriteStatus = async (articleId) => {
+    try {
+      const response = await fetch(`${FAVORITE_CHECK}/${1}/${articleId}`) // 這裡的1替換為當前用戶的id
+      const data = await response.json()
+      if (response.ok && data.isFavorite) {
+        setFavorites((prev) => [...prev, articleId])
+      }
+    } catch (error) {
+      console.error('Error checking favorite status:', error)
+    }
+  }
+
+  const handleFavoriteClick = async (e, articleId) => {
+    e.preventDefault() // 防止點擊按鈕時導航到文章頁面
+    const isFavorite = favorites.includes(articleId)
+    const method = isFavorite ? 'DELETE' : 'POST'
+    const url = isFavorite
+      ? `${FAVORITE_REMOVE}/${1}/${articleId}` // 這裡的1替換為當前用戶的id
+      : FAVORITE_ADD_POST
+    const body = isFavorite
+      ? null
+      : JSON.stringify({
+          fk_b2c_id: 1, // 替換為當前用戶的id
+          fk_article_id: articleId,
+        })
+
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: { 'Content-Type': 'application/json' },
+        body: body,
+      })
+
+      const data = await response.json()
+      if (response.ok && data.success) {
+        setFavorites((prev) =>
+          isFavorite
+            ? prev.filter((id) => id !== articleId)
+            : [...prev, articleId],
+        )
+      } else {
+        console.error('操作失敗:', data.error)
+      }
+    } catch (error) {
+      console.error('操作失敗:', error)
+    }
+  }
+
+  useEffect(() => {
+    data.forEach((article) => {
+      checkFavoriteStatus(article.article_id)
+    })
+  }, [data])
+
   return (
     <>
       {data.map((r, index) => {
         const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
+        const isFavorite = favorites.includes(r.article_id)
         if (data.length === index + 1) {
           return (
             <a
@@ -82,7 +143,8 @@ export default function ArticleBlock({ keyword }) {
                     {r.message_count}
                   </p>
                   <button
-                    className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} mb-3`}
+                    className={` ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} ${isFavorite ? styles.FavSet : ''} mb-3`}
+                    onClick={(e) => handleFavoriteClick(e, r.article_id)}
                   >
                     <BsBookmarkFill className={`mb-1`} />
                     收藏
@@ -119,7 +181,8 @@ export default function ArticleBlock({ keyword }) {
                     {r.message_count}
                   </p>
                   <button
-                    className={`${styles.AReset} ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} mb-3`}
+                    className={` ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} ${isFavorite ? styles.FavSet : ''} mb-3`}
+                    onClick={(e) => handleFavoriteClick(e, r.article_id)}
                   >
                     <BsBookmarkFill className={`mb-1`} />
                     收藏
