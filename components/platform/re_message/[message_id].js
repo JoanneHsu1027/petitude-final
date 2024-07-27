@@ -43,7 +43,7 @@ export default function MessageId({ message_id }) {
     <>
       {replies.length > 0 && (
         <button
-          className={`${styles.BtnReset} ${styles.LightGray} pt-3 `}
+          className={`${styles.BtnReset} ${styles.LightGray} pt-3 pb-1 `}
           onClick={handleToggleReplies}
         >
           {isHidden ? (

@@ -426,73 +426,87 @@ export default function ArticleId() {
                         </section>
 
                         {/* 留言區塊 */}
-                        <section>
-                          {messages.length > 0 ? (
-                            messages.map((message) => {
-                              const dateFormat = moment(
-                                message.message_date,
-                              ).format('YYYY-MM-DD HH:MM')
-                              return (
-                                <div key={message.message_id}>
-                                  <div className="d-flex border-bottom pt-2 mb-2 mx-1 px-2">
-                                    <div className="me-2">
-                                      <img src="/forum-pic/avatar.png" alt="" />
-                                    </div>
-                                    <div className="flex-grow-1 me-2 pb-3">
-                                      <p className="fw-bold">
-                                        {message.b2c_name}
-                                      </p>
-                                      <p>{message.message_content}</p>
-                                      <div className="d-flex ">
-                                        <span className="me-4">
-                                          {dateFormat}
-                                        </span>
-                                        <button
-                                          className={`${styles.BtnReset} ${styles.LightGray}`}
-                                          onClick={() =>
-                                            handleReplyClick(message.message_id)
-                                          }
-                                        >
-                                          回覆
-                                        </button>
-                                      </div>
-                                      {replyToMessageId ===
-                                        message.message_id && (
-                                        <form
-                                          onSubmit={handleReMessageSubmit}
-                                          className="pb-3 d-flex"
-                                        >
-                                          <input
-                                            style={{ height: '40px' }}
-                                            className={`card border-3 ${styles.W80} ${styles.SetPlaceholder2} ${styles.BorderEndDel} border-end-0`}
-                                            type="text"
-                                            placeholder="回覆......"
-                                            value={reMessInput}
-                                            onChange={handleReMessInputChange}
-                                          />
-                                          <button
-                                            style={{ height: '40px' }}
-                                            className={`${styles.BorderStartDel} card border-3 border-start-0`}
-                                            type="submit"
-                                          >
-                                            <IoSend className="mt-2 me-1 text-black-50" />
-                                          </button>
-                                        </form>
-                                      )}
-                                      {/* 回覆留言區塊 */}
 
-                                      <ReMessage
-                                        message_id={message.message_id}
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                              )
-                            })
-                          ) : (
-                            <p>目前還沒有留言，成為第一個留言的人吧！</p>
-                          )}
-                        </section>
+                        <div className="container">
+                          <div className="row d-flex justify-content-center">
+                            <div className="col-lg-10">
+                              <section className="w-100">
+                                {messages.length > 0 ? (
+                                  messages.map((message) => {
+                                    const dateFormat = moment(
+                                      message.message_date,
+                                    ).format('YYYY-MM-DD HH:MM')
+                                    return (
+                                      <div key={message.message_id}>
+                                        <div className="d-flex border-bottom pt-2 mb-2 mx-1 px-2">
+                                          <div className="me-2">
+                                            <img
+                                              src="/forum-pic/avatar.png"
+                                              alt=""
+                                            />
+                                          </div>
+                                          <div className="flex-grow-1 me-2 pb-3">
+                                            <p className="fw-bold">
+                                              {message.b2c_name}
+                                            </p>
+                                            <p>{message.message_content}</p>
+                                            <div className="d-flex ">
+                                              <span className="me-4">
+                                                {dateFormat}
+                                              </span>
+                                              <button
+                                                className={`${styles.BtnReset} ${styles.LightGray}`}
+                                                onClick={() =>
+                                                  handleReplyClick(
+                                                    message.message_id,
+                                                  )
+                                                }
+                                              >
+                                                回覆
+                                              </button>
+                                            </div>
+                                            {replyToMessageId ===
+                                              message.message_id && (
+                                              <form
+                                                onSubmit={handleReMessageSubmit}
+                                                className="pt-3 pb-1 d-flex"
+                                              >
+                                                <input
+                                                  style={{ height: '40px' }}
+                                                  className={`card border-3 ${styles.W80} ${styles.SetPlaceholder2} ${styles.BorderEndDel} border-end-0`}
+                                                  type="text"
+                                                  placeholder="回覆......"
+                                                  value={reMessInput}
+                                                  onChange={
+                                                    handleReMessInputChange
+                                                  }
+                                                />
+                                                <button
+                                                  style={{ height: '40px' }}
+                                                  className={`${styles.BorderStartDel} card border-3 border-start-0`}
+                                                  type="submit"
+                                                >
+                                                  <IoSend className="mt-2 me-1 text-black-50" />
+                                                </button>
+                                              </form>
+                                            )}
+                                            {/* 回覆留言區塊 */}
+
+                                            <ReMessage
+                                              message_id={message.message_id}
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    )
+                                  })
+                                ) : (
+                                  <p>目前還沒有留言，成為第一個留言的人吧！</p>
+                                )}
+                              </section>
+                            </div>
+                          </div>
+                        </div>
 
                         {/* 回覆留言區塊 */}
                         <div className="position-sticky bottom-0">
