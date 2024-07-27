@@ -5,6 +5,7 @@ import { BsFillTriangleFill, BsSearch } from 'react-icons/bs'
 import { useAuth } from '@/contexts/member/auth-context'
 import LoginModal from '@/components/member/LoginModal'
 import swal from 'sweetalert2'
+import Link from 'next/link'
 
 export default function SideBarPc({ onSearch }) {
   const router = useRouter()
@@ -86,35 +87,35 @@ export default function SideBarPc({ onSearch }) {
                 <BsSearch />
               </button>
             </form>
-            <a
+            <Link
               href="/platform/"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activea === '' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
             >
               論壇首頁
-            </a>
-            <a
+            </Link>
+            <Link
               href="/platform/class"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activea === 'class' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
             >
               主題分類
-            </a>
-            <a
+            </Link>
+            <Link
               href="/platform/article"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activea === 'article' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
             >
               最新文章
-            </a>
-            <a
+            </Link>
+            <Link
               href="/platform/favorite"
               type="button"
               className={`${styles.AReset} ${styles.BorderCoffee} ${styles.BtnHover} ${activea === 'favorite' ? styles.PageSelect : ''} btn btn-outline-dark mb-2`}
               onClick={handleFavoriteClick}
             >
               文章收藏
-            </a>
+            </Link>
           </div>
           <div className="d-flex justify-content-center mt-3">
             <a className={`${styles.AReset} ${styles.GoTopBtn} mb-2`} href="#">
