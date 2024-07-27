@@ -107,6 +107,10 @@ div.BorderCoffee {
     border-color: #6a513d;
 }
 
+a.BorderCoffee {
+    border-color: #6a513d;
+}
+
 .SetPlaceholder::placeholder {
     color: #4CB1C8;
     padding-left: 2%;

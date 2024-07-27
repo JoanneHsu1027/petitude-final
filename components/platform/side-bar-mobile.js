@@ -1,20 +1,25 @@
-import React from 'react'
+import { React, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from '../../styles/platform/platform-style.module.css'
 import { BsSearch } from 'react-icons/bs'
 import Link from 'next/link'
+import { useAuth } from '@/contexts/member/auth-context'
+import LoginModal from '@/components/member/LoginModal'
+import swal from 'sweetalert2'
 
 export default function SideBarMobile({ onSearch }) {
   const router = useRouter()
-  const [activeLink, setActiveLink] = React.useState('')
+  const [activeLink, setActiveLink] = useState('')
+  const [showModal, setShowModal] = useState(false)
+  const { auth } = useAuth()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (router.pathname.includes('class')) {
       setActiveLink('class')
     } else if (router.pathname.includes('article')) {
       setActiveLink('article')
-    } else if (router.pathname.includes('favorites')) {
-      setActiveLink('favorites')
+    } else if (router.pathname.includes('favorite')) {
+      setActiveLink('favorite')
     }
   }, [router.pathname])
 
@@ -22,6 +27,20 @@ export default function SideBarMobile({ onSearch }) {
     event.preventDefault()
     const keyword = event.target.search.value
     onSearch(keyword)
+  }
+
+  const handleFavoriteClick = (event) => {
+    if (!auth.b2c_id) {
+      event.preventDefault() // 防止導航
+      swal
+        .fire({
+          text: '請先登入會員！',
+          icon: 'error',
+        })
+        .then(() => {
+          setShowModal(true) // 在警告框關閉後顯示登入視窗
+        })
+    }
   }
 
   return (
@@ -80,14 +99,16 @@ export default function SideBarMobile({ onSearch }) {
             最新文章
           </Link>
           <Link
-            href="../../platform/favorites"
+            href="../../platform/favorite"
             type="button"
-            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'favorites' ? styles.MobilePageSelect : ''} `}
+            className={`${styles.AReset} p-3 text-black ${styles.MobileBtnHover} ${activeLink === 'favorite' ? styles.MobilePageSelect : ''} `}
+            onClick={handleFavoriteClick}
           >
             文章收藏
           </Link>
         </div>
       </div>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
 }
