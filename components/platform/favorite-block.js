@@ -138,7 +138,7 @@ export default function FavoriteBlock({ keyword }) {
   return (
     <>
       {favoriteArticles.length === 0 ? (
-        <div>
+        <div className="d-flex justify-content-center flex-column">
           <p className="text-center fs-1 pt-5 mt-5">沒有文章收藏喔!</p>
           <a
             href={`../platform/article`}
@@ -146,6 +146,13 @@ export default function FavoriteBlock({ keyword }) {
           >
             去看看文章?
           </a>
+          <div className="d-flex justify-content-center mt-4">
+            <img
+              className={`${styles.W35}`}
+              src="../../forum-pic/favorite-block.png"
+              alt=""
+            />
+          </div>
         </div>
       ) : (
         favoriteArticles.map((r, index) => {

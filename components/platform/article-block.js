@@ -129,7 +129,7 @@ export default function ArticleBlock({ keyword }) {
   return (
     <>
       {data.length === 0 && !hasMore ? (
-        <div>
+        <div className="d-flex justify-content-center flex-column">
           <p className="text-center fs-1 pt-5 mt-5">沒有相關文章喔!</p>
           <a
             href={`../platform/article/create`}
@@ -137,6 +137,13 @@ export default function ArticleBlock({ keyword }) {
           >
             建立文章?
           </a>
+          <div className="d-flex justify-content-center mt-4">
+            <img
+              className="w-50"
+              src="../../forum-pic/article-block.png"
+              alt=""
+            />
+          </div>
         </div>
       ) : (
         data.map((r, index) => {
