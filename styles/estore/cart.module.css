@@ -113,11 +113,8 @@
   /* object-fit: cover; */
 }
 .projectImage {
-  width: 150px;
-  height: 130px;
-  border-radius: 15px;
-  /* 调整边角圆弧 */
-  /* object-fit: cover; */
+  width: 170px;
+  height: 150px;
 }
 
 .productName {
@@ -128,6 +125,14 @@
   margin: 0%;
   font-weight: 600;
 }
+.projectName {
+  color: #6a513d;
+  display: flex;
+  align-items: center;
+  margin: 0%;
+  font-weight: 600;
+  font-size: 2rem;
+  }
 
 .cash {
   display: flex;
@@ -145,6 +150,7 @@
 .projectPrice {
   color: #6a513d;
   font-weight: 600;
+  font-size: 2rem;
 }
 
 .quantity {
@@ -243,13 +249,17 @@
   .btn{
     background-color: #6A513D;
     color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 900;
   }
   .btn:hover{
     background-color: #f6d554;
     color: #6A513D;
+    font-weight: 900;
   }
   .btnArea{
-    padding-left: 8%;
+    padding-left: 10%;
+
   }
 
 
@@ -271,10 +281,20 @@
   .projectImage {
     width: 120px;
     height: 100px;
+    padding: 8px;
   }
 
   .productName {
     font-size: 16px;
+    color: #6a513d;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 0%;
+    font-weight: 900;
+  }
+  .projectName {
+    font-size: 14px;
     color: #6a513d;
     display: flex;
     justify-content: start;
@@ -310,6 +330,7 @@
   .btn{
     background-color: #6A513D;
     color: #ffffff;
+    font-size: 1rem;
   }
   .btn:hover{
     background-color: #f6d554;

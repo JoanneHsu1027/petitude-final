@@ -7,7 +7,9 @@ export default function Service() {
     <>
       <div className="container-fluid allFont">
         <div className="row d-flex justify-content-center">
-          <h2 className="title text-center">寵物火化服務項目一覽</h2>
+          <h3 className="title text-center" style={{ fontWeight: '900' }}>
+            寵物火化服務項目一覽
+          </h3>
           <div
             className="col-md-6 col-12 d-flex justify-content-center mt-3"
             style={{ maxWidth: '600px' }}
@@ -17,7 +19,9 @@ export default function Service() {
             >
               <div className={`card-header ${Styles.headerCard1}`}>
                 <h5>個別</h5>
-                <h6>擇日告別式(依家長宗教及需求討論)</h6>
+                <h6 style={{ fontWeight: '900' }}>
+                  擇日告別式(依家長宗教及需求討論)
+                </h6>
               </div>
               <div className={`card-body bg-light ${Styles.cardBody}`}>
                 <ul className="list-group">
@@ -52,7 +56,9 @@ export default function Service() {
             >
               <div className={`card-header ${Styles.headerCard2}`}>
                 <h5>團體</h5>
-                <h6>園區流程火化 ,無法觀禮拍照</h6>
+                <h6 style={{ fontWeight: '900' }}>
+                  園區流程火化 ,無法觀禮拍照
+                </h6>
               </div>
               <div className="card-body bg-light">
                 <ul className="list-group">
@@ -91,6 +97,9 @@ export default function Service() {
           font-size: 24px;
           font-weight: 700;
         }
+        .h6 {
+          font-weight: 700;
+        }
         .list-group {
           padding: 0; /* 移除內邊距 */
           margin: 0; /* 移除外邊距 */
@@ -103,27 +112,37 @@ export default function Service() {
           padding: 0.5rem 1rem; /* 自定義內邊距 */
           background-color: transparent; /* 設定背景顏色為透明 */
         }
-        @media (max-width: 768px) {
-          h2 {
-            font-size: 1.5rem; /* 調整標題字體大小 */
-            margin-bottom: 2%;
-          }
-
-          .btn-warning {
-            width: 100px; /* 調整按鈕寬度 */
-            font-size: 0.8rem; /* 調整按鈕字體大小 */
-          }
-        }
 
         @media (max-width: 576px) {
-          h2 {
-            font-size: 1.2rem; /* 調整標題字體大小 */
-            margin-bottom: 1%;
-          }
-
           .btn-warning {
             width: 80px; /* 調整按鈕寬度 */
             font-size: 0.7rem; /* 調整按鈕字體大小 */
+          }
+          .title {
+            font-size: 1.8rem; /* 調整標題字體大小 */
+            margin-bottom: 30px;
+            margin-top: 20px;
+          }
+          h5 {
+            font-size: 22px;
+            font-weight: 700;
+          }
+          .h6 {
+            font-size: 10px;
+            font-weight: 700;
+          }
+          .list-group {
+            padding: 0; /* 移除內邊距 */
+            margin: 0; /* 移除外邊距 */
+            border: none; /* 移除邊框 */
+            
+          }
+
+          .list-group-item {
+            font-size: 18px;
+            border: none; /* 移除每個項目的邊框 */
+            padding: 0.5rem 1rem; /* 自定義內邊距 */
+            background-color: transparent; /* 設定背景顏色為透明 */
           }
         }
       `}</style>

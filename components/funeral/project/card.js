@@ -106,7 +106,7 @@ export default function Card() {
                       style={{
                         cursor: 'pointer',
                         fontSize: '1rem',
-                        fontWeight: 'normal',
+                        fontWeight: '700',
                       }}
                       onClick={() => toggleExpand(card.project_id)}
                     >

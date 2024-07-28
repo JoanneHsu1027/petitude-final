@@ -6,26 +6,39 @@ const Cloud = ({ style }) => {
     loop: true,
     to: async (next) => {
       while (true) {
-        await next({ x: 700, y: -10 })
-        await next({ x: 750, y: 10 })
-        await next({ x: 800, y: -10 })
-        await next({ x: 850, y: 10 })
-        await next({ x: 900, y: -10 })
         await next({ x: 950, y: 10 })
         await next({ x: 1000, y: -10 })
         await next({ x: 1050, y: 10 })
         await next({ x: 1100, y: -10 })
-        await next({ x: 1050, y: 10 })
-        await next({ x: 1000, y: -10 })
-        await next({ x: 950, y: 10 })
-        await next({ x: 900, y: -10 })
-        await next({ x: 850, y: 10 })
-        await next({ x: 800, y: -10 })
-        await next({ x: 750, y: 10 })
-        await next({ x: 700, y: -10 })
+        await next({ x: 1150, y: 10 })
+        await next({ x: 1200, y: -10 })
+        await next({ x: 1250, y: 10 })
+        await next({ x: 1300, y: -10 })
+        await next({ x: 1350, y: 10 })
+        await next({ x: 1400, y: -10 })
+        await next({ x: 1450, y: 10 })
+        await next({ x: 1500, y: -10 })
+        await next({ x: 1550, y: 10 })
+        await next({ x: 1600, y: -10 })
+        await next({ x: 1650, y: 10 })
+        await next({ x: 1650, y: -10 })
+        await next({ x: 1600, y: 10 })
+        await next({ x: 1550, y: -10 })
+        await next({ x: 1500, y: 10 })
+        await next({ x: 1450, y: -10 })
+        await next({ x: 1400, y: 10 })
+        await next({ x: 1350, y: -10 })
+        await next({ x: 1300, y: 10 })
+        await next({ x: 1250, y: -10 })
+        await next({ x: 1200, y: 10 })
+        await next({ x: 1150, y: -10 })
+        await next({ x: 1100, y: 10 })
+        await next({ x: 1050, y: -10 })
+        await next({ x: 1000, y: 10 })
+        await next({ x: 950, y: -10 })
       }
     },
-    from: { x: 650, y: 0 },
+    from: { x: 950, y: 0 },
     config: { duration: 1000 },
   })
 
@@ -43,7 +56,7 @@ const MemorialPage = () => {
       style={{
         position: 'absolute',
         width: '100%',
-        height: '50%',
+        height: '40%',
         backgroundColor: 'transparent',
         overflow: 'hidden',
         zIndex: '1',
