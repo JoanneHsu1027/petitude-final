@@ -570,7 +570,7 @@ export default function BookingList() {
                 結帳明細
               </div>
               <div
-                className="card-body"
+                className="card-body d-none d-md-block"
                 style={{
                   backgroundColor: '#F6D554',
                   color: '#6A513D',
@@ -607,7 +607,7 @@ export default function BookingList() {
                               className={`col-12 ${styles.quantityPriceContainer} mt-2`}
                             >
                               <div
-                                className="justify-content-start fs-5"
+                                className={`justify-content-start fs-5 ${styles.quantity}`}
                                 style={{
                                   color: '#FFF5CF',
                                   backgroundColor: '#6A513D',
@@ -616,6 +616,115 @@ export default function BookingList() {
                                   paddingRight: 2 + 'rem',
                                   paddingTop: 0.1 + 'rem',
                                   paddingBottom: 0.1 + 'rem',
+                                }}
+                              >
+                                數量：{r.qty}
+                              </div>
+                              <div
+                                className={`justify-content-end fs-4 ${styles.productPrice}`}
+                              >
+                                $ {formatCurrency(r.product_price * r.qty)}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    {/* ... 總金額計算等 ... */}
+                  </>
+                ) : (
+                  <p>購物車是空的</p>
+                )}
+                <hr />
+                <div className="col d-flex align-items-center">
+                  <div className="text-start m-2">
+                    <p className="card-text mb-1 fs-5">發票開立方式</p>
+                  </div>
+                  <div className="text-end ms-5 ms-auto">
+                    <p className="card-text fs-5">手機載具</p>
+                  </div>
+                </div>
+                <div className="col d-flex align-items-center">
+                  <div className="text-start m-2">
+                    <p className="card-text mb-1 fs-5">總金額</p>
+                  </div>
+                  <div className="text-end ms-5 ms-auto">
+                    <p className="card-text fs-4">
+                      $ {formatCurrency(totalPrice)}
+                    </p>
+                  </div>
+                </div>
+                <div className="d-flex justify-content-center align-items-center">
+                  <button
+                    className="btn w-100  fs-4"
+                    onClick={handleSubmit}
+                    style={{
+                      // width: '120px',
+                      marginTop: '20px',
+                      color: '#FFF5CF',
+                      backgroundColor: '#6A513D',
+                      borderRadius: 30 + 'px',
+                    }}
+                  >
+                    確認結帳
+                  </button>
+                </div>
+              </div>
+              <div
+                className="card-body d-block d-md-none"
+                style={{
+                  backgroundColor: '#F6D554',
+                  color: '#6A513D',
+                  borderEndStartRadius: 30 + 'px',
+                  borderEndEndRadius: 30 + 'px',
+                  fontWeight: 900,
+                  paddingRight: '16px',
+                  paddingLeft: '16px',
+                }}
+              >
+                {cartItems.length > 0 ? (
+                  <>
+                    {cartItems.map((r, i) => (
+                      <div
+                        key={i}
+                        className="row d-flex align-items-center justify-content-center mb-3 my-0"
+                      >
+                        <div
+                          className="col-3 d-flex align-items-center justify-content-center"
+                          style={{ padding: 0 + 'px' }}
+                        >
+                          <img
+                            src={`http://localhost:3001/estore/A${r.pk_product_id}.png`}
+                            alt="..."
+                            className={styles.productImage}
+                            style={{ padding: 0 + 'px' }}
+                          />
+                        </div>
+                        <div className="col-9">
+                          <div className="row">
+                            <div
+                              className="col-12"
+                              style={{ paddingLeft: 0 + 'px' }}
+                            >
+                              <div className={`fs-6 ${styles.productName}`}>
+                                {r.product_name}
+                              </div>
+                            </div>
+                            <div
+                              className={`col-12 ${styles.quantityPriceContainer} mt-2`}
+                              style={{ paddingLeft: 0 + 'px' }}
+                            >
+                              <div
+                                className={`justify-content-start ${styles.quantity}`}
+                                style={{
+                                  color: '#FFF5CF',
+                                  backgroundColor: '#6A513D',
+                                  borderRadius: 30 + 'px',
+                                  paddingLeft: 1 + 'rem',
+                                  paddingRight: 1 + 'rem',
+                                  paddingTop: 0.1 + 'rem',
+                                  paddingBottom: 0.1 + 'rem',
+                                  fontSize: 16 + 'px',
                                 }}
                               >
                                 數量：{r.qty}

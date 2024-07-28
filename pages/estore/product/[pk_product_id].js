@@ -319,7 +319,7 @@ export default function Productid() {
                     }
                   >
                     <select
-                      className={styles.customSelect}
+                      className={`text-center ${styles.customSelect}`}
                       value={quantity}
                       onChange={handleQuantityChange}
                     >
@@ -535,8 +535,8 @@ export default function Productid() {
                 <div
                   className={`row d-flax bd-highlight p-0 ${styles.depicition2}`}
                 >
-                  <div className="me-auto col-6">特殊需求</div>
-                  <div className="bd-highlight col-6 text-end">
+                  <div className="me-auto col-4">特殊需求</div>
+                  <div className="bd-highlight col-8 text-end">
                     {data.special_needs}
                   </div>
                 </div>

@@ -46,12 +46,17 @@
 .customSelect {
   width: 90px;
   height: 38px;
-  padding: 6px 6px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 29px;
+  padding-right: 29px;
   border-radius: 50px;
   background-color: #F6D554;
   color: #6A513D;
   border: 1px solid #F6D554;
   font-weight: 900;
+  /* text-align: center; */
+
 }
 
 .customSelect:focus {
