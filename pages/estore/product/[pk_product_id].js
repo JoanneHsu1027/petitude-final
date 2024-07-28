@@ -543,16 +543,16 @@ export default function Productid() {
                 <div
                   className={`row d-flax bd-highlight p-0 ${styles.depicition2}`}
                 >
-                  <div className="me-auto col-6">口味</div>
-                  <div className="bd-highlight col-6 text-end">
+                  <div className="me-auto col-4">口味</div>
+                  <div className="bd-highlight col-8 text-end">
                     {data.flavor}
                   </div>
                 </div>
                 <div
                   className={`row d-flax bd-highlight p-0 ${styles.depicition2}`}
                 >
-                  <div className="me-auto col-6">生命階段</div>
-                  <div className="bd-highlight col-6 text-end">
+                  <div className="me-auto col-4">生命階段</div>
+                  <div className="bd-highlight col-8 text-end">
                     {data.life_stage}
                   </div>
                 </div>
