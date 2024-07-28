@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/contexts/member/auth-context'
-import { API_SERVER } from '@/configs/api-path'
+import {
+  MEMBER_UPDATE_POST,
+  MEMBER_AVATAR_UPDATE_POST,
+} from '@/configs/api-path'
 import Layout from '@/components/layout/layout'
 import MemberProfileForm from '@/components/member/MemberProfileForm'
 import MemberProfileView from '@/components/member/MemberProfileView'
@@ -21,12 +24,9 @@ const Member = () => {
       if (!auth.b2c_id) return
 
       try {
-        const response = await fetch(
-          `${API_SERVER}/b2c_member/api/${auth.b2c_id}`,
-          {
-            headers: getAuthHeader(),
-          },
-        )
+        const response = await fetch(`${MEMBER_UPDATE_POST}/${auth.b2c_id}`, {
+          headers: getAuthHeader(),
+        })
         const result = await response.json()
         if (result.success) {
           setMemberData(result.data)
@@ -50,25 +50,25 @@ const Member = () => {
 
     const reader = new FileReader()
     reader.onloadend = async () => {
-      const base64String = reader.result.split(',')[1] // 提取 Base64 字符串部分
+      const base64String = reader.result
 
       try {
-        const response = await fetch(
-          `${API_SERVER}/b2c_member/${auth.b2c_id}/b2c_avatar`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              ...getAuthHeader(),
-            },
-            body: JSON.stringify({ b2c_avatar: base64String }),
+        const response = await fetch(`${MEMBER_AVATAR_UPDATE_POST}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeader(),
           },
-        )
+          body: JSON.stringify({
+            b2c_id: auth.b2c_id,
+            b2c_avatar: base64String,
+          }),
+        })
 
         const result = await response.json()
         if (result.success) {
-          setAvatarPreview(reader.result) // 更新預覽圖
-          updateUser({ b2c_avatar: result.data.b2c_avatar }) // 更新 context 中的 avatar
+          setAvatarPreview(base64String) // 更新預覽圖
+          updateUser({ b2c_avatar: result.data }) // 更新 context 中的 avatar
         } else {
           console.error('大頭貼上傳失敗:', result.error)
           setError(result.error)
@@ -78,7 +78,7 @@ const Member = () => {
         setError('上傳大頭貼時發生錯誤')
       }
     }
-    reader.readAsDataURL(file) // 將文件轉為 Data URL
+    reader.readAsDataURL(file)
   }
 
   const handleAvatarClick = () => {
@@ -147,7 +147,11 @@ const Member = () => {
               aria-label="點擊以更改大頭貼"
             >
               {avatarPreview ? (
-                <img src={avatarPreview} alt="會員大頭貼" />
+                <img
+                  className={styles['avatar-container']}
+                  src={avatarPreview}
+                  alt="會員大頭貼"
+                />
               ) : (
                 <p>沒有大頭貼</p>
               )}

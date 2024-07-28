@@ -47,19 +47,31 @@ const PurchaseHistory = ({ memberData }) => {
         {activeRecordType === 'insurance' && (
           <>
             <h3>保險紀錄</h3>
-            <InsuranceRecords records={records} />
+            {records.length > 0 ? (
+              <InsuranceRecords records={records} />
+            ) : (
+              <p>沒有保險紀錄</p>
+            )}
           </>
         )}
         {activeRecordType === 'lifeCeremony' && (
           <>
             <h3>生命禮儀紀錄</h3>
-            <LifeCeremonyRecords records={records} />
+            {records.length > 0 ? (
+              <LifeCeremonyRecords records={records} />
+            ) : (
+              <p>沒有生命禮儀紀錄</p>
+            )}
           </>
         )}
         {activeRecordType === 'product' && (
           <>
             <h3>產品購買紀錄</h3>
-            <ProductRecords records={records} />
+            {records.length > 0 ? (
+              <ProductRecords records={records} />
+            ) : (
+              <p>沒有產品購買紀錄</p>
+            )}
           </>
         )}
       </div>
