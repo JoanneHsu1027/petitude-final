@@ -1,8 +1,5 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import Button from 'react-bootstrap/Button'
-// import Modal from 'react-bootstrap/Modal'
-// import Image from 'next/image'
 import ScrollToTopButton from '@/components/funeral/scrollToTop'
 
 export default function Question() {
@@ -211,6 +208,7 @@ export default function Question() {
         .accordion-body {
           background-color: white;
           color: #515151;
+          font-weight: 500;
         }
 
         @media (max-width: 768px) {

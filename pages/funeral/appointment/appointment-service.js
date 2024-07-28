@@ -209,6 +209,7 @@ export default function AppointmentService() {
         }
         p {
           font-size: 20px;
+          font-weight: 500;
         }
         .green {
           width: 20%;
@@ -304,7 +305,6 @@ export default function AppointmentService() {
             font-size: 0.8rem; /* 在較小螢幕下設定較小的按鈕字體大小 */
             padding: 5px 10px; /* 調整按鈕內邊距 */
           }
-          
         }
         @media (max-width: 580px) {
           .title {

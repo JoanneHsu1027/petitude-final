@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <>
       <MemorialPage />
-      <div className="container-fluid d-flex justify-content-center p-0 m-0">
+      <div className="container-fluid d-flex justify-content-center p-0 mb-5">
         <div className="row justify-content-center w-100">
           <div className="col-12 d-flex flex-column flex-md-row justify-content-center">
             {/* left */}
@@ -41,11 +41,11 @@ export default function HomePage() {
             <div className="col-12 col-md-3 d-flex justify-content-center align-items-center p-0 m-0 mt-md-0">
               <img
                 className="img2 img-fluid"
-                src="/funeral/3.jpg"
+                src="/funeral/16.jpg"
                 alt=""
                 style={{
                   maxWidth: '100%',
-                  height: '80%',
+                  height: 'auto',
                   borderRadius: '30px 0 30px 0',
                   overflow: 'hidden',
                   position: 'relative',
@@ -55,7 +55,7 @@ export default function HomePage() {
             </div>
             {/* right */}
             <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
-              <div className="textSection pe-md-5">
+              <div className="textSection pe-md-5 mt-0">
                 <div>
                   <h3>生命禮儀</h3>
                   <p>
@@ -135,7 +135,7 @@ export default function HomePage() {
           }
           .img2 {
             width: 55%;
-            margin-top: -2rem;
+            margin-top: 1rem;
           }
           .line {
             transform: rotate(90deg);

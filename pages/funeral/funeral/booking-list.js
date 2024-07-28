@@ -196,7 +196,7 @@ export default function BookingList() {
   return (
     <Layout>
       <div
-        className={`container-fluid d-flex flex-column flex-md-row justify-content-between align-items-stretch mb-5 ${styles.full}`}
+        className={`container-fluid d-flex flex-column flex-row justify-content-between align-items-stretch mb-5 ${styles.full}`}
       >
         <div className="row">
           {/* leftCard */}

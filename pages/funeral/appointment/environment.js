@@ -199,7 +199,7 @@ export default function Environment() {
               font-weight: 500;
               color: #fff;
               border: none;
-              border-radius: 5px;
+              border-radius: 30px;
               padding: 10px 20px;
               font-size: 18px;
               margin-bottom: 1rem;
