@@ -23,8 +23,13 @@ export default function SideBarPc({ onSearch }) {
   useEffect(() => {
     const handleScroll = () => {
       const isBottom =
-        window.outerHeight + window.scrollY >= document.body.offsetHeight
-      setSidebarOffset(isBottom ? 10 : 140)
+        //大螢幕設定
+        window.innerHeight + window.scrollY >= document.body.offsetHeight
+      setSidebarOffset(isBottom ? 100 : 140)
+
+      //小螢幕設定
+      //   window.outerHeight + window.scrollY >= document.body.offsetHeight
+      // setSidebarOffset(isBottom ? 10 : 140)
     }
 
     window.addEventListener('scroll', handleScroll)

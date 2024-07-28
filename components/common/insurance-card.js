@@ -6,11 +6,14 @@ export default function InsuranceCard({ cardStyle, imageSrc, title, text }) {
   return (
     <>
       <div className={cardStyle}>
-        <Link href="/insurance" className="text-decoration-none">
+        <Link
+          href="/insurance"
+          className="text-decoration-none d-flex justify-content-center"
+        >
           <div
             className="card"
             style={{
-              width: '15.625rem',
+              width: '80%',
               border: '4px solid #6A513D',
               borderRadius: '20px',
             }}

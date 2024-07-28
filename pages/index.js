@@ -4,6 +4,7 @@ import Funeral from '@/components/funeral/homeFuneral'
 import InsuranceSection from '@/components/insurance/insurance-section'
 import Estore from '@/components/estore/indexPage'
 import ClassSection from '@/components/platform/index-page/class-section'
+import Slider from '@/components/layout/slick'
 
 export default function home() {
   return (
@@ -13,6 +14,7 @@ export default function home() {
         style={{ backgroundImage: 'url(/index/bg-img.png)' }}
       >
         <Layout>
+          <Slider />
           <Estore />
           <InsuranceSection />
           <Funeral />

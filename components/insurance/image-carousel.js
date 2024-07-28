@@ -1,33 +1,30 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 const slideAnimation = keyframes`
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 `
 
 const CarouselContainer = styled.div`
   overflow: hidden;
   width: 100%;
-  height: 100px;
+  height: 60px;
 `
 
 const ImageStrip = styled.div`
   display: flex;
-  animation: ${slideAnimation} 13s linear infinite;
+  width: 200%;
+  height: 100%;
+  animation: ${slideAnimation} 20s linear infinite;
 `
 
 const ImageWrapper = styled.div`
-  width: 10%;
+  flex: 0 0 auto;
   height: 100%;
-  flex-shrink: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 `
 
 const StyledImage = styled.img`
@@ -35,6 +32,8 @@ const StyledImage = styled.img`
   max-height: 100%;
   object-fit: contain;
   transform: ${(props) => (props.rotate ? 'rotate(-13deg)' : 'none')};
+  margin: 0;
+  padding: 0;
 `
 
 const ImageCarousel = () => {
@@ -42,31 +41,35 @@ const ImageCarousel = () => {
     { src: '/pi-pic/Dog_Bone.png', rotate: true },
     { src: '/pi-pic/Fish_Bone.png', rotate: false },
   ]
+  const stripRef = useRef(null)
+
+  useEffect(() => {
+    const strip = stripRef.current
+    if (strip) {
+      const resetAnimation = () => {
+        strip.style.animation = 'none'
+        strip.offsetHeight // 觸發重排
+        strip.style.animation = null
+      }
+
+      window.addEventListener('resize', resetAnimation)
+      return () => window.removeEventListener('resize', resetAnimation)
+    }
+  }, [])
+
+  const renderImages = () => {
+    return [...Array(20)].flatMap((_, index) =>
+      images.map((img, imgIndex) => (
+        <ImageWrapper key={`${index}-${imgIndex}`}>
+          <StyledImage src={img.src} alt="" rotate={img.rotate} />
+        </ImageWrapper>
+      )),
+    )
+  }
 
   return (
     <CarouselContainer>
-      <ImageStrip>
-        {[...Array(20)].map((_, index) => (
-          <ImageWrapper key={index}>
-            <StyledImage
-              loading="lazy"
-              src={images[index % 2].src}
-              alt=""
-              rotate={images[index % 2].rotate}
-            />
-          </ImageWrapper>
-        ))}
-        {[...Array(20)].map((_, index) => (
-          <ImageWrapper key={index + 20}>
-            <StyledImage
-              loading="lazy"
-              src={images[index % 2].src}
-              alt=""
-              rotate={images[index % 2].rotate}
-            />
-          </ImageWrapper>
-        ))}
-      </ImageStrip>
+      <ImageStrip ref={stripRef}>{renderImages()}</ImageStrip>
     </CarouselContainer>
   )
 }
