@@ -3,26 +3,30 @@
 }
 
 .productImage {
-  width: 80%;
-  margin-left: 2rem;
+  width: 100%;
   margin-bottom: 1rem;
   height: auto;
+
 }
 .productName {
-  font-size: 16px;
+  font-size: 1.8rem;
   color: #6a513d;
   display: flex;
-  justify-content: start;
+  justify-content: center;
+  align-items: center;
+  margin: 0%;
+  font-weight: 900;
+}
+.productPrice {
+  font-size: 1.8rem;
+  color: #6a513d;
+  display: flex;
+  justify-content: center;
   align-items: center;
   margin: 0%;
   font-weight: 900;
 }
 
-.quantityPriceContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
 .quantitySelector1 {
   background-color: #6A513D;
@@ -59,7 +63,14 @@
   font-weight: 900;
 }
 
-.productPrice {
-  color: #6a513d;
-  font-weight: 600;
+
+@media (max-width: 768px) {
+  .productName{
+    padding: 0;
+    font-size: 20px;
+
+  }
+  .productPrice{
+    font-size: 20px;
+  }
 }

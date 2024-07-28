@@ -417,6 +417,7 @@ export default function RvEdit() {
                   position: 'relative',
                   top: '25px',
                   fontWeight: '900',
+                  fontFamily: 'Noto Serif TC',
                 }}
               >
                 線上預約
@@ -962,10 +963,7 @@ export default function RvEdit() {
         </svg>
       </div> */}
       <div className="dogpic">
-        <div class="popup-bone">
-          <img src="/funeral/bone.png" alt="bone" class="dog-image" />
-        </div>
-        <img src="/funeral/golddog.png" />
+        <img src="/funeral/golddog.png" className="dogpic1" />
       </div>
       <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
@@ -1025,17 +1023,8 @@ export default function RvEdit() {
         }
         .dogpic {
           position: absolute;
-          margin-top: -39.2%;
-          transform: rotate(1deg);
-        }
-
-        @import url('https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700,900');
-
-        body {
-          font-family: 'Titillium Web', sans-serif;
-          font-size: 14px;
-          font-weight: 400;
-          color: #44525f;
+          margin-top: -30.7%;
+          transform: rotate(1.3deg);
         }
 
         ul {
@@ -1250,7 +1239,7 @@ export default function RvEdit() {
           content: '\f00c';
         }
 
-        @media (min-width: 320px) and (max-width: 375px) {
+        @media (min-width: 390px) and (max-width: 395px) {
           body {
             background-size: cover;
           }
@@ -1259,11 +1248,17 @@ export default function RvEdit() {
             margin-bottom: 10px;
             font-size: 14px;
           }
+          .dogpic {
+            display: none !important;
+          }
         }
 
         @media (max-width: 320px) {
           .remember-row .col-sm-6 {
             width: 100%;
+          }
+          .dogpic {
+            display: none !important;
           }
         }
 
@@ -1274,6 +1269,7 @@ export default function RvEdit() {
           .col-lg-6 {
             width: 50%;
           }
+
           .col-lg-1,
           .col-lg-10,
           .col-lg-11,

@@ -12,7 +12,7 @@ export default function Success() {
         className={`d-none d-md-block ${styles.full}`}
         style={{ padding: 60 + 'px' }}
       >
-        <div className={`container-fluid ${styles.outerFrame}`}>
+        <div className={`container-fluid pt-5 ${styles.outerFrame}`}>
           <div className="row fs-2 p-5 d-flex justify-content-center align-items-center">
             感謝你的購買
           </div>

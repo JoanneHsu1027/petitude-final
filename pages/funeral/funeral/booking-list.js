@@ -501,16 +501,14 @@ export default function BookingList() {
                           <div className="row">
                             <div className="col-12">
                               {/* 項目名稱 */}
-                              <div className={`fs-5 ${styles.productName}`}>
+                              <div className={`${styles.productName}`}>
                                 {r.project_name}
                               </div>
                             </div>
                             <div
                               className={`col-12 ${styles.quantityPriceContainer} mt-2`}
                             >
-                              <div
-                                className={`justify-content-end fs-4 ${styles.productPrice}`}
-                              >
+                              <div className={`${styles.productPrice}`}>
                                 $ {formatCurrency(r.project_price * r.qty)}
                               </div>
                             </div>

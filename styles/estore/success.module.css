@@ -10,8 +10,9 @@
   height: 68vh; 
   font-family: "Noto Serif TC", serif;
 }
-
-
+.container-fluid{
+  margin-top: 20%;
+}
 .outerFrame{
   border-radius: 30px;
   border: 0px;

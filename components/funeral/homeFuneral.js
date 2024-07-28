@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <>
       <MemorialPage />
-      <div className="container-fluid d-flex justify-content-center p-0 mb-5">
+      <div className="container-fluid">
         <div className="row justify-content-center w-100">
           <div className="col-12 d-flex flex-column flex-md-row justify-content-center">
             {/* left */}
@@ -57,7 +57,7 @@ export default function HomePage() {
             <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
               <div className="textSection pe-md-5 mt-0">
                 <div>
-                  <h3>生命禮儀</h3>
+                  <h3 className="title">生命禮儀</h3>
                   <p>
                     我們提供各項寵物禮儀服務客製化每位毛小孩的旅程，全程協助陪伴每位家屬，學習悲傷，轉悲為喜。你會發現，毛小孩教會我們的至始至終都是愛
                   </p>
@@ -74,10 +74,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <div className="btnSec d-flex justify-content-center">
-                  <button
-                    onClick={handleRouter}
-                    className="btn btn-warning mt-4"
-                  >
+                  <button onClick={handleRouter} className="btn">
                     進入頁面
                   </button>
                 </div>
@@ -87,6 +84,13 @@ export default function HomePage() {
         </div>
       </div>
       <style jsx>{`
+        .container-fluid {
+          margin-bottom: 10px;
+          display: flex;
+          justify-content: center;
+          padding: 0;
+          margin-bottom: 10rem;
+        }
         .left {
           margin-top: 4rem;
         }
@@ -99,7 +103,9 @@ export default function HomePage() {
           border-radius: 20px;
           margin-top: 2rem;
         }
-
+        .title {
+          font-weight: 900;
+        }
         .img1 {
           width: 100%;
           border-radius: 20px;
@@ -114,6 +120,11 @@ export default function HomePage() {
         .textSection {
           padding: 2rem 2rem;
           margin-top: 10%;
+        }
+        .btn {
+          background-color: #f5d553;
+          color: #563008;
+          font-weight: 900;
         }
         .btn:hover {
           background-color: #6a513d;
@@ -152,6 +163,11 @@ export default function HomePage() {
             text-align: center;
             margin: '8% 0';
             padding: 1rem 2rem;
+          }
+          .btn {
+            background-color: #f5d553;
+            color: #563008;
+            font-weight: 900;
           }
           .btn:hover {
             background-color: #6a513d;
