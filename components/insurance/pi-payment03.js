@@ -116,8 +116,6 @@ function PiPayment03() {
         body: JSON.stringify(insuranceData),
       })
 
-      console.log(insuranceData)
-
       if (!response.ok) {
         throw new Error('Failed to save data to server')
       }
@@ -127,7 +125,7 @@ function PiPayment03() {
 
       if (result.success && result.OrderId) {
         await router.push(`/insurance/payment/${result.OrderId}`)
-        // clearLocalStorage()
+        clearLocalStorage()
       } else {
         console.error('Order creation failed or no order ID returned')
       }

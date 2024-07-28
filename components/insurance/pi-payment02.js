@@ -202,11 +202,6 @@ function PiPayment02() {
 
       // 跳轉下一頁
       router.push('/insurance/insurance-payment03')
-      console.log(
-        'Submitted mobile number:',
-        formDataObject.policyholder_mobile,
-      )
-      console.log('Submitted address:', formDataObject.policyholder_address)
     } catch (error) {
       console.error('保存失敗:', error)
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')
