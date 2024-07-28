@@ -43,8 +43,9 @@ export default function ClassBlock({ classId }) {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
+        console.log(`Fetching articles for class_id: ${classId}`)
         const response = await fetch(
-          `${CLASS_FILTER}/${encodeURIComponent(classId)}`,
+          `${CLASS_FILTER}/${encodeURIComponent(classId)}?page=${page}`,
         )
         const myData = await response.json()
         if (myData.rows.length === 0) {

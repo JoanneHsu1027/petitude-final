@@ -21,6 +21,10 @@ export default function ClassId() {
     }
   }, [router.query.class_id])
 
+  useEffect(() => {
+    console.log(`ClassId: ${classId}`)
+  }, [classId])
+
   const handleCreateArticle = () => {
     if (!auth.b2c_id) {
       swal

@@ -11,7 +11,6 @@ export default function ClassList() {
   const router = useRouter()
 
   const handleSearch = (keyword) => {
-    // 跳轉到 ArticleList 页面并带上搜索关键字
     router.push(`/platform/article?keyword=${encodeURIComponent(keyword)}`)
   }
 
