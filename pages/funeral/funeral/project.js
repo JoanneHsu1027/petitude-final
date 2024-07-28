@@ -37,6 +37,9 @@ export default function Project() {
           margin-bottom: 1rem;
           font-weight: 900;
         }
+        .col-12{
+          margin-left: 4rem;
+        }
         @media (max-width: 580px);{
           .container-fluid{
             margin-top: 5rem;
@@ -45,6 +48,9 @@ export default function Project() {
           font-size: 30px;
           margin-bottom: 1rem;
           font-weight: 900;
+        }
+        .col-12{
+          margin-left: 1rem;
         }
         .text{
           font-size: 20px;
