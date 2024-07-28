@@ -408,7 +408,7 @@ export default function PetInsurance() {
                 寵物保險常見問題
               </h2>
             </div>
-            <div className=" col-12">
+            <div className="col-12 col-sm-8">
               <div className="accordion" id="accordionExample">
                 <div className="accordion-item">
                   <h2 className="accordion-header" id="headingOne">
