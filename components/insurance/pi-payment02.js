@@ -48,10 +48,10 @@ function PiPayment02() {
     policyholder_IDcard: '',
     policyholder_birthday: '',
     fk_policyholder_email: '',
-    fk_policyholder_mobile: '',
+    policyholder_mobile: '',
     fk_county_id: '',
     fk_city_id: '',
-    fk_policyholder_address: '',
+    policyholder_address: '',
   })
 
   // 為每個欄位創建錯誤狀態
@@ -60,10 +60,10 @@ function PiPayment02() {
     policyholder_IDcard: '',
     policyholder_birthday: '',
     fk_policyholder_email: '',
-    fk_policyholder_mobile: '',
+    policyholder_mobile: '',
     fk_county_id: '',
     fk_city_id: '',
-    fk_policyholder_address: '',
+    policyholder_address: '',
   })
 
   // 選擇是否帶入會員資料
@@ -122,10 +122,10 @@ function PiPayment02() {
                 ? new Date(fullMemberData.b2c_birth).toISOString().split('T')[0]
                 : '',
               fk_policyholder_email: fullMemberData.b2c_email || '',
-              fk_policyholder_mobile: fullMemberData.b2c_mobile || '',
+              policyholder_mobile: fullMemberData.b2c_mobile || '',
               fk_county_id: fullMemberData.fk_county_id || '',
               fk_city_id: fullMemberData.fk_city_id || '',
-              fk_policyholder_address: fullMemberData.b2c_address || '',
+              policyholder_address: fullMemberData.b2c_address || '',
             }
 
             setMemberData(newMemberData)
@@ -141,10 +141,10 @@ function PiPayment02() {
         policyholder_IDcard: '',
         policyholder_birthday: '',
         fk_policyholder_email: '',
-        fk_policyholder_mobile: '',
+        policyholder_mobile: '',
         fk_county_id: '',
         fk_city_id: '',
-        fk_policyholder_address: '',
+        policyholder_address: '',
       })
       setSelectedCounty()
     }
@@ -166,12 +166,12 @@ function PiPayment02() {
       fk_policyholder_email: z
         .string()
         .email({ message: '請填寫正確的電子郵件地址' }),
-      fk_policyholder_mobile: z
+      policyholder_mobile: z
         .string()
         .regex(/^09\d{2}(-?\d{3}){2}$/, { message: '請填寫正確的手機格式' }),
       fk_county_id: z.string().min(1, { message: '請選擇縣市' }),
       fk_city_id: z.string().min(1, { message: '請選擇城市' }),
-      fk_policyholder_address: z.string().min(1, { message: '請填寫詳細地址' }),
+      policyholder_address: z.string().min(1, { message: '請填寫詳細地址' }),
     })
 
     const formDataObject = Object.fromEntries(formData.entries())
@@ -194,18 +194,19 @@ function PiPayment02() {
       // 更新會員資料
       // await axios.put('http://localhost:3001/petcompany/b2c_members', {
       //   fk_policyholder_email: formDataObject.fk_policyholder_email,
-      //   fk_policyholder_mobile: formDataObject.fk_policyholder_mobile,
+      //   policyholder_mobile: formDataObject.policyholder_mobile,
       //   fk_county_id: formDataObject.fk_county_id,
       //   fk_city_id: formDataObject.fk_city_id,
-      //   fk_policyholder_address: formDataObject.fk_policyholder_address,
+      //   policyholder_address: formDataObject.policyholder_address,
       // })
 
       // 跳轉下一頁
       router.push('/insurance/insurance-payment03')
       console.log(
         'Submitted mobile number:',
-        formDataObject.fk_policyholder_mobile,
+        formDataObject.policyholder_mobile,
       )
+      console.log('Submitted address:', formDataObject.policyholder_address)
     } catch (error) {
       console.error('保存失敗:', error)
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')
@@ -243,10 +244,10 @@ function PiPayment02() {
                 ? new Date(fullMemberData.b2c_birth).toISOString().split('T')[0]
                 : '',
               fk_policyholder_email: fullMemberData.b2c_email || '',
-              fk_policyholder_mobile: fullMemberData.b2c_mobile || '',
+              policyholder_mobile: fullMemberData.b2c_mobile || '',
               fk_county_id: fullMemberData.fk_county_id || '',
               fk_city_id: fullMemberData.fk_city_id || '',
-              fk_policyholder_address: fullMemberData.b2c_address || '',
+              policyholder_address: fullMemberData.b2c_address || '',
             })
             setSelectedCounty(fullMemberData.fk_county_id)
           }
@@ -414,21 +415,21 @@ function PiPayment02() {
                           >
                             手機號碼
                             <ErrorMessage
-                              message={errors.fk_policyholder_mobile}
+                              message={errors.policyholder_mobile}
                             />
                           </h5>
                         </label>
                         <input
                           className={styles['sheet-input']}
                           type="text"
-                          id="fk_policyholder_mobile"
-                          name="fk_policyholder_mobile"
+                          id="policyholder_mobile"
+                          name="policyholder_mobile"
                           style={{ width: '100%' }}
-                          value={memberData.fk_policyholder_mobile}
+                          value={memberData.policyholder_mobile}
                           onChange={(e) =>
                             setMemberData({
                               ...memberData,
-                              fk_policyholder_mobile: e.target.value,
+                              policyholder_mobile: e.target.value,
                             })
                           }
                         />
@@ -448,9 +449,7 @@ function PiPayment02() {
                         style={{ marginBottom: '11px' }}
                       >
                         聯絡地址
-                        <ErrorMessage
-                          message={errors.fk_policyholder_address}
-                        />
+                        <ErrorMessage message={errors.policyholder_address} />
                       </h5>
                     </label>
                   </div>
@@ -503,13 +502,13 @@ function PiPayment02() {
                     className={styles['sheet-input']}
                     style={{ marginTop: '.6875rem' }}
                     type="text"
-                    id="fk_policyholder_address"
-                    name="fk_policyholder_address"
-                    value={memberData.fk_policyholder_address}
+                    id="policyholder_address"
+                    name="policyholder_address"
+                    value={memberData.policyholder_address}
                     onChange={(e) =>
                       setMemberData({
                         ...memberData,
-                        fk_policyholder_address: e.target.value,
+                        policyholder_address: e.target.value,
                       })
                     }
                   />

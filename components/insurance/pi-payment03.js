@@ -92,10 +92,10 @@ function PiPayment03() {
         policyholder_IDcard: holderID,
         policyholder_birthday: holderBirthday,
         fk_policyholder_email: holderEmail,
-        fk_policyholder_mobile: holderMobile,
+        policyholder_mobile: holderMobile,
         fk_county_id: countyData ? countyData.value : '',
         fk_city_id: cityData ? cityData.value : '',
-        fk_policyholder_address: holderAddress,
+        policyholder_address: holderAddress,
         // 寵物資料
         pet_name: petName,
         pet_chip: petChip,
@@ -106,8 +106,6 @@ function PiPayment03() {
         // 紀錄的圖片(File物件)
         pet_pic: selectedImg,
       }
-      // 保存所有數據到 localStorage
-      // localStorage.setItem('InsuranceOrder', JSON.stringify(insuranceData))
 
       // 資料發送到後端
       const response = await fetch(INSURANCE_ADD_POST, {
@@ -118,6 +116,8 @@ function PiPayment03() {
         body: JSON.stringify(insuranceData),
       })
 
+      console.log(insuranceData)
+
       if (!response.ok) {
         throw new Error('Failed to save data to server')
       }
@@ -125,20 +125,9 @@ function PiPayment03() {
       const result = await response.json()
       console.log('Server response:', result)
 
-      // 如果訂單成立, 返回一個order id 進localstorage
-      // if (result.success) {
-      //   if (result.latestOrderId !== undefined) {
-      //     localStorage.setItem('order_id', result.latestOrderId.toString())
-      //   } else {
-      //     console.error('Latest order ID is undefinded')
-      //   }
-      // }
-      // 跳轉下一頁
-      // router.push('/insurance/insurance-payment04')
-
       if (result.success && result.OrderId) {
         await router.push(`/insurance/payment/${result.OrderId}`)
-        clearLocalStorage()
+        // clearLocalStorage()
       } else {
         console.error('Order creation failed or no order ID returned')
       }
@@ -194,10 +183,10 @@ function PiPayment03() {
       setHolderID(holderBasicData.policyholder_IDcard) // 要保人身份證字號
       setHolderBirthday(holderBasicData.policyholder_birthday) // 要保人生日
       setHolderEmail(holderBasicData.fk_policyholder_email) // 要保人信箱
-      setHolderMobile(holderBasicData.fk_policyholder_mobile) // 要保人手機
+      setHolderMobile(holderBasicData.policyholder_mobile) // 要保人手機
       setHolderCounty(countyData ? countyData.label : '') // 要保人居住縣市
       setHolderCity(cityData ? cityData.label : '') // 要保人居住區
-      setHolderAddress(holderBasicData.fk_policyholder_address) // 要保人地址
+      setHolderAddress(holderBasicData.policyholder_address) // 要保人地址
     }
   }, [])
 
