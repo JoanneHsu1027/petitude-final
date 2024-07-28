@@ -10,6 +10,8 @@ import { z } from 'zod'
 import Swal from 'sweetalert2'
 
 function PiPayment01() {
+  const router = useRouter()
+
   // 驗證寵物姓名用
   const [NameError, setNameError] = useState('')
   const validateName = (name) => {
@@ -22,10 +24,11 @@ function PiPayment01() {
     return /^\d{10,15}$/.test(chip)
   }
 
-  // 驗證聲明書用
-  const [agreementsError, setAgreementsError] = useState('')
   // 驗證已讀用
   const [checkedReadError, setCheckedReadError] = useState('')
+
+  // 為了已詳閱並同意以上聲明事項
+  const [checkedRead, setCheckedRead] = useState(false)
 
   // 驗證
   const formSchema = z.object({
@@ -54,6 +57,20 @@ function PiPayment01() {
     }),
   })
 
+  // 驗證聲明書用
+  const [agreementsError, setAgreementsError] = useState('')
+
+  // 為了顯示選擇的聲明內容
+  const [selectedAgreement, setSelectedAgreement] = useState(agreements[0])
+
+  // 聲明書滾動位置監控
+  const [scrollPositions, setScrollPositions] = useState({
+    agreementItem01: 0,
+    agreementItem02: 0,
+    agreementItem03: 0,
+    agreementItem04: 0,
+  })
+
   // 聲明書勾選確認
   const [agreementsStatus, setAgreementsStatus] = useState({
     agreementItem01: false,
@@ -61,6 +78,17 @@ function PiPayment01() {
     agreementItem03: false,
     agreementItem04: false,
   })
+
+  // 須將聲明書讀完
+  const [agreementsScrolled, setAgreementScrolled] = useState({
+    agreementItem01: false,
+    agreementItem02: false,
+    agreementItem03: false,
+    agreementItem04: false,
+  })
+
+  // 為了聲明勾選的狀況
+  const [agreementClicked, setAgreementClicked] = useState(new Set())
 
   const [data, setData] = useState(null)
 
@@ -82,12 +110,6 @@ function PiPayment01() {
 
   // 取得選擇的保險方案
   const [planType, setPlanType] = useState('')
-  // 為了聲明勾選的狀況
-  const [agreementClicked, setAgreementClicked] = useState(new Set())
-  // 為了顯示選擇的聲明內容
-  const [selectedAgreement, setSelectedAgreement] = useState(agreements[0])
-  // 為了已詳閱並同意以上聲明事項
-  const [checkedRead, setCheckedRead] = useState(false)
 
   // 預覽和上傳寵物大頭照
   // 記錄選擇的圖檔(File物件)
@@ -100,8 +122,7 @@ function PiPayment01() {
   const [message, setMessage] = useState('')
   // 檔案輸入參考
   const fileInputRef = React.createRef()
-  // localStorage大小限制(5MB)
-  // const LOCALSTORAGE_LIMIT = 5 * 1024 * 1024
+
   // localStorage大小限制(100kb)
   const LOCALSTORAGE_LIMIT = 100 * 1024 // 100KB 的大小限制
   // 為了主動告知事項
@@ -117,8 +138,6 @@ function PiPayment01() {
       handleImgClick()
     }
   }
-
-  const router = useRouter()
 
   const handleImgClick = () => {
     fileInputRef.current.click()
@@ -168,17 +187,13 @@ function PiPayment01() {
     }
   }
 
-  // 須將聲明書讀完
-  const [agreementsScrolled, setAgreementScrolled] = useState({
-    agreementItem01: false,
-    agreementItem02: false,
-    agreementItem03: false,
-    agreementItem04: false,
-  })
-
   // 處理聲明書滾動
   const handleScroll = (e, agreementId) => {
     const { scrollTop, scrollHeight, clientHeight } = e.target
+    setScrollPositions((prev) => ({
+      ...prev,
+      [agreementId]: scrollTop,
+    }))
     if (scrollHeight - scrollTop <= clientHeight + 1) {
       setAgreementScrolled((prev) => ({
         ...prev,
@@ -792,6 +807,11 @@ function PiPayment01() {
                     )}
                   </div>
                   <textarea
+                    ref={(el) => {
+                      if (el) {
+                        el.scrollTop = scrollPositions[selectedAgreement.id]
+                      }
+                    }}
                     rows={10}
                     className={`mt-3 ${styles.InfoDetail} border-0 no-outline`}
                     value={selectedAgreement.agreementContent}

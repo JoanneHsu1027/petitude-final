@@ -7,6 +7,7 @@ import TrialCalculation from '@/components/insurance/trial-calculation'
 import PetSick from '@/components/insurance/pet-sick'
 import { Router, useRouter } from 'next/router'
 import ImageCarousel from '@/components/insurance/image-carousel'
+import ScrollToTopButton from '@/components/common/scrollToTop'
 
 
 export default function PetInsurance() {
@@ -48,6 +49,8 @@ export default function PetInsurance() {
   return (
     <>
       <Layout title="寵度寵物保險" pageName="pet-insurance">
+        {/* 回到最上面按鈕 */}
+        <ScrollToTopButton />
         {/* section 1 介紹 start */}
         <div
           className={`container-fluid d-flex justify-content-center ${styles['bg-image']} ${styles.allFont} pt-5`}

@@ -5,6 +5,7 @@ import InsuranceSection from '@/components/insurance/insurance-section'
 import Estore from '@/components/estore/indexPage'
 import ClassSection from '@/components/platform/index-page/class-section'
 import Slider from '@/components/layout/slick'
+import ScrollToTopButton from '@/components/common/scrollToTop'
 
 export default function home() {
   return (
@@ -14,6 +15,7 @@ export default function home() {
         style={{ backgroundImage: 'url(/index/bg-img.png)' }}
       >
         <Layout>
+          <ScrollToTopButton />
           <Slider />
           <Estore />
           <InsuranceSection />

@@ -335,22 +335,22 @@
   display: flex;
 }
 
-@media (max-width: 992px) {
-  .forDeskTop {
-    display: none;
-  }
-}
-
 .forPhone {
   display: none;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 391px) {
+  .forDeskTop {
+    display: none;
+  }
   .forPhone {
     display: flex;
     flex-direction: column;
   }
 }
+
+
+
 
 
 
