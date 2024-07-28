@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Layout from '@/components/layout/layout'
-import styles from '../../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
 import SideBarMobile from '@/components/platform/side-bar-mobile'
-import ClassBlock from '@/components/platform/article-block'
-import LoginModal from '@/components/member/LoginModal'
+import ClassBlock from '@/components/platform/class-block'
+import styles from '../../../styles/platform/platform-style.module.css'
 import { useAuth } from '@/contexts/member/auth-context'
-import { useRouter } from 'next/router'
-import swal from 'sweetalert2'
 
 export default function ClassId() {
   const router = useRouter()
@@ -21,10 +19,6 @@ export default function ClassId() {
     }
   }, [router.query.class_id])
 
-  useEffect(() => {
-    console.log(`ClassId: ${classId}`)
-  }, [classId])
-
   const handleCreateArticle = () => {
     if (!auth.b2c_id) {
       swal
@@ -33,10 +27,10 @@ export default function ClassId() {
           icon: 'error',
         })
         .then(() => {
-          setShowModal(true) // 在警告框關閉後顯示登錄窗口
+          setShowModal(true)
         })
     } else {
-      router.push('/platform/article/create') // 確保路徑正確
+      router.push('/platform/article/create')
     }
   }
 
@@ -59,7 +53,6 @@ export default function ClassId() {
                       className="col-lg-12 col-md-12 d-flex flex-column m-1"
                     >
                       <SideBarMobile />
-
                       <ClassBlock classId={classId} />
                     </div>
                   </div>
