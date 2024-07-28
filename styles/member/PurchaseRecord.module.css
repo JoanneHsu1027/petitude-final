@@ -1,3 +1,37 @@
 .record-group{
-    
+    display: flex;
+    padding: 32px 57px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 28px;
+    align-self: stretch;
 }
+.record-title{
+    text-align: center;
+}
+
+.record-button{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 20px;
+    border: 1px solid #000;
+    background:  #FFF5CF;
+  }
+  
+  .record-button-active{
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: 20px;
+    border: 1px solid #000;
+    background: #F6D554;
+  }
