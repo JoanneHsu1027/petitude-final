@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import styles from '../../../styles/platform/platform-style.module.css'
+import styles from '../../../../styles/platform/platform-style.module.css'
 import { BsXLg } from 'react-icons/bs'
 import Navbar from '@/components/layout/navbar'
 import { useRouter } from 'next/router'

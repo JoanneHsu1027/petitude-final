@@ -1,45 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Layout from '@/components/layout/layout'
 import styles from '../../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
 import SideBarMobile from '@/components/platform/side-bar-mobile'
-import ArticleBlock from '@/components/platform/article-block'
-import LoginModal from '@/components/member/LoginModal'
-import { useAuth } from '@/contexts/member/auth-context'
-import { useRouter } from 'next/router'
-import swal from 'sweetalert2'
+import FavoriteBlock from '@/components/platform/favorite-block'
+import { useEffect, useState } from 'react'
 
-export default function ArticleList() {
+import { useRouter } from 'next/router'
+
+export default function FavoriteList() {
   const router = useRouter()
-  const { auth } = useAuth()
-  const [showModal, setShowModal] = useState(false)
   const [searchKeyword, setSearchKeyword] = useState(router.query.keyword || '')
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword)
     router.push(`/platform/article?keyword=${encodeURIComponent(keyword)}`)
-  }
-
-  useEffect(() => {
-    // 从 URL 查询参数中获取搜索关键字
-    if (router.query.keyword) {
-      setSearchKeyword(router.query.keyword)
-    }
-  }, [router.query.keyword])
-
-  const handleCreateArticle = () => {
-    if (!auth.b2c_id) {
-      swal
-        .fire({
-          text: '請先登入會員！',
-          icon: 'error',
-        })
-        .then(() => {
-          setShowModal(true) // 在警告框关闭后显示登录窗口
-        })
-    } else {
-      router.push('/platform/article/create') // 确保路径正确
-    }
   }
 
   return (
@@ -61,15 +36,8 @@ export default function ArticleList() {
                       className="col-lg-12 col-md-12 d-flex flex-column m-1"
                     >
                       <SideBarMobile onSearch={handleSearch} />
-                      <button
-                        onClick={handleCreateArticle}
-                        className={`${styles.BtnReset} d-flex flex-row-reverse me-2`}
-                      >
-                        <h5 className={`${styles.CreatArticle} me-3 fw-bold`}>
-                          + 建立文章
-                        </h5>
-                      </button>
-                      <ArticleBlock keyword={searchKeyword} />
+
+                      <FavoriteBlock keyword={searchKeyword} />
                     </div>
                   </div>
                 </div>
@@ -78,7 +46,6 @@ export default function ArticleList() {
           </div>
         </Layout>
       </section>
-      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
 }

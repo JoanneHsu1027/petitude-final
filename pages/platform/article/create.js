@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import styles from '../../styles/platform/platform-style.module.css'
+import styles from '../../../styles/platform/platform-style.module.css'
 import { BsXLg } from 'react-icons/bs'
 import Navbar from '@/components/layout/navbar'
 import { useRouter } from 'next/router'
@@ -133,7 +133,7 @@ export default function CreateArticle() {
             className={`container card my-3 ${styles.Rounded5} border-2 border-dark h-100 p-4 position-relative`}
           >
             <a
-              href="./article"
+              href="./"
               className={`${styles.AReset} position-absolute top-0 end-0 me-4 mt-4`}
             >
               <BsXLg className="display-3"></BsXLg>

@@ -1,16 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap');
 
-
 .AllFont {
   font-family: 'Noto Serif TC', serif;
-  font-weight: 900;
+  font-weight: 500;
 }
+
 .BgImg {
     background-image: url('/forum-pic/bg-img.png'); 
 }
+
 .AReset {
     text-decoration: none;
     color: #000;
+}
+
+.BtnReset{
+    border:0;
+    background-color:white;
+    outline:none;
 }
 
 .AReset:hover {
@@ -24,7 +31,6 @@
     text-overflow:ellipsis;
 }
 
-
 .ContentOverHide{
     text-overflow: ellipsis;
     overflow: hidden;
@@ -35,15 +41,18 @@
     line-height: 20px;
 }
 
-.BtnReset{
-    border:0;
-    background-color:white;
-    outline:none;
-}
-
 .FavHover:hover {
     color: #4CB1C8;
 }
+
+.FavSet {
+    color: #4CB1C8 !important;
+}
+
+.ShareHover:hover {
+    color:black;
+}
+
 
 .DelHover:hover {
     color: red;
@@ -68,6 +77,11 @@ div.Rounded5 {
 .W10 {
     width: 245px;
 }
+
+.W35 {
+    width: 35%;
+}
+
 
 .W60 {
     width: 60%;
@@ -95,6 +109,10 @@ div.Rounded5 {
 }
 
 div.BorderCoffee {
+    border-color: #6a513d;
+}
+
+a.BorderCoffee {
     border-color: #6a513d;
 }
 
