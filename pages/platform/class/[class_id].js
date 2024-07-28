@@ -1,29 +1,40 @@
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import React, { useState, useEffect } from 'react'
 import Layout from '@/components/layout/layout'
 import styles from '../../../styles/platform/platform-style.module.css'
 import SideBarPc from '@/components/platform/side-bar-pc'
 import SideBarMobile from '@/components/platform/side-bar-mobile'
-import { CLASS } from '@/configs/platform/api-path'
+import ClassBlock from '@/components/platform/article-block'
+import LoginModal from '@/components/member/LoginModal'
+import { useAuth } from '@/contexts/member/auth-context'
+import { useRouter } from 'next/router'
+import swal from 'sweetalert2'
 
-export default function ArticleList() {
+export default function ClassId() {
   const router = useRouter()
-  const { class_id } = router.query
-  const [data, setData] = useState({
-    success: false,
-    rows: [],
-  })
+  const { auth } = useAuth()
+  const [showModal, setShowModal] = useState(false)
+  const [classId, setClassId] = useState(router.query.class_id || '')
 
   useEffect(() => {
-    if (class_id) {
-      fetch(`${CLASS}/${class_id}`)
-        .then((r) => r.json())
-        .then((myData) => {
-          console.log(myData)
-          setData(myData)
-        })
+    if (router.query.class_id) {
+      setClassId(router.query.class_id)
     }
-  }, [class_id])
+  }, [router.query.class_id])
+
+  const handleCreateArticle = () => {
+    if (!auth.b2c_id) {
+      swal
+        .fire({
+          text: '請先登入會員！',
+          icon: 'error',
+        })
+        .then(() => {
+          setShowModal(true) // 在警告框關閉後顯示登錄窗口
+        })
+    } else {
+      router.push('/platform/article/create') // 確保路徑正確
+    }
+  }
 
   return (
     <>
@@ -31,52 +42,30 @@ export default function ArticleList() {
         <Layout title="貓狗論壇" pageName="article-list">
           <div className="container mb-5">
             <div className="row">
-              <SideBarPc></SideBarPc>
-              {/* section 這裡開始 */}
+              <div className="col-xl-3 col-lg-12">
+                <SideBarPc />
+              </div>
               <div className="col-xl-9 col-lg-12">
-                {/* article-block 這裡開始 */}
                 <div
                   className={`container card my-3 ${styles.Rounded5} border-0 h-100`}
                 >
-                  <SideBarMobile></SideBarMobile>
-
                   <div className="row">
-                    <div className="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center mt-3 mb-5">
-                      {data.rows.map((r) => {
-                        return (
-                          <div
-                            key={r.article_id}
-                            className="border-bottom w-75"
-                          >
-                            <a
-                              href={`/article/${r.article_id}`}
-                              className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
-                              data-img="p01"
-                            >
-                              <h3
-                                className={`${styles.TitleOverHide} ${styles.W60} flex-grow-1`}
-                              >
-                                {r.article_name}
-                              </h3>
-                              <p
-                                className={`d-flex align-items-end ${styles.LightGray} d-sm-none d-md-block d-none d-sm-block`}
-                              >
-                                {r.article_date}
-                              </p>
-                            </a>
-                          </div>
-                        )
-                      })}
+                    <div
+                      style={{ minHeight: '80vh' }}
+                      className="col-lg-12 col-md-12 d-flex flex-column m-1"
+                    >
+                      <SideBarMobile />
+
+                      <ClassBlock classId={classId} />
                     </div>
                   </div>
                 </div>
-                {/* article-block 這裡結束 */}
               </div>
-              {/* section 這裡結束 */}
             </div>
           </div>
         </Layout>
       </section>
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )
 }

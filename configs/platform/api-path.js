@@ -32,3 +32,6 @@ export const FAVORITE_CHECK = `${API_SERVER}/favorite/check`
 
 //remove favorite
 export const FAVORITE_REMOVE = `${API_SERVER}/favorite/remove`
+
+//filter class
+export const CLASS_FILTER = `${API_SERVER}/class/filter`
