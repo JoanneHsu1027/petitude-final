@@ -6,6 +6,8 @@ import SideBarMobile from '@/components/platform/side-bar-mobile'
 import ClassBlock from '@/components/platform/class-block'
 import styles from '../../../styles/platform/platform-style.module.css'
 import { useAuth } from '@/contexts/member/auth-context'
+import swal from 'sweetalert2'
+import LoginModal from '@/components/member/LoginModal'
 
 export default function ClassId() {
   const router = useRouter()
@@ -53,6 +55,14 @@ export default function ClassId() {
                       className="col-lg-12 col-md-12 d-flex flex-column m-1"
                     >
                       <SideBarMobile />
+                      <button
+                        onClick={handleCreateArticle}
+                        className={`${styles.BtnReset} d-flex flex-row-reverse me-2`}
+                      >
+                        <h5 className={`${styles.CreatArticle} me-3 fw-bold`}>
+                          + 建立文章
+                        </h5>
+                      </button>
                       <ClassBlock classId={classId} />
                     </div>
                   </div>
