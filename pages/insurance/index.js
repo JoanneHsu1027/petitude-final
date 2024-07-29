@@ -59,7 +59,7 @@ export default function PetInsurance() {
             className="row align-items-center d-flex"
             style={{ margin: 0, padding: '0 60px' }}
           >
-            <div className="col-lg-5 col-sm-12 d-flex justify-content-center">
+            <div className="col-sm-5 col-12 d-flex justify-content-center">
               <img
                 loading="lazy"
                 src="/pi-pic/dog-with-cat-v4.png"
@@ -68,7 +68,7 @@ export default function PetInsurance() {
               />
             </div>
             <div
-              className="col-lg-7 col-md-12"
+              className="col-sm-6 col-12"
               style={{ padding: '0 1.5625rem 0 0' }}
             >
               <div className="d-flex">
@@ -136,8 +136,8 @@ export default function PetInsurance() {
 
         {/* section 3 優點介紹 start */}
         <div className={`container-fluid ${styles['bg-image']} ${styles.allFont}`}>
-          <div className="row" style={{ padding: '0 60px' }}>
-            <div className="col-12 d-flex justify-content-center">
+          <div className="row justify-content-center" style={{ padding: '0 60px' }}>
+            <div className="col-11 d-flex justify-content-center">
               <ul
                 className={` list-unstyled d-inline-flex justify-content-between ${styles.advantageHeight}`}
               >
@@ -398,16 +398,17 @@ export default function PetInsurance() {
         </div>
         <div className={`container-fluid pb-5 ${styles['bg-image']} ${styles.allFont}`}>
           <div className="row d-flex justify-content-center">
-            <div className="col-12">
-              <h2
-                className={`d-flex justify-content-center align-items-center ${styles['text-color']}`}
-              >
-                <img
+            <div className="col-12 d-flex justify-content-center">
+              <img
                   className="img-fluid"
                   loading="lazy"
                   src="/pi-pic/cat-paw.png"
                   alt=""
                 />
+              <h2
+                className={`ms-2 d-flex justify-content-center align-items-center ${styles['text-color']}`}
+              >
+                
                 寵物保險常見問題
               </h2>
             </div>

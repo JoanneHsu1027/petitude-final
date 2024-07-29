@@ -39,7 +39,7 @@ export default function PetSick() {
         <div className="row">
           <div className={`col-12 px-0 ${styles.barHight}`}>
             <img
-              className="w-100"
+              className="w-100 h-100"
               loading="lazy"
               src="/pi-pic/section2-top-bar2.png"
               alt=""
