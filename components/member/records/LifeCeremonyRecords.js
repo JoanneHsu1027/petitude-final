@@ -85,7 +85,7 @@ export default function LifeCeremonyRecords() {
   }, [])
 
   return (
-    <div className="container my-5">
+    <div className="container my-5 allFont">
       <div className="row">
         {/* 預約 */}
         <div className="col-12 justify-content-center align-items-center mb-3 mt-3">
@@ -223,6 +223,12 @@ export default function LifeCeremonyRecords() {
       </div>
 
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
         .card-header,
         .card-body,
         .form-check-label,
@@ -240,6 +246,7 @@ export default function LifeCeremonyRecords() {
         td {
           font-size: 1.2rem;
           text-align: start;
+
         }
 
         @media (max-width: 768px) {
