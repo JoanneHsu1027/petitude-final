@@ -157,22 +157,22 @@ export default function Navbar({ pageName = '' }) {
                       aria-labelledby="navbarDropdown"
                     >
                       <li>
-                        <Link
+                        <a
                           className="dropdown-item"
-                          href="/"
+                          href="#"
                           onClick={handleLogout}
                         >
                           登出
-                        </Link>
+                        </a>
                       </li>
                       <li>
-                        <Link
+                        <a
                           className="dropdown-item"
-                          href="/"
+                          href="#"
                           onClick={(e) => handleLinkClick(e, '/member/')}
                         >
                           會員中心
-                        </Link>
+                        </a>
                       </li>
                     </ul>
                   </li>
