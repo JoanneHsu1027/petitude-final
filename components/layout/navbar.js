@@ -123,7 +123,7 @@ export default function Navbar({ pageName = '' }) {
                 <li className="nav-item">
                   <Link
                     className="nav-link d-flex flex-column align-items-center mt-1 mx-1"
-                    href="/platfrom/"
+                    href="/platform/"
                   >
                     <img
                       src="/estore/論壇.png"
