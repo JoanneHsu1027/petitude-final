@@ -90,36 +90,44 @@ export default function Navbar({ pageName = '' }) {
                     <img src="/pi-pic/member-icon.png" alt="" />
                   </a>
                 </li>
-                {auth.b2c_id ? (
-                  <>
+                <div>
+                  <div className="d-flex position-absolute">
+                    {auth.b2c_id ? (
+                      <>
+                        <li className="nav-item">
+                          <a className="nav-link">{auth.b2c_name}</a>
+                        </li>
+                        <li className="nav-item">
+                          <a
+                            className="nav-link"
+                            href="#/"
+                            onClick={handleLogout}
+                          >
+                            登出
+                          </a>
+                        </li>
+                      </>
+                    ) : (
+                      <li className="nav-item">
+                        <a
+                          className={`nav-link ${isActive('login-jwt')}`}
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            setShowModal(true)
+                          }}
+                        >
+                          登入
+                        </a>
+                      </li>
+                    )}
                     <li className="nav-item">
-                      <a className="nav-link">{auth.b2c_name}</a>
+                      <Link className="nav-link" href="/estore/cart">
+                        <i className="bi bi-bag-fill cartItem"></i>
+                      </Link>
                     </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#/" onClick={handleLogout}>
-                        登出
-                      </a>
-                    </li>
-                  </>
-                ) : (
-                  <li className="nav-item">
-                    <a
-                      className={`nav-link ${isActive('login-jwt')}`}
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        setShowModal(true)
-                      }}
-                    >
-                      登入
-                    </a>
-                  </li>
-                )}
-                <li className="nav-item">
-                  <Link className="nav-link" href="/estore/cart">
-                    <i className="bi bi-bag-fill cartItem"></i>
-                  </Link>
-                </li>
+                  </div>
+                </div>
               </ul>
             </div>
           </div>
