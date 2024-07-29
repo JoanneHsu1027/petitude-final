@@ -31,7 +31,7 @@ const SlidingBanner = () => {
   }, [])
 
   return (
-    <div className={`banner ${open ? 'open' : ''}`}>
+    <div className={`allFont banner ${open ? 'open' : ''}`}>
       <div>
         <p className="text">24小時接送服務</p>
         <hr />
@@ -42,6 +42,12 @@ const SlidingBanner = () => {
       </div>
 
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+          font-weight: 900;
+        }
         .banner {
           position: fixed;
           top: 20%;
@@ -51,7 +57,7 @@ const SlidingBanner = () => {
           padding: 20px;
           border-radius: 5px;
           border: 1px solid #ffdfb3;
-          color: #721c24;
+          color: #555f50;
           transition: right 0.5s ease-in-out;
           box-shadow: 0 0 0 rgba(255, 133, 0, 0.7);
         }
