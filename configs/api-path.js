@@ -32,6 +32,12 @@ export const ProductRecords_GET = `${API_SERVER}/b2c_member/productrecords`
 //商品細項取得
 export const ProductRecords_Detail_GET = `${API_SERVER}/b2c_member/productrecords_detail`
 
+//商品收藏取得
+export const FavoriteProduct_GET = `${API_SERVER}/b2c_member/favorite`
+
+//商品收藏取消
+export const FavoriteProduct_DELETE = `${API_SERVER}/b2c_member/favorite/delete`
+
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 // Booking(訂購)
