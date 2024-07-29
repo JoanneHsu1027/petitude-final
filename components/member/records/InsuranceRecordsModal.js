@@ -45,11 +45,6 @@ const InsuranceRecordsModal = ({
       const newCounty = getLocationName(selectedRecord.fk_county_id, counties)
       const newCity = getLocationName(selectedRecord.fk_city_id, cities)
 
-      console.log('確認縣id:', selectedRecord.fk_county_id)
-      console.log('確認市id:', selectedRecord.fk_city_id)
-      console.log('確認縣:', newCounty)
-      console.log('確認市:', newCity)
-
       if (newCounty !== holderCounty) {
         setHolderCounty(newCounty)
       }

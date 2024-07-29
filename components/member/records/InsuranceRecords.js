@@ -6,6 +6,7 @@ import { useAuth } from '@/contexts/member/auth-context'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import InsuranceRecordsModal from './InsuranceRecordsModal' // 確保引入的名稱正確
+import { INSURANCE_DELETE_ITEM } from '@/configs/insurance/api-path'
 
 const InsuranceRecords = () => {
   const { auth, getAuthHeader } = useAuth()
@@ -52,6 +53,43 @@ const InsuranceRecords = () => {
     router.push(`/insurance/payment/${orderId}`)
   }
 
+  const handleDelete = (orderId) => {
+    fetch(INSURANCE_DELETE_ITEM, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        insurance_order_id: orderId,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        return response.json()
+      })
+      .then((data) => {
+        console.log('Delete response:', data)
+        if (data.status === 'success') {
+          // 處理成功刪除的邏輯
+          console.log('訂單成功刪除')
+          setRecordsData((prevRecordsData) =>
+            prevRecordsData.filter(
+              (record) => record.insurance_order_id !== orderId,
+            ),
+          )
+        } else {
+          // 處理刪除失敗的邏輯
+          console.error('刪除失敗:', data.message)
+        }
+      })
+      .catch((error) => {
+        console.error('刪除請求錯誤:', error)
+        // 處理網絡錯誤或其他異常
+      })
+  }
+
   return (
     <div className={`container-fluid mb-5 ${styles.allFont}`}>
       <div className="row justify-content-center">
@@ -77,27 +115,37 @@ const InsuranceRecords = () => {
                     <td>{record.insurance_premium}</td>
                     <td>
                       <button
-                        className="btn btn-primary"
+                        className="btn btn-primary me-1"
                         onClick={() => showModal('policyholder', record)}
                       >
                         投保人資料
                       </button>
                       <button
-                        className="btn btn-secondary"
+                        className="btn btn-secondary me-1"
                         onClick={() => showModal('insurance', record)}
                       >
                         投保方案
                       </button>
-                      {/* 添加前往付款按鈕 */}
+                      {/* 添加前往付款&刪除保單按鈕 */}
                       {record.payment_status === '未付款' && (
-                        <button
-                          className="btn btn-success"
-                          onClick={() =>
-                            handlePayment(record.insurance_order_id)
-                          }
-                        >
-                          前往付款
-                        </button>
+                        <>
+                          <button
+                            className="btn btn-success me-1"
+                            onClick={() =>
+                              handlePayment(record.insurance_order_id)
+                            }
+                          >
+                            前往付款
+                          </button>
+                          <button
+                            className="btn btn-danger me-1"
+                            onClick={() =>
+                              handleDelete(record.insurance_order_id)
+                            }
+                          >
+                            刪除保單
+                          </button>
+                        </>
                       )}
                     </td>
                   </tr>
