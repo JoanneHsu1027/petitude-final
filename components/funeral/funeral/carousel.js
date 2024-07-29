@@ -12,26 +12,26 @@ export default function Carousel() {
               id="carouselExampleSlidesOnly"
               className="carousel slide"
               data-bs-ride="carousel"
-              data-bs-interval="60000" // 设置轮播速度为 1000 毫秒（1 秒）
+              data-bs-interval="3000"
             >
               <div className="carousel-inner">
                 <div className="carousel-item ">
                   <img
-                    src="/funeral/77.jpg"
+                    src="/funeral/77.png"
                     className="d-block w-100 img-fluid"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item active">
                   <img
-                    src="/funeral/33.jpg"
+                    src="/funeral/33.png"
                     className="d-block w-100 img-fluid"
                     alt="..."
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="/funeral/66.jpg"
+                    src="/funeral/66.png"
                     className="d-block w-100 img-fluid"
                     alt="..."
                   />

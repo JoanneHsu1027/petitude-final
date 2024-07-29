@@ -105,7 +105,7 @@ export default function Environment() {
               alt={(hoveredPic || selectedPic).alt}
               width={(hoveredPic || selectedPic).width}
               height={(hoveredPic || selectedPic).height}
-              className="environment-image mt-3"
+              className="environment-image"
             />
           </div>
         </div>
@@ -221,6 +221,7 @@ export default function Environment() {
               height: auto;
               transition: opacity 0.5s ease-in-out;
               opacity: 1;
+              margin-top: 1rem;
             }
 
             .environment-image.fade {
@@ -329,10 +330,11 @@ export default function Environment() {
                 transform: scale(1.05);
               }
               .environment-image {
-                width: 70%;
+                width: 90%;
                 height: 60%;
                 transition: opacity 0.5s ease-in-out;
                 opacity: 1;
+                margin-top: 1rem;
               }
 
               .environment-image.fade {

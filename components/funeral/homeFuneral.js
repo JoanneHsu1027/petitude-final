@@ -55,10 +55,10 @@ export default function HomePage() {
             </div>
             {/* right */}
             <div className="col-12 col-md-6 d-flex justify-content-center align-items-center">
-              <div className="textSection pe-md-5 mt-0">
+              <div className="textSection pe-md-5">
                 <div>
                   <h3 className="title">生命禮儀</h3>
-                  <p>
+                  <p className="text">
                     我們提供各項寵物禮儀服務客製化每位毛小孩的旅程，全程協助陪伴每位家屬，學習悲傷，轉悲為喜。你會發現，毛小孩教會我們的至始至終都是愛
                   </p>
                   <img
@@ -68,7 +68,7 @@ export default function HomePage() {
                     width={5}
                     height={30}
                   />
-                  <p>
+                  <p className="text">
                     是你讓我了解生命的美好，讓我懂得如何去愛去珍惜，
                     放心，我會遵守約定，帶你住進美麗的森林裡，這是我的責任，也是我對你永遠守護的承諾！
                   </p>
@@ -106,6 +106,10 @@ export default function HomePage() {
         .title {
           font-weight: 900;
         }
+        .text {
+          font-size: 1.2rem;
+          line-height: 2.4rem;
+        }
         .img1 {
           width: 100%;
           border-radius: 20px;
@@ -119,12 +123,16 @@ export default function HomePage() {
         }
         .textSection {
           padding: 2rem 2rem;
-          margin-top: 10%;
+          margin-top: 15%;
         }
         .btn {
+          width: 10rem;
+          height: 4rem;
           background-color: #f5d553;
           color: #563008;
           font-weight: 900;
+          font-size: 1.5rem;
+          margin-top: 2rem;
         }
         .btn:hover {
           background-color: #6a513d;
@@ -136,7 +144,7 @@ export default function HomePage() {
             margin-top: 1rem;
           }
           .indexIcon {
-            width: 60%;
+            width: 70%;
             margin-bottom: 2rem;
             margin-top: -5rem;
           }

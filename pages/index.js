@@ -29,6 +29,7 @@ export default function home() {
                     className="TopCenter start-50 translate-middle"
                     src="../index/forum-title.png"
                     alt=""
+                    style={{ width: '70%' }}
                   />
                 </a>
                 <ClassSection />
@@ -36,6 +37,7 @@ export default function home() {
             </div>
           </div>
           {/* 論壇區塊 end */}
+          <ScrollToTopButton />
         </Layout>
       </div>
       <style jsx>{`
