@@ -401,7 +401,7 @@ export default function ArticleId() {
                                     wordWrap: 'break-word',
                                     overflowWrap: 'break-word',
                                   }}
-                                  className="col-lg-10 text-center lh-lg "
+                                  className={`col-lg-10 text-start lh-lg h6 text  ${styles.AllFont}`}
                                 >
                                   {articleData.article_content}
                                 </pre>
