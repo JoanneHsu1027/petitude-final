@@ -6,6 +6,8 @@ import Project from './funeral/project'
 import Environment from './appointment/environment'
 import Question from './appointment/question'
 import Layout from '@/components/layout/layout'
+import ScrollToTopButton from '@/components/funeral/scrollToTop'
+import CartIcon from '@/components/estore/carticon'
 
 export default function FuneralPage() {
   return (
@@ -16,6 +18,8 @@ export default function FuneralPage() {
       <Project />
       <Environment />
       <Question />
+      <CartIcon />
+      <ScrollToTopButton />
     </Layout>
   )
 }

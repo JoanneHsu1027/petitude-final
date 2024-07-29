@@ -1,6 +1,5 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import ScrollToTopButton from '@/components/funeral/scrollToTop'
 
 export default function Question() {
   return (
@@ -192,7 +191,7 @@ export default function Question() {
           </div>
         </div>
       </div>
-      <ScrollToTopButton />
+
       <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
 

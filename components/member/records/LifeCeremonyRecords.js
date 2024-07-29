@@ -239,6 +239,7 @@ export default function LifeCeremonyRecords() {
         th,
         td {
           font-size: 1.2rem;
+          text-align: start;
         }
 
         @media (max-width: 768px) {
