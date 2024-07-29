@@ -69,20 +69,6 @@ export default function PiPayment04() {
       // 處理錯誤
     }
   }
-  // 從localstorage抓訂單id跟保險價格
-  // useEffect(() => {
-  //   // 這個代碼塊只會在客戶端執行
-
-  //   const orderID = localStorage.getItem('order_id') // 訂單id
-  //   if (orderID) {
-  //     setOrderID(orderID)
-  //   }
-
-  //   const selectedPlan = JSON.parse(localStorage.getItem('selectedPlan'))
-  //   if (selectedPlan) {
-  //     setPlanPrice(selectedPlan.price) // 保險價格
-  //   }
-  // }, [])
 
   // 從後端抓訂單id跟保險價格
   useEffect(() => {
