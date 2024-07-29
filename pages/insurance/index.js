@@ -8,7 +8,7 @@ import PetSick from '@/components/insurance/pet-sick'
 import { Router, useRouter } from 'next/router'
 import ImageCarousel from '@/components/insurance/image-carousel'
 import ScrollToTopButton from '@/components/common/scrollToTop'
-
+import CartIcon from '@/components/estore/carticon'
 
 export default function PetInsurance() {
   // 確認是否有收到試算的表單資料
@@ -51,6 +51,8 @@ export default function PetInsurance() {
       <Layout title="寵度寵物保險" pageName="pet-insurance">
         {/* 回到最上面按鈕 */}
         <ScrollToTopButton />
+        {/* 購物車按鈕 */}
+        <CartIcon />
         {/* section 1 介紹 start */}
         <div
           className={`container-fluid d-flex justify-content-center ${styles['bg-image']} ${styles.allFont} pt-5`}
