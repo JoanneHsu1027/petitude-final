@@ -168,7 +168,7 @@ export default function Navbar({ pageName = '' }) {
                       <li>
                         <Link
                           className="dropdown-item"
-                          href="/"
+                          href="/member/"
                           onClick={(e) => handleLinkClick(e, '/member/')}
                         >
                           會員中心
