@@ -26,13 +26,25 @@ export default function PetSick() {
   ]
 
   const [selectedAccident, setSelectedAccident] = useState(accidentTypes[0])
-
-  const [iconClicked, setIconClicked] = useState(null)
+  const [hoveredIndex, setHoveredIndex] = useState(null)
+  // const [clickedIndex, setClickedIndex] = useState(0)
 
   const handleIconClick = (index) => {
     setSelectedAccident(accidentTypes[index])
-    setIconClicked(index)
+    // setClickedIndex(index)
   }
+
+  const handleIconHover = (index) => {
+    setHoveredIndex(index)
+    setSelectedAccident(accidentTypes[index])
+  }
+
+  const handleIconHoverOut = () => {
+    setHoveredIndex(null)
+  }
+
+  const displayedAccident = accidentTypes[hoveredIndex] || selectedAccident
+
   return (
     <>
       <div className={` container-fluid ${styles.allFont}`}>
@@ -70,14 +82,14 @@ export default function PetSick() {
               style={{ padding: '1.25rem 3.125rem', width: '100%}' }}
             >
               <h4 style={{ fontWeight: '700' }} className={styles.allFont}>
-                {selectedAccident.accidentType}
+                {displayedAccident.accidentType}
               </h4>
               <h5>平均每次治療金額</h5>
               <h4
                 className={`${styles['own-orange']} ${styles.allFont}`}
                 style={{ margin: 0 }}
               >
-                {selectedAccident.accidentExpense}
+                {displayedAccident.accidentExpense}
               </h4>
             </div>
             <div className="col-3">
@@ -95,7 +107,6 @@ export default function PetSick() {
                 // eslint-disable-next-line
                 <li
                   key={index}
-                  onClick={() => handleIconClick(index)}
                   className={`d-flex ${
                     index === 0 || index === 3
                       ? 'justify-content-end'
@@ -108,7 +119,12 @@ export default function PetSick() {
                   }
                 >
                   <div
-                    className={`rounded-circle d-flex justify-content-center align-items-center ${styles.circleColorChange} ${iconClicked === index ? styles.clicked : ''}`}
+                    className={`rounded-circle d-flex justify-content-center align-items-center ${styles.circleColorChange} ${
+                      hoveredIndex === index ? styles.active : ''
+                    }`}
+                    onClick={() => handleIconClick(index)}
+                    onMouseEnter={() => handleIconHover(index)}
+                    onMouseLeave={handleIconHoverOut}
                   >
                     <img
                       style={{ width: '80%', height: '80%' }}
@@ -152,7 +168,10 @@ export default function PetSick() {
                   <div
                     key={index}
                     onClick={() => handleIconClick(index)}
-                    className={`rounded-circle d-flex justify-content-center align-items-center ${styles.circleColorChange} ${iconClicked === index ? styles.clicked : ''}`}
+                    onMouseEnter={() => handleIconHover(index)}
+                    onMouseLeave={handleIconHoverOut}
+                    className={`rounded-circle d-flex justify-content-center align-items-center ${styles.circleColorChange} 
+                    `}
                   >
                     <img
                       style={{ width: '80%', height: '80%' }}

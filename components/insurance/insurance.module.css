@@ -306,7 +306,12 @@
 .circleColorChange{
   padding: .5rem;
   background-color: #FFF5CF;
+  transition: background-color 0.3s ease;
   cursor:pointer
+}
+.circleColorChange:hover,
+.circleColorChange.active{
+  background-color: #F6D554;
 }
 @media (max-width: 430px) {
   .barHight {
@@ -322,13 +327,11 @@
     background-color: #FFF5CF;
     cursor:pointer
   }
-}
-.circleColorChange:hover{
+  .circleColorChange:hover,
+  .circleColorChange.active{
+  padding: 4px;
   background-color: #F6D554;
-}
-
-.clicked{
-  background-color: #F6D554;
+  }
 }
 
 .forDeskTop {
