@@ -28,6 +28,7 @@ export default function home() {
                     className="TopCenter start-50 translate-middle"
                     src="../index/forum-title.png"
                     alt=""
+                    style={{ width: '70%' }}
                   />
                 </a>
                 <ClassSection />

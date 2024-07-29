@@ -8,7 +8,7 @@ export default function Question() {
       <div className="container-fluid mb-5 allFont">
         <div className="row justify-content-center align-items-center">
           <div className="col-md-8">
-            <h2 className="text-center my-5" style={{ fontWeight: '900' }}>
+            <h2 className="text-center" style={{ fontWeight: '900' }}>
               常見問題
             </h2>
             <div className="accordion" id="accordionExample">
@@ -210,11 +210,18 @@ export default function Question() {
           color: #515151;
           font-weight: 500;
         }
+        .text-center {
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+        }
 
         @media (max-width: 768px) {
           .col-md-8 {
             width: 100%;
             padding: 5%;
+          }
+          .text-center {
+            margin-top: 1rem;
           }
         }
       `}</style>

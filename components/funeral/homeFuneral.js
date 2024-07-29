@@ -144,7 +144,7 @@ export default function HomePage() {
             margin-top: 1rem;
           }
           .indexIcon {
-            width: 60%;
+            width: 70%;
             margin-bottom: 2rem;
             margin-top: -5rem;
           }

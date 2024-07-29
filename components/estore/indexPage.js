@@ -146,7 +146,7 @@ export default function IndexEstore() {
             src={`/estore/標題.png`}
             className="indexIcon img-fluid p-2"
             alt="..."
-            style={{ width: '65%' }}
+            style={{ width: '70%' }}
           ></img>
         </div>
         <div
