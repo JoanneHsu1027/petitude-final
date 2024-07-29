@@ -80,57 +80,61 @@ export default function ProductRecords() {
               購買紀錄
             </div>
             <div className="card-body">
-              {orders.map((order) => (
-                <div
-                  className="my-3"
-                  key={order.request_id}
-                  style={{
-                    border: '1px solid #ccc',
-                    borderRadius: '10px',
-                    padding: '10px',
-                    marginBottom: '10px',
-                  }}
-                >
-                  <div className="row no-border-table">
-                    <div className="col-12 col-md-6">
-                      <table>
-                        <tbody>
-                          <tr>
-                            <th>訂單編號: </th>
-                            <td>{order.request_id}</td>
-                          </tr>
-                          <tr>
-                            <th>訂單狀態: </th>
-                            <td>{order.request_status}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="col-12 col-md-6">
-                      <table>
-                        <tbody>
-                          <tr>
-                            <th>訂單細項: </th>
-                            <td>
-                              <button
-                                onClick={() =>
-                                  handleViewDetails(order.request_id)
-                                }
-                              >
-                                點擊查看
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th>訂單金額: </th>
-                            <td>{order.request_price} 元</td>
-                          </tr>
-                        </tbody>
-                      </table>
+              {orders.length > 0 ? (
+                orders.map((order) => (
+                  <div
+                    className="my-3"
+                    key={order.request_id}
+                    style={{
+                      border: '1px solid #ccc',
+                      borderRadius: '10px',
+                      padding: '10px',
+                      marginBottom: '10px',
+                    }}
+                  >
+                    <div className="row no-border-table">
+                      <div className="col-12 col-md-6">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <th>訂單編號: </th>
+                              <td>{order.request_id}</td>
+                            </tr>
+                            <tr>
+                              <th>訂單狀態: </th>
+                              <td>{order.request_status}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="col-12 col-md-6">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <th>訂單細項: </th>
+                              <td>
+                                <button
+                                  onClick={() =>
+                                    handleViewDetails(order.request_id)
+                                  }
+                                >
+                                  點擊查看
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>訂單金額: </th>
+                              <td>{order.request_price} 元</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <p className="text-center">沒有購物紀錄</p>
+              )}
             </div>
           </div>
         </div>
