@@ -14,6 +14,8 @@ import { BsSearch } from 'react-icons/bs'
 import styles3 from '@/styles/platform/platform-style.module.css'
 import { useCart } from '@/contexts/estore/CartContext'
 import swal from 'sweetalert2'
+import ScrollToTopButton from '@/components/funeral/scrollToTop'
+import CartIcon from '@/components/estore/carticon'
 
 export default function ProjectList() {
   const router = useRouter()
@@ -363,6 +365,8 @@ export default function ProjectList() {
             </div>
           </div>
         </div>
+        <CartIcon />
+        <ScrollToTopButton />
       </main>
     </Layout>
   )

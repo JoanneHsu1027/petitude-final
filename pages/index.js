@@ -5,7 +5,8 @@ import InsuranceSection from '@/components/insurance/insurance-section'
 import Estore from '@/components/estore/indexPage'
 import ClassSection from '@/components/platform/index-page/class-section'
 import Slider from '@/components/layout/slick'
-import ScrollToTopButton from '@/components/common/scrollToTop'
+import ScrollToTopButton from '@/components/funeral/scrollToTop'
+import CartIcon from '@/components/estore/carticon'
 
 export default function home() {
   return (
@@ -37,6 +38,7 @@ export default function home() {
             </div>
           </div>
           {/* 論壇區塊 end */}
+          <CartIcon />
           <ScrollToTopButton />
         </Layout>
       </div>

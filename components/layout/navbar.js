@@ -42,6 +42,11 @@ export default function Navbar({ pageName = '' }) {
         .nav-link {
           cursor: pointer;
         }
+        .nav-item .nav-link {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
       `}</style>
       <nav
         className={`navbar navbar-expand-lg navbar-light d-md-none d-lg-block d-sm-none d-md-block d-none d-sm-block AllFont ${styles['bg-image']}`}
@@ -51,58 +56,128 @@ export default function Navbar({ pageName = '' }) {
           <div className="collapse navbar-collapse">
             <div className="d-flex justify-content-center w-100">
               <ul className="navbar-nav">
-                <li className="nav-item">
-                  <Link className="nav-link" href="#">
-                    <img src="/pi-pic/about-icon.png" alt="" />
+                <li className="nav-item h-auto">
+                  <Link
+                    className="nav-link d-flex flex-column align-items-center mt-1 mx-1"
+                    href="#"
+                  >
+                    <img
+                      src="/estore/貓背影.png"
+                      alt=""
+                      style={{ width: '55px' }}
+                      className="m-0"
+                    />
+                    <span className="fs-5">關於我們</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/estore/">
-                    <img src="/pi-pic/product-icon.png" alt="" />
+                  <Link
+                    className="nav-link d-flex flex-column align-items-center mt-1 mx-1"
+                    href="/estore/"
+                  >
+                    <img
+                      src="/estore/罐罐.png"
+                      alt=""
+                      style={{ width: '55px' }}
+                      className="m-0"
+                    />
+                    <span className="fs-5">寵物商城</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/insurance/">
-                    <img src="/pi-pic/insurance-icon.png" alt="" />
+                  <Link
+                    className="nav-link d-flex flex-column align-items-center mt-1 mx-1"
+                    href="/insurance/"
+                  >
+                    <img
+                      src="/estore/保險.png"
+                      alt=""
+                      style={{ width: '55px' }}
+                      className="m-0"
+                    />
+                    <span className="fs-5">寵物保險</span>
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/">
+                <li className="nav-item d-flex align-items-center">
+                  <Link
+                    className="nav-link p-0 d-flex align-items-center"
+                    href="/"
+                  >
                     <img src="/pi-pic/petitude-icon.png" alt="" />
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/funeral/">
-                    <img src="/pi-pic/funeral-icon.png" alt="" />
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/platform/">
-                    <img src="/pi-pic/forum-icon.png" alt="" />
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="#"
-                    onClick={(e) => handleLinkClick(e, '/member/')}
+                  <Link
+                    className="nav-link d-flex flex-column align-items-center mt-1 mx-1"
+                    href="/funeral/"
                   >
-                    <img src="/pi-pic/member-icon.png" alt="" />
-                  </a>
+                    <img
+                      src="/estore/墓碑.png"
+                      alt=""
+                      style={{ width: '55px' }}
+                      className="m-0"
+                    />
+                    <span className="fs-5">生命禮儀</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link d-flex flex-column align-items-center mt-1 mx-1"
+                    href="/platfrom/"
+                  >
+                    <img
+                      src="/estore/論壇.png"
+                      alt=""
+                      style={{ width: '55px' }}
+                      className="m-0"
+                    />
+                    <span className="fs-5">寵物論壇</span>
+                  </Link>
                 </li>
                 {auth.b2c_id ? (
-                  <>
-                    <li className="nav-item">
-                      <a className="nav-link">{auth.b2c_name}</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#/" onClick={handleLogout}>
-                        登出
-                      </a>
-                    </li>
-                  </>
+                  <li className="nav-item dropdown">
+                    <Link
+                      className="nav-link dropdown-toggle d-flex flex-column align-items-center mt-1 mx-1"
+                      href="/"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <img
+                        src="/estore/狗.png"
+                        alt=""
+                        style={{ width: '55px' }}
+                        className="m-0"
+                      />
+                      <span className="fs-5">{auth.b2c_name}</span>
+                    </Link>
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="navbarDropdown"
+                    >
+                      <li>
+                        <Link
+                          className="dropdown-item"
+                          href="/"
+                          onClick={handleLogout}
+                        >
+                          登出
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item"
+                          href="/"
+                          onClick={(e) => handleLinkClick(e, '/member/')}
+                        >
+                          會員中心
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
                 ) : (
-                  <li className="nav-item">
+                  <li className="nav-item d-flex flex-column align-items-center mt-1 mx-1">
                     <a
                       className={`nav-link ${isActive('login-jwt')}`}
                       href="#"
@@ -111,15 +186,16 @@ export default function Navbar({ pageName = '' }) {
                         setShowModal(true)
                       }}
                     >
-                      登入
+                      <img
+                        src="/estore/貓.png"
+                        alt=""
+                        style={{ width: '55px' }}
+                        className="m-0"
+                      />
+                      <span className="fs-5">登入</span>
                     </a>
                   </li>
                 )}
-                <li className="nav-item">
-                  <Link className="nav-link" href="/estore/cart">
-                    <i className="bi bi-bag-fill cartItem"></i>
-                  </Link>
-                </li>
               </ul>
             </div>
           </div>
@@ -166,9 +242,9 @@ export default function Navbar({ pageName = '' }) {
           >
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="/">
+                <Link className="nav-link" href="/">
                   關於我們
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" href="/estore/">
@@ -224,11 +300,6 @@ export default function Navbar({ pageName = '' }) {
                   </a>
                 </li>
               )}
-              <li className="nav-item">
-                <Link className="nav-link" href="/estore/cart">
-                  購物車
-                </Link>
-              </li>
             </ul>
           </div>
         </div>
