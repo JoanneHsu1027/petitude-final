@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router' // 引入 useRouter
 import { InsuranceRecords_GET } from '@/configs/api-path'
 import styles from '@/styles/member/insurance.module.css'
 import { useAuth } from '@/contexts/member/auth-context'
-import { products } from '@/components/insurance/insurance_product'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
+import InsuranceRecordsModal from './InsuranceRecordsModal' // 確保引入的名稱正確
 
 const InsuranceRecords = () => {
   const { auth, getAuthHeader } = useAuth()
-  const [recordData, setRecordsData] = useState({})
+  const [recordsData, setRecordsData] = useState([])
+  const [modalVisible, setModalVisible] = useState(false)
+  const [modalType, setModalType] = useState('')
+  const [selectedRecord, setSelectedRecord] = useState(null)
+  const router = useRouter() // 使用 useRouter 鉤子
 
   useEffect(() => {
-    const fetchRecordData = async () => {
+    const fetchRecordsData = async () => {
       if (!auth.b2c_id) return
 
       try {
@@ -17,225 +24,101 @@ const InsuranceRecords = () => {
           headers: getAuthHeader(),
         })
         const result = await response.json()
+        console.log('Fetched records data:', result) // 打印結果以便調試
         if (result.success) {
-          setRecordsData(result.data)
+          setRecordsData(Array.isArray(result.data) ? result.data : [])
         } else {
           console.error(result.error)
+          setRecordsData([])
         }
-      } catch (ex) {
-        console.error(ex)
+      } catch (error) {
+        console.error('Error fetching insurance records:', error)
+        setRecordsData([])
       }
     }
 
-    fetchRecordData()
+    fetchRecordsData()
   }, [auth.b2c_id, getAuthHeader])
 
-  const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' }
-    return new Date(dateString).toLocaleDateString('zh-TW', options)
+  const showModal = (type, record) => {
+    console.log('Selected Record:', record)
+    setModalType(type)
+    setSelectedRecord(record)
+    setModalVisible(true)
   }
 
-  const renderDataRow = (label, value, customClass = '') => (
-    <div className="d-flex mb-3">
-      <h5
-        className={`col-4 ${styles['text-color']}`}
-        style={{ marginBottom: '.6875rem' }}
-      >
-        {label}
-      </h5>
-      <h5 className={`col-8 ${styles['own-green']} ${customClass}`}>{value}</h5>
-    </div>
-  )
-
-  const getInsuranceProductDetails = (productId) => {
-    return products.find((product) => product.id === productId) || {}
+  const handlePayment = (orderId) => {
+    // 使用 router.push 進行導航
+    router.push(`/insurance/payment/${orderId}`)
   }
-
-  const insuranceProductDetails = getInsuranceProductDetails(
-    recordData.insurance_product,
-  )
 
   return (
     <div className={`container-fluid mb-5 ${styles.allFont}`}>
       <div className="row justify-content-center">
-        {/* 資料確認 */}
         <div className="col-12" style={{ marginTop: '30px' }}>
-          <h4 className={styles['top-frame']}>投保人資料</h4>
-          <div
-            className={`d-flex justify-content-center ${styles['data-frame']}`}
-          >
-            <div
-              className="col-6 d-flex flex-column justify-content-center"
-              style={{ paddingLeft: '1.25rem' }}
-            >
-              {renderDataRow('要保人姓名', recordData.b2c_name)}
-              {renderDataRow('身份證字號', recordData.policyholder_IDcard)}
-              {renderDataRow(
-                '出生年月日',
-                formatDate(recordData.policyholder_birthday),
-              )}
-              {renderDataRow('通訊地址', recordData.policyholder_address)}
-            </div>
-            <div className="col-6 d-flex flex-column justify-content-start">
-              {renderDataRow('保單型式', '電子保單')}
-              {renderDataRow('保單寄送信箱', recordData.policyholder_email)}
-              {renderDataRow('連絡電話', recordData.policyholder_mobile)}
-              {renderDataRow('付款方式', '線上付款')}
-            </div>
-          </div>
-        </div>
-        <div className="col-12" style={{ marginTop: '30px' }}>
-          <h4 className={styles['top-frame']}>投保方案</h4>
-          <div
-            className={`d-flex justify-content-center ${styles['data-frame-up']}`}
-          >
-            <div
-              className="col-5 d-flex flex-column justify-content-start align-items-center"
-              style={{ padding: '0 20px' }}
-            >
-              <div
-                className="img-fluid rounded-circle"
-                style={{ width: '250px', height: '250px', overflow: 'hidden' }}
-              >
-                <img
-                  src={recordData.pet_pic}
-                  className="img-fluid rounded-circle"
-                  style={{
-                    backgroundColor: '#D9D9D9',
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-            </div>
-            <div className="col-7 d-flex flex-column justify-content-center">
-              {renderDataRow('寵物姓名', recordData.pet_name, 'col-3')}
-              {renderDataRow('晶片號碼', recordData.pet_chip, 'col-3')}
-              <div className="d-flex mb-3">
-                <h5
-                  className={`col-4 ${styles['text-color']}`}
-                  style={{ marginBottom: '.6875rem' }}
-                >
-                  投保期間
-                </h5>
-                <h5 className={`col-8 ${styles['own-green']}`}>
-                  {formatDate(recordData.insurance_start_date)} 零時起至{' '}
-                  {formatDate(
-                    new Date(
-                      new Date(recordData.insurance_start_date).setFullYear(
-                        new Date(
-                          recordData.insurance_start_date,
-                        ).getFullYear() + 1,
-                      ),
-                    ),
-                  )}{' '}
-                  零時止
-                </h5>
-              </div>
-              {renderDataRow(
-                '投保方案',
-                recordData.insurance_product || '未選擇方案',
-                'col-3',
-              )}
-            </div>
-          </div>
-
-          <div
-            className={`d-flex justify-content-center ${styles['data-frame']}`}
-          >
-            <div className="col-6 justify-content-center align-items-center">
-              <h5
-                className={`text-center ${styles['text-color']}`}
-                style={{ marginBottom: '1.25rem' }}
-              >
-                【寵物醫療費用保險】
-              </h5>
-              <ul style={{ padding: 0, paddingLeft: 60 }}>
-                {[
-                  {
-                    label: '每次門診(最高)費用',
-                    value: `${insuranceProductDetails.clinicFee}元, 一年最高${insuranceProductDetails.clinicTime}次`,
-                  },
-                  {
-                    label: '每次住院(最高)費用',
-                    value: `${insuranceProductDetails.hospitalFee}元, 一年最高${insuranceProductDetails.hospitalTime}次`,
-                  },
-                  {
-                    label: '每次手術(最高)費用',
-                    value: `${insuranceProductDetails.surgeryFee}元, 一年最高${insuranceProductDetails.surgeryTime}次`,
-                  },
-                  {
-                    label: '保險期間內累積最高賠償限額',
-                    value: `${insuranceProductDetails.maxPayment}元`,
-                  },
-                ].map((item, index) => (
-                  <li key={index} className={`d-flex ${styles['item-dot']}`}>
-                    <i className="bi bi-check-square me-1" />
-                    <h5
-                      className={styles['text-color']}
-                      style={{ marginBottom: '.6875rem' }}
-                    >
-                      {item.label}
-                    </h5>
-                    <h5 className={styles['own-green']}>NT {item.value}</h5>
-                  </li>
+          <h4 className={styles['top-frame']}>保單紀錄</h4>
+          {recordsData.length > 0 ? (
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th>編號</th>
+                  <th>方案名稱</th>
+                  <th>付款狀態</th>
+                  <th>金額</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recordsData.map((record) => (
+                  <tr key={record.insurance_order_id}>
+                    <td>{record.insurance_order_id}</td>
+                    <td>{record.insurance_product}</td>
+                    <td>{record.payment_status}</td>
+                    <td>{record.insurance_premium}</td>
+                    <td>
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => showModal('policyholder', record)}
+                      >
+                        投保人資料
+                      </button>
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => showModal('insurance', record)}
+                      >
+                        投保方案
+                      </button>
+                      {/* 添加前往付款按鈕 */}
+                      {record.payment_status === '未付款' && (
+                        <button
+                          className="btn btn-success"
+                          onClick={() =>
+                            handlePayment(record.insurance_order_id)
+                          }
+                        >
+                          前往付款
+                        </button>
+                      )}
+                    </td>
+                  </tr>
                 ))}
-              </ul>
-            </div>
-            <div className="col-6 justify-content-center align-items-center">
-              <h5
-                className={`text-center ${styles['text-color']}`}
-                style={{ marginBottom: '1.25rem' }}
-              >
-                【寵物侵權責任保險】
-              </h5>
-              <ul style={{ padding: 0, paddingLeft: 60 }}>
-                <li className={`d-flex ${styles['item-dot']}`}>
-                  <i className="bi bi-check-square me-1" />
-                  <h5
-                    className={styles['text-color']}
-                    style={{ marginBottom: '.6875rem' }}
-                  >
-                    每一個人體傷責任
-                  </h5>
-                  <h5 className={styles['own-green']}>NT 100,000元</h5>
-                </li>
-                <li className={`d-flex ${styles['item-dot']}`}>
-                  <i className="bi bi-check-square me-1" />
-                  <h5
-                    className={styles['text-color']}
-                    style={{ marginBottom: '.6875rem' }}
-                  >
-                    每一意外事故體傷責任
-                  </h5>
-                  <h5 className={styles['own-green']}>NT 200,000元</h5>
-                </li>
-                <li className={`d-flex ${styles['item-dot']}`}>
-                  <i className="bi bi-check-square me-1" />
-                  <h5
-                    className={styles['text-color']}
-                    style={{ marginBottom: '.6875rem' }}
-                  >
-                    每一意外事故財物損失責任
-                  </h5>
-                  <h5 className={styles['own-green']}>NT 50,000元</h5>
-                </li>
-                <li className={`d-flex ${styles['item-dot']}`}>
-                  <i className="bi bi-check-square me-1" />
-                  <h5
-                    className={styles['text-color']}
-                    style={{ marginBottom: '.6875rem' }}
-                  >
-                    保險期間內累積最高賠償限額
-                  </h5>
-                  <h5 className={styles['own-green']}>NT 500,000元</h5>
-                </li>
-              </ul>
-            </div>
-          </div>
+              </tbody>
+            </table>
+          ) : (
+            <p className={styles['no-records-message']}>沒有保單紀錄</p>
+          )}
         </div>
       </div>
+
+      {/* Modal */}
+      {modalVisible && selectedRecord && (
+        <InsuranceRecordsModal
+          modalType={modalType}
+          selectedRecord={selectedRecord}
+          modalVisible={modalVisible} // 確保傳遞這個 prop
+          setModalVisible={setModalVisible} // 傳遞關閉模態的函數
+        />
+      )}
     </div>
   )
 }
