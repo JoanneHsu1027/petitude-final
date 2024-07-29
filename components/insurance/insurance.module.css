@@ -311,7 +311,7 @@
 }
 .circleColorChange:hover,
 .circleColorChange.active{
-  background-color: #F6D554;
+  background-color: #CFE7B1;
 }
 @media (max-width: 430px) {
   .barHight {

@@ -27,11 +27,11 @@ export default function PetSick() {
 
   const [selectedAccident, setSelectedAccident] = useState(accidentTypes[0])
   const [hoveredIndex, setHoveredIndex] = useState(null)
-  // const [clickedIndex, setClickedIndex] = useState(0)
+  const [clickedIndex, setClickedIndex] = useState(0)
 
   const handleIconClick = (index) => {
     setSelectedAccident(accidentTypes[index])
-    // setClickedIndex(index)
+    setClickedIndex(index)
   }
 
   const handleIconHover = (index) => {
@@ -41,6 +41,7 @@ export default function PetSick() {
 
   const handleIconHoverOut = () => {
     setHoveredIndex(null)
+    setSelectedAccident(accidentTypes[clickedIndex])
   }
 
   const displayedAccident = accidentTypes[hoveredIndex] || selectedAccident
@@ -119,9 +120,7 @@ export default function PetSick() {
                   }
                 >
                   <div
-                    className={`rounded-circle d-flex justify-content-center align-items-center ${styles.circleColorChange} ${
-                      hoveredIndex === index ? styles.active : ''
-                    }`}
+                    className={`rounded-circle d-flex justify-content-center align-items-center ${styles.circleColorChange} ${hoveredIndex === index || (hoveredIndex === null && clickedIndex === index) ? styles.active : ''}`}
                     onClick={() => handleIconClick(index)}
                     onMouseEnter={() => handleIconHover(index)}
                     onMouseLeave={handleIconHoverOut}
