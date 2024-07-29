@@ -13,7 +13,7 @@ export default function Footer() {
       `}</style>
       <div
         className="container-fluid pt-4 pb-1 AllFont"
-        style={{ backgroundColor: '#FFDF79', marginTop: 'auto' }}
+        style={{ backgroundColor: '#f5c893', marginTop: 'auto' }}
       >
         <div className="row ms-3  d-flex justify-content-center">
           <div className="col-lg-2 col-md-3 d-flex flex-column border-start border-dark mb-3 px-4">
@@ -55,7 +55,7 @@ export default function Footer() {
         </div>
       </div>
       <div
-        style={{ backgroundColor: '#f4bc7a' }}
+        style={{ backgroundColor: '#FFDF79' }}
         className=" w-100 py-3 text-center text-black fw-bold AllFont"
       >
         @ CopyRight 2024 Petitude

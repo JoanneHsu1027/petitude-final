@@ -10,6 +10,8 @@ import { useCart } from '@/contexts/estore/CartContext'
 import swal from 'sweetalert2'
 import LoginModal from '@/components/member/LoginModal'
 import { useAuth } from '@/contexts/member/auth-context'
+import ScrollToTopButton from '@/components/funeral/scrollToTop'
+import CartIcon from '@/components/estore/carticon'
 
 export default function Productid() {
   const router = useRouter()
@@ -641,7 +643,8 @@ export default function Productid() {
             {/* 原料 end */}
           </div>
         </div>
-
+        <CartIcon />
+        <ScrollToTopButton />
         {/* <!-- 頁籤區 --> */}
       </main>
       {showModal && <LoginModal onClose={() => setShowModal(false)} />}

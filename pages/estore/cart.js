@@ -11,6 +11,8 @@ import { useAuth } from '@/contexts/member/auth-context'
 import swal from 'sweetalert2'
 import { useCart1 } from '@/contexts/funeral/CartContext1'
 import LoginModal from '@/components/member/LoginModal'
+import ScrollToTopButton from '@/components/funeral/scrollToTop'
+import CartIcon from '@/components/estore/carticon'
 
 export default function CartPage() {
   const router = useRouter()
@@ -457,6 +459,8 @@ export default function CartPage() {
             {/* 生前契約 end */}
           </div>
         </div>
+        <CartIcon />
+        <ScrollToTopButton />
       </main>
       {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </Layout>
