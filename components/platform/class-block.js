@@ -4,10 +4,10 @@ import { BsBookmarkFill, BsChatText } from 'react-icons/bs'
 import moment from 'moment-timezone'
 import Swal from 'sweetalert2'
 import {
+  CLASS_FILTER,
   FAVORITE_ADD_POST,
   FAVORITE_CHECK,
   FAVORITE_REMOVE,
-  CLASS_FILTER,
 } from '@/configs/platform/api-path'
 import { useAuth } from '@/contexts/member/auth-context'
 import LoginModal from '@/components/member/LoginModal'
@@ -43,7 +43,7 @@ export default function ClassBlock({ classId }) {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        console.log(`Fetching articles for class_id: ${classId}`)
+        console.log(`Fetching articles for class_id: ${classId}, page: ${page}`)
         const response = await fetch(
           `${CLASS_FILTER}/${encodeURIComponent(classId)}?page=${page}`,
         )
@@ -53,10 +53,8 @@ export default function ClassBlock({ classId }) {
         } else {
           setData((prevData) => {
             const newData = [...prevData, ...myData.rows]
-            return newData.filter(
-              (item, index, self) =>
-                index ===
-                self.findIndex((t) => t.article_id === item.article_id),
+            return [...new Set(newData.map((item) => item.article_id))].map(
+              (id) => newData.find((item) => item.article_id === id),
             )
           })
         }
@@ -85,41 +83,48 @@ export default function ClassBlock({ classId }) {
   }
 
   const handleFavoriteClick = async (e, articleId) => {
-    e.preventDefault() // 防止默認行為
-
-    if (!auth.b2c_id) {
-      Swal.fire({
-        text: '請先登入會員！',
-        icon: 'error',
-      }).then(() => {
-        setShowModal(true) // 在警告框關閉後顯示登錄窗口
-      })
-      return
-    }
-
+    e.preventDefault() // Prevents navigation to article page on button click
     const isFavorite = favorites.includes(articleId)
-    const url = isFavorite ? FAVORITE_REMOVE : FAVORITE_ADD_POST
     const method = isFavorite ? 'DELETE' : 'POST'
-    const body = isFavorite ? undefined : JSON.stringify({ articleId })
+    const url = isFavorite
+      ? `${FAVORITE_REMOVE}/${auth.b2c_id}/${articleId}`
+      : FAVORITE_ADD_POST
+    const body = isFavorite
+      ? null
+      : JSON.stringify({
+          fk_b2c_id: auth.b2c_id,
+          fk_article_id: articleId,
+        })
 
     try {
-      const response = await fetch(`${url}/${auth.b2c_id}/${articleId}`, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body,
+      const response = await fetch(url, {
+        method: method,
+        headers: { 'Content-Type': 'application/json' },
+        body: body,
       })
 
-      if (response.ok) {
-        if (isFavorite) {
-          setFavorites((prev) => prev.filter((id) => id !== articleId))
-        } else {
-          setFavorites((prev) => [...prev, articleId])
-        }
+      const data = await response.json()
+      if (response.ok && data.success) {
+        setFavorites((prev) =>
+          isFavorite
+            ? prev.filter((id) => id !== articleId)
+            : [...prev, articleId],
+        )
+        Swal.fire({
+          text: isFavorite ? '取消收藏成功！' : '收藏成功！',
+          icon: 'success',
+        })
+      } else {
+        Swal.fire({ text: '請先登入會員！', icon: 'error' }).then(() => {
+          setShowModal(true)
+        })
       }
     } catch (error) {
-      console.error('Error handling favorite click:', error)
+      console.error('操作失敗:', error)
+      Swal.fire({
+        text: '操作失敗！',
+        icon: 'error',
+      })
     }
   }
 
@@ -131,114 +136,107 @@ export default function ClassBlock({ classId }) {
 
   return (
     <>
-      {data.map((r, index) => {
-        if (data.length === index + 1) {
-          return (
-            <div
-              key={r.article_id}
-              ref={lastArticleElementRef}
-              className={`container card mb-3 ${styles.Rounded5} border-0 ${styles.CardShadow}`}
-            >
+      {data.length === 0 && !hasMore ? (
+        <div className="d-flex justify-content-center flex-column">
+          <p className="text-center fs-1 pt-5 mt-5">沒有相關文章喔!</p>
+          <a
+            href={`../platform/article/create`}
+            className={`${styles.AReset} ${styles.Hover} d-flex justify-content-center fs-4`}
+          >
+            建立文章?
+          </a>
+          <div className="d-flex justify-content-center mt-4">
+            <img
+              className="w-50"
+              src="../../forum-pic/article-block.png"
+              alt=""
+            />
+          </div>
+        </div>
+      ) : (
+        data.map((r, index) => {
+          const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
+          const isFavorite = favorites.includes(r.article_id)
+          if (data.length === index + 1) {
+            return (
               <a
-                href={`/platform/article/${r.article_id}`}
-                className={`${styles.AReset}`}
+                ref={lastArticleElementRef}
+                key={r.article_id}
+                className={`${styles.AReset} ${styles.AllFont}`}
+                href={`../../platform/article/${r.article_id}`}
               >
-                <div className={`row ${styles.CardTitleFont}`}>
-                  <div className={`col-lg-12 col-md-12 ${styles.LineHeightSm}`}>
-                    <h3
-                      className={`m-3 ${styles.TitleOverHide}`}
-                      title={r.article_title}
-                    >
-                      {r.article_title}
-                    </h3>
+                <div className="m-2 border-bottom">
+                  <div className="mx-3 d-flex">
+                    <p className="me-3 px-1 border border-dark rounded-3">
+                      {r.class_name}
+                    </p>
+                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
                   </div>
-                </div>
-                <div
-                  className={`row ${styles.CardContentFont} ${styles.LineHeightSm}`}
-                >
-                  <div className="col-lg-12 col-md-12 d-flex align-items-center justify-content-between">
-                    <p
-                      className={`d-flex align-items-center ${styles.StripGray}`}
-                    >
-                      <BsChatText size={20} className="mx-2" />
-                      {r.b2c_name}
+                  <div className="mx-3">
+                    <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
+                      {r.article_name}
+                    </h2>
+                    <p className={`${styles.ContentOverHide} mx-2`}>
+                      {r.article_content}
                     </p>
-                    <p
-                      className={`d-flex align-items-center ${styles.StripGray}`}
-                    >
-                      {moment(r.article_create_time).format(
-                        'YYYY-MM-DD HH:mm:ss',
-                      )}
+                  </div>
+                  <div className="d-flex mx-5">
+                    <p className={`me-5 ${styles.OrangeYellow}`}>
+                      <BsChatText className={`mb-1`} />
+                      {r.message_count}
                     </p>
+                    <button
+                      className={` ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} ${isFavorite ? styles.FavSet : ''} mb-3`}
+                      onClick={(e) => handleFavoriteClick(e, r.article_id)}
+                    >
+                      <BsBookmarkFill className={`mb-1`} />
+                      收藏
+                    </button>
                   </div>
                 </div>
               </a>
-              <button
-                onClick={(e) => handleFavoriteClick(e, r.article_id)}
-                className={`btn ${styles.FavoriteButton}`}
-              >
-                {favorites.includes(r.article_id) ? (
-                  <BsBookmarkFill size={20} />
-                ) : (
-                  <BsBookmarkFill size={20} color="#cccccc" />
-                )}
-              </button>
-            </div>
-          )
-        } else {
-          return (
-            <div
-              key={r.article_id}
-              className={`container card mb-3 ${styles.Rounded5} border-0 ${styles.CardShadow}`}
-            >
+            )
+          } else {
+            return (
               <a
-                href={`/platform/article/${r.article_id}`}
-                className={`${styles.AReset}`}
+                key={r.article_id}
+                className={`${styles.AReset} ${styles.AllFont}`}
+                href={`../../platform/article/${r.article_id}`}
               >
-                <div className={`row ${styles.CardTitleFont}`}>
-                  <div className={`col-lg-12 col-md-12 ${styles.LineHeightSm}`}>
-                    <h3
-                      className={`m-3 ${styles.TitleOverHide}`}
-                      title={r.article_title}
-                    >
-                      {r.article_title}
-                    </h3>
+                <div className="m-2 border-bottom">
+                  <div className="mx-3 d-flex">
+                    <p className="me-3 px-1 border border-dark rounded-3">
+                      {r.class_name}
+                    </p>
+                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
                   </div>
-                </div>
-                <div
-                  className={`row ${styles.CardContentFont} ${styles.LineHeightSm}`}
-                >
-                  <div className="col-lg-12 col-md-12 d-flex align-items-center justify-content-between">
-                    <p
-                      className={`d-flex align-items-center ${styles.StripGray}`}
-                    >
-                      <BsChatText size={20} className="mx-2" />
-                      {r.b2c_name}
+                  <div className="mx-3">
+                    <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
+                      {r.article_name}
+                    </h2>
+                    <p className={`${styles.ContentOverHide} mx-2`}>
+                      {r.article_content}
                     </p>
-                    <p
-                      className={`d-flex align-items-center ${styles.StripGray}`}
-                    >
-                      {moment(r.article_create_time).format(
-                        'YYYY-MM-DD HH:mm:ss',
-                      )}
+                  </div>
+                  <div className="d-flex mx-5">
+                    <p className={`me-5 ${styles.OrangeYellow}`}>
+                      <BsChatText className={`mb-1`} />
+                      {r.message_count}
                     </p>
+                    <button
+                      className={` ${styles.LightGray} ${styles.FavHover} ${styles.BtnReset} ${isFavorite ? styles.FavSet : ''} mb-3`}
+                      onClick={(e) => handleFavoriteClick(e, r.article_id)}
+                    >
+                      <BsBookmarkFill className={`mb-1`} />
+                      收藏
+                    </button>
                   </div>
                 </div>
               </a>
-              <button
-                onClick={(e) => handleFavoriteClick(e, r.article_id)}
-                className={`btn ${styles.FavoriteButton}`}
-              >
-                {favorites.includes(r.article_id) ? (
-                  <BsBookmarkFill size={20} />
-                ) : (
-                  <BsBookmarkFill size={20} color="#cccccc" />
-                )}
-              </button>
-            </div>
-          )
-        }
-      })}
+            )
+          }
+        })
+      )}
       {showModal && <LoginModal onClose={() => setShowModal(false)} />}
     </>
   )

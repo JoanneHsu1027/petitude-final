@@ -134,68 +134,44 @@ export default function Navbar({ pageName = '' }) {
                     <span className="fs-5">寵物論壇</span>
                   </Link>
                 </li>
-                {auth.b2c_id ? (
-                  <li className="nav-item dropdown">
-                    <Link
-                      className="nav-link dropdown-toggle d-flex flex-column align-items-center mt-1 mx-1"
-                      href="/"
-                      id="navbarDropdown"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <img
-                        src="/estore/狗.png"
-                        alt=""
-                        style={{ width: '55px' }}
-                        className="m-0"
-                      />
-                      <span className="fs-5">{auth.b2c_name}</span>
-                    </Link>
-                    <ul
-                      className="dropdown-menu"
-                      aria-labelledby="navbarDropdown"
-                    >
-                      <li>
-                        <Link
-                          className="dropdown-item"
-                          href="/"
-                          onClick={handleLogout}
+                <div>
+                  <div className="d-flex position-absolute">
+                    {auth.b2c_id ? (
+                      <>
+                        <li className="nav-item">
+                          <a className="nav-link">{auth.b2c_name}</a>
+                        </li>
+                        <li className="nav-item">
+                          <a
+                            className="nav-link"
+                            href="#/"
+                            onClick={handleLogout}
+                          >
+                            登出
+                          </a>
+                        </li>
+                      </>
+                    ) : (
+                      <li className="nav-item">
+                        <a
+                          className={`nav-link ${isActive('login-jwt')}`}
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            setShowModal(true)
+                          }}
                         >
-                          登出
-                        </Link>
+                          登入
+                        </a>
                       </li>
-                      <li>
-                        <Link
-                          className="dropdown-item"
-                          href="/"
-                          onClick={(e) => handleLinkClick(e, '/member/')}
-                        >
-                          會員中心
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-                ) : (
-                  <li className="nav-item d-flex flex-column align-items-center mt-1 mx-1">
-                    <a
-                      className={`nav-link ${isActive('login-jwt')}`}
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault()
-                        setShowModal(true)
-                      }}
-                    >
-                      <img
-                        src="/estore/貓.png"
-                        alt=""
-                        style={{ width: '55px' }}
-                        className="m-0"
-                      />
-                      <span className="fs-5">登入</span>
-                    </a>
-                  </li>
-                )}
+                    )}
+                    <li className="nav-item">
+                      <Link className="nav-link" href="/estore/cart">
+                        <i className="bi bi-bag-fill cartItem"></i>
+                      </Link>
+                    </li>
+                  </div>
+                </div>
               </ul>
             </div>
           </div>

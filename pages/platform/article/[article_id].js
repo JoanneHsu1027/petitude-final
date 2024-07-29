@@ -395,9 +395,16 @@ export default function ArticleId() {
                                 className="d-flex justify-content-center align-items-center"
                                 style={{ width: '100%' }}
                               >
-                                <p className="col-lg-10 text-center lh-lg">
+                                <pre
+                                  style={{
+                                    whiteSpace: 'pre-wrap',
+                                    wordWrap: 'break-word',
+                                    overflowWrap: 'break-word',
+                                  }}
+                                  className={`col-lg-10 text-start lh-lg h6 text  ${styles.AllFont}`}
+                                >
                                   {articleData.article_content}
-                                </p>
+                                </pre>
                               </div>
                             </div>
                             <div className="d-flex justify-content-center mt-3 mb-4">
