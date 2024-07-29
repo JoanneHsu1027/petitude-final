@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from '@/styles/member/insurance.module.css'
 import { products } from '@/components/insurance/insurance_product'
+// import { counties } from '../common/county'
+// import { cities } from '../common/city'
+
+// const [holderCounty, setHolderCounty] = useState('')
+// const [holderCity, setHolderCity] = useState('')
+
+// const countyData = counties.find((county) => county.label === holderCounty)
+// const cityData = cities.find((city) => city.label === holderCity)
 
 const InsuranceRecordsModal = ({
   modalVisible,
@@ -13,10 +21,15 @@ const InsuranceRecordsModal = ({
     return new Date(dateString).toLocaleDateString('zh-TW', options)
   }
 
-  const renderDataRow = (label, value, customClass = '') => (
-    <div className="d-flex mb-3">
-      <h5 className={`col-4 ${styles['text-color']}`}>{label}</h5>
-      <h5 className={`col-8 ${styles['own-green']} ${customClass}`}>{value}</h5>
+  const renderDataRow = (label, value, customClass = '', customClass1 = '') => (
+    <div className="d-flex mb-3 justify-content-start">
+      <h5 className={`col-6 ${styles['text-color']} ${customClass}`}>
+        {label}
+      </h5>
+      <h5
+        className={`col-6 ${styles['own-green']} ${customClass1}`}
+        dangerouslySetInnerHTML={{ __html: value }}
+      ></h5>
     </div>
   )
 
@@ -43,23 +56,54 @@ const InsuranceRecordsModal = ({
           <div className="modal-body">
             {modalType === 'policyholder' && (
               <>
-                {renderDataRow('要保人姓名', selectedRecord.b2c_name)}
+                {renderDataRow(
+                  '要保人姓名',
+                  selectedRecord.b2c_name,
+                  'text-start',
+                  'text-start',
+                )}
                 {renderDataRow(
                   '身份證字號',
                   selectedRecord.policyholder_IDcard,
+                  'text-start',
+                  'text-start',
                 )}
                 {renderDataRow(
                   '出生年月日',
                   formatDate(selectedRecord.policyholder_birthday),
+                  'text-start',
+                  'text-start',
                 )}
-                {renderDataRow('通訊地址', selectedRecord.policyholder_address)}
-                {renderDataRow('保單型式', '電子保單')}
+                {renderDataRow(
+                  '通訊地址',
+                  selectedRecord.policyholder_address,
+                  'text-start',
+                  'text-start',
+                )}
+                {renderDataRow(
+                  '保單型式',
+                  '電子保單',
+                  'text-start',
+                  'text-start',
+                )}
                 {renderDataRow(
                   '保單寄送信箱',
                   selectedRecord.policyholder_email,
+                  'text-start',
+                  'text-start',
                 )}
-                {renderDataRow('連絡電話', selectedRecord.policyholder_mobile)}
-                {renderDataRow('付款方式', '線上付款')}
+                {renderDataRow(
+                  '連絡電話',
+                  selectedRecord.policyholder_mobile,
+                  'text-start',
+                  'text-start',
+                )}
+                {renderDataRow(
+                  '付款方式',
+                  '線上付款',
+                  'text-start',
+                  'text-start',
+                )}
               </>
             )}
             {modalType === 'insurance' && (
@@ -77,17 +121,29 @@ const InsuranceRecordsModal = ({
                     alt="寵物圖片"
                   />
                 </div>
-                {renderDataRow('寵物姓名', selectedRecord.pet_name, 'col-3')}
-                {renderDataRow('晶片號碼', selectedRecord.pet_chip, 'col-3')}
+                {renderDataRow(
+                  '寵物姓名',
+                  selectedRecord.pet_name,
+                  'col-6 mt-2 text-center me-3',
+                  'mt-2 text-start',
+                )}
+                {renderDataRow(
+                  '晶片號碼',
+                  selectedRecord.pet_chip,
+                  'col-6  text-center me-3',
+                  'text-start',
+                )}
                 {renderDataRow(
                   '投保期間',
-                  `${formatDate(selectedRecord.insurance_start_date)} 零時起至 ${formatDate(new Date(new Date(selectedRecord.insurance_start_date).setFullYear(new Date(selectedRecord.insurance_start_date).getFullYear() + 1)))} 零時止`,
-                  'col-3',
+                  `${formatDate(selectedRecord.insurance_start_date)} 零時起至<br /> ${formatDate(new Date(new Date(selectedRecord.insurance_start_date).setFullYear(new Date(selectedRecord.insurance_start_date).getFullYear() + 1)))} 零時止`,
+                  'col-6  text-center me-3',
+                  'text-start',
                 )}
                 {renderDataRow(
                   '投保方案',
                   selectedRecord.insurance_product || '未選擇方案',
-                  'col-3',
+                  'col-6  text-center me-3',
+                  'text-start',
                 )}
 
                 {/* 顯示保險條款等細節 */}
@@ -126,7 +182,7 @@ const InsuranceDetails = ({ selectedRecord, getInsuranceProductDetails }) => {
       >
         【寵物醫療費用保險】
       </h5>
-      <ul style={{ padding: 0, paddingLeft: 60 }}>
+      <ul style={{ padding: 0, paddingLeft: 20 }}>
         {[
           {
             label: '每次門診(最高)費用',
