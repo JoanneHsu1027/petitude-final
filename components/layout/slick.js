@@ -19,42 +19,35 @@ export default function SimpleSlider() {
       <Slider {...settings}>
         <div>
           <img
-            src="/estore/slider1.jpg"
-            alt="Slide 1"
-            style={{ width: '100%' }}
-          />
-        </div>
-        <div>
-          <img
-            src="/estore/slider2.jpg"
+            src="/estore/slider5.png"
             alt="Slide 2"
             style={{ width: '100%' }}
           />
         </div>
         <div>
           <img
-            src="/estore/slider3.jpg"
+            src="/estore/slider11.png"
             alt="Slide 3"
             style={{ width: '100%' }}
           />
         </div>
         <div>
           <img
-            src="/estore/slider4.jpg"
+            src="/estore/slider7.jpg"
             alt="Slide 4"
             style={{ width: '100%' }}
           />
         </div>
         <div>
           <img
-            src="/estore/slider5.jpg"
+            src="/estore/slider8.png"
             alt="Slide 5"
             style={{ width: '100%' }}
           />
         </div>
         <div>
           <img
-            src="/estore/slider6.jpg"
+            src="/estore/slider14.png"
             alt="Slide 6"
             style={{ width: '100%' }}
           />
