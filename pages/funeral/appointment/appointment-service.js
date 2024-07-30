@@ -217,10 +217,10 @@ export default function AppointmentService() {
           width: 20%;
           height: auto;
           z-index: 1;
-          margin-right: -60px;
+          margin-right: -120px;
         }
         .yellow {
-          width: 25%;
+          width: 24%;
           height: auto;
           margin-right: -10px;
         }
