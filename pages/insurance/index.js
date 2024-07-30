@@ -242,7 +242,7 @@ export default function PetInsurance() {
             <div className="col-8">
               <h2
                 id="showTrial"
-                className={`d-flex justify-content-center ${styles['text-color']} mt-5`}
+                className={`d-flex justify-content-center ${styles['text-color']} ${styles.sectionFourTitle}`}
               >
                 保險試算
               </h2>
