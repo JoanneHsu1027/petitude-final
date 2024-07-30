@@ -19,6 +19,13 @@ export default function BookingList() {
   const [selectedCounty, setSelectedCounty] = useState('')
   const [selectedCity, setSelectedCity] = useState('')
 
+  const billMethodMapping = {
+    phoneBill: '手機載具',
+    memberBill: '會員載具',
+    donateBill: '捐贈發票',
+    companyBill: '公司發票',
+  }
+
   const [formData, setFormData] = useState({
     buyerName: '',
     mobile: '',
@@ -641,7 +648,9 @@ export default function BookingList() {
                     <p className="card-text mb-1 fs-5">發票開立方式</p>
                   </div>
                   <div className="text-end ms-5 ms-auto">
-                    <p className="card-text fs-5">手機載具</p>
+                    <p className="card-text fs-5">
+                      {billMethodMapping[selectedBillMethod] || ''}
+                    </p>
                   </div>
                 </div>
                 <div className="col d-flex align-items-center">
@@ -750,7 +759,9 @@ export default function BookingList() {
                     <p className="card-text mb-1 fs-5">發票開立方式</p>
                   </div>
                   <div className="text-end ms-5 ms-auto">
-                    <p className="card-text fs-5">手機載具</p>
+                    <p className="card-text fs-5">
+                      {billMethodMapping[selectedBillMethod] || ''}
+                    </p>
                   </div>
                 </div>
                 <div className="col d-flex align-items-center">
