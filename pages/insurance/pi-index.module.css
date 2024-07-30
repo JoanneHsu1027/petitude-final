@@ -58,6 +58,7 @@
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
+
 }
 
 /* 按鈕1 */
@@ -413,6 +414,16 @@
 }
 /* 顧客回饋 end */
 
+/* 常見問題 start */
+.questionHeight{
+  height: 700px;
+}
 
+@media (max-width: 390px) {
+  .questionHeight{
+    height: 100%;
+  }
+}
+/* 常見問題 end */
 
 

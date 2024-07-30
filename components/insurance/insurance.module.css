@@ -334,14 +334,17 @@
   }
 }
 
-.forDeskTop {
-  display: flex;
-}
 
-.forPhone {
-  display: none;
-}
 
+@media (min-width: 992px) {
+  .forDeskTop {
+    display: flex;
+  }
+  
+  .forPhone {
+    display: none;
+  }
+}
 @media (max-width: 391px) {
   .forDeskTop {
     display: none;

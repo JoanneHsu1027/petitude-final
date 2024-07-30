@@ -468,7 +468,7 @@ export default function PetInsurance() {
             alt=""
           />
         </div>
-        <div className={`container-fluid pb-5 ${styles['bg-image']} ${styles.allFont}`}>
+        <div className={`container-fluid pb-5 ${styles['bg-image']} ${styles.allFont} ${styles.questionHeight}`}>
           <div className="row d-flex justify-content-center">
             <div className="col-12 d-flex justify-content-center">
               <img
