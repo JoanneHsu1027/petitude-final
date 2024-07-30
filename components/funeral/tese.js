@@ -53,10 +53,10 @@ const SlidingBanner = () => {
           top: 20%;
           right: -300px;
           width: 160px;
-          background-color: #ffdfb3;
+          background-color: #def5d3;
           padding: 20px;
           border-radius: 5px;
-          border: 1px solid #ffdfb3;
+          border: 1px solid #def5d3;
           color: #555f50;
           transition: right 0.5s ease-in-out;
           box-shadow: 0 0 0 rgba(255, 133, 0, 0.7);
@@ -79,13 +79,13 @@ const SlidingBanner = () => {
         }
         @keyframes blink-border {
           0% {
-            box-shadow: 0 0 10px rgba(255, 133, 0, 0.7);
+            box-shadow: 0 0 10px rgba(73, 192, 17, 0.7);
           }
           50% {
-            box-shadow: 0 0 20px rgba(255, 133, 0, 0.7);
+            box-shadow: 0 0 20px rgba(73, 192, 17, 0.7);
           }
           100% {
-            box-shadow: 0 0 10px rgba(255, 133, 0, 0.7);
+            box-shadow: 0 0 10px rgba(73, 192, 17, 0.7);
           }
         }
 
@@ -100,7 +100,7 @@ const SlidingBanner = () => {
           }
           .banner.open {
             right: 0;
-            animation: blink-border-mobile 0.5s infinite;
+            animation: blink-border-mobile 1s infinite;
           }
           .text {
             font-size: 14px;
