@@ -38,13 +38,12 @@ const FavoriteProduct = () => {
 
   const handleDelete = async (product_favorite_id) => {
     const result = await Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: '你確定要取消收藏嗎??',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: '確定！',
     })
 
     if (result.isConfirmed) {
@@ -62,8 +61,7 @@ const FavoriteProduct = () => {
           ),
         )
         Swal.fire({
-          title: 'Deleted!',
-          text: 'Your file has been deleted.',
+          title: '你已經取消收藏!',
           icon: 'success',
         })
       } catch (error) {

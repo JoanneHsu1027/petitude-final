@@ -6,6 +6,8 @@ import NewsSection from '../../components/platform/index-page/news-section'
 import LostSection from '../../components/platform/index-page/lost-section'
 import ClassSection from '../../components/platform/index-page/class-section'
 import { useRouter } from 'next/router'
+import CartIcon from '@/components/estore/carticon'
+import MobileGotop from '@/components/platform/mobile-gotop'
 
 export default function Platform() {
   const router = useRouter()
@@ -35,6 +37,8 @@ export default function Platform() {
               {/* section 這裡結束 */}
             </div>
           </div>
+          <MobileGotop />
+          <CartIcon />
         </Layout>
       </section>
     </>

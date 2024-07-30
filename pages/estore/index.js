@@ -116,7 +116,7 @@ export default function ProjectList() {
   }
 
   return (
-    <Layout title="商品列表" pageName="index">
+    <Layout title="寵物商城" pageName="index">
       <main className={`flex-shrink-0 pt-5 ${styles.full}`}>
         <div className={`container-fluid ${styles.list}`}>
           <div className="row">

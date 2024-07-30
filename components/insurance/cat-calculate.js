@@ -108,18 +108,6 @@ export default function CatCalculate() {
       alert(error.message || '保存失敗，請檢查所有欄位並重試。')
     }
   }
-  // 在後續的結帳步驟中，您可以使用以下代碼來獲取保存的數據：
-  // jsxCopyconst savedData = JSON.parse(localStorage.getItem('catInsuranceData'));
-
-  // 當您需要將數據發送到後端時（可能在最後的結帳步驟），您可以再次獲取這些數據並發送請求。
-  // 記得在適當的時候（例如完成整個過程後）清除 localStorage：
-  // jsxCopylocalStorage.removeItem('catInsuranceData');
-
-  //   如果您需要將一些數據傳遞到 /insurance 頁面，可以使用查詢參數：
-  // jsxCopyrouter.push({
-  //   pathname: '/insurance',
-  //   query: { step: 'cat-info' }  // 例如
-  // });
 
   useEffect(() => {
     // 確保這個 effect 只在客戶端運行

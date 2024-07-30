@@ -6,6 +6,8 @@ import SideBarMobile from '@/components/platform/side-bar-mobile'
 import { useEffect, useState } from 'react'
 import { CLASS } from '@/configs/platform/api-path'
 import { useRouter } from 'next/router'
+import CartIcon from '@/components/estore/carticon'
+import MobileGotop from '@/components/platform/mobile-gotop'
 
 export default function ClassList() {
   const router = useRouter()
@@ -75,6 +77,8 @@ export default function ClassList() {
               {/* section 這裡結束 */}
             </div>
           </div>
+          <MobileGotop />
+          <CartIcon />
         </Layout>
       </section>
     </>

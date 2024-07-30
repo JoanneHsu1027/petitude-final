@@ -23,6 +23,8 @@ import LoginModal from '@/components/member/LoginModal'
 import { useAuth } from '@/contexts/member/auth-context'
 import swal from 'sweetalert2'
 import ReMessage from '@/components/platform/re_message/[message_id]'
+import CartIcon from '@/components/estore/carticon'
+import MobileGotop from '@/components/platform/mobile-gotop'
 
 export default function ArticleId() {
   const router = useRouter()
@@ -564,6 +566,8 @@ export default function ArticleId() {
               </div>
             </div>
           </div>
+          <MobileGotop />
+          <CartIcon />
         </Layout>
       </section>
       {showModal && <LoginModal onClose={() => setShowModal(false)} />}

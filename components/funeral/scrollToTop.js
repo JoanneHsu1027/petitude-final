@@ -32,11 +32,27 @@ export default function ScrollToTopButton() {
           padding: '0',
         }}
       >
-        <img
-          src="/funeral/image_44.png"
-          alt="Scroll to top"
-          style={{ width: '60px', height: '60px', transform: 'rotate(-20deg)' }}
-        />
+        <div
+          style={{
+            backgroundColor: '#F5D553',
+            borderRadius: '50%',
+            width: '50px',
+            height: '50px',
+          }}
+        >
+          <img
+            src="/funeral/image_44.png"
+            alt="Scroll to top"
+            style={{
+              width: '45px',
+              height: '45px',
+              padding: '3px',
+              marginLeft: '2px',
+              transform: 'rotate(-20deg)',
+              color: '#F5D553',
+            }}
+          />
+        </div>
         <span style={{ fontSize: '14px', color: '#bbbbbb', fontWeight: '900' }}>
           Top
         </span>{' '}

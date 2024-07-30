@@ -30,18 +30,11 @@ export default function Environment() {
   ]
 
   const [selectedPic, setSelectedPic] = useState(environmentPic[0])
-  const [hoveredPic, setHoveredPic] = useState(null)
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
   const handleButtonClick = (index) => {
     setSelectedPic(environmentPic[index])
-  }
-
-  const handleButtonHover = (index) => {
-    setHoveredPic(environmentPic[index])
-  }
-
-  const handleButtonLeave = () => {
-    setHoveredPic(null)
+    setSelectedIndex(index)
   }
 
   return (
@@ -90,21 +83,19 @@ export default function Environment() {
               {environmentPic.map((pic, index) => (
                 <button
                   key={index}
-                  className="custom-btn"
+                  className={`custom-btn ${selectedIndex === index ? 'active' : ''}`}
                   type="button"
                   onClick={() => handleButtonClick(index)}
-                  onMouseEnter={() => handleButtonHover(index)}
-                  onMouseLeave={handleButtonLeave}
                 >
                   {pic.alt}
                 </button>
               ))}
             </div>
             <img
-              src={(hoveredPic || selectedPic).src}
-              alt={(hoveredPic || selectedPic).alt}
-              width={(hoveredPic || selectedPic).width}
-              height={(hoveredPic || selectedPic).height}
+              src={selectedPic.src}
+              alt={selectedPic.alt}
+              width={selectedPic.width}
+              height={selectedPic.height}
               className="environment-image"
             />
           </div>
@@ -130,9 +121,9 @@ export default function Environment() {
             }
             .yellow {
               position: absolute;
-              width: 17%;
+              width: 16%;
               height: auto;
-              margin-left: 130px;
+              margin-left: 110px;
               margin-bottom: 50px;
               max-width: 100%;
             }
@@ -140,7 +131,7 @@ export default function Environment() {
               position: absolute;
               width: 15%;
               height: auto;
-              margin-right: 150px;
+              margin-right: 125px;
               margin-bottom: 50px;
               max-width: 100%;
             }
@@ -209,11 +200,10 @@ export default function Environment() {
                 transform 0.3s ease;
             }
 
-            .custom-btn:hover {
+            .custom-btn.active {
               background-color: #f6d554;
-              font-weight: 600;
               color: #6a513d;
-              transform: scale(1.05);
+              font-weight: 600;
             }
 
             .environment-image {
@@ -329,6 +319,13 @@ export default function Environment() {
                 color: #6a513d;
                 transform: scale(1.05);
               }
+
+              .custom-btn.active {
+                background-color: #f6d554;
+                color: #6a513d;
+                font-weight: 600;
+              }
+
               .environment-image {
                 width: 90%;
                 height: 60%;
