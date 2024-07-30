@@ -126,10 +126,12 @@ const InsuranceRecords = () => {
               <tbody>
                 {recordsData.map((record) => (
                   <tr key={record.insurance_order_id}>
-                    <td>{record.insurance_order_id}</td>
-                    <td>{record.insurance_product}</td>
-                    <td>{record.payment_status}</td>
-                    <td>{record.insurance_premium}</td>
+                    <td className="align-middle">
+                      {record.insurance_order_id}
+                    </td>
+                    <td className="align-middle">{record.insurance_product}</td>
+                    <td className="align-middle">{record.payment_status}</td>
+                    <td className="align-middle">{record.insurance_premium}</td>
                     <td>
                       <button
                         className="btn btn-primary me-1"

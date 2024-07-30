@@ -30,6 +30,10 @@
   color: #94BF5C;
 }
 
+.own-dark-green {
+  color: #70ad21;
+}
+
 .own-li-green {
   color: #CFE7B1;
 }
@@ -438,12 +442,12 @@
       }
     
       .mobile-header h2 {
-        color: #your-text-color; /* 使用你的文字顏色 */
+        color: #515151; 
         margin-bottom: 10px;
       }
     
       .mobile-header h5 {
-        color: #your-text-color; /* 使用你的文字顀色 */
+        color: #515151; 
       }
     
       .mobile-table {

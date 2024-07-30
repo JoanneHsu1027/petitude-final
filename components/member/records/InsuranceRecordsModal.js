@@ -24,7 +24,7 @@ const InsuranceRecordsModal = ({
         {label}
       </h5>
       <h5
-        className={`col-6 ${styles['own-green']} ${customClass1}`}
+        className={`col-6 ${styles['own-dark-green']} ${customClass1}`}
         dangerouslySetInnerHTML={{ __html: value }}
       ></h5>
     </div>
@@ -65,15 +65,15 @@ const InsuranceRecordsModal = ({
     <div className="modal show" tabIndex="-1" style={{ display: 'block' }}>
       <div className="modal-dialog">
         <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">
+          <div className="modal-header border-0 no-outline">
+            <h3 className="modal-title">
               {modalType === 'policyholder' ? '投保人資料' : '投保方案'}
-            </h5>
-            <button
+            </h3>
+            {/* <button
               type="button"
               className="btn-close"
               onClick={() => setModalVisible(false)}
-            ></button>
+            ></button> */}
           </div>
           <div className="modal-body">
             {modalType === 'policyholder' && (
@@ -176,7 +176,7 @@ const InsuranceRecordsModal = ({
               </>
             )}
           </div>
-          <div className="modal-footer">
+          <div className="modal-footer border-0 no-outline">
             <button
               type="button"
               className="btn btn-secondary"
@@ -231,7 +231,7 @@ const InsuranceDetails = ({ selectedRecord, getInsuranceProductDetails }) => {
             >
               {item.label}
             </h5>
-            <h5 className={styles['own-green']}>NT {item.value}</h5>
+            <h5 className={styles['own-dark-green']}>NT {item.value}</h5>
           </li>
         ))}
       </ul>
