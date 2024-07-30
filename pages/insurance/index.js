@@ -64,7 +64,7 @@ export default function PetInsurance() {
             <div className="col-sm-5 col-12 d-flex justify-content-center">
               <img
                 loading="lazy"
-                src="/pi-pic/dog-with-cat-v4.png"
+                src="/pi-pic/catAndDog.png"
                 alt=""
                 className={styles.s1RWD}
               />
