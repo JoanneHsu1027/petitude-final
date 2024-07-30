@@ -300,82 +300,117 @@
 
 
 /* 顧客回饋 start */
-.pentagon-container {
+
+
+.text-color {
+  color: #515151;
+}
+
+.feedbackCard {
+  max-width: 300px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.feedbackCardInner {
   position: relative;
+  width: 100%;
+  height: 220px;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.feedbackCard:hover .feedbackCardInner {
+  transform: rotateY(180deg);
+}
+
+.feedbackCardFront, .feedbackCardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   background-color: #FFF5CF;
+  overflow: hidden;
   clip-path: polygon(0% 0%, 85% 0%, 100% 20%, 100% 100%, 0% 100%);
-  padding:10px 10px 0px 20px;
+}
+
+.feedbackCardFront {
+  clip-path: polygon(0% 0%, 85% 0%, 100% 20%, 100% 100%, 0% 100%);
+}
+
+.feedbackCardBack {
+  transform: rotateY(180deg);
+  justify-content: center;
+  clip-path: polygon(0% 20%, 15% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.feedbackCardBack h6 {
+  margin: 0;
+  text-align: center;
+}
+
+.pet-image-container {
+  width: 150px;  /* 設置固定寬度 */
+  height: 150px; /* 設置固定高度，與寬度相同以保持圓形 */
+  border-radius: 50%; /* 使容器成為圓形 */
+  overflow: hidden; /* 隱藏超出圓形範圍的部分 */
+  margin: 20px auto; /* 保持居中對齊 */
 }
 
 .pet-image {
-  border-radius: 50%;
-  width: 30%;
- /* 不確定 */
-  height: auto;
-  object-fit: cover;
-  margin: 20px 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 確保圖片填滿容器，可能會裁剪部分圖片 */
+  object-position: center; /* 確保圖片居中顯示 */
+}
+.feedbackCardContent {
+  /* padding: 15px; */
+  text-align: center;
 }
 
-@media (max-width: 768px) {
-  .pentagon-container {
-    max-width: 100%; /* 確保在小螢幕上五邊形佔滿父容器 */
-    padding: 10px; /* 減少 padding 以適應小螢幕 */
-  }
-
-  .pet-image {
-    max-width: 100%; /* 不確定 */
-    margin: 10px 0;
-  }
-}
-
-.no-outline:focus, .no-outline:active {
-  outline: none;
-  box-shadow: none; 
-}
-
-@media (max-width: 1070px) {
-.smHidden {
-    display: none;
-  }
-}
-
-.feedbackLap{
+.feedbackLap {
   display: block;
 }
 
-.feedbackPhone{
+.feedbackPhone {
   display: none !important;
 }
 
-.btnUpSpace{
-  margin-top: 1.875rem;
+
+@media (max-width: 768px) {
+  .feedbackCard {
+    width: 100%;
+    max-width: none;
+  }
 }
 
 @media (max-width: 430px) {
-  .feedbackLap{
+  .feedbackLap {
     display: none !important;
   }
-  .feedbackPhone{
+  .feedbackPhone {
     display: block !important;
   }
-  .pentagon-container {
+  .pet-image-container {
+    width: 100px;  /* 在手機版上調整大小 */
+    height: 100px;
+  }
+  .feedbackCard {
+    margin-bottom: 20px;
+  }
+  .feedbackCardInner {
+    position: relative;
     width: 100%;
-    padding: 0 ;
-  }
-  .pet-image {
-    border-radius: 50%;
-    width: 3.125rem ;
-    height: 3.125rem;
-    object-fit: cover;
-    margin: 10px;
-    
-  }
-
-  .btnUpSpace{
-    margin-top: 0;
+    height: 250px;
+    transition: transform 1s;
+    transform-style: preserve-3d;
   }
 }
-
 /* 顧客回饋 end */
 
 

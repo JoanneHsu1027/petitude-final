@@ -272,7 +272,8 @@ export default function PetInsurance() {
         {/* section 4 end */}
 
         {/* section 5 顧客意見回饋 start */}
-        <div className={`container-fluid mt-5 ${styles.allFont}`}>
+        <div className={`container-fluid ${styles.allFont}`}
+        style={{marginTop: '100px'}}>
           <div className="row mt-3 d-flex justify-content-center">
             <div className="col-9">
               <h2
@@ -283,114 +284,183 @@ export default function PetInsurance() {
               </h2>
             </div>
           </div>
-          {/* 電腦版 start*/}
-          <div
-            className={`row d-flex flex-sm-column flex-md-row justify-content-center mt-5 ${styles.feedbackLap}`}
-            style={{ padding: '0 3.75rem' }}
-          >
-            <div
-              className={`col-md-4 d-flex ${styles['pentagon-container']} mb-5`}
-            >
-              <img
-                src="/pi-pic/customer-feedback01.jpg"
-                alt="巨石(鬥牛犬)"
-                className={styles['pet-image']}
-              />
-              <div className="d-flex align-items-center ps-2">
-                <div>
-                  <h4 className="text-left">巨石(鬥牛犬) 1歲</h4>
-                  <h6
-                    className="text-left text-wrap"
-                    style={{ width: '100%', height: '6.25rem' }}
-                  >
-                    雖然有其他更便宜的寵物保險選擇，但寵度是最方便的。我很怕麻煩，所以我想以最完整方便的方式照顧它。
-                  </h6>
+          <div className={`container-fluid mt-5 ${styles.allFont}`}>
+           {/* 電腦版 start */}
+            <div className={`container ${styles.feedbackLap}`}>
+              <div className="row d-flex flex-sm-column flex-md-row justify-content-center mt-5" style={{ padding: '0 3.75rem' }}>
+                <div className={`col-md-3 mb-5 ${styles.feedbackCard}`}>
+                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                    <div className={styles.feedbackCardFront}>
+                      <div className={styles['pet-image-container']}>
+                        <img src="/pi-pic/customer-feedback01.jpg" className={styles['pet-image']} />
+                      </div>                      
+                      <div className={styles.feedbackCardContent}>
+                        <h4 style={{marginBottom: '20px'}}>巨石(鬥牛犬) 1歲</h4>
+                      </div>
+                    </div>
+                    <div className={styles.feedbackCardBack}>
+                    <h4 className="text-start">
+                        主人: 廖先生
+                      </h4>
+                      <h6 className="text-start" style={{paddingRight:'15px', paddingLeft: '15px'}}>
+                        雖然有其他更便宜的寵物保險選擇，但寵度是最方便的。我很怕麻煩，所以我想以最完整方便的方式照顧它。
+                      </h6>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div className={`col-1 ${styles.smHidden}`} />
-            <div
-              className={`col-md-4 d-flex ${styles['pentagon-container']} mb-5`}
-            >
-              <img
-                src="/pi-pic/customer-feedback02.jpg"
-                alt="米亞(虎斑貓)"
-                className={styles['pet-image']}
-              />
-              <div className="d-flex align-items-center ps-2">
-                <div>
-                  <h4 className="text-left">米亞(虎斑貓) 3歲</h4>
-                  <h6
-                    className="text-left text-wrap"
-                    style={{ width: '100%', height: '6.25rem' }}
-                  >
-                    我小時候就知道寵物保險了。當我養了米亞時，它非常有幫助。價格非常合情合理。
-                  </h6>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* 電腦版 end*/}
-          {/* 手機板 start */}
-          <div
-            className={`row d-flex flex-sm-column flex-md-row justify-content-center ${styles.feedbackPhone}`}
-            style={{ padding: '0 3.75rem 0 3.75rem' }}
-          >
-            <div
-              className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
-            >
-              <img
-                src="/pi-pic/customer-feedback01.jpg"
-                alt="巨石(鬥牛犬)"
-                className={styles['pet-image']}
-              />
-              <div className="d-flex align-items-center">
-                <div>
-                  <h4 className="text-left">巨石(鬥牛犬) 1歲</h4>
-                  <h6
-                    className="text-left text-wrap"
-                    style={{ width: '12.5rem', height: '6.25rem' }}
-                  >
-                    雖然有其他更便宜的寵物保險選擇，但寵度是最方便的。我很怕麻煩，所以我想以最完整方便的方式照顧它。
-                  </h6>
-                </div>
-              </div>
-            </div>
-            <div
-              className={`col-3 d-flex ${styles['pentagon-container']} mb-5`}
-            >
-              <img
-                src="/pi-pic/customer-feedback02.jpg"
-                alt="米亞(虎斑貓)"
-                className={styles['pet-image']}
-              />
-              <div className="d-flex align-items-center">
-                <div>
-                  <h4 className="text-left">米亞(虎斑貓) 3歲</h4>
-                  <h6
-                    className="text-left text-wrap"
-                    style={{ width: '12.5rem', height: '6.25rem' }}
-                  >
-                    我小時候就知道寵物保險了。當我養了米亞時，它非常有幫助。價格非常合情合理。
-                  </h6>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* 手機板 end */}
 
-          {/* <div className="d-flex justify-content-center">
-            <button
-              className={`${styles['own-btn2']} ${styles.btnUpSpace} border-0 d-flex justify-content-center align-items-center`}
-            >
-              <h5 style={{ margin: 0 }}>了解更多回饋</h5>
-            </button>
-          </div> */}
+                <div className={`col-md-3 mb-5 ${styles.feedbackCard}`}>
+                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                    <div className={styles.feedbackCardFront}>
+                    <div className={styles['pet-image-container']}>
+                        <img src="/pi-pic/customer-feedback02.jpg" className={styles['pet-image']} />
+                      </div> 
+                      <div className={styles.feedbackCardContent}>
+                        <h4 style={{marginBottom: '20px'}}>米亞(虎斑貓) 3歲</h4>
+                      </div>
+                    </div>
+                    <div className={styles.feedbackCardBack}>
+                    <h4 className="text-start">
+                        主人: 高小姐
+                      </h4>
+                      <h6 className="text-start" style={{paddingRight:'15px', paddingLeft: '15px'}}>
+                        我小時候就知道寵物保險了。當我養了米亞時，它非常有幫助。價格非常合情合理。
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+                <div className={`col-md-3 mb-5 ${styles.feedbackCard}`}>
+                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                    <div className={styles.feedbackCardFront}>
+                    <div className={styles['pet-image-container']}>
+                        <img src="/pi-pic/customer-feedback04.jpg"  className={styles['pet-image']} />
+                      </div> 
+                      <div className={styles.feedbackCardContent}>
+                        <h4 style={{marginBottom: '20px'}}>阿卡斐雅(馬爾濟斯) 3歲</h4>
+                      </div>
+                    </div>
+                    <div className={styles.feedbackCardBack}>
+                    <h4 className="text-start">
+                        主人: 徐小姐
+                      </h4>
+                      <h6 className="text-start" style={{paddingRight:'15px', paddingLeft: '15px'}}>
+                      買了寵物保險後，我再也不用擔心狗狗突發的醫療費用，讓牠得到最好的照顧，真的很安心。
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+                <div className={`col-md-3 mb-5 ${styles.feedbackCard}`}>
+                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                    <div className={styles.feedbackCardFront}>
+                    <div className={styles['pet-image-container']}>
+                        <img src="/pi-pic/customer-feedback03.png"  className={styles['pet-image']} />
+                      </div> 
+                      <div className={styles.feedbackCardContent}>
+                        <h4 style={{marginBottom: '20px'}}>咪咪(英國短毛貓) 6個月</h4>
+                      </div>
+                    </div>
+                    <div className={styles.feedbackCardBack}>
+                    <h4 className="text-start">
+                        主人: 蔡先生
+                      </h4>
+                      <h6 className="text-start" style={{paddingRight:'15px', paddingLeft: '15px'}}>
+                      有了寵物保險，每次帶貓咪去看病都不再擔心費用，讓我更專注於牠的健康，真是個明智的投資。
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* 電腦版 end */}
+
+            {/* 手機版 start */}
+            <div className={`container ${styles.feedbackPhone}`}>
+              <div className="row d-flex flex-column justify-content-center mt-5" style={{ padding: '0 3.75rem' }}>
+                <div className={`col-12 mb-5 ${styles.feedbackCard}`}>
+                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                    <div className={styles.feedbackCardFront}>
+                      <img src="/pi-pic/customer-feedback01.jpg" alt="巨石(鬥牛犬)" className={styles['pet-image']} />
+                      <div className={styles.feedbackCardContent}>
+                        <h4>巨石(鬥牛犬) 1歲</h4>
+                      </div>
+                    </div>
+                    <div className={styles.feedbackCardBack}>
+                    <h4 className="text-start">
+                        主人: 廖先生
+                      </h4>
+                      <h6 className="text-start"
+                      style={{paddingRight:'10px', paddingLeft: '10px'}}>
+                        雖然有其他更便宜的寵物保險選擇，但寵度是最方便的。我很怕麻煩，所以我想以最完整方便的方式照顧它。
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`col-12 mb-5 ${styles.feedbackCard}`}>
+                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                    <div className={styles.feedbackCardFront}>
+                      <img src="/pi-pic/customer-feedback02.jpg" alt="米亞(虎斑貓)" className={styles['pet-image']} />
+                      <div className={styles.feedbackCardContent}>
+                        <h4>米亞(虎斑貓) 3歲</h4>
+                      </div>
+                    </div>
+                    <div className={styles.feedbackCardBack}>
+                    <h4 className="text-start">
+                        主人: 高小姐
+                      </h4>
+                      <h6 className="text-start"style={{paddingRight:'10px', paddingLeft: '10px'}}>
+                        我小時候就知道寵物保險了。當我養了米亞時，它非常有幫助。價格非常合情合理。
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+                <div className={`col-12 mb-5 ${styles.feedbackCard}`}>
+                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                    <div className={styles.feedbackCardFront}>
+                      <img src="/pi-pic/customer-feedback04.jpg" alt="米亞(虎斑貓)" className={styles['pet-image']} />
+                      <div className={styles.feedbackCardContent}>
+                        <h4>阿卡斐雅(馬爾濟斯) 3歲</h4>
+                      </div>
+                    </div>
+                    <div className={styles.feedbackCardBack}>
+                    <h4 className="text-start">
+                        主人: 高小姐
+                      </h4>
+                      <h6 className="text-start"style={{paddingRight:'10px', paddingLeft: '10px'}}>
+                      買了寵物保險後，我再也不用擔心狗狗突發的醫療費用，讓牠得到最好的照顧，真的很安心。
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+                <div className={`col-12 mb-5 ${styles.feedbackCard}`}>
+                  <div className={`${styles.feedbackCardInner} ${styles['pentagon-container']}`}>
+                    <div className={styles.feedbackCardFront}>
+                      <img src="/pi-pic/customer-feedback03.png" alt="米亞(虎斑貓)" className={styles['pet-image']} />
+                      <div className={styles.feedbackCardContent}>
+                        <h4>咪咪(英國短毛貓) 6個月</h4>
+                      </div>
+                    </div>
+                    <div className={styles.feedbackCardBack}>
+                    <h4 className="text-start">
+                        主人: 蔡先生
+                      </h4>
+                      <h6 className="text-start"style={{paddingRight:'10px', paddingLeft: '10px'}}>
+                      有了寵物保險，每次帶貓咪去看病都不再擔心費用，讓我更專注於牠的健康，真是個明智的投資。
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* 手機版 end */}
+          </div>
+
         </div>
 
         {/* section 5 end */}
         {/* section 6 常見問題 start */}
-        <div className={`col-12 ${styles.allFont}`}>
+        <div className={`col-12 ${styles.allFont}`}
+            style={{marginTop: '-50px'}}>
           <img
             className="img-fluid w-100"
             loading="lazy"

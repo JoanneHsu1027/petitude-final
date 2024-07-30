@@ -54,7 +54,7 @@ export default function PetSick() {
             <img
               className="w-100 h-100"
               loading="lazy"
-              src="/pi-pic/section2-top-bar2.png"
+              src="/pi-pic/section2-top-bar3.png"
               alt=""
             />
           </div>
@@ -68,7 +68,7 @@ export default function PetSick() {
             </h2>
           </div>
         </div>
-        {/* <div className="col-12 d-flex justify-content-center"> */}
+
         {/* 電腦版 */}
         <div
           className={`row ${styles.forDeskTop}`}
