@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 
 const FavoriteProduct = () => {
   const { auth } = useAuth()
-  const [favoriteProducts, setFavoriteProducts] = useState([])
+  const [favoriteProducts, setFavoriteProducts] = useState([]) // 初始值為空陣列
 
   useEffect(() => {
     const fetchFavoriteProducts = async () => {
@@ -22,9 +22,14 @@ const FavoriteProduct = () => {
             },
           },
         )
-        setFavoriteProducts(response.data.data)
+
+        // 確保 response.data.data 是一個陣列
+        setFavoriteProducts(
+          Array.isArray(response.data.data) ? response.data.data : [],
+        )
       } catch (error) {
         console.error('無法獲取收藏商品', error)
+        setFavoriteProducts([]) // 發生錯誤時設置為空陣列
       }
     }
 

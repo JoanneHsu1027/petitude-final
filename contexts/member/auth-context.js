@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { JWT_LOGIN_POST } from '@/configs/api-path'
+import { auth, provider } from '@/path/to/firebaseConfig' // 引入 Firebase 配置
+import { signInWithPopup } from 'firebase/auth'
 
 const AuthContext = createContext()
 const storageKey = 'petmember-auth'
@@ -13,7 +15,7 @@ const emptyAuth = {
 }
 
 export function AuthContextProvider({ children }) {
-  const [auth, setAuth] = useState(emptyAuth)
+  const [authState, setAuthState] = useState(emptyAuth)
 
   const login = async (b2c_email, b2c_password) => {
     try {
@@ -29,7 +31,7 @@ export function AuthContextProvider({ children }) {
         // 儲存 token 和用戶的相關資料到 localStorage
         localStorage.setItem(storageKey, JSON.stringify(result.data))
         // 更新狀態
-        setAuth(result.data)
+        setAuthState(result.data)
       }
       return result.success
     } catch (error) {
@@ -38,24 +40,59 @@ export function AuthContextProvider({ children }) {
     }
   }
 
+  const loginWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider)
+      const user = result.user
+      const idToken = await user.getIdToken()
+
+      // 將 ID Token 發送到後端
+      const response = await fetch('/api/google-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${idToken}`,
+        },
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        // 更新 AuthContext 的狀態
+        const userData = {
+          b2c_id: data.b2c_id,
+          b2c_email: data.b2c_email,
+          b2c_name: data.b2c_name,
+          token: idToken,
+        }
+        setAuthState(userData)
+        localStorage.setItem(storageKey, JSON.stringify(userData))
+      } else {
+        console.error(data.error)
+      }
+    } catch (error) {
+      console.error('Error during Google login:', error)
+    }
+  }
+
   const logout = () => {
     localStorage.removeItem(storageKey)
-    setAuth(emptyAuth)
+    setAuthState(emptyAuth)
     console.log('Logged out and localStorage cleared')
   }
 
   const getAuthHeader = () => {
-    if (auth.token) {
+    if (authState.token) {
       return {
-        Authorization: `Bearer ${auth.token}`,
+        Authorization: `Bearer ${authState.token}`,
       }
     }
     return {}
   }
 
   const updateUser = (updatedUser) => {
-    const updatedAuth = { ...auth, ...updatedUser }
-    setAuth(updatedAuth)
+    const updatedAuth = { ...authState, ...updatedUser }
+    setAuthState(updatedAuth)
     localStorage.setItem(storageKey, JSON.stringify(updatedAuth))
   }
 
@@ -66,7 +103,7 @@ export function AuthContextProvider({ children }) {
       try {
         const data = JSON.parse(str)
         if (data?.b2c_id && data?.token) {
-          setAuth(data)
+          setAuthState(data)
         }
       } catch (error) {
         console.error('Failed to parse auth data:', error)
@@ -76,7 +113,14 @@ export function AuthContextProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ login, logout, auth, getAuthHeader, updateUser }}
+      value={{
+        login,
+        loginWithGoogle,
+        logout,
+        auth: authState,
+        getAuthHeader,
+        updateUser,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -26,7 +26,9 @@ const InsuranceRecords = () => {
         const result = await response.json()
         console.log('Fetched records data:', result) // 打印結果以便調試
         if (result.success) {
-          setRecordsData(Array.isArray(result.data) ? result.data : [])
+          setRecordsData(
+            Array.isArray(result.data) ? result.data : [result.data],
+          )
         } else {
           console.error(result.error)
           setRecordsData([])
