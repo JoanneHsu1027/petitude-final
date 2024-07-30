@@ -93,7 +93,7 @@ export default function PetSick() {
             >
               <div
                 className={`col-9 ${styles['stats-container']} text-center`}
-                style={{ padding: '1.25rem 3.125rem', width: '100%' }}
+                style={{ padding: '1.25rem 3.125rem', width: '70%' }}
               >
                 <h4 style={{ fontWeight: '700' }} className={styles.allFont}>
                   {displayedAccident.accidentType}
