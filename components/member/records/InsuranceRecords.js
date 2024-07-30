@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import InsuranceRecordsModal from './InsuranceRecordsModal' // 確保引入的名稱正確
 import { INSURANCE_DELETE_ITEM } from '@/configs/insurance/api-path'
+import Swal from 'sweetalert2'
 
 const InsuranceRecords = () => {
   const { auth, getAuthHeader } = useAuth()
@@ -53,7 +54,25 @@ const InsuranceRecords = () => {
     router.push(`/insurance/payment/${orderId}`)
   }
 
+  // 刪除訂單前確認
   const handleDelete = (orderId) => {
+    Swal.fire({
+      title: '確定要刪除此保單嗎?',
+      text: '此操作無法撤銷!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: '確認!',
+      cancelButtonText: '取消',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        performaDelete(orderId)
+      }
+    })
+  }
+
+  // 刪除訂單
+  const performaDelete = (orderId) => {
     fetch(INSURANCE_DELETE_ITEM, {
       method: 'DELETE',
       headers: {
@@ -72,15 +91,13 @@ const InsuranceRecords = () => {
       .then((data) => {
         console.log('Delete response:', data)
         if (data.status === 'success') {
-          // 處理成功刪除的邏輯
-          console.log('訂單成功刪除')
+          Swal.fire('已刪除!', '您的訂單已成功刪除', 'sucess')
           setRecordsData((prevRecordsData) =>
             prevRecordsData.filter(
               (record) => record.insurance_order_id !== orderId,
             ),
           )
         } else {
-          // 處理刪除失敗的邏輯
           console.error('刪除失敗:', data.message)
         }
       })
