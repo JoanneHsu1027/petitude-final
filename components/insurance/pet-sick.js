@@ -85,7 +85,7 @@ export default function PetSick() {
           // 電腦版
           <div
             className={`row ${styles.forDeskTop}`}
-            style={{ padding: '0 60px' }}
+            style={{ paddingRight: '60px', paddingLeft: '60px' }}
           >
             <div
               className="col-lg-4 d-flex align-items-center justify-content-end"
@@ -222,7 +222,7 @@ export default function PetSick() {
             <img
               className="w-100 h-100"
               loading="lazy"
-              src="/pi-pic/section2-bottom-bar2.png"
+              src="/pi-pic/section2-bottom-bar3.png"
               alt=""
             />
           </div>
