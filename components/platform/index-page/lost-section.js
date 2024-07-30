@@ -57,27 +57,33 @@ function LostSection() {
             <div>
               <a
                 className={`${styles.AReset}`}
-                href="http://localhost:3000/platform/article/2"
+                href="http://localhost:3000/platform/article/38"
               >
                 <img className="img-fluid" src="/forum-pic/lost-img1.png" />
               </a>
             </div>
             <div>
-              <a className={`${styles.AReset}`} href="#">
+              <a
+                className={`${styles.AReset}`}
+                href="http://localhost:3000/platform/article/8"
+              >
                 <img className="img-fluid" src="/forum-pic/lost-img2.png" />
               </a>
             </div>
             <div>
               <a
                 className={`${styles.AReset}`}
-                href="http://localhost:3000/platform/article/4"
+                href="http://localhost:3000/platform/article/3"
               >
                 <img className="img-fluid" src="/forum-pic/lost-img3.png" />
               </a>
             </div>
             <div>
-              <a className={`${styles.AReset}`} href="#">
-                <img className="img-fluid" src="/forum-pic/lost-img2.png" />
+              <a
+                className={`${styles.AReset}`}
+                href="http://localhost:3000/platform/article/37"
+              >
+                <img className="img-fluid" src="/forum-pic/lost-img4.png" />
               </a>
             </div>
           </Slider>
