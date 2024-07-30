@@ -24,13 +24,24 @@ export default function home() {
           {/* 論壇區塊 start */}
           <div className="container my-5">
             <div className="row d-flex justify-content-center">
-              <div className="col-xl-9 col-lg-10 col-md-12 position-relative">
+              <div className="col-xl-9 col-lg-10 col-md-12 position-relative d-xl-none d-xxl-block d-xxl-none">
                 <a href="./platform">
                   <img
                     className="TopCenter start-50 translate-middle"
                     src="../index/forum-title.png"
                     alt=""
-                    style={{ width: '70%' }}
+                    style={{ width: '66%' }}
+                  />
+                </a>
+                <ClassSection />
+              </div>
+
+              <div className="col-xl-9 col-lg-10 col-md-12 position-relative  d-none d-xl-block">
+                <a href="./platform">
+                  <img
+                    className="TopCenter start-50 translate-middle"
+                    src="../index/forum-title.png"
+                    alt=""
                   />
                 </a>
                 <ClassSection />
