@@ -8,6 +8,8 @@ import styles from '../../../styles/platform/platform-style.module.css'
 import { useAuth } from '@/contexts/member/auth-context'
 import swal from 'sweetalert2'
 import LoginModal from '@/components/member/LoginModal'
+import CartIcon from '@/components/estore/carticon'
+import MobileGotop from '@/components/platform/mobile-gotop'
 
 export default function ClassId() {
   const router = useRouter()
@@ -70,6 +72,8 @@ export default function ClassId() {
               </div>
             </div>
           </div>
+          <MobileGotop />
+          <CartIcon />
         </Layout>
       </section>
       {showModal && <LoginModal onClose={() => setShowModal(false)} />}

@@ -8,6 +8,8 @@ import LoginModal from '@/components/member/LoginModal'
 import { useAuth } from '@/contexts/member/auth-context'
 import { useRouter } from 'next/router'
 import swal from 'sweetalert2'
+import MobileGotop from '@/components/platform/mobile-gotop'
+import CartIcon from '@/components/estore/carticon'
 
 export default function ArticleList() {
   const router = useRouter()
@@ -76,6 +78,8 @@ export default function ArticleList() {
               </div>
             </div>
           </div>
+          <MobileGotop />
+          <CartIcon />
         </Layout>
       </section>
       {showModal && <LoginModal onClose={() => setShowModal(false)} />}

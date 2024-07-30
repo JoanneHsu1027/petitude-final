@@ -6,15 +6,11 @@ import NewsSection from '../../components/platform/index-page/news-section'
 import LostSection from '../../components/platform/index-page/lost-section'
 import ClassSection from '../../components/platform/index-page/class-section'
 import { useRouter } from 'next/router'
+import CartIcon from '@/components/estore/carticon'
+import MobileGotop from '@/components/platform/mobile-gotop'
 
 export default function Platform() {
   const router = useRouter()
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth', // 平滑滚动
-    })
-  }
 
   const handleSearch = (keyword) => {
     // 跳转到 ArticleList 页面并带上搜索关键字
@@ -41,47 +37,8 @@ export default function Platform() {
               {/* section 這裡結束 */}
             </div>
           </div>
-          <div className="d-flex d-xl-none d-xxl-block d-xxl-none">
-            <button
-              onClick={scrollToTop}
-              style={{
-                position: 'fixed',
-                bottom: '2rem',
-                right: '1.2rem',
-                backgroundColor: 'transparent',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '50%',
-                width: '50px',
-                height: '50px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                padding: '0',
-              }}
-            >
-              <img
-                src="/forum-pic/mobile-gotop.png"
-                alt="Scroll to top"
-                style={{
-                  width: '60px',
-                  height: '60px',
-                  transform: 'rotate(-20deg)',
-                }}
-              />
-              <span
-                style={{
-                  fontSize: '14px',
-                  color: '#bbbbbb',
-                  fontWeight: '900',
-                }}
-              >
-                Top
-              </span>{' '}
-            </button>
-          </div>
+          <MobileGotop />
+          <CartIcon />
         </Layout>
       </section>
     </>
