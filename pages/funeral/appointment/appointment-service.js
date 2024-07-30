@@ -185,12 +185,14 @@ export default function AppointmentService() {
           margin-bottom: 5%;
         }
         .btn {
-          width: 10%;
+          width: 15%;
+          height: 20%;
           background-color: #6a513d;
           color: #fff5cf;
           margin-bottom: 20px;
           font-weight: 600;
-          font-size: 18px;
+          font-size: 20px;
+          border-radius: 25px;
         }
         .btn:hover {
           background-color: #f6d554;
