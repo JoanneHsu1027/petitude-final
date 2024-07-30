@@ -442,7 +442,7 @@ export default function RvEdit() {
                   alt=""
                   style={{
                     maxWidth: '100%',
-                    width: '150px',
+                    width: '130px',
                     height: 'auto',
                     zIndex: 1,
                     marginRight: '-20px',
@@ -963,8 +963,9 @@ export default function RvEdit() {
         </svg>
       </div> */}
       <div className="dogpic">
-        <img src="/funeral/golddog.png" className="dogpic1" />
+        <img src="/funeral/shiba.png" className="dogpic1" />
       </div>
+      
       <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
 
@@ -993,27 +994,6 @@ export default function RvEdit() {
           margin-bottom: 5%;
         }
 
-        #snell {
-          position: absolute;
-          top: 0;
-          width: 100%;
-          margin-top: 10%;
-        }
-
-        #eye1 {
-          animation: swing ease-in-out 0.6s infinite alternate;
-          transform-origin: bottom;
-          transform-box: fill-box;
-          left: calc(52% - 0rem);
-        }
-
-        #eye2 {
-          animation: swing ease-in-out 0.5s infinite alternate;
-          transform-origin: bottom;
-          transform-box: fill-box;
-          left: calc(40% - 0rem);
-        }
-
         #dust-paarticle path {
           transform-box: fill-box;
           transform-origin: center;
@@ -1023,8 +1003,12 @@ export default function RvEdit() {
         }
         .dogpic {
           position: absolute;
-          margin-top: -30.7%;
-          transform: rotate(1.3deg);
+          top: 52.3%;
+          left: 5%;
+          transform: rotate(-9.5deg);
+        }
+        .dogpic1 {
+          width: 100%;
         }
 
         ul {
