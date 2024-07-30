@@ -7,7 +7,7 @@ export default function ClassSection() {
   const [hoveredImg, setHoveredImg] = useState({
     tab1: '/forum-pic/p01.png',
     tab2: '/forum-pic/p06.png',
-    tab3: '/forum-pic/p011.png',
+    tab3: '/forum-pic/p11.png',
   })
 
   const handleTabClick = (event) => {
