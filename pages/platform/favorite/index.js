@@ -5,6 +5,8 @@ import SideBarPc from '@/components/platform/side-bar-pc'
 import SideBarMobile from '@/components/platform/side-bar-mobile'
 import FavoriteBlock from '@/components/platform/favorite-block'
 import { useEffect, useState } from 'react'
+import CartIcon from '@/components/estore/carticon'
+import MobileGotop from '@/components/platform/mobile-gotop'
 
 import { useRouter } from 'next/router'
 
@@ -44,6 +46,8 @@ export default function FavoriteList() {
               </div>
             </div>
           </div>
+          <MobileGotop />
+          <CartIcon />
         </Layout>
       </section>
     </>
