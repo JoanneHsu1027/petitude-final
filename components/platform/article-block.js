@@ -30,8 +30,6 @@ export default function ArticleBlock({ keyword }) {
     7: 'brown',
   }
 
-  const classColor = classColorMap[data.fk_class_id] || 'text-secondary' // 預設為次要顏色
-
   const lastArticleElementRef = useCallback(
     (node) => {
       if (observer.current) observer.current.disconnect()
@@ -170,17 +168,18 @@ export default function ArticleBlock({ keyword }) {
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
-                  <div className="mx-3 d-flex">
-                    <p
+                  <div className="mx-3 mb-3 d-flex">
+                    <a
+                      href={`http://localhost:3000/platform/class/${r.fk_class_id}`}
                       style={{
                         color: classColor,
                         border: `1px solid ${classColor}`,
                       }}
-                      className="me-3 px-1 rounded-3"
+                      className={`${styles.AReset} me-3 px-1 rounded-3`}
                     >
                       {r.class_name}
-                    </p>
-                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
+                    </a>
+                    <div className={`${styles.LightGray}`}>{dateFormat}</div>
                   </div>
                   <div className="mx-3">
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
@@ -214,17 +213,18 @@ export default function ArticleBlock({ keyword }) {
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
-                  <div className="mx-3 d-flex">
-                    <p
+                  <div className="mx-3 mb-3 d-flex">
+                    <a
+                      href={`http://localhost:3000/platform/class/${r.fk_class_id}`}
                       style={{
                         color: classColor,
                         border: `1px solid ${classColor}`,
                       }}
-                      className="me-3 px-1 rounded-3"
+                      className={`${styles.AReset} me-3 px-1 rounded-3`}
                     >
                       {r.class_name}
-                    </p>
-                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
+                    </a>
+                    <div className={`${styles.LightGray}`}>{dateFormat}</div>
                   </div>
                   <div className="mx-3">
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>

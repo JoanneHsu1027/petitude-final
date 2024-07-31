@@ -20,6 +20,15 @@ export default function FavoriteBlock({ keyword }) {
   const observer = useRef()
   const [showModal, setShowModal] = useState(false)
   const { auth } = useAuth()
+  const classColorMap = {
+    1: 'red',
+    2: 'orange',
+    3: '#EAC100',
+    4: 'green',
+    5: 'blue',
+    6: 'purple',
+    7: 'brown',
+  }
 
   const lastArticleElementRef = useCallback(
     (node) => {
@@ -137,28 +146,29 @@ export default function FavoriteBlock({ keyword }) {
 
   return (
     <>
-      {favoriteArticles.length === 0 ? (
+      {data.length === 0 && !hasMore ? (
         <div className="d-flex justify-content-center flex-column">
-          <p className="text-center fs-1 pt-5 mt-5">沒有文章收藏喔!</p>
+          <p className="text-center fs-1 pt-5 mt-5">沒有相關文章喔!</p>
           <a
-            href={`../platform/article`}
+            href={`../platform/article/create`}
             className={`${styles.AReset} ${styles.Hover} d-flex justify-content-center fs-4`}
           >
-            去看看文章?
+            建立文章?
           </a>
           <div className="d-flex justify-content-center mt-4">
             <img
-              className={`${styles.W35}`}
-              src="../../forum-pic/favorite-block.png"
+              className="w-50"
+              src="../../forum-pic/article-block.png"
               alt=""
             />
           </div>
         </div>
       ) : (
-        favoriteArticles.map((r, index) => {
+        data.map((r, index) => {
           const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
           const isFavorite = favorites.includes(r.article_id)
-          if (favoriteArticles.length === index + 1) {
+          const classColor = classColorMap[r.fk_class_id]
+          if (data.length === index + 1) {
             return (
               <a
                 ref={lastArticleElementRef}
@@ -167,11 +177,18 @@ export default function FavoriteBlock({ keyword }) {
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
-                  <div className="mx-3 d-flex">
-                    <p className="me-3 px-1 border border-dark rounded-3">
+                  <div className="mx-3 mb-3 d-flex">
+                    <a
+                      href={`http://localhost:3000/platform/class/${r.fk_class_id}`}
+                      style={{
+                        color: classColor,
+                        border: `1px solid ${classColor}`,
+                      }}
+                      className={`${styles.AReset} me-3 px-1 rounded-3`}
+                    >
                       {r.class_name}
-                    </p>
-                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
+                    </a>
+                    <div className={`${styles.LightGray}`}>{dateFormat}</div>
                   </div>
                   <div className="mx-3">
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
@@ -205,11 +222,18 @@ export default function FavoriteBlock({ keyword }) {
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
-                  <div className="mx-3 d-flex">
-                    <p className="me-3 px-1 border border-dark rounded-3">
+                  <div className="mx-3 mb-3 d-flex">
+                    <a
+                      href={`http://localhost:3000/platform/class/${r.fk_class_id}`}
+                      style={{
+                        color: classColor,
+                        border: `1px solid ${classColor}`,
+                      }}
+                      className={`${styles.AReset} me-3 px-1 rounded-3`}
+                    >
                       {r.class_name}
-                    </p>
-                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
+                    </a>
+                    <div className={`${styles.LightGray}`}>{dateFormat}</div>
                   </div>
                   <div className="mx-3">
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
