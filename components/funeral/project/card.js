@@ -10,7 +10,6 @@ import swal from 'sweetalert2'
 export default function Card() {
   const router = useRouter()
   // 設定card.js文字過長的問題
-  // const [isExpanded, setIsExpanded] = useState(false)
   const [expandedCards, setExpandedCards] = useState({})
 
   const formatCurrency = (amount) => {
@@ -148,19 +147,7 @@ export default function Card() {
                 </div>
 
                 <div className="d-flex justify-content-end align-items-right mb-3">
-                  {/* <button
-                    type="button"
-                    className={`btnPlan btn btn-warning ${Styles.btnPlan}`}
-                    onClick={() => {
-                      localStorage.setItem(
-                        'selectedOption',
-                        JSON.stringify(card),
-                      )
-                      router.push('/funeral/funeral/booking-list')
-                    }}
-                  >
-                    選擇方案
-                  </button> */}
+
                   <button
                     className={`btnPlan1 btn btn-warning ${Styles.btnPlan1}`}
                     onClick={(e) => {
