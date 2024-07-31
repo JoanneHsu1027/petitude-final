@@ -257,7 +257,7 @@ export default function EditArticle() {
                         {myFormErrors.article_content}
                       </div>
                       <div className="form-text mb-3 ms-2 position-absolute  top-0 end-0 me-3">
-                        {`字數: ${charCounts.article_content}/500`}
+                        {`字數: ${charCounts.article_content}/1000`}
                       </div>
                     </div>
                   </div>
