@@ -3,7 +3,7 @@ import styles from '@/components/insurance/insurance.module.css'
 
 export default function PetSick() {
   //  手機板出現判斷
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 991)
+  const [isMobile, setIsMobile] = useState(false)
 
   const accidentTypes = [
     {
@@ -51,11 +51,17 @@ export default function PetSick() {
 
   //  手機板出現判斷
   useEffect(() => {
+    // 在客戶端渲染時設置初始值
+    setIsMobile(window.innerWidth <= 991)
+
+    // 添加視窗大小變化的監聽器
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 991)
     }
 
     window.addEventListener('resize', handleResize)
+
+    // 清理函數
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 

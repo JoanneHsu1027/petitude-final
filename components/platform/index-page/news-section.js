@@ -14,17 +14,17 @@ function NewsSection() {
 
         <div className="p-0 col-md-4 d-flex flex-md-column">
           <div className="">
-            <a href="http://localhost:3000/platform/article/9">
+            <a href="http://localhost:3000/platform/article/16">
               <img className="img-fluid" src="/forum-pic/news-01.jpg" />
             </a>
           </div>
           <div className="">
-            <a href="http://localhost:3000/platform/article/18">
+            <a href="http://localhost:3000/platform/article/31">
               <img className="img-fluid" src="/forum-pic/news-02.jpg" />
             </a>
           </div>
           <div>
-            <a href="#">
+            <a href="http://localhost:3000/platform/article/9">
               <img className="img-fluid" src="/forum-pic/news-03.jpg" />
             </a>
           </div>

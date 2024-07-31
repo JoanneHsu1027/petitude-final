@@ -27,6 +27,9 @@ export default function CreateArticle() {
   const [imageFile, setImageFile] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
+  const [titleLength, setTitleLength] = useState(0)
+  const [contentLength, setContentLength] = useState(0)
+
   useEffect(() => {
     // 假設資料存在於 localStorage
     const userData = JSON.parse(localStorage.getItem('petmember-auth'))
@@ -60,6 +63,14 @@ export default function CreateArticle() {
           ...myFormErrors,
           [name]: '',
         })
+      }
+
+      if (name === 'article_name') {
+        setTitleLength(value.length)
+      }
+
+      if (name === 'article_content') {
+        setContentLength(value.length)
       }
     }
   }
@@ -180,9 +191,15 @@ export default function CreateArticle() {
                         onChange={onChange}
                       />
                     </div>
-                    <div className="form-text text-danger mb-3 ms-2">
-                      {myFormErrors.article_name}
+                    <div className="d-flex position-relative">
+                      <div className="form-text text-danger mb-3 ms-2">
+                        {myFormErrors.article_name}
+                      </div>
+                      <div className="form-text mb-3 ms-2 position-absolute  top-0 end-0 me-3">
+                        {`字數: ${titleLength}/100`}
+                      </div>
                     </div>
+
                     <label
                       htmlFor="article-content"
                       className="form-label ms-1 mt-1 mb-0"
@@ -199,8 +216,13 @@ export default function CreateArticle() {
                         className={`form-control ${styles.Rounded5}`}
                       />
                     </div>
-                    <div className="form-text text-danger mb-3 ms-2">
-                      {myFormErrors.article_content}
+                    <div className="d-flex position-relative">
+                      <div className="form-text text-danger mb-3 ms-2">
+                        {myFormErrors.article_content}
+                      </div>
+                      <div className="form-text mb-3 ms-2 position-absolute  top-0 end-0 me-3">
+                        {`字數: ${contentLength}/1000`}
+                      </div>
                     </div>
                   </div>
                 </div>

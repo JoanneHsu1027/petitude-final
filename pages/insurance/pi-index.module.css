@@ -230,6 +230,10 @@
 }
 
 /* 保險試算 */
+.sectionFourTitle{
+  margin-top: 100px;
+}
+
 .crossBoarder{
   margin-top: -100px;
   background-color: white;
@@ -267,6 +271,13 @@
     align-items: center;
     margin-top: 0;
   }
+}
+
+@media (max-width: 391px) {
+  .sectionFourTitle{
+    margin-top: 20px;
+  }
+  
 }
 /* radio btn樣式 */
 .form-check-input {

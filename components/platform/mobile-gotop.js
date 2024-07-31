@@ -9,7 +9,6 @@ export default function MobileGotop() {
   }
   return (
     <>
-      {' '}
       <div className="d-flex d-xl-none d-xxl-block d-xxl-none">
         <button
           onClick={scrollToTop}
@@ -31,24 +30,32 @@ export default function MobileGotop() {
             padding: '0',
           }}
         >
-          <img
-            src="/forum-pic/mobile-gotop.png"
-            alt="Scroll to top"
+          <div
             style={{
-              width: '60px',
-              height: '60px',
-              transform: 'rotate(-20deg)',
-            }}
-          />
-          <span
-            style={{
-              fontSize: '14px',
-              color: '#62615F',
-              fontWeight: '900',
+              backgroundColor: '#F5D553',
+              borderRadius: '50%',
+              width: '50px',
+              height: '50px',
             }}
           >
+            <img
+              src="/funeral/image_44.png"
+              alt="Scroll to top"
+              style={{
+                width: '45px',
+                height: '45px',
+                padding: '3px',
+                marginLeft: '2px',
+                transform: 'rotate(-20deg)',
+                color: '#F5D553',
+              }}
+            />
+          </div>
+          <span
+            style={{ fontSize: '14px', color: '#bbbbbb', fontWeight: '900' }}
+          >
             Top
-          </span>{' '}
+          </span>
         </button>
       </div>
     </>

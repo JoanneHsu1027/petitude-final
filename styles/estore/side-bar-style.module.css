@@ -35,9 +35,9 @@
 }
 
 .BtnHover:hover {
-  background-color: #f6d554;
-  color: white;
-  border: 1px solid #f6d554;
+  background-color: #ffffff ;
+  border: 1px solid #f6d554 ;
+  color: #f6d554;
 }
 
 .GoTopBtn {

@@ -91,7 +91,7 @@ function LostSection() {
             <a
               className={`${styles.AReset}`}
               style={{ color: 'black' }}
-              href=""
+              href="http://localhost:3000/platform/class/1"
             >
               <span style={{ color: '#f6d554' }}>
                 <BsPlusCircleFill />

@@ -15,12 +15,14 @@ export default function RvEdit() {
     b2c_name: '',
     b2c_mobile: '',
     reservation_date: '',
+    reservation_time: '',
     note: '',
   })
   const [myFormErrors, setMyFormErrors] = useState({
     b2c_name: '',
     b2c_mobile: '',
     reservation_date: '',
+    reservation_time: '',
     note: '',
   })
 
@@ -29,6 +31,16 @@ export default function RvEdit() {
     b2c_mobile: z
       .string()
       .regex(/09\d{2}-?\d{3}-?\d{3}/, { message: '請填寫正確的手機格式' }),
+    reservation_date: z.string().refine(
+      (val) => {
+        const date = new Date(val)
+        const today = new Date()
+        today.setHours(0, 0, 0, 0)
+        return date >= today
+      },
+      { message: '日期必須是今天或之後的日期' },
+    ),
+    reservation_time: z.string().min(1, { message: '請選擇預約時間' }),
   })
 
   const onChange = (e) => {
@@ -37,12 +49,24 @@ export default function RvEdit() {
       ...prevForm,
       [name]: value,
     }))
+    setMyFormErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: '',
+    }))
   }
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    // 使用 Zod schema 驗證表單數據
-    const result = schemaForm.safeParse(myForm)
+
+    // 合併日期和時間
+    const combinedDateTime = `${myForm.reservation_date} ${myForm.reservation_time}`
+
+    // 使用合併後的日期和時間進行驗證
+    const result = schemaForm.safeParse({
+      ...myForm,
+      reservation_date: combinedDateTime,
+    })
+
     // 如果驗證失敗
     if (!result.success) {
       //創建一個新的空對象來存儲錯誤信息
@@ -446,7 +470,9 @@ export default function RvEdit() {
                     onChange={onChange}
                   />
                 </div>
-                <div className="form-text">{myFormErrors.b2c_name}</div>
+                <div className="form-text" style={{ color: 'red' }}>
+                  {myFormErrors.b2c_name}
+                </div>
               </div>
               <div className="mb-3">
                 <label htmlFor="mobile" className="form-label">
@@ -462,7 +488,9 @@ export default function RvEdit() {
                     onChange={onChange}
                   />
                 </div>
-                <div className="form-text">{myFormErrors.b2c_mobile}</div>
+                <div className="form-text" style={{ color: 'red' }}>
+                  {myFormErrors.b2c_mobile}
+                </div>
               </div>
               <div className="mb-3">
                 <label htmlFor="date" className="form-label">
@@ -470,7 +498,7 @@ export default function RvEdit() {
                 </label>
                 <div className="input-container">
                   <input
-                    type="datetime-local"
+                    type="date"
                     className="form-control"
                     id="date"
                     name="reservation_date"
@@ -478,9 +506,36 @@ export default function RvEdit() {
                     onChange={onChange}
                   />
                 </div>
-                <div className="form-text"></div>
+                <div className="form-text" style={{ color: 'red' }}>
+                  {myFormErrors.reservation_date}
+                </div>
               </div>
-
+              <div className="mb-3">
+                <label htmlFor="time" className="form-label">
+                  預約時間
+                </label>
+                <div className="input-container">
+                  <select
+                    className="form-control"
+                    id="time"
+                    name="reservation_time"
+                    value={myForm.reservation_time}
+                    onChange={onChange}
+                  >
+                    <option value="">選擇預約時間</option>
+                    <option value="09:00-10:00">09:00-10:00</option>
+                    <option value="10:00-11:00">10:00-11:00</option>
+                    <option value="11:00-12:00">11:00-12:00</option>
+                    <option value="13:00-14:00">13:00-14:00</option>
+                    <option value="14:00-15:00">14:00-15:00</option>
+                    <option value="15:00-16:00">15:00-16:00</option>
+                    <option value="16:00-17:00">16:00-17:00</option>
+                  </select>
+                </div>
+                <div className="form-text" style={{ color: 'red' }}>
+                  {myFormErrors.reservation_time}
+                </div>
+              </div>
               <div className="mb-3">
                 <label htmlFor="note" className="form-label">
                   備註
@@ -499,6 +554,7 @@ export default function RvEdit() {
 
                 <div className="form-text"></div>
               </div>
+
               {/* 立即預約按鈕 */}
               <div
                 className="sendBtn"
@@ -571,7 +627,6 @@ export default function RvEdit() {
           {/* Modal */}
         </div>
       </div>
-
       <div className="dogpic">
         <img src="/funeral/shiba.png" className="dogpic1" />
       </div>
@@ -667,9 +722,9 @@ export default function RvEdit() {
         }
         .dogpic {
           position: absolute;
-          top: 53.3%;
-          left: 5%;
-          transform: rotate(-9.5deg);
+          top: 63.8%;
+          left: 4%;
+          transform: rotate(-8.6deg);
         }
         .dogpic1 {
           width: 100%;
