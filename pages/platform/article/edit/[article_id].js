@@ -24,6 +24,11 @@ export default function EditArticle() {
     fk_class_id: '',
   })
 
+  const [charCounts, setCharCounts] = useState({
+    article_name: 0,
+    article_content: 0,
+  })
+
   const [imageFile, setImageFile] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
@@ -50,6 +55,11 @@ export default function EditArticle() {
           [name]: '',
         })
       }
+
+      setCharCounts({
+        ...charCounts,
+        [name]: value.length,
+      })
     }
   }
 
@@ -83,9 +93,9 @@ export default function EditArticle() {
         formData.append('article_img', imageFile)
       }
 
-      console.log('Submitting form data:', myForm) // 调试日志
+      console.log('Submitting form data:', myForm) // 調試日誌
       for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`) // 调试日志
+        console.log(`${key}: ${value}`) // 調試日誌
       }
 
       const r = await fetch(`${ARTICLE}/${router.query.article_id}`, {
@@ -93,10 +103,10 @@ export default function EditArticle() {
         body: formData,
       })
 
-      console.log('Response:', r) // 调试日志
+      console.log('Response:', r) // 調試日誌
 
       const result = await r.json()
-      console.log(result) // 调试日志
+      console.log(result) // 調試日誌
       if (result.success) {
         setIsSubmitted(true)
         Swal.fire({
@@ -123,7 +133,7 @@ export default function EditArticle() {
         })
       }
     } catch (ex) {
-      console.log('Exception:', ex) // 调试日志
+      console.log('Exception:', ex) // 調試日誌
     }
   }
 
@@ -135,6 +145,10 @@ export default function EditArticle() {
       .then((result) => {
         if (result.success) {
           setMyForm(result.data)
+          setCharCounts({
+            article_name: result.data.article_name.length,
+            article_content: result.data.article_content.length,
+          })
           if (result.data.article_img) {
             setPreviewURL(
               `http://localhost:3001/uploads/${result.data.article_img}`,
@@ -145,7 +159,7 @@ export default function EditArticle() {
         }
       })
       .catch((ex) => {
-        console.log('Fetch exception:', ex) // 调试日志
+        console.log('Fetch exception:', ex) // 調試日誌
       })
   }, [router])
 
@@ -211,9 +225,16 @@ export default function EditArticle() {
                         onChange={onChange}
                       />
                     </div>
-                    <div className="form-text text-danger mb-3 ms-2">
-                      {myFormErrors.article_name}
+
+                    <div className="d-flex position-relative">
+                      <div className="form-text text-danger mb-3 ms-2">
+                        {myFormErrors.article_name}
+                      </div>
+                      <div className="form-text mb-3 ms-2 position-absolute  top-0 end-0 me-3">
+                        {`字數: ${charCounts.article_name}/100`}
+                      </div>
                     </div>
+
                     <label
                       htmlFor="article-content"
                       className="form-label ms-1 mt-1 mb-0"
@@ -230,8 +251,14 @@ export default function EditArticle() {
                         className={`form-control ${styles.Rounded5}`}
                       />
                     </div>
-                    <div className="form-text text-danger mb-3 ms-2">
-                      {myFormErrors.article_content}
+
+                    <div className="d-flex position-relative">
+                      <div className="form-text text-danger mb-3 ms-2">
+                        {myFormErrors.article_content}
+                      </div>
+                      <div className="form-text mb-3 ms-2 position-absolute  top-0 end-0 me-3">
+                        {`字數: ${charCounts.article_content}/500`}
+                      </div>
                     </div>
                   </div>
                 </div>
