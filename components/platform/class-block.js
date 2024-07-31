@@ -30,8 +30,6 @@ export default function ClassBlock({ classId }) {
     7: 'brown',
   }
 
-  const classColor = classColorMap[classId] || 'text-secondary' // 預設為次要顏色
-
   const lastArticleElementRef = useCallback(
     (node) => {
       if (observer.current) observer.current.disconnect()
@@ -195,7 +193,10 @@ export default function ClassBlock({ classId }) {
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
                       {r.article_name}
                     </h2>
-                    <p className={`${styles.ContentOverHide} mx-2`}>
+                    <p
+                      style={{ color: '#482806' }}
+                      className={`${styles.ContentOverHide} mx-2`}
+                    >
                       {r.article_content}
                     </p>
                   </div>
@@ -240,7 +241,10 @@ export default function ClassBlock({ classId }) {
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
                       {r.article_name}
                     </h2>
-                    <p className={`${styles.ContentOverHide} mx-2`}>
+                    <p
+                      style={{ color: '#482806' }}
+                      className={`${styles.ContentOverHide} mx-2`}
+                    >
                       {r.article_content}
                     </p>
                   </div>

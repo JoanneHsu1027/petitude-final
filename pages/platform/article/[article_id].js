@@ -424,6 +424,7 @@ export default function ArticleId() {
                                     whiteSpace: 'pre-wrap',
                                     wordWrap: 'break-word',
                                     overflowWrap: 'break-word',
+                                    color: '#482806',
                                   }}
                                   className={`col-lg-10 text-start lh-lg h6 text  ${styles.AllFont}`}
                                 >
@@ -483,7 +484,10 @@ export default function ArticleId() {
                                       message.message_date,
                                     ).format('YYYY-MM-DD HH:MM')
                                     return (
-                                      <div key={message.message_id}>
+                                      <div
+                                        className={`${styles.MessHover}`}
+                                        key={message.message_id}
+                                      >
                                         <div className="d-flex border-bottom pt-2 mb-2 mx-1 px-2">
                                           <div className="me-2">
                                             <img
@@ -492,7 +496,10 @@ export default function ArticleId() {
                                             />
                                           </div>
                                           <div className="flex-grow-1 me-2 pb-3">
-                                            <p className="fw-bold">
+                                            <p
+                                              style={{ color: '#F4BC7A' }}
+                                              className="fw-bold"
+                                            >
                                               {message.b2c_name}
                                             </p>
                                             <p>{message.message_content}</p>

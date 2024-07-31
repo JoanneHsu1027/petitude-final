@@ -185,7 +185,10 @@ export default function ArticleBlock({ keyword }) {
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
                       {r.article_name}
                     </h2>
-                    <p className={`${styles.ContentOverHide} mx-2`}>
+                    <p
+                      style={{ color: '#482806' }}
+                      className={`${styles.ContentOverHide} mx-2`}
+                    >
                       {r.article_content}
                     </p>
                   </div>
@@ -230,7 +233,10 @@ export default function ArticleBlock({ keyword }) {
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
                       {r.article_name}
                     </h2>
-                    <p className={`${styles.ContentOverHide} mx-2`}>
+                    <p
+                      style={{ color: '#482806' }}
+                      className={`${styles.ContentOverHide} mx-2`}
+                    >
                       {r.article_content}
                     </p>
                   </div>

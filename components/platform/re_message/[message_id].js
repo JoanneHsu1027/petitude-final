@@ -72,7 +72,9 @@ export default function MessageId({ message_id }) {
                 <img src="/forum-pic/avatar.png" alt="" />
               </div>
               <div className="flex-grow-1 me-2">
-                <p className="fw-bold">{reply.b2c_name}</p>
+                <p style={{ color: '#F4BC7A' }} className="fw-bold">
+                  {reply.b2c_name}
+                </p>
                 <p>{reply.re_message_content}</p>
                 <div className="d-flex">
                   <p className="me-4 text-black-50">{dateFormat}</p>
