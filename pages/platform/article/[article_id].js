@@ -38,6 +38,17 @@ export default function ArticleId() {
   const [replyInput, setReplyInput] = useState('') // 新增的回覆輸入框的狀態
   const [reMessInput, setReMessInput] = useState('') // 新增的回覆輸入框的狀態
   const [isFavorite, setIsFavorite] = useState(false) // 收藏狀態
+  const classColorMap = {
+    1: 'red',
+    2: 'orange',
+    3: '#EAC100',
+    4: 'green',
+    5: 'blue',
+    6: 'purple',
+    7: 'brown',
+  }
+
+  const classColor = classColorMap[articleData.fk_class_id]
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword)
@@ -367,7 +378,13 @@ export default function ArticleId() {
                                       className={`${styles.AReset}`}
                                       href={`http://localhost:3000/platform/class/${articleData.fk_class_id}`}
                                     >
-                                      <p className="border px-1 border-dark rounded-3 me-2 word-wrap">
+                                      <p
+                                        style={{
+                                          color: classColor,
+                                          border: `1px solid ${classColor}`,
+                                        }}
+                                        className="px-1 rounded-3 me-2 word-wrap"
+                                      >
                                         {articleData.class_name}
                                       </p>
                                     </a>

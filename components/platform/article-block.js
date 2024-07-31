@@ -20,6 +20,17 @@ export default function ArticleBlock({ keyword }) {
   const observer = useRef()
   const [showModal, setShowModal] = useState(false)
   const { auth } = useAuth()
+  const classColorMap = {
+    1: 'red',
+    2: 'orange',
+    3: '#EAC100',
+    4: 'green',
+    5: 'blue',
+    6: 'purple',
+    7: 'brown',
+  }
+
+  const classColor = classColorMap[data.fk_class_id] || 'text-secondary' // 預設為次要顏色
 
   const lastArticleElementRef = useCallback(
     (node) => {
@@ -149,6 +160,7 @@ export default function ArticleBlock({ keyword }) {
         data.map((r, index) => {
           const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
           const isFavorite = favorites.includes(r.article_id)
+          const classColor = classColorMap[r.fk_class_id]
           if (data.length === index + 1) {
             return (
               <a
@@ -159,7 +171,13 @@ export default function ArticleBlock({ keyword }) {
               >
                 <div className="m-2 border-bottom">
                   <div className="mx-3 d-flex">
-                    <p className="me-3 px-1 border border-dark rounded-3">
+                    <p
+                      style={{
+                        color: classColor,
+                        border: `1px solid ${classColor}`,
+                      }}
+                      className="me-3 px-1 rounded-3"
+                    >
                       {r.class_name}
                     </p>
                     <p className={`${styles.LightGray}`}>{dateFormat}</p>
@@ -197,7 +215,13 @@ export default function ArticleBlock({ keyword }) {
               >
                 <div className="m-2 border-bottom">
                   <div className="mx-3 d-flex">
-                    <p className="me-3 px-1 border border-dark rounded-3">
+                    <p
+                      style={{
+                        color: classColor,
+                        border: `1px solid ${classColor}`,
+                      }}
+                      className="me-3 px-1 rounded-3"
+                    >
                       {r.class_name}
                     </p>
                     <p className={`${styles.LightGray}`}>{dateFormat}</p>
