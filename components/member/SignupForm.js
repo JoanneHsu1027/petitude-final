@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { z } from 'zod'
+import Swal from 'sweetalert2'
 import { MEMBER_ADD_POST } from '@/configs/api-path'
 
 const SignupForm = ({ onClose, switchToLogin }) => {
@@ -49,9 +50,15 @@ const SignupForm = ({ onClose, switchToLogin }) => {
         })
         const resultData = await response.json()
         if (resultData.success) {
-          switchToLogin() // 切換到登入表單
+          Swal.fire({
+            icon: 'success',
+            title: '註冊成功！',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            switchToLogin() // 切換到登入表單
+          })
         } else {
-          // 根據伺服器返回的錯誤消息設置錯誤狀態
           setError(resultData.error || '註冊失敗')
         }
       } catch (ex) {
@@ -59,13 +66,11 @@ const SignupForm = ({ onClose, switchToLogin }) => {
         setError('註冊失敗')
       }
     } else {
-      setFormErrors((prevErrors) => ({
-        ...prevErrors,
-        ...result.error.issues.reduce((acc, issue) => {
-          acc[issue.path[0]] = issue.message
-          return acc
-        }, {}),
-      }))
+      const newErrors = result.error.issues.reduce((acc, issue) => {
+        acc[issue.path[0]] = issue.message
+        return acc
+      }, {})
+      setFormErrors((prevErrors) => ({ ...prevErrors, ...newErrors }))
     }
   }
 
@@ -86,7 +91,7 @@ const SignupForm = ({ onClose, switchToLogin }) => {
             onChange={handleChange}
             required
           />
-          <div className="form-text">{formErrors.b2c_email}</div>
+          <div className="form-text text-danger">{formErrors.b2c_email}</div>
         </div>
 
         <div className="mb-3">
@@ -102,7 +107,7 @@ const SignupForm = ({ onClose, switchToLogin }) => {
             onChange={handleChange}
             required
           />
-          <div className="form-text">{formErrors.b2c_password}</div>
+          <div className="form-text text-danger">{formErrors.b2c_password}</div>
         </div>
 
         <div className="mb-3">
@@ -118,7 +123,7 @@ const SignupForm = ({ onClose, switchToLogin }) => {
             onChange={handleChange}
             required
           />
-          <div className="form-text">{formErrors.b2c_mobile}</div>
+          <div className="form-text text-danger">{formErrors.b2c_mobile}</div>
         </div>
 
         {error && <div className="alert alert-danger">{error}</div>}

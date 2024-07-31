@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { z } from 'zod'
+import Swal from 'sweetalert2'
 import { MEMBER_UPDATE_POST } from '@/configs/api-path'
 import { counties } from '@/components/common/county'
 import { cities } from '@/components/common/city'
@@ -82,7 +83,16 @@ const MemberProfileForm = ({ memberData, onCancel }) => {
 
         const resultData = await response.json()
         if (resultData.success) {
-          alert('資料更新成功')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: '資料更新成功',
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            // 在成功訊息後切換到 MemberProfileView
+            onCancel() // 或是使用你的切換函數
+          })
 
           const updatedUser = {
             b2c_name: formData.b2c_name,
@@ -93,11 +103,11 @@ const MemberProfileForm = ({ memberData, onCancel }) => {
           setFormErrors({})
         } else {
           console.error('資料更新失敗:', resultData)
-          alert('資料更新失敗')
+          Swal.fire('錯誤', '資料更新失敗', 'error')
         }
       } catch (ex) {
         console.error('請求錯誤:', ex)
-        alert('資料更新失敗')
+        Swal.fire('錯誤', '資料更新失敗', 'error')
       }
     } else {
       console.error('驗證錯誤:', result.error)
@@ -146,7 +156,7 @@ const MemberProfileForm = ({ memberData, onCancel }) => {
             onChange={handleChange}
             required
           />
-          {formErrors.b2c_name && (
+          {formErrors.b2c_email && (
             <div className="form-text text-danger">{formErrors.b2c_email}</div>
           )}
         </div>
