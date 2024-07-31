@@ -20,6 +20,17 @@ export default function ClassBlock({ classId }) {
   const observer = useRef()
   const [showModal, setShowModal] = useState(false)
   const { auth } = useAuth()
+  const classColorMap = {
+    1: 'red',
+    2: 'orange',
+    3: '#EAC100',
+    4: 'green',
+    5: 'blue',
+    6: 'purple',
+    7: 'brown',
+  }
+
+  const classColor = classColorMap[classId] || 'text-secondary' // 預設為次要顏色
 
   const lastArticleElementRef = useCallback(
     (node) => {
@@ -157,6 +168,7 @@ export default function ClassBlock({ classId }) {
         data.map((r, index) => {
           const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
           const isFavorite = favorites.includes(r.article_id)
+          const classColor = classColorMap[classId] || 'red'
           if (data.length === index + 1) {
             return (
               <a
@@ -166,11 +178,18 @@ export default function ClassBlock({ classId }) {
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
-                  <div className="mx-3 d-flex">
-                    <p className="me-3 px-1 border border-dark rounded-3">
+                  <div className="mx-3 mb-3 d-flex">
+                    <a
+                      href={`http://localhost:3000/platform/class/${classId}`}
+                      style={{
+                        color: classColor,
+                        border: `1px solid ${classColor}`,
+                      }}
+                      className={`${styles.AReset} me-3 px-1 rounded-3`}
+                    >
                       {r.class_name}
-                    </p>
-                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
+                    </a>
+                    <div className={`${styles.LightGray}`}>{dateFormat}</div>
                   </div>
                   <div className="mx-3">
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
@@ -204,11 +223,18 @@ export default function ClassBlock({ classId }) {
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
-                  <div className="mx-3 d-flex">
-                    <p className="me-3 px-1 border border-dark rounded-3">
+                  <div className="mx-3 mb-3 d-flex">
+                    <a
+                      href={`http://localhost:3000/platform/class/${classId}`}
+                      style={{
+                        color: classColor,
+                        border: `1px solid ${classColor}`,
+                      }}
+                      className={`${styles.AReset} me-3 px-1 rounded-3`}
+                    >
                       {r.class_name}
-                    </p>
-                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
+                    </a>
+                    <div className={`${styles.LightGray}`}>{dateFormat}</div>
                   </div>
                   <div className="mx-3">
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
