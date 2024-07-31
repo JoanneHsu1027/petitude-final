@@ -18,9 +18,22 @@ export default function CartPage() {
   const router = useRouter()
   const { auth } = useAuth()
   const [showModal, setShowModal] = useState(false)
+  const [activeTab, setActiveTab] = useState('s1') // 默認顯示網路商城
+
+  useEffect(() => {
+    const { from } = router.query
+    if (from) {
+      if (from.includes('/estore')) {
+        setActiveTab('s1') // 網路商城
+      } else if (from.includes('/funeral')) {
+        setActiveTab('s2') // 生前契約
+      }
+      // 如果都不是，則保持默認狀態，顯示兩個標籤
+    }
+  }, [router.query])
 
   // 商城功能
-  const { cartItems, updateCartItemQuantity, removeCartItem } = useCart()
+  const { cartItems, updateCartItemQuantity } = useCart()
 
   const totalPrice = cartItems.reduce(
     (total, item) => total + item.product_price * item.qty,
@@ -81,34 +94,36 @@ export default function CartPage() {
           >
             <li className={`nav-item ${styles.name1}`} role="presentation">
               <button
-                className={`nav-link active nav-btn fs-4 ${styles.name3}`}
+                className={`nav-link ${activeTab === 's1' ? 'active' : ''} nav-btn fs-4 ${styles.name3}`}
                 id="home-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#s1"
                 type="button"
                 role="tab"
                 aria-controls="s1"
-                aria-selected="true"
+                aria-selected={activeTab === 's1'}
                 style={{ backgroundColor: '#CFE7B1' }}
+                onClick={() => setActiveTab('s1')}
               >
                 網路商城
               </button>
             </li>
             <li className={`nav-item ${styles.name1}`} role="presentation">
               <button
-                className={`nav-link nav-btn fs-4 ${styles.name3}`}
+                className={`nav-link nav-btn ${activeTab === 's2' ? 'active' : ''} fs-4 ${styles.name3}`}
                 id="profile-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#s2"
                 type="button"
                 role="tab"
                 aria-controls="s2"
-                aria-selected="false"
+                aria-selected={activeTab === 's2'}
                 style={{
                   backgroundColor: '#CFE7B1',
                   borderRadius:
                     20 + 'px' + ' ' + 20 + 'px' + ' ' + 0 + 'px' + 0 + 'px',
                 }}
+                onClick={() => setActiveTab('s2')}
               >
                 生前契約
               </button>
@@ -124,7 +139,7 @@ export default function CartPage() {
           >
             {/* 網路商城 start */}
             <div
-              className="tab-pane fade show active fs-5"
+              className={`tab-pane fade ${activeTab === 's1' ? 'show active' : ''} fs-5`}
               id="s1"
               role="tabpanel"
               aria-labelledby="home-tab"
@@ -315,7 +330,7 @@ export default function CartPage() {
 
             {/* 生前契約 start */}
             <div
-              className="tab-pane fade show active fs-5"
+              className={`tab-pane fade ${activeTab === 's2' ? 'show active' : ''} fs-5`}
               id="s2"
               role="tabpanel"
               aria-labelledby="profile-tab"
