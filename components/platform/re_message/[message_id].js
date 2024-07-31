@@ -58,14 +58,15 @@ export default function MessageId({ message_id }) {
         </button>
       )}
       {!isHidden &&
-        replies.map((reply) => {
+        replies.map((reply, index) => {
           const dateFormat = moment(reply.message_date).format(
             'YYYY-MM-DD HH:mm',
           )
+          const isLastReply = index === replies.length - 1
           return (
             <div
               key={reply.re_message_id}
-              className="d-flex border-bottom mt-3 mx-1 px-2"
+              className={`d-flex mt-3 mx-1 px-2 ${!isLastReply ? 'border-bottom' : ''}`}
             >
               <div className="me-2">
                 <img src="/forum-pic/avatar.png" alt="" />
