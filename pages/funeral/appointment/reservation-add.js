@@ -722,9 +722,9 @@ export default function RvEdit() {
         }
         .dogpic {
           position: absolute;
-          top: 54.4%;
-          left: 5%;
-          transform: rotate(-9deg);
+          top: 63.8%;
+          left: 4%;
+          transform: rotate(-8.6deg);
         }
         .dogpic1 {
           width: 100%;
