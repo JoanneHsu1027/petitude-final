@@ -65,8 +65,12 @@ export function AuthContextProvider({ children }) {
           b2c_name: data.b2c_name,
           token: idToken,
         }
-        setAuthState(userData)
-        localStorage.setItem(storageKey, JSON.stringify(userData))
+        // 保留現有的用戶信息
+        setAuthState((prevState) => ({ ...prevState, ...userData }))
+        localStorage.setItem(
+          storageKey,
+          JSON.stringify({ ...authState, ...userData }),
+        )
       } else {
         console.error(data.error)
       }
