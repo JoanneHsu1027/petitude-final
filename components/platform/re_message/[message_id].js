@@ -75,7 +75,7 @@ export default function MessageId({ message_id }) {
                 <p className="fw-bold">{reply.b2c_name}</p>
                 <p>{reply.re_message_content}</p>
                 <div className="d-flex">
-                  <p className="me-4">{dateFormat}</p>
+                  <p className="me-4 text-black-50">{dateFormat}</p>
                 </div>
               </div>
             </div>

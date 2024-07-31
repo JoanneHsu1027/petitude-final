@@ -363,18 +363,23 @@ export default function ArticleId() {
                                 </h2>
                                 <div className="d-flex me-3 ms-2">
                                   <div className="m-2 d-flex flex-grow-1 word-wrap">
-                                    <a className={`${styles.AReset}`} href="">
+                                    <a
+                                      className={`${styles.AReset}`}
+                                      href={`http://localhost:3000/platform/class/${articleData.fk_class_id}`}
+                                    >
                                       <p className="border px-1 border-dark rounded-3 me-2 word-wrap">
                                         {articleData.class_name}
                                       </p>
                                     </a>
-                                    <p className="me-1 word-wrap">
+                                    <p
+                                      className={`${styles.LightGray} me-1 word-wrap`}
+                                    >
                                       {articleData.article_date}
                                     </p>
                                   </div>
                                   {auth.b2c_id === articleData.fk_b2c_id && (
                                     <button
-                                      className={`${styles.BtnReset} ${styles.LightGray}`}
+                                      className={`${styles.BtnReset} ${styles.LightGray} mb-3`}
                                       onClick={handleEditClick}
                                     >
                                       <BsFillPencilFill
@@ -475,7 +480,7 @@ export default function ArticleId() {
                                             </p>
                                             <p>{message.message_content}</p>
                                             <div className="d-flex ">
-                                              <span className="me-4">
+                                              <span className="me-4 text-black-50">
                                                 {dateFormat}
                                               </span>
                                               <button
