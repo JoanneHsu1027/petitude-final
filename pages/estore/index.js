@@ -29,6 +29,7 @@ export default function ProjectList() {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [category, setCategory] = useState('')
+  const [activeCategory, setActiveCategory] = useState('all')
 
   const fetchData = async () => {
     const page = router.query.page || 1
@@ -80,11 +81,18 @@ export default function ProjectList() {
   }, [category, searchTerm, router.query.page])
 
   const handleCategoryClick = (selectedCategory) => {
+    setActiveCategory(selectedCategory)
     setCategory(selectedCategory)
     router.push({
       pathname: router.pathname,
       query: { ...router.query, category: selectedCategory, page: 1 },
     })
+  }
+
+  const getCategoryStyle = (category) => {
+    return `${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn ${
+      activeCategory === category ? styles.ActiveCategory : 'btn-outline-dark'
+    } mb-2`
   }
 
   const handleSearchInputChange = (e) => {
@@ -147,7 +155,7 @@ export default function ProjectList() {
                   <button
                     type="button"
                     category="all"
-                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                    className={getCategoryStyle('all')}
                     onClick={() => handleCategoryClick('all')}
                   >
                     全部產品
@@ -155,7 +163,7 @@ export default function ProjectList() {
                   <button
                     type="submit"
                     category="dog"
-                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                    className={getCategoryStyle('dog')}
                     onClick={() => handleCategoryClick('dog')}
                   >
                     犬類食品
@@ -163,7 +171,7 @@ export default function ProjectList() {
                   <button
                     type="submit"
                     category="cat"
-                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                    className={getCategoryStyle('cat')}
                     onClick={() => handleCategoryClick('cat')}
                   >
                     貓類食品
@@ -171,7 +179,7 @@ export default function ProjectList() {
                   <button
                     type="submit"
                     category="adult"
-                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                    className={getCategoryStyle('adult')}
                     onClick={() => handleCategoryClick('adult')}
                   >
                     成貓成犬
@@ -179,7 +187,7 @@ export default function ProjectList() {
                   <button
                     type="submit"
                     category="young"
-                    className={`${styles2.AReset} ${styles2.BorderCoffee} ${styles2.BtnHover} btn btn-outline-dark mb-2`}
+                    className={getCategoryStyle('young')}
                     onClick={() => handleCategoryClick('young')}
                   >
                     幼貓幼犬

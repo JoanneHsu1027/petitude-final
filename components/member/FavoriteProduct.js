@@ -3,6 +3,8 @@ import { FavoriteProduct_GET, FavoriteProduct_DELETE } from '@/configs/api-path'
 import axios from 'axios'
 import { useAuth } from '@/contexts/member/auth-context'
 import Swal from 'sweetalert2'
+import styles from '../../styles/estore/productList.module.css'
+import { useCart } from '@/contexts/estore/CartContext'
 
 const FavoriteProduct = () => {
   const { auth } = useAuth()
@@ -65,6 +67,21 @@ const FavoriteProduct = () => {
     }
   }
 
+  const { addToCart } = useCart()
+
+  const handleAddItem = (event, product) => {
+    event.preventDefault()
+    event.stopPropagation()
+    addToCart(product)
+  }
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('zh-TW', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
+  }
+
   return (
     <div className="p-4">
       <h3 className="mb-4">收藏商品</h3>
@@ -75,7 +92,7 @@ const FavoriteProduct = () => {
               className="col-6 col-lg-4 col-xl-3 my-2"
               key={product.product_favorite_id}
             >
-              <div className="card">
+              <div className={`card ${styles.cardStyle}`}>
                 <a href={`estore/product/${product.fk_product_id}`}>
                   <img
                     src={`http://localhost:3001/estore/A${product.fk_product_id}.png`}
@@ -84,10 +101,31 @@ const FavoriteProduct = () => {
                   />
                 </a>
                 <div className="card-body">
-                  <h4 className="card-title">{product.product_name}</h4>
-                  <p className="card-text">{product.product_price} 元</p>
+                  <h4 className={`card-title ${styles.textStyle}`}>
+                    {product.product_name}
+                  </h4>
+                  <div className="row mt-5 mx-0">
+                    <div className="col-9 p-0 d-flex justify-content-start align-items-center fs-4">
+                      $ {formatCurrency(product.product_price)}
+                    </div>
+                    <div className="col-3 p-0 d-flex justify-content-end">
+                      <button
+                        className={styles.cart}
+                        onClick={(e) => {
+                          handleAddItem(e, product)
+                          Swal.fire(
+                            '已加入!',
+                            `${product.product_name} 已被加入購物車!`,
+                            'success',
+                          )
+                        }}
+                      >
+                        <i className="bi bi-bag-fill cartItem"></i>
+                      </button>
+                    </div>
+                  </div>
                   <button
-                    className="btn btn-danger position-absolute top-0 end-0 m-2"
+                    className="btn btn-danger position-absolute top-0 end-0 m-2 rounded-circle"
                     onClick={() => handleDelete(product.product_favorite_id)}
                   >
                     <i className="bi bi-heart-fill"></i>

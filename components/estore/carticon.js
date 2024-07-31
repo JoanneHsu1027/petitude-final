@@ -6,19 +6,18 @@ import { useRouter } from 'next/router'
 export default function ScrollToTopButton() {
   const router = useRouter()
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth', // 平滑滚动
+  const handleCartClick = () => {
+    const currentPath = router.asPath
+    router.push({
+      pathname: '/estore/cart',
+      query: { from: currentPath },
     })
   }
 
   return (
     <div className="d-flex allFont">
       <button
-        onClick={() => {
-          router.push('/estore/cart')
-        }}
+        onClick={handleCartClick}
         style={{
           position: 'fixed',
           bottom: '7rem',
