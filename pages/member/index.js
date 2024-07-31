@@ -48,6 +48,20 @@ const Member = () => {
     const file = e.target.files[0]
     if (!file) return
 
+    // 限制文件大小為 100MB
+    const maxSize = 100 * 1024 * 1024 // 100MB
+    if (file.size > maxSize) {
+      alert('文件大小不能超過 100MB')
+      return
+    }
+
+    // 限制文件類型為圖片
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif']
+    if (!validTypes.includes(file.type)) {
+      alert('請選擇一個有效的圖片文件（JPEG, PNG, GIF）')
+      return
+    }
+
     const reader = new FileReader()
     reader.onloadend = async () => {
       const base64String = reader.result
