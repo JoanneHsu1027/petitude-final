@@ -31,21 +31,19 @@ export default function DatePicker({
     const currentMonth = new Date().getMonth() + 1
 
     const monthsArray = [
-      { value: '', label: '請選擇', disabled: false },
+      { value: '', label: '請選擇' },
       ...Array.from({ length: 12 }, (_, i) => {
         const month = i + 1
-        return {
-          value: month,
-          label: month,
-          disabled:
-            (disableFuture &&
-              selectedYear === currentYear &&
-              month > currentMonth) ||
-            (disablePast &&
-              selectedYear === currentYear &&
-              month < currentMonth),
+        if (
+          (disableFuture &&
+            selectedYear === currentYear &&
+            month > currentMonth) ||
+          (disablePast && selectedYear === currentYear && month < currentMonth)
+        ) {
+          return null
         }
-      }),
+        return { value: month, label: month }
+      }).filter(Boolean),
     ]
     setMonths(monthsArray)
   }, [selectedYear, disableFuture, disablePast])
@@ -59,23 +57,23 @@ export default function DatePicker({
       ? new Date(selectedYear, selectedMonth, 0).getDate()
       : 31
     const daysArray = [
-      { value: '', label: '請選擇', disabled: false },
+      { value: '', label: '請選擇' },
       ...Array.from({ length: daysInMonth }, (_, i) => {
         const day = i + 1
-        return {
-          value: day,
-          label: day,
-          disabled:
-            (disableFuture &&
-              selectedYear === currentYear &&
-              selectedMonth === currentMonth &&
-              day > currentDay) ||
-            (disablePast &&
-              selectedYear === currentYear &&
-              selectedMonth === currentMonth &&
-              day < currentDay),
+        if (
+          (disableFuture &&
+            selectedYear === currentYear &&
+            selectedMonth === currentMonth &&
+            day > currentDay) ||
+          (disablePast &&
+            selectedYear === currentYear &&
+            selectedMonth === currentMonth &&
+            day < currentDay)
+        ) {
+          return null
         }
-      }),
+        return { value: day, label: day }
+      }).filter(Boolean),
     ]
     setDays(daysArray)
   }, [selectedYear, selectedMonth, disableFuture, disablePast])
@@ -131,11 +129,7 @@ export default function DatePicker({
           required
         >
           {months.map((month) => (
-            <option
-              key={month.value}
-              value={month.value}
-              disabled={month.disabled}
-            >
+            <option key={month.value} value={month.value}>
               {month.label}
             </option>
           ))}
@@ -152,7 +146,7 @@ export default function DatePicker({
           required
         >
           {days.map((day) => (
-            <option key={day.value} value={day.value} disabled={day.disabled}>
+            <option key={day.value} value={day.value}>
               {day.label}
             </option>
           ))}
