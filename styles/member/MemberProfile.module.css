@@ -5,7 +5,7 @@
   align-items: center;
   gap: 20px;
   align-self: stretch;
-  background-color: #FFF9E4;
+  /* background-color: #FFF9E4; */
 }
 .form-body{
     width: 100%;
