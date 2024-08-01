@@ -146,34 +146,34 @@ export default function FavoriteBlock({ keyword }) {
 
   return (
     <>
-      {data.length === 0 && !hasMore ? (
+      {favoriteArticles.length === 0 ? (
         <div className="d-flex justify-content-center flex-column">
-          <p className="text-center fs-1 pt-5 mt-5">沒有相關文章喔!</p>
+          <p className="text-center fs-1 pt-5 mt-5">沒有文章收藏喔!</p>
           <a
-            href={`../platform/article/create`}
+            href={`../platform/article`}
             className={`${styles.AReset} ${styles.Hover} d-flex justify-content-center fs-4`}
           >
-            建立文章?
+            去看看文章?
           </a>
           <div className="d-flex justify-content-center mt-4">
             <img
-              className="w-50"
-              src="../../forum-pic/article-block.png"
+              className={`${styles.W35}`}
+              src="../../forum-pic/favorite-block.png"
               alt=""
             />
           </div>
         </div>
       ) : (
-        data.map((r, index) => {
+        favoriteArticles.map((r, index) => {
           const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
           const isFavorite = favorites.includes(r.article_id)
           const classColor = classColorMap[r.fk_class_id]
-          if (data.length === index + 1) {
+          if (favoriteArticles.length === index + 1) {
             return (
               <a
                 ref={lastArticleElementRef}
                 key={r.article_id}
-                className={`${styles.AReset} ${styles.AllFont} ${styles.MessHover}`}
+                className={`${styles.AReset} ${styles.AllFont}`}
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
@@ -221,7 +221,7 @@ export default function FavoriteBlock({ keyword }) {
             return (
               <a
                 key={r.article_id}
-                className={`${styles.AReset} ${styles.AllFont} ${styles.MessHover}`}
+                className={`${styles.AReset} ${styles.AllFont}`}
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
