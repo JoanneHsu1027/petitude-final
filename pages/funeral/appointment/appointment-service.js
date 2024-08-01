@@ -46,7 +46,7 @@ export default function AppointmentService() {
 
   return (
     <>
-      {/* <StarTwinkle /> */}
+    
       <div className="container-fluid allFont" style={{ overflow: 'hidden' }}>
         <div className="row d-flex justify-content-center align-items-center">
           <div className="col-md-8 position-relative p-0">
@@ -251,7 +251,7 @@ export default function AppointmentService() {
           left: 0;
           width: 100%;
           transform: rotate(180deg);
-          z-index: -1; /* 確保SVG在其他內容下方 */
+          z-index: -1; 
         }
 
         @media (max-width: 768px) {

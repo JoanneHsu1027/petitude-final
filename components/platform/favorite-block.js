@@ -20,6 +20,15 @@ export default function FavoriteBlock({ keyword }) {
   const observer = useRef()
   const [showModal, setShowModal] = useState(false)
   const { auth } = useAuth()
+  const classColorMap = {
+    1: 'red',
+    2: 'orange',
+    3: '#EAC100',
+    4: 'green',
+    5: 'blue',
+    6: 'purple',
+    7: 'brown',
+  }
 
   const lastArticleElementRef = useCallback(
     (node) => {
@@ -158,26 +167,37 @@ export default function FavoriteBlock({ keyword }) {
         favoriteArticles.map((r, index) => {
           const dateFormat = moment(r.article_date).format('YYYY-MM-DD')
           const isFavorite = favorites.includes(r.article_id)
+          const classColor = classColorMap[r.fk_class_id]
           if (favoriteArticles.length === index + 1) {
             return (
               <a
                 ref={lastArticleElementRef}
                 key={r.article_id}
-                className={`${styles.AReset} ${styles.AllFont}`}
+                className={`${styles.AReset} ${styles.AllFont} ${styles.MessHover}`}
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
-                  <div className="mx-3 d-flex">
-                    <p className="me-3 px-1 border border-dark rounded-3">
+                  <div className="mx-3 mb-3 d-flex">
+                    <a
+                      href={`http://localhost:3000/platform/class/${r.fk_class_id}`}
+                      style={{
+                        color: classColor,
+                        border: `1px solid ${classColor}`,
+                      }}
+                      className={`${styles.AReset} me-3 px-1 rounded-3`}
+                    >
                       {r.class_name}
-                    </p>
-                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
+                    </a>
+                    <div className={`${styles.LightGray}`}>{dateFormat}</div>
                   </div>
                   <div className="mx-3">
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
                       {r.article_name}
                     </h2>
-                    <p className={`${styles.ContentOverHide} mx-2`}>
+                    <p
+                      style={{ color: '#482806' }}
+                      className={`${styles.ContentOverHide} mx-2`}
+                    >
                       {r.article_content}
                     </p>
                   </div>
@@ -201,21 +221,31 @@ export default function FavoriteBlock({ keyword }) {
             return (
               <a
                 key={r.article_id}
-                className={`${styles.AReset} ${styles.AllFont}`}
+                className={`${styles.AReset} ${styles.AllFont} ${styles.MessHover}`}
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
-                  <div className="mx-3 d-flex">
-                    <p className="me-3 px-1 border border-dark rounded-3">
+                  <div className="mx-3 mb-3 d-flex">
+                    <a
+                      href={`http://localhost:3000/platform/class/${r.fk_class_id}`}
+                      style={{
+                        color: classColor,
+                        border: `1px solid ${classColor}`,
+                      }}
+                      className={`${styles.AReset} me-3 px-1 rounded-3`}
+                    >
                       {r.class_name}
-                    </p>
-                    <p className={`${styles.LightGray}`}>{dateFormat}</p>
+                    </a>
+                    <div className={`${styles.LightGray}`}>{dateFormat}</div>
                   </div>
                   <div className="mx-3">
                     <h2 className={`${styles.TitleOverHide} w-100 mb-3`}>
                       {r.article_name}
                     </h2>
-                    <p className={`${styles.ContentOverHide} mx-2`}>
+                    <p
+                      style={{ color: '#482806' }}
+                      className={`${styles.ContentOverHide} mx-2`}
+                    >
                       {r.article_content}
                     </p>
                   </div>

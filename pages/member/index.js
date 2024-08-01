@@ -101,8 +101,15 @@ const Member = () => {
   }
 
   return (
-    <Layout>
-      <div className={styles['container']}>
+    <Layout backgroundImage="url(/pic/bg-img01.png)">
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC&display=swap');
+
+        .allFont {
+          font-family: 'Noto Serif TC', serif;
+        }
+      `}</style>
+      <div className={`allFont ${styles.container}`}>
         <div className={styles['switch-layout']}>
           <button
             className={

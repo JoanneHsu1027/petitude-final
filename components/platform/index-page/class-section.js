@@ -80,67 +80,67 @@ export default function ClassSection() {
                   />
                 </div>
                 <div className="col-lg-7 col-md-12 d-flex flex-column align-items-center justify-content-center">
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/29"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p01')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         為你的寵物制定健康飲食計劃
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/28"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p02')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         如何應對寵物的食物過敏
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/27"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p03')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         如何處理寵物的體重問題
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/26"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p04')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         如何為你的寵物選擇適合的飼料
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/39"
                       onMouseOver={(e) => handleMouseOver(e, 'tab1', 'p05')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         確保您毛小孩的健康飲食
                       </p>
                     </a>
@@ -164,67 +164,67 @@ export default function ClassSection() {
                   />
                 </div>
                 <div className="col-lg-7 col-md-12 d-flex flex-column align-items-center justify-content-center">
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/13"
                       onMouseOver={(e) => handleMouseOver(e, 'tab2', 'p06')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         寵物健康與飲食的重要性
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/12"
                       onMouseOver={(e) => handleMouseOver(e, 'tab2', 'p07')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         如何照顧老年貓
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/11"
                       onMouseOver={(e) => handleMouseOver(e, 'tab2', 'p08')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         如何訓練你的狗狗
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/10"
                       onMouseOver={(e) => handleMouseOver(e, 'tab2', 'p09')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         飼養寵物的心得
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/9"
                       onMouseOver={(e) => handleMouseOver(e, 'tab2', 'p10')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         與寵物共度美好時光
                       </p>
                     </a>
@@ -248,67 +248,67 @@ export default function ClassSection() {
                   />
                 </div>
                 <div className="col-lg-7 col-md-12 d-flex flex-column align-items-center justify-content-center">
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/40"
                       onMouseOver={(e) => handleMouseOver(e, 'tab3', 'p11')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         為什麼我的狗喜歡追尾巴？
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/36"
                       onMouseOver={(e) => handleMouseOver(e, 'tab3', 'p12')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         如何與寵物建立深厚的情感聯繫
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/35"
                       onMouseOver={(e) => handleMouseOver(e, 'tab3', 'p13')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         如何為寵物選擇適合的床鋪
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/34"
                       onMouseOver={(e) => handleMouseOver(e, 'tab3', 'p14')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         如何應對寵物的分離焦慮
                       </p>
                     </a>
                   </div>
-                  <div className={`hover-change border-bottom ${styles.W80}`}>
+                  <div
+                    className={`hover-change border-bottom ${styles.W80} ${styles.MessHover}`}
+                  >
                     <a
                       className={`${styles.AReset} ms-1`}
                       href="http://localhost:3000/platform/article/33"
                       onMouseOver={(e) => handleMouseOver(e, 'tab3', 'p15')}
                     >
-                      <p
-                        className={`px-4 ${styles.Hover} ${styles.TitleOverHide} w-100`}
-                      >
+                      <p className={`px-4 ${styles.TitleOverHide} w-100`}>
                         如何選擇合適的寵物玩具
                       </p>
                     </a>

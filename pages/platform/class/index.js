@@ -49,10 +49,14 @@ export default function ClassList() {
                     <div className="col-lg-12 col-md-12 d-flex flex-column align-items-center justify-content-center mt-3 mb-5">
                       {data.rows.map((r) => {
                         return (
-                          <div key={r.class_id} className="border-bottom w-75">
+                          <div
+                            key={r.class_id}
+                            className={`${styles.MessHover} border-bottom w-75`}
+                          >
                             <a
                               href={`/platform/class/${r.class_id}`}
-                              className={`${styles.AReset} mx-5 mt-4 d-flex ${styles.Hover}`}
+                              style={{ color: '#482806' }}
+                              className={`${styles.AReset} mx-5 mt-4 d-flex`}
                               data-img="p01"
                             >
                               <h3

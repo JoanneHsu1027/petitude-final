@@ -38,6 +38,17 @@ export default function ArticleId() {
   const [replyInput, setReplyInput] = useState('') // 新增的回覆輸入框的狀態
   const [reMessInput, setReMessInput] = useState('') // 新增的回覆輸入框的狀態
   const [isFavorite, setIsFavorite] = useState(false) // 收藏狀態
+  const classColorMap = {
+    1: 'red',
+    2: 'orange',
+    3: '#EAC100',
+    4: 'green',
+    5: 'blue',
+    6: 'purple',
+    7: 'brown',
+  }
+
+  const classColor = classColorMap[articleData.fk_class_id]
 
   const handleSearch = (keyword) => {
     setSearchKeyword(keyword)
@@ -363,18 +374,29 @@ export default function ArticleId() {
                                 </h2>
                                 <div className="d-flex me-3 ms-2">
                                   <div className="m-2 d-flex flex-grow-1 word-wrap">
-                                    <a className={`${styles.AReset}`} href="">
-                                      <p className="border px-1 border-dark rounded-3 me-2 word-wrap">
+                                    <a
+                                      className={`${styles.AReset}`}
+                                      href={`http://localhost:3000/platform/class/${articleData.fk_class_id}`}
+                                    >
+                                      <p
+                                        style={{
+                                          color: classColor,
+                                          border: `1px solid ${classColor}`,
+                                        }}
+                                        className="px-1 rounded-3 me-2 word-wrap"
+                                      >
                                         {articleData.class_name}
                                       </p>
                                     </a>
-                                    <p className="me-1 word-wrap">
+                                    <p
+                                      className={`${styles.LightGray} me-1 word-wrap`}
+                                    >
                                       {articleData.article_date}
                                     </p>
                                   </div>
                                   {auth.b2c_id === articleData.fk_b2c_id && (
                                     <button
-                                      className={`${styles.BtnReset} ${styles.LightGray}`}
+                                      className={`${styles.BtnReset} ${styles.LightGray} mb-3`}
                                       onClick={handleEditClick}
                                     >
                                       <BsFillPencilFill
@@ -402,6 +424,7 @@ export default function ArticleId() {
                                     whiteSpace: 'pre-wrap',
                                     wordWrap: 'break-word',
                                     overflowWrap: 'break-word',
+                                    color: '#482806',
                                   }}
                                   className={`col-lg-10 text-start lh-lg h6 text  ${styles.AllFont}`}
                                 >
@@ -461,7 +484,10 @@ export default function ArticleId() {
                                       message.message_date,
                                     ).format('YYYY-MM-DD HH:MM')
                                     return (
-                                      <div key={message.message_id}>
+                                      <div
+                                        className={`${styles.MessHover}`}
+                                        key={message.message_id}
+                                      >
                                         <div className="d-flex border-bottom pt-2 mb-2 mx-1 px-2">
                                           <div className="me-2">
                                             <img
@@ -470,12 +496,15 @@ export default function ArticleId() {
                                             />
                                           </div>
                                           <div className="flex-grow-1 me-2 pb-3">
-                                            <p className="fw-bold">
+                                            <p
+                                              style={{ color: '#F4BC7A' }}
+                                              className="fw-bold"
+                                            >
                                               {message.b2c_name}
                                             </p>
                                             <p>{message.message_content}</p>
                                             <div className="d-flex ">
-                                              <span className="me-4">
+                                              <span className="me-4 text-black-50">
                                                 {dateFormat}
                                               </span>
                                               <button

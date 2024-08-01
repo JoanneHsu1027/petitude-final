@@ -90,7 +90,7 @@ const FavoriteProduct = () => {
   return (
     <div className="p-4">
       <h3 className="mb-4">收藏商品</h3>
-      {favoriteProducts.length > 0 ? (
+      {Array.isArray(favoriteProducts) && favoriteProducts.length > 0 ? (
         <div className="row">
           {favoriteProducts.map((product) => (
             <div

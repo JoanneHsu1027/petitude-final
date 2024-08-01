@@ -8,7 +8,7 @@ const SlidingBanner = () => {
   useEffect(() => {
     const handleScroll = () => {
       // 根據螢幕寬度設定滾動閾值
-      const scrollThreshold = window.innerWidth <= 767 ? 120 : 900
+      const scrollThreshold = window.innerWidth <= 767 ? 120 : 1500
       const hideThreshold = window.innerWidth <= 767 ? 800 : 2700
 
       if (window.scrollY > hideThreshold) {
