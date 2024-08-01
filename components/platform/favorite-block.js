@@ -173,7 +173,7 @@ export default function FavoriteBlock({ keyword }) {
               <a
                 ref={lastArticleElementRef}
                 key={r.article_id}
-                className={`${styles.AReset} ${styles.AllFont}`}
+                className={`${styles.AReset} ${styles.AllFont} ${styles.MessHover}`}
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
@@ -221,7 +221,7 @@ export default function FavoriteBlock({ keyword }) {
             return (
               <a
                 key={r.article_id}
-                className={`${styles.AReset} ${styles.AllFont}`}
+                className={`${styles.AReset} ${styles.AllFont} ${styles.MessHover}`}
                 href={`../../platform/article/${r.article_id}`}
               >
                 <div className="m-2 border-bottom">
