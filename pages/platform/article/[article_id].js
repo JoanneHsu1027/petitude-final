@@ -191,6 +191,7 @@ export default function ArticleId() {
   }
 
   const handleReplySubmit = async (e) => {
+    e.preventDefault()
     // 檢查用戶是否已登入
     if (!auth.b2c_id) {
       swal
@@ -231,7 +232,6 @@ export default function ArticleId() {
         },
         body: JSON.stringify(replyData),
       })
-
       const data = await response.json()
 
       if (response.ok && data.success) {
@@ -243,17 +243,17 @@ export default function ArticleId() {
           .then(() => {
             // 在提示框關閉後，清空輸入框並更新留言列表
             setMessages((prevMessages) => [
-              ...prevMessages,
               {
                 ...replyData,
                 b2c_name: auth.b2c_name,
                 message_id: data.message_id,
               },
+              ...prevMessages,
             ])
             setReplyInput('')
             setReplyToMessageId(null)
 
-            window.location.reload()
+            // window.location.reload()
           })
       } else {
         swal.fire({
